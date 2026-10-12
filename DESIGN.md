@@ -216,9 +216,12 @@ and set the photo beside the text. On phones they stack.
   item ("Order online") opens the shop on wasaylabs.com in a new tab.
 - **Buttons**: every `.btn` is a glass pill, 48px tall. Accent is green glass with a white rim; ghost is clear glass with a
   warm-brown border. On hover or focus they expand their side padding. They never bounce and never darken to black.
-- **hero** (`.wz-hero`): paper gradient, eyebrow, display headline, one line, two buttons. On the right, three product
-  photos shown whole; each is drawn wider than its column so the products fill it and the transparent margins overlap.
+- **hero** (`.wz-hero`): the live site's green banner photo, shown whole at its own proportions in a 10px frame on a paper
+  gradient, with a square version swapped in on phones. The headline, one line and two buttons are real text laid over the
+  photo's empty green side. This is the one place text sits on a photo, and no overlay is added. On the banner the primary
+  button turns white and the ghost button turns white-on-glass, because green on green would not read.
 - **card**: white, 1px border, 16px corners. Present on load; never staggered in.
+- **featured card** (`.wz-featured__card`): a card with the category photo shown whole above its name and a green "Shop now" link. A category without a photo shows only the name and link.
 - **category tile** (`.wz-tile`): a card holding one Wasay icon and a name.
 - **chip** (`.wz-chip`): a clear glass pill for shop-by-category links.
 - **cta-band**: kraft paper with a 2px lime line along the top.

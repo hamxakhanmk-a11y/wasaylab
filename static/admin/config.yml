@@ -97,23 +97,18 @@ collections:
           - { name: title, label: Browser tab / search result title, widget: string }
           - { name: description, label: Search engine description, widget: text, hint: 'Aim for 150–160 characters.' }
           - name: hero
-            label: 'Section: Opening'
+            label: 'Section: Opening banner'
             widget: object
             fields:
-              - { name: eyebrow, label: Small label above heading, widget: string }
+              - { name: image, label: Banner photo (wide, with an empty left side for the text), widget: image }
+              - { name: image_mobile, label: Banner photo for phones (square, empty top half), widget: image }
+              - { name: alt, label: Photo description, widget: string }
               - { name: heading, label: Heading, widget: string }
               - { name: lead, label: Line under the heading, widget: string }
               - { name: primary_label, label: Main button text, widget: string }
               - { name: primary_href, label: Main button links to, widget: string }
               - { name: secondary_label, label: Second button text, widget: string }
               - { name: secondary_href, label: Second button links to, widget: string }
-              - name: products
-                label: Products shown (use three)
-                widget: list
-                summary: '{{fields.alt}}'
-                fields:
-                  - { name: image, label: Photo, widget: image }
-                  - { name: alt, label: Photo description, widget: string }
           - name: about
             label: 'Section: Who we are'
             widget: object
@@ -152,14 +147,16 @@ collections:
               - { name: eyebrow, label: Small label above heading, widget: string }
               - { name: heading, label: Heading, widget: string }
               - { name: lead, label: Paragraph, widget: text }
-              - { name: button_label, label: Button text, widget: string }
-              - { name: button_href, label: Button links to, widget: string }
+              - { name: card_label, label: Link text on each card, widget: string }
               - name: items
                 label: Categories
                 widget: list
                 summary: '{{fields.title}}'
                 fields:
                   - { name: title, label: Name, widget: string }
+                  - { name: image, label: Photo (optional), widget: image, required: false }
+                  - { name: alt, label: Photo description, widget: string, required: false }
+                  - { name: href, label: Links to, widget: string }
           - name: best_sellers
             label: 'Section: Best selling (products come from the Products page)'
             widget: object

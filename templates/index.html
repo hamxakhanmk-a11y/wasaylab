@@ -10,21 +10,22 @@
 {{> header}}
 
   <main>
-    <!-- HERO: paper white, the promise on the left, three products shown whole on the right -->
+    <!-- HERO: the live site's banner, shown whole. The headline and button are real text laid over its empty green side. -->
     <section class="wz-hero" aria-labelledby="wz-hero-title">
-      <div class="container wz-hero__inner">
-        <div class="wz-hero__copy">
-          <p class="eyebrow">{{ page.hero.eyebrow }}</p>
-          <h1 id="wz-hero-title">{{ page.hero.heading }}</h1>
-          <p class="wz-hero__lead">{{ page.hero.lead }}</p>
-          <div class="hero-actions">
-            <a class="btn btn--accent" href="{{ page.hero.primary_href }}" target="_blank" rel="noopener">{{ page.hero.primary_label }}</a>
-            <a class="btn btn--ghost" href="{{ page.hero.secondary_href }}">{{ page.hero.secondary_label }}</a>
+      <div class="container">
+        <div class="wz-hero__banner">
+          <picture>
+            <source media="(max-width: 700px)" srcset="{{ page.hero.image_mobile }}" width="2560" height="2560" />
+            <img src="{{ page.hero.image }}" alt="{{ page.hero.alt }}" width="1880" height="720" fetchpriority="high" decoding="async" />
+          </picture>
+          <div class="wz-hero__copy">
+            <h1 id="wz-hero-title">{{ page.hero.heading }}</h1>
+            <p class="wz-hero__lead">{{ page.hero.lead }}</p>
+            <div class="hero-actions">
+              <a class="btn btn--accent" href="{{ page.hero.primary_href }}" target="_blank" rel="noopener">{{ page.hero.primary_label }}</a>
+              <a class="btn btn--ghost" href="{{ page.hero.secondary_href }}">{{ page.hero.secondary_label }}</a>
+            </div>
           </div>
-        </div>
-        <div class="wz-hero__products">
-          {{#each page.hero.products}}<span class="wz-hero__shot glass-photo"><img src="{{ image }}" alt="{{ alt }}" width="2560" height="2560"{{#if @index}} loading="lazy"{{else}} fetchpriority="high"{{/if}} decoding="async" /></span>
-          {{/each}}
         </div>
       </div>
     </section>
@@ -68,16 +69,17 @@
     <!-- FEATURED CATEGORIES -->
     <section class="section section-alt wz-featured" aria-labelledby="wz-featured-title">
       <div class="container">
-        <div class="wz-head-row">
-          <div class="section-head">
-            <p class="eyebrow">{{ page.featured.eyebrow }}</p>
-            <h2 id="wz-featured-title">{{ page.featured.heading }}</h2>
-            <p class="lead">{{ page.featured.lead }}</p>
-          </div>
-          <p class="wz-action"><a class="btn btn--accent" href="{{ page.featured.button_href }}" target="_blank" rel="noopener">{{ page.featured.button_label }}</a></p>
+        <div class="section-head">
+          <p class="eyebrow">{{ page.featured.eyebrow }}</p>
+          <h2 id="wz-featured-title">{{ page.featured.heading }}</h2>
+          <p class="lead">{{ page.featured.lead }}</p>
         </div>
         <ul class="wz-featured__grid">
-          {{#each page.featured.items}}<li class="card wz-featured__card"><h3>{{ title }}</h3></li>
+          {{#each page.featured.items}}<li><a class="card wz-featured__card" href="{{ href }}" target="_blank" rel="noopener">
+            {{#if image}}<span class="wz-featured__photo"><img src="{{ image }}" alt="{{ alt }}" loading="lazy" decoding="async" /></span>{{/if}}
+            <h3>{{ title }}</h3>
+            <span class="wz-link">{{ page.featured.card_label }} &rarr;</span>
+          </a></li>
           {{/each}}
         </ul>
       </div>

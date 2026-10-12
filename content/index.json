@@ -2,18 +2,15 @@
   "title": "Wasay Laboratories — Rediscover the Power of Natural Healing",
   "description": "Wasay Laboratories (Pvt.) Ltd. is one of the largest natural products manufacturers in Pakistan, offering medicines, supplements, foods and beverages.",
   "hero": {
-    "eyebrow": "Wasay Laboratories (Pvt.) Ltd.",
     "heading": "Rediscover the Power of Natural Healing",
     "lead": "Curing naturally, caring globally.",
     "primary_label": "Order online",
     "primary_href": "https://wasaylabs.com/shop/",
     "secondary_label": "Our products",
     "secondary_href": "products.html",
-    "products": [
-      { "image": "/images/wasay/Loozen-1.webp", "alt": "Wasay Loozen syrup, carton and bottle" },
-      { "image": "/images/wasay/Ginko-Biloba-1.webp", "alt": "Wasay Ginko Biloba syrup, carton and bottle" },
-      { "image": "/images/wasay/I-V-LEAF-1.webp", "alt": "Wasay I-V Leaf syrup, carton and bottle" }
-    ]
+    "image": "/images/wasay/Wasay-banner.webp",
+    "image_mobile": "/images/wasay/mob-banner.webp",
+    "alt": "Wasay products on a green background: Ironprove, T-Restris plus Majoon and Dibec"
   },
   "about": {
     "eyebrow": "Who we are",
@@ -45,24 +42,61 @@
     "eyebrow": "I’m looking for",
     "heading": "Start with what you need.",
     "items": [
-      { "title": "Consumer Products", "icon": "/images/wasay/consumer-p-icon1.png", "href": "https://wasaylabs.com/product-category/consumers-products/" },
-      { "title": "Digestive Care", "icon": "/images/wasay/consumer-p-icon.png", "href": "https://wasaylabs.com/shop/" },
-      { "title": "Respiratory Care", "icon": "/images/wasay/respiratory-icon.png", "href": "https://wasaylabs.com/shop/" },
-      { "title": "Men’s Health", "icon": "/images/wasay/mens-icon-1.png", "href": "https://wasaylabs.com/shop/" },
-      { "title": "Women’s Health", "icon": "/images/wasay/womens-health-icon.png", "href": "https://wasaylabs.com/shop/" }
+      {
+        "title": "Consumer Products",
+        "icon": "/images/wasay/consumer-p-icon1.png",
+        "href": "https://wasaylabs.com/product-category/consumers-products/"
+      },
+      {
+        "title": "Digestive Care",
+        "icon": "/images/wasay/consumer-p-icon.png",
+        "href": "https://wasaylabs.com/shop/"
+      },
+      {
+        "title": "Respiratory Care",
+        "icon": "/images/wasay/respiratory-icon.png",
+        "href": "https://wasaylabs.com/shop/"
+      },
+      {
+        "title": "Men’s Health",
+        "icon": "/images/wasay/mens-icon-1.png",
+        "href": "https://wasaylabs.com/shop/"
+      },
+      {
+        "title": "Women’s Health",
+        "icon": "/images/wasay/womens-health-icon.png",
+        "href": "https://wasaylabs.com/shop/"
+      }
     ]
   },
   "featured": {
     "eyebrow": "Featured categories",
     "heading": "For every season and every family.",
     "lead": "Wasay Laboratories (Pvt.) Ltd. is one of the largest natural products manufacturers in Pakistan.",
-    "button_label": "Shop now",
-    "button_href": "https://wasaylabs.com/shop/",
+    "card_label": "Shop now",
     "items": [
-      { "title": "Immunity Boosters" },
-      { "title": "Summer Essentials" },
-      { "title": "Family Care" },
-      { "title": "Sports & Fitness" }
+      {
+        "title": "Immunity Boosters",
+        "image": "/images/wasay/imunity_1.webp",
+        "alt": "A man in a face mask giving a thumbs up at his laptop",
+        "href": "https://wasaylabs.com/shop/"
+      },
+      {
+        "title": "Summer Essentials",
+        "image": "/images/wasay/summer_1.webp",
+        "alt": "A man in glasses cooling himself with a blue hand fan",
+        "href": "https://wasaylabs.com/shop/"
+      },
+      {
+        "title": "Family Care",
+        "image": "/images/wasay/family_1.webp",
+        "alt": "A smiling family of four holding a colourful hoop",
+        "href": "https://wasaylabs.com/shop/"
+      },
+      {
+        "title": "Sports & Fitness",
+        "href": "https://wasaylabs.com/shop/"
+      }
     ]
   },
   "best_sellers": {
