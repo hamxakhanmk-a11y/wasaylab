@@ -9,7 +9,7 @@ on:
 jobs:
   trigger:
     # Owner's pushes already deploy via the native Vercel integration
-    if: github.actor != 'JawadZaheerKhan'
+    if: github.actor != 'hamxakhanmk-a11y'
     runs-on: ubuntu-latest
     steps:
       - name: Call the deploy hook for this branch

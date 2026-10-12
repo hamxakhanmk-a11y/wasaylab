@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 {{> head}}
+  <link rel="stylesheet" href="/glass-photos.css" />
 </head>
 <body>
-{{> gtm-body}}
 {{> loader}}
 {{> header}}
 
@@ -14,8 +14,8 @@
     <section class="section">
       <div class="container">
         <div class="split">
-          <div class="split__media reveal"><div class="media about-intro-photo">{{#with page.intro.media}}{{> media}}{{/with}}</div></div>
-          <div class="split__body reveal">
+          <div class="split__media"><span class="wz-about-photo glass-photo"><img src="{{ page.intro.image }}" alt="{{ page.intro.alt }}" loading="lazy" decoding="async" /></span></div>
+          <div class="split__body">
             <p class="eyebrow">{{ page.intro.eyebrow }}</p>
             <h2>{{ page.intro.heading }}</h2>
             {{#each page.intro.paragraphs}}<p>{{ . }}</p>
@@ -25,46 +25,30 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section section-alt" aria-labelledby="wz-values-title">
       <div class="container">
-        <p class="eyebrow reveal">{{ page.numbers.eyebrow }}</p>
-        <h2 class="reveal">{{ page.numbers.heading }}</h2>
-        <div class="stat-row reveal" style="margin-top:24px">
-          {{#each page.numbers.stats}}<div class="stat"><b data-count="{{ number }}">0</b><span>{{ label }}</span></div>
-          {{/each}}
+        <div class="section-head">
+          <p class="eyebrow">{{ page.values.eyebrow }}</p>
+          <h2 id="wz-values-title">{{ page.values.heading }}</h2>
         </div>
-      </div>
-    </section>
-
-    <section class="section band">
-      <div class="container">
-        <p class="eyebrow reveal">{{ page.values.eyebrow }}</p>
-        <h2 class="reveal">{{ page.values.heading }}</h2>
         <div class="grid">
-          {{#each page.values.items}}<article class="card reveal"><span class="card__num">{{ tag }}</span><h3>{{ title }}</h3><p>{{ text }}</p></article>
+          {{#each page.values.items}}<article class="card"><h3>{{ title }}</h3><p>{{ text }}</p></article>
           {{/each}}
         </div>
       </div>
     </section>
 
-    <!-- Registered and compliant: the four registrations from the company profile -->
-    <section class="section about-compliance">
+    <section class="section about-compliance" aria-labelledby="wz-compliance-title">
       <div class="container">
-        <p class="eyebrow reveal">{{ page.compliance.eyebrow }}</p>
-        <h2 class="reveal">{{ page.compliance.heading }}</h2>
-        <p class="lead reveal">{{ page.compliance.text }}</p>
+        <div class="section-head">
+          <p class="eyebrow">{{ page.compliance.eyebrow }}</p>
+          <h2 id="wz-compliance-title">{{ page.compliance.heading }}</h2>
+          <p class="lead">{{ page.compliance.text }}</p>
+        </div>
         <div class="grid">
-          {{#each page.compliance.items}}<article class="card reveal"><h3>{{ title }}</h3><p>{{ text }}</p></article>
+          {{#each page.compliance.items}}<article class="card"><h3>{{ title }}</h3><p>{{ text }}</p></article>
           {{/each}}
         </div>
-      </div>
-    </section>
-
-    <section class="section band">
-      <div class="container">
-        <p class="eyebrow reveal">{{ page.gallery.eyebrow }}</p>
-        <h2 class="reveal">{{ page.gallery.heading }}</h2>
-{{> gallery}}
       </div>
     </section>
 
@@ -74,5 +58,6 @@
 {{> footer}}
 
   <script src="/script.js"></script>
+  <script src="/glass-photos.js"></script>
 </body>
 </html>

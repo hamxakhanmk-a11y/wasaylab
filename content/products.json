@@ -1,343 +1,74 @@
 {
-  "title": "Services — Supreme Art",
-  "description": "Printed packaging for tablets, capsules, syrups and food products, plus pharmaceutical leaflets and product labels.",
+  "title": "Products — Wasay Laboratories",
+  "description": "Natural health products from Wasay Laboratories (Pvt.) Ltd., one of the largest natural products manufacturers in Pakistan. Browse the range and order online.",
   "banner": {
-    "crumb": "Services",
-    "heading": "Services"
+    "crumb": "Products",
+    "heading": "Our products"
   },
-  "range": {
-    "eyebrow": "What we make",
-    "heading": "Packaging for pharmaceutical and food products.",
-    "lead": "From medicine cartons to food packs, leaflets and labels, we print and finish every product to your artwork, dimensions and required specification.",
-    "items": [
-      {
-        "title": "Tablet packaging",
-        "interactive_box": true,
-        "text": "Printed cartons made to fit tablet blister and strip packs, with accurate dimensions and clear product information.",
-        "alt": "Tablet packaging",
-        "image": "/images/products/tablet-packaging.jpg",
-        "box_id": "imo",
-        "box_name": "IMO",
-        "box_front": "/images/imo-box/front.jpg"
-      },
-      {
-        "title": "Capsule packaging",
-        "text": "Precisely produced cartons for capsule blister, strip and bottle formats in a range of pack sizes.",
-        "alt": "Capsule packaging",
-        "image": "/images/products/capsule-packaging.jpg"
-      },
-      {
-        "title": "Syrup packaging",
-        "text": "Protective bottle cartons for syrups and liquid medicines, with partitions or inserts where required.",
-        "alt": "Syrup packaging",
-        "image": "/images/products/syrup-packaging.jpg"
-      },
-      {
-        "title": "Leaflets & inserts",
-        "text": "Printed and folded information leaflets and package inserts prepared to fit inside the finished pack.",
-        "alt": "Pharmaceutical leaflets and inserts",
-        "image": "/images/products/leaflets-inserts.jpg"
-      },
-      {
-        "title": "Labels",
-        "text": "Clear, colour-accurate printed labels for bottles, products and outer packaging.",
-        "alt": "Printed product labels",
-        "image": "/images/products/labels.jpg"
-      },
-      {
-        "title": "Food packaging",
-        "text": "Printed folding cartons and pouches for food products, including masala packaging produced for Stanley Foods and SwaaD Foods.",
-        "alt": "Supreme Art masala and food packaging",
-        "image": "/images/products/food-packaging.jpg"
-      }
-    ],
-    "groups": [
-      {
-        "id": "tablet-capsule",
-        "heading": "Tablet & Capsule Packaging",
-        "text": "Printed cartons for tablet and capsule packs, made to your product dimensions and artwork.",
-        "items": [
-          {
-            "title": "Tablet packaging",
-            "interactive_box": true,
-            "text": "Printed cartons made to fit tablet blister and strip packs, with accurate dimensions and clear product information.",
-            "alt": "Tablet packaging",
-            "image": "/images/products/tablet-packaging.jpg",
-            "box_id": "imo",
-            "box_name": "IMO",
-            "box_front": "/images/imo-box/front.jpg"
-          },
-          {
-            "title": "Vazkor tablet carton",
-            "interactive_box": true,
-            "box_id": "vazkor",
-            "box_name": "Vazkor",
-            "box_front": "/images/vazkor-box/front.png"
-          },
-          {
-            "title": "Danidol carton",
-            "interactive_box": true,
-            "box_id": "danidol",
-            "box_name": "Danidol",
-            "box_front": "/images/danidol-box/front.png"
-          },
-          {
-            "title": "Icon carton",
-            "interactive_box": true,
-            "box_id": "icon",
-            "box_name": "Icon",
-            "box_front": "/images/icon-box/front.png"
-          }
-        ]
-      },
-      {
-        "id": "syrup-suspension",
-        "heading": "Syrup & Suspension Packaging",
-        "text": "Protective cartons for liquid medicine bottles, with partitions and inserts where required.",
-        "items": [
-          {
-            "title": "Novex Paracetamol carton",
-            "interactive_box": true,
-            "box_id": "novex-paracetamol",
-            "box_name": "Novex Paracetamol",
-            "box_front": "/images/novex-paracetamol-box/front.png"
-          },
-          {
-            "title": "Fenbro carton",
-            "interactive_box": true,
-            "box_id": "fenbro",
-            "box_name": "Fenbro",
-            "box_front": "/images/fenbro-box/front.jpg"
-          },
-          {
-            "title": "Pedrol carton",
-            "interactive_box": true,
-            "box_id": "pedrol",
-            "box_name": "Pedrol",
-            "box_front": "/images/pedrol-box/front.jpg"
-          }
-        ]
-      },
-      {
-        "id": "injection-packaging",
-        "heading": "Injection Packaging",
-        "text": "Printed cartons for injection packs, made to the required dimensions and artwork.",
-        "items": [
-          {
-            "interactive_box": true,
-            "box_id": "tuff",
-            "box_name": "TUFF injection",
-            "box_front": "/images/tuff-box/front.jpg"
-          },
-          {
-            "interactive_box": true,
-            "box_id": "norbac",
-            "box_name": "Norbac injection",
-            "box_front": "/images/norbac-box/front.jpg"
-          }
-        ]
-      },
-      {
-        "id": "labels-leaflets",
-        "heading": "Labels & Leaflets",
-        "text": "Clear product identification and carefully folded information, designed to complete your packaging.",
-        "items": [
-          {
-            "interactive_bottle": true,
-            "box_name": "Clarion",
-            "box_front": "/images/clarion-box/front.png"
-          },
-          {
-            "interactive_box": true,
-            "box_id": "caber-leaflet",
-            "box_name": "Caber carton with inserting leaflet",
-            "box_front": "/images/caber-leaflet-box/front.png"
-          }
-        ]
-      }
-    ],
-    "food": {
-      "title": "Food packaging",
-      "text": "Printed folding cartons and pouches for food products, including masala packaging produced for Stanley Foods and SwaaD Foods.",
-      "alt": "Supreme Art masala and food packaging",
-      "image": "/images/products/food-packaging.jpg",
-      "items": [
-        {
-          "interactive_box": true,
-          "box_id": "swaad-biryani",
-          "box_name": "SwaaD Bombay Biryani",
-          "box_front": "/images/swaad-biryani-box/front.png"
-        },
-        {
-          "interactive_box": true,
-          "box_id": "swaad-chapli",
-          "box_name": "SwaaD Chapli Kabab",
-          "box_front": "/images/swaad-chapli-box/front.jpg"
-        },
-        {
-          "interactive_box": true,
-          "box_id": "swaad-kheer",
-          "box_name": "SwaaD Shahi Kheer",
-          "box_front": "/images/swaad-kheer-box/front.jpg"
-        },
-        {
-          "interactive_box": true,
-          "box_id": "swaad-pepper",
-          "box_name": "SwaaD Black Pepper",
-          "box_front": "/images/swaad-pepper-box/front.jpg"
-        }
-      ]
+  "intro": {
+    "eyebrow": "Best sellers",
+    "heading": "Nature and science, in every bottle.",
+    "text": "Wasay combines the best of nature with the best of science to bring customers a large family of products, from medicines and supplements to food items and beverages. These are our best sellers; the full range is in the online shop."
+  },
+  "order_label": "Order online",
+  "items": [
+    {
+      "name": "Gaster syrup",
+      "image": "/images/wasay/gaster-syrup-1.webp",
+      "alt": "Wasay Gaster syrup: the carton and the 120 ml bottle",
+      "detail": "120 ml syrup",
+      "href": "https://wasaylabs.com/product/gaster-syrup/"
+    },
+    {
+      "name": "Loozen",
+      "image": "/images/wasay/Loozen-1.webp",
+      "alt": "Wasay Loozen syrup: the carton and the 120 ml bottle",
+      "detail": "120 ml syrup, with honey",
+      "href": "https://wasaylabs.com/product/loozen/"
+    },
+    {
+      "name": "I-V Leaf",
+      "image": "/images/wasay/I-V-LEAF-1.webp",
+      "alt": "Wasay I-V Leaf syrup: the carton and the 120 ml bottle",
+      "detail": "120 ml syrup, ivy leaf extract, strawberry flavour. Dietary supplement.",
+      "href": "https://wasaylabs.com/product/i-v-leaf/"
+    },
+    {
+      "name": "Coughseel",
+      "image": "/images/wasay/Coughseel-1.webp",
+      "alt": "Wasay Coughseel syrup: the carton and the 120 ml bottle",
+      "detail": "120 ml syrup, sugar free, strawberry flavour. Dietary supplement.",
+      "href": "https://wasaylabs.com/product/coughseel/"
+    },
+    {
+      "name": "Ginko Biloba",
+      "image": "/images/wasay/Ginko-Biloba-1.webp",
+      "alt": "Wasay Ginko Biloba syrup: the carton and the 120 ml bottle",
+      "detail": "120 ml syrup, ginkgo biloba leaf extract. Dietary supplement.",
+      "description": "A natural herbal supplement that helps improve memory, focus and blood circulation. Enriched with pure Ginkgo Biloba extract, it supports brain health, enhances energy and promotes overall wellness.",
+      "href": "https://wasaylabs.com/product/ginko-biloba/"
     }
-  },
-  "finishes": {
-    "heading": "Finishes",
-    "text": "A variety of finishing methods can elevate your packaging from good to exceptional. We provide a range of surface treatments and finishes, applied in-house after printing, to protect the carton, lift the artwork and make it harder to copy.",
-    "features_heading": "What we apply",
-    "features": [
-      {
-        "title": "Anti-counterfeit packaging",
-        "text": "Security features printed and finished into the carton itself, so they cannot be peeled off and moved to a fake.",
-        "photos": [
-          {
-            "image": "/images/finishes/anti-counterfeit-proflox.webp",
-            "alt": "Proflox carton with a repeating Ferozsons security pattern embossed over the whole face"
-          }
-        ],
-        "more": false
-      },
-      {
-        "title": "Colour-shifting seal",
-        "text": "An ink that changes colour as the carton is tilted: a quick check of authenticity that an ordinary printer cannot reproduce.",
-        "photos": [
-          {
-            "image": "/images/finishes/colour-shift-icon.webp",
-            "alt": "Icon carton with a colour-shifting Ferozsons seal on a metallised face"
-          }
-        ],
-        "more": false
-      },
-      {
-        "title": "Lamination",
-        "text": "A thin film bonded over the printed board, in gloss or matte, for a tougher surface that resists scuffs and moisture.",
-        "photos": [
-          {
-            "image": "/images/finishes/lamination-tuff.webp",
-            "alt": "TUFF injection carton with a laminated finish"
-          }
-        ]
-      },
-      {
-        "title": "Food-grade coatings (water base)",
-        "text": "Water-base, low-migration coatings safe for packaging that touches food or medicine, with a clean, bright gloss.",
-        "photos": [
-          {
-            "image": "/images/finishes/food-grade-esomega.webp",
-            "alt": "Esomega carton finished with a water-base food-grade coating"
-          }
-        ]
-      },
-      {
-        "title": "Drip-off coatings",
-        "text": "Matte and gloss on one sheet: the gloss stands out in relief against a matte ground, without a second pass.",
-        "photos": [
-          {
-            "image": "/images/finishes/drip-off-imo-1.webp",
-            "alt": "Imo carton standing on end, its gloss swirls raised against a matte ground"
-          },
-          {
-            "image": "/images/finishes/drip-off-imo-2.webp",
-            "alt": "Imo carton lying flat, showing the drip-off gloss pattern"
-          },
-          {
-            "image": "/images/finishes/drip-off-vazkor-imo.webp",
-            "alt": "Vazkor and Imo cartons side by side with drip-off gloss highlights"
-          }
-        ],
-        "more": true
-      },
-      {
-        "title": "Thermal foiling",
-        "text": "Metallic foil fused to the board with heat for logos, borders and highlights."
-      },
-      {
-        "title": "Hot stamping (foiling)",
-        "text": "A heated die presses metallic or holographic foil into the board for a crisp, raised finish that doubles as a security layer.",
-        "photos": [
-          {
-            "image": "/images/finishes/hot-stamping-duet.webp",
-            "alt": "Duet carton with hot-stamped metallic blue lettering"
-          },
-          {
-            "image": "/images/finishes/hot-stamping-vosun-duet.webp",
-            "alt": "Vosun-D and Duet cartons with gold and blue hot-stamped foil"
-          }
-        ],
-        "more": true
-      },
-      {
-        "title": "UV and spot UV",
-        "text": "A clear UV gloss over the whole sheet to deepen the colours and protect the print, or on chosen areas only for a raised, textured accent.",
-        "photos": [
-          {
-            "image": "/images/finishes/uv-zeflox.webp",
-            "alt": "Zeflox carton with a full UV gloss and raised spot-UV lettering"
-          },
-          {
-            "image": "/images/finishes/spot-uv-efloxin.webp",
-            "alt": "Efloxin carton with a spot-UV Herbion pattern over the print"
-          }
-        ],
-        "more": true
-      }
+  ],
+  "categories": {
+    "eyebrow": "Shop by category",
+    "heading": "Find what you need.",
+    "items": [
+      { "label": "General health", "href": "https://wasaylabs.com/product-category/general-health/" },
+      { "label": "Consumer products", "href": "https://wasaylabs.com/product-category/consumers-products/" },
+      { "label": "Personal care", "href": "https://wasaylabs.com/product-category/personal-care/" },
+      { "label": "Best sellers", "href": "https://wasaylabs.com/product-category/best-sellers/" },
+      { "label": "Natural drinks", "href": "https://wasaylabs.com/product-category/natural-drinks/" },
+      { "label": "Bundles", "href": "https://wasaylabs.com/product-category/bundles/" },
+      { "label": "Wellness e-reading", "href": "https://wasaylabs.com/product-category/wellness-e-reading/" },
+      { "label": "Q focus", "href": "https://wasaylabs.com/product-category/q-focus/" }
     ]
-  },
-  "capabilities": {
-    "eyebrow": "How it's made",
-    "heading": "One factory. The whole carton.",
-    "button_label": "See our process",
-    "button_href": "process.html"
   },
   "cta": {
-    "heading": "Need a specific carton?",
-    "text": "Send us your artwork or dieline and we'll come back with a quote and a timeline.",
-    "primary_label": "Get a quote",
-    "primary_href": "contact.html",
-    "secondary_label": "Our quality process",
-    "secondary_href": "quality.html"
-  },
-  "neutra": {
-    "heading": "Neutra Products",
-    "items": [
-      {
-        "interactive_box": true,
-        "box_id": "duet",
-        "box_name": "Duet D3 K2",
-        "box_front": "/images/duet-box/front.png"
-      },
-      {
-        "interactive_box": true,
-        "box_id": "algae-vit",
-        "box_name": "Algae-Vit",
-        "box_front": "/images/algae-vit-box/front.jpg"
-      },
-      {
-        "interactive_box": true,
-        "box_id": "herbion-seaweed",
-        "box_name": "Herbion Seaweed Cream",
-        "box_front": "/images/herbion-seaweed-box/front.png"
-      },
-      {
-        "interactive_box": true,
-        "box_id": "quench",
-        "box_name": "Quench Cream",
-        "box_front": "/images/quench-box/front.jpg"
-      },
-      {
-        "interactive_box": true,
-        "box_id": "nova-plast",
-        "box_name": "Herbion Nova-Plast",
-        "box_front": "/images/nova-plast-box/front.png"
-      }
-    ]
+    "heading": "Why wait any longer?",
+    "text": "Start browsing and shopping for the Wasay solutions that are right for you.",
+    "primary_label": "Start shopping",
+    "primary_href": "https://wasaylabs.com/shop/",
+    "secondary_label": "About Wasay",
+    "secondary_href": "about.html"
   }
 }

@@ -2,7 +2,7 @@
     <div class="container">
       <div class="footer-top">
         <div class="footer-brand">
-          <img src="{{ site.logo }}" alt="Supreme Art" class="footer__logo" />
+          <img src="{{ site.logo }}" alt="{{ site.name }}" class="footer__logo" />
           <p>{{ site.footer.blurb }}</p>
         </div>
         <div class="footer-col">
@@ -13,12 +13,10 @@
           </ul>
         </div>
         <div class="footer-col">
-          <h4>{{ site.footer.contact_heading }}</h4>
+          <h4>{{ site.footer.shop_heading }}</h4>
           <ul>
-            <li><a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a></li>
-            <li><a href="tel:{{ site.contact.phone_link }}">{{ site.contact.phone }}</a></li>
-            <li><a href="tel:{{ site.contact.phone_secondary_link }}">{{ site.contact.phone_secondary }}</a></li>
-            <li>{{ site.contact.address }}</li>
+            {{#each site.footer.shop_links}}<li><a href="{{ href }}" target="_blank" rel="noopener">{{ label }}</a></li>
+            {{/each}}
           </ul>
         </div>
       </div>

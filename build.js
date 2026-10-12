@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 /**
- * Supreme Art — static site build.
+ * Wasay Laboratories — static site build.
  *
  * Renders every templates/*.html against content/<name>.json (the page) plus
- * content/site.json (shared header, footer, contact details), and writes the
+ * content/site.json (shared header and footer), and writes the
  * result along with everything in static/ to dist/.
  *
  * Deliberately dependency-free: `node build.js` is the whole build, so Vercel
@@ -247,7 +247,7 @@ for (const file of pages) {
 
   // Mark the nav entry for the page being rendered, so the header partial can
   // highlight it without the template needing an equality test.
-  const nav = site.nav.links.map((link) => ({ ...link, current: link.slug === slug || (link.slug === 'about' && slug === 'company-profile') }));
+  const nav = site.nav.links.map((link) => ({ ...link, current: link.slug === slug }));
   nav.push({ ...site.nav.cta, current: site.nav.cta.href === file });
 
   const where = `templates/${file}`;

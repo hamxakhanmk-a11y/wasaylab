@@ -4,9 +4,9 @@
   --surface-alt: #f6f5f2;   /* off-white band */
   --text: #1b1c1f;          /* near-black ink */
   --muted: #616369;
-  --accent: #a02830;        /* Supreme Art maroon, sampled from the logo */
-  --accent-dark: #7d1f26;   /* darker maroon for hovers */
-  --accent-soft: rgba(160, 40, 48,.12);
+  --accent: #01652f;        /* Wasay green, sampled from the logo wordmark */
+  --accent-dark: #014a22;   /* darker green for hovers */
+  --accent-soft: rgba(1, 101, 47,.12);
   --ink: #1c1c1f;           /* used on white carton artwork */
   --border: #e7e5e0;
   --c: #00a8cc;
@@ -34,7 +34,7 @@ a { color: inherit; }
 
 .container { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 24px; }
 
-/* ---------- CMYK loader ---------- */
+/* ---------- Loader ---------- */
 .press-loader {
   position: fixed; inset: 0; z-index: 100;
   display: flex; flex-direction: column;
@@ -55,7 +55,7 @@ a { color: inherit; }
 }
 .press-bar span {
   position: absolute; top: 0; height: 100%; width: 42%; border-radius: 999px;
-  background: linear-gradient(90deg, var(--c), var(--m), var(--y), var(--ink));
+  background: linear-gradient(90deg, var(--accent), var(--lime));
   animation: barslide 1.2s ease-in-out infinite;
 }
 @keyframes barslide { 0% { left: -45%; } 100% { left: 100%; } }
@@ -70,7 +70,7 @@ a { color: inherit; }
 }
 .nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
 .brand { display: inline-flex; align-items: center; text-decoration: none; }
-.brand__logo { height: 46px; width: auto; display: block; }
+.brand__logo { height: 54px; width: auto; display: block; }
 .nav-links { display: flex; align-items: center; gap: 26px; }
 .nav-links a { text-decoration: none; color: var(--muted); font-size: .95rem; transition: color .15s; }
 .nav-links a:hover { color: var(--text); }
@@ -99,8 +99,8 @@ a { color: inherit; }
   cursor: pointer; border: 1px solid transparent;
   transition: transform .15s ease, box-shadow .2s ease, background .2s;
 }
-.btn--accent { background: var(--accent); color: #fff; box-shadow: 0 8px 26px rgba(160, 40, 48,.28); }
-.btn--accent:hover { transform: translateY(-2px); background: var(--accent-dark); box-shadow: 0 12px 32px rgba(160, 40, 48,.38); }
+.btn--accent { background: var(--accent); color: #fff; box-shadow: 0 8px 26px rgba(1, 101, 47,.28); }
+.btn--accent:hover { transform: translateY(-2px); background: var(--accent-dark); box-shadow: 0 12px 32px rgba(1, 101, 47,.38); }
 .btn--ghost { background: transparent; color: var(--text); border-color: var(--border); }
 .btn--ghost:hover { border-color: var(--text); transform: translateY(-2px); }
 
@@ -251,7 +251,7 @@ a { color: inherit; }
   position: absolute; left: -14px; right: -14px;
   top: calc(var(--print) * 100%);
   height: 14px; margin-top: -7px; border-radius: 7px;
-  background: linear-gradient(90deg, var(--c), var(--m), var(--y), var(--ink));
+  background: linear-gradient(90deg, var(--accent), var(--lime));
   box-shadow: 0 6px 18px rgba(23,23,26,.3);
   opacity: 0; transition: opacity .25s ease;
 }
@@ -298,7 +298,7 @@ a { color: inherit; }
 /* ---------- Sections ---------- */
 .section { padding: 96px 0; position: relative; }
 .section-alt { background: var(--surface-alt); }
-.section h2 { font-size: clamp(1.9rem, 3.6vw, 2.8rem); margin: 0 0 16px; }
+.section h2 { font-size: clamp(1.9rem, 3.6vw, 2.8rem); line-height: 1.1; margin: 0 0 16px; }
 .eyebrow {
   text-transform: uppercase; letter-spacing: .22em;
   font-size: .72rem; color: var(--accent); font-weight: 600; margin: 0 0 12px;
@@ -430,7 +430,7 @@ a { color: inherit; }
 .proc-box .panel--front::after {
   content: ""; position: absolute; left: -5px; right: -5px; height: 3px; border-radius: 3px;
   top: calc(var(--print) * 100%); margin-top: -1.5px;
-  background: linear-gradient(90deg, var(--c), var(--m), var(--y), var(--ink));
+  background: linear-gradient(90deg, var(--accent), var(--lime));
   opacity: calc(4 * var(--print) * (1 - var(--print)));
 }
 /* die-cut outline strokes in over the flat blank, then clears as it folds */
@@ -2488,7 +2488,7 @@ a { color: inherit; }
    overflow visible, or it would clip the About-us dropdown out of sight. */
 @media (max-width: 1024px) {
   .nav-toggle { display: none; }
-  .brand { display: none; }
+  .brand__logo { height: 42px; }
   .site-header .nav-links,
   .home-page .site-header .nav-links {
     display: flex;
@@ -2679,7 +2679,7 @@ body .site-header .nav-links:not(.nav-flow-ready) > .has-dropdown > a.current {
   padding: .55em 1.3em .5em; border: 1px solid rgba(255,255,255,.7); border-radius: 999px;
   background: rgba(250,248,244,.84); -webkit-backdrop-filter: blur(12px) saturate(1.1); backdrop-filter: blur(12px) saturate(1.1);
   box-shadow: 0 0 22px rgba(255,255,255,.35), 0 14px 36px -18px rgba(60,45,30,.45);
-  color: #a02830; font-size: clamp(.78rem, 1.7vw, 1.45rem); letter-spacing: .14em; line-height: 1.3; text-transform: uppercase; text-shadow: none;
+  color: var(--accent); font-size: clamp(.78rem, 1.7vw, 1.45rem); letter-spacing: .14em; line-height: 1.3; text-transform: uppercase; text-shadow: none;
 }
 .home-story__full-logo img {
   display: block; width: min(600px, 74vw); height: auto;
@@ -2805,7 +2805,7 @@ body .site-header .nav-links:not(.nav-flow-ready) > .has-dropdown > a.current {
   box-shadow: inset 0 1px 0 #fff, inset 0 0 0 1px #f2f8ffaa, 0 0 22px #f2f8ff80, 0 6px 18px #3c2d1e26;
 }
 .enquiry-button:is(.is-expanded, :focus-visible) .enquiry-button__arrow { width: 24px; opacity: 1; }
-#quoteForm .enquiry-button:focus-visible { outline: 2px solid #a02830; outline-offset: 4px; }
+#quoteForm .enquiry-button:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 @media (hover: hover) and (pointer: fine) {
   #quoteForm .enquiry-button:hover {
     width: 280px;
@@ -2841,7 +2841,7 @@ body .site-header .nav-links:not(.nav-flow-ready) > .has-dropdown > a.current {
   transform: none;
   transition: padding 1100ms cubic-bezier(.16,1,.3,1), box-shadow .4s ease, background .4s ease;
 }
-.btn.glass-action.btn--accent { background: linear-gradient(115deg, rgba(173, 54, 62,.93), rgba(134, 31, 39,.88)); color: #fff; }
+.btn.glass-action.btn--accent { background: linear-gradient(115deg, rgba(2, 124, 58,.93), rgba(1, 82, 38,.88)); color: #fff; }
 .btn.glass-action.btn--ghost { background: linear-gradient(115deg, #ffffff1f, #f2f8ff12); }
 .btn.glass-action::after {
   content: ''; position: absolute; inset: 2px; border-radius: inherit;
@@ -2866,7 +2866,7 @@ body .site-header .nav-links:not(.nav-flow-ready) > .has-dropdown > a.current {
 /* ---------- Calm paper theme ----------
    White and off-white carry every surface, like carton board; maroon marks only small accents,
    and natural wood brown appears in just a few places (the CTA band and progress lines). */
-:root { --paper: #faf8f4; --paper-deep: #f3efe7; --kraft: #f1e9dd; --wood: #a67c52; --line: #e7e1d6; }
+:root { --paper: #faf8f4; --paper-deep: #f3efe7; --kraft: #f1e9dd; --lime: #a3cf3c; --line: #e7e1d6; }
 
 /* Inner-page banners: off-white paper with dark type, and a light frosted menu over them. */
 .page-banner { color: var(--text); background: linear-gradient(180deg, var(--paper) 0%, var(--paper-deep) 100%); box-shadow: inset 0 -1px 0 var(--line); }
@@ -2910,7 +2910,7 @@ body:has(.page-banner) .site-header .nav-links a:focus-visible { outline-color: 
 }
 
 /* Call-to-action band: light kraft paper with a thin wood line. */
-.cta-band { color: var(--text); background: var(--kraft); box-shadow: inset 0 2px 0 var(--wood); }
+.cta-band { color: var(--text); background: var(--kraft); box-shadow: inset 0 2px 0 var(--lime); }
 .cta-band h2 { color: var(--text); }
 .cta-band p { color: var(--muted); }
 .cta-band .btn--ghost { color: var(--text); border-color: rgba(60,45,30,.28); }
@@ -2935,7 +2935,7 @@ body:has(.page-banner) .site-header .nav-links a:focus-visible { outline-color: 
 .home-overview-story__copy .about-points li { color: var(--text); }
 .home-overview-story__copy .about-points li::before { box-shadow: 0 0 0 5px var(--accent-soft); }
 .home-overview-story__progress, .home-process-story__progress, .home-quality-story__progress, .home-closing-story__progress { background: var(--line); }
-.home-overview-story__progress span, .home-process-story__progress span, .home-quality-story__progress span, .home-closing-story__progress span { background: var(--wood); }
+.home-overview-story__progress span, .home-process-story__progress span, .home-quality-story__progress span, .home-closing-story__progress span { background: var(--lime); }
 .home-process-story__count, .home-quality-story__count { color: var(--muted); }
 .home-process-story__count b, .home-quality-story__count b { color: var(--accent); }
 .home-process-story__all, .home-quality-story__all { color: var(--text); }
@@ -2950,7 +2950,7 @@ body:has(.page-banner) .site-header .nav-links a:focus-visible { outline-color: 
 .card, .home-news-card, .stat { transition: transform .35s cubic-bezier(.22, 1, .36, 1), box-shadow .35s ease, border-color .35s ease; }
 .card:hover, .card:focus-within, .home-news-card:hover, .home-news-card:focus-within, .stat:hover,
 .home-page [data-services-section] .grid > .card:hover, .home-page [data-services-section] .grid > .card:focus-within {
-  position: relative; z-index: 2; transform: translateY(-6px) scale(1.04); border-color: rgba(160, 40, 48, .35);
+  position: relative; z-index: 2; transform: translateY(-6px) scale(1.04); border-color: rgba(1, 101, 47, .35);
   box-shadow: 0 0 0 4px rgba(255, 255, 255, .9), 0 0 28px rgba(255, 255, 255, .7), 0 26px 48px -22px rgba(60, 45, 30, .5);
 }
 .home-page [data-services-section] .grid > .card { transition: transform .35s cubic-bezier(.22, 1, .36, 1), box-shadow .35s ease, border-color .35s ease; }

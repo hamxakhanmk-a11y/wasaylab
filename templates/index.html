@@ -3,57 +3,33 @@
 <head>
 {{> head}}
   <link rel="stylesheet" href="/quality-story.css" />
-  <link rel="stylesheet" href="/home-services.css" />
-  <link rel="stylesheet" href="/home-process.css?v=20261009-1" />
   <link rel="stylesheet" href="/glass-photos.css" />
-  <link rel="stylesheet" href="/home-clients.css" />
 </head>
-<body class="home-page">
-{{> gtm-body}}
+<body>
 {{> loader}}
 {{> header}}
 
   <main>
-    <!-- HOME SCROLL STORY -->
-    <section class="home-story" id="home-hero" aria-label="Supreme Art introduction">
-      <div class="home-story__sticky">
-        <div class="home-story__media" aria-hidden="true">
-          <!-- The camera glides from the front of the press hall round to the Speedmaster's side. -->
-          <img class="home-story__shot home-story__shot--hall" src="/images/home/hero-press-hall.webp" alt="" />
-          <img class="home-story__shot home-story__shot--press" src="/images/home/hero-speedmaster.webp" alt="" />
-          <!-- The building sits on top; scrolling dives through its entrance doors. -->
-          <div class="home-story__facade">
-            <img class="home-story__building" src="/images/home/hero-building.webp" alt="" fetchpriority="high" />
-          </div>
-          <span class="home-story__shade"></span>
-        </div>
-        <div class="home-story__scenes" aria-live="polite">
-          <div class="home-story__scene is-active" data-home-stage="0">
-            <h1 class="home-story__full-logo"><img src="/images/home/supreme-art-calligraphy.png" alt="سپریم آرٹ" width="720" height="325" fetchpriority="high" /><span>Supreme Art (Private) Limited</span></h1>
-          </div>
-          <!-- Stages two and three are set like posters on the left over the photograph: a short red rule, a two-colour
-               headline, then the figure or the facts, and a small footer label set apart below. -->
-          <div class="home-story__scene home-story__scene--poster" data-home-stage="1">
-            {{#with page.hero.press}}<div class="home-story__poster">
-              <h2 class="home-story__title"><span>{{ title }}</span> <span class="is-red">{{ title_red }}</span></h2>
-              <ul class="home-story__facts">{{#each facts}}<li>{{ . }}</li>{{/each}}</ul>
-              <p class="home-story__footer">{{ footer }}</p>
-            </div>{{/with}}
-          </div>
-          <div class="home-story__scene home-story__scene--poster" data-home-stage="2">
-            {{#with page.hero.capacity}}<div class="home-story__poster">
-              <h2 class="home-story__title"><span>{{ title }}</span> <span class="is-red">{{ title_red }}</span></h2>
-              <p class="home-story__figure"><span><span class="is-red">{{ figure_red }}</span> {{ figure }}</span> <span>{{ figure_line2 }}</span></p>
-              <p class="home-story__footer">{{ footer }}</p>
-            </div>{{/with}}
+    <!-- HERO: paper white, the promise on the left, three products shown whole on the right -->
+    <section class="wz-hero" aria-labelledby="wz-hero-title">
+      <div class="container wz-hero__inner">
+        <div class="wz-hero__copy">
+          <p class="eyebrow">{{ page.hero.eyebrow }}</p>
+          <h1 id="wz-hero-title">{{ page.hero.heading }}</h1>
+          <p class="wz-hero__lead">{{ page.hero.lead }}</p>
+          <div class="hero-actions">
+            <a class="btn btn--accent" href="{{ page.hero.primary_href }}" target="_blank" rel="noopener">{{ page.hero.primary_label }}</a>
+            <a class="btn btn--ghost" href="{{ page.hero.secondary_href }}">{{ page.hero.secondary_label }}</a>
           </div>
         </div>
-        <div class="home-story__progress" aria-hidden="true"><span></span><span></span><span></span></div>
-        <p class="home-story__hint" aria-hidden="true">Scroll to explore <span>↓</span></p>
+        <div class="wz-hero__products">
+          {{#each page.hero.products}}<span class="wz-hero__shot glass-photo"><img src="{{ image }}" alt="{{ alt }}" width="2560" height="2560"{{#if @index}} loading="lazy"{{else}} fetchpriority="high"{{/if}} decoding="async" /></span>
+          {{/each}}
+        </div>
       </div>
     </section>
 
-    <!-- WHO WE ARE: a Quality-Control style window — its photo stays fixed and is uncovered as the hero slides away -->
+    <!-- WHO WE ARE: a quality-control window. The photo stays still and is uncovered as the page scrolls past. -->
     <article class="qc-window home-about-window" aria-label="{{ page.about.eyebrow }}">
       <div class="qc-window__media" style="--qc-photo: url('{{ page.about.media.image }}')"><img src="{{ page.about.media.image }}" alt="{{ page.about.media.alt }}" loading="lazy" decoding="async" /></div>
       <div class="qc-window__band container">
@@ -64,11 +40,10 @@
           {{#each page.about.points}}<li>{{ . }}</li>
           {{/each}}
         </ul>
-        <p class="home-about-window__action"><a class="btn btn--accent" href="{{ page.about.button_href }}">{{ page.about.button_label }}</a></p>
+        <p class="wz-action"><a class="btn btn--accent" href="{{ page.about.button_href }}">{{ page.about.button_label }}</a></p>
       </div>
     </article>
 
-    <!-- MARQUEE -->
     <div class="marquee" aria-hidden="true">
       <div class="marquee__track">
         {{#each page.marquee}}<span>{{ . }}</span><span>•</span>{{/each}}
@@ -76,139 +51,89 @@
       </div>
     </div>
 
-    <!-- SERVICES: two chapter pages of two product families each, then the photographed finishes. Each page fits
-         one screen and stacks like the process chapters; photographs are shown whole. -->
-    {{#each page.services.pages}}<section class="home-services" aria-label="{{ eyebrow }}">
+    <!-- I'M LOOKING FOR -->
+    <section class="section wz-looking" aria-labelledby="wz-looking-title">
       <div class="container">
-        <div class="home-services__top">
-          <header class="home-services__head">
-            <p class="eyebrow">{{ eyebrow }}</p>
-            {{#if heading}}<h2 id="home-services-{{ @index }}">{{ heading }}</h2>{{/if}}
-            {{#if lead}}<p class="home-services__lead">{{ lead }}</p>{{/if}}
-          </header>
-          {{#if show_all}}<p class="home-services__all"><a class="btn btn--accent" href="{{ page.services.button_href }}">{{ page.services.button_label }}</a></p>{{/if}}
+        <div class="section-head">
+          <p class="eyebrow">{{ page.looking_for.eyebrow }}</p>
+          <h2 id="wz-looking-title">{{ page.looking_for.heading }}</h2>
         </div>
-        <ul class="home-services__grid">
-          {{#each items}}<li><a class="home-services__card card" href="{{ href }}">
-            <span class="home-services__photo" data-matte><img src="{{ image }}" alt="{{ alt }}" loading="lazy" decoding="async" /></span>
-            <span class="home-services__copy"><span class="home-services__title">{{ title }}</span><span class="home-services__text">{{ text }}</span><span class="home-services__more" aria-hidden="true">View cartons →</span></span>
-          </a></li>
+        <ul class="wz-looking__grid">
+          {{#each page.looking_for.items}}<li><a class="wz-tile card" href="{{ href }}" target="_blank" rel="noopener"><img class="wz-tile__icon" src="{{ icon }}" alt="" width="500" height="500" loading="lazy" decoding="async" /><span class="wz-tile__title">{{ title }}</span></a></li>
           {{/each}}
         </ul>
       </div>
     </section>
-    {{/each}}
 
-    <!-- FINISHES: the finishes that have photographs on the Services page, four across. -->
-    <section class="home-services home-finishes" aria-labelledby="home-finishes-title">
+    <!-- FEATURED CATEGORIES -->
+    <section class="section section-alt wz-featured" aria-labelledby="wz-featured-title">
       <div class="container">
-        <div class="home-services__top">
-          <header class="home-services__head">
-            <p class="eyebrow">{{ page.services.finishes.eyebrow }}</p>
-            <h2 id="home-finishes-title">{{ page.services.finishes.heading }}</h2>
-            <p class="home-services__lead">{{ page.services.finishes.lead }}</p>
-          </header>
-          <p class="home-services__all"><a class="btn btn--accent" href="{{ page.services.finishes.button_href }}">{{ page.services.finishes.button_label }}</a></p>
+        <div class="wz-head-row">
+          <div class="section-head">
+            <p class="eyebrow">{{ page.featured.eyebrow }}</p>
+            <h2 id="wz-featured-title">{{ page.featured.heading }}</h2>
+            <p class="lead">{{ page.featured.lead }}</p>
+          </div>
+          <p class="wz-action"><a class="btn btn--accent" href="{{ page.featured.button_href }}" target="_blank" rel="noopener">{{ page.featured.button_label }}</a></p>
         </div>
-        <ul class="home-finishes__grid">
-          {{#each content.products.finishes.features}}{{#if photos}}<li class="home-finishes__entry"><a class="home-finishes__item card" href="{{ page.services.finishes.button_href }}">
-            <span class="home-finishes__photo glass-photo" data-matte><img src="{{ photos.0.image }}" alt="{{ photos.0.alt }}" loading="lazy" decoding="async" /></span>
-            <span class="home-services__title">{{ title }}</span>
-          </a></li>{{/if}}{{/each}}
+        <ul class="wz-featured__grid">
+          {{#each page.featured.items}}<li class="card wz-featured__card"><h3>{{ title }}</h3></li>
+          {{/each}}
         </ul>
       </div>
     </section>
 
-    <!-- PROCESS: three pages, one per chapter (Pre press, Press, Post press). Each composes one photo from every
-         stage of that chapter — a hero shot with supporting shots around it — beside the chapter's story and the
-         equipment behind it. The pages turn like the quality windows (each pins, the next slides over). -->
-    {{#each content.process.chapters}}<section class="home-process" data-chapter="{{ @index }}" aria-labelledby="home-process-{{ id }}">
-      <div class="container home-process__inner">
-        <div class="home-process__copy">
-          <p class="eyebrow">{{ page.process.eyebrow }}</p>
-          <h2 class="home-process__title" id="home-process-{{ id }}">{{ title }}</h2>
-          <p class="home-process__story">{{ story }}</p>
-          <h3 class="home-process__facts-title">On the floor</h3>
-          <ul class="home-process__facts">{{#each facts}}<li>{{ . }}</li>{{/each}}</ul>
-          <ol class="home-process__trail" aria-label="Process chapters">{{#each content.process.chapters}}<li>{{ title }}</li>{{/each}}</ol>
-          {{#if show_process_link}}<p class="home-process__cta"><a class="btn btn--accent" href="{{ page.process.button_href }}">{{ page.process.button_label }}</a></p>{{/if}}
+    <!-- BEST SELLERS -->
+    <section class="section wz-best" aria-labelledby="wz-best-title">
+      <div class="container">
+        <div class="wz-head-row">
+          <div class="section-head">
+            <p class="eyebrow">{{ page.best_sellers.eyebrow }}</p>
+            <h2 id="wz-best-title">{{ page.best_sellers.heading }}</h2>
+          </div>
+          <p class="wz-action"><a class="btn btn--ghost" href="{{ page.best_sellers.button_href }}">{{ page.best_sellers.button_label }}</a></p>
         </div>
-        <div class="home-process__collage" aria-label="{{ title }} in pictures">
-          {{#each scenes}}{{#if hero}}<figure class="home-process__shot"><span class="glass-photo" data-glass="fit"><img src="{{ hero.image }}" alt="{{ hero.alt }}" loading="lazy" decoding="async" /></span><figcaption>{{ lead }}</figcaption></figure>{{else}}{{#if home}}<figure class="home-process__shot"><span class="glass-photo" data-glass="fit"><img src="{{ home.image }}" alt="{{ home.alt }}" loading="lazy" decoding="async" /></span><figcaption>{{ lead }}</figcaption></figure>{{else}}<figure class="home-process__shot"><span class="glass-photo" data-glass="fit"><img src="{{ row.0.image }}" alt="{{ row.0.alt }}" loading="lazy" decoding="async" /></span><figcaption>{{ lead }}</figcaption></figure>{{/if}}{{/if}}
+        <ul class="wz-products">
+          {{#each content.products.items}}<li class="wz-product card">
+            <span class="wz-product__photo glass-photo"><img src="{{ image }}" alt="{{ alt }}" width="2560" height="2560" loading="lazy" decoding="async" /></span>
+            <h3>{{ name }}</h3>
+            <p>{{ detail }}</p>
+            <a class="wz-link" href="{{ href }}" target="_blank" rel="noopener">{{ content.products.order_label }} &rarr;</a>
+          </li>
+          {{/each}}
+        </ul>
+      </div>
+    </section>
+
+    <!-- WHY CUSTOMERS LOVE WASAY -->
+    <section class="wz-love" aria-labelledby="wz-love-title">
+      <div class="container wz-love__inner">
+        <p class="eyebrow">{{ page.love.eyebrow }}</p>
+        <h2 id="wz-love-title">{{ page.love.heading }}</h2>
+        <p class="lead">{{ page.love.text }}</p>
+      </div>
+    </section>
+
+    <!-- WHY CHOOSE WASAY -->
+    <section class="section wz-why" aria-labelledby="wz-why-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">{{ page.why.eyebrow }}</p>
+          <h2 id="wz-why-title">{{ page.why.heading }}</h2>
+        </div>
+        <div class="grid">
+          {{#each page.why.items}}<article class="card"><h3>{{ title }}</h3><p>{{ text }}</p></article>
           {{/each}}
         </div>
       </div>
     </section>
-    {{/each}}
 
-    <!-- QUALITY: told like the process — an opening page, then each check in a Quality-Control window -->
-    <section class="qc-story home-chapters home-quality-chapter" aria-labelledby="home-quality-title">
-      <div class="home-chapter">
-        <div class="container">
-          <h2 class="home-chapter__title" id="home-quality-title">{{ page.quality.eyebrow }}</h2>
-          <p class="home-chapter__story">{{ page.quality.text }}</p>
-          <dl class="home-chapter__points">{{#each content.quality.pillars.items}}<div><dt>{{ title }}</dt><dd>{{ text }}</dd></div>{{/each}}</dl>
-        </div>
-      </div>
-      {{#each content.quality.process.steps}}<article class="qc-window" aria-label="{{ title }}">
-        <div class="qc-window__media" style="--qc-photo: url('{{ image }}')"><img src="{{ image }}" alt="{{ title }} at Supreme Art" loading="lazy" decoding="async" /></div>
-        <div class="qc-window__band container">
-          <p class="home-chapters__count">{{ page.quality.eyebrow }}</p>
-          <h3>{{ title }}</h3>
-          <p>{{ text }}</p>
-        </div>
-      </article>
-      {{/each}}
-      <p class="home-chapters__all container"><a class="btn btn--accent" href="{{ page.quality.button_href }}">{{ page.quality.button_label }}</a></p>
-    </section>
-
-    <!-- CLIENTS: every client on one wall; the one under your hand lifts in place. -->
-    <section id="clients" class="home-clients" aria-labelledby="home-clients-title">
-      <div class="container">
-        <div class="home-clients__heading">
-          <p class="eyebrow">{{ page.clients.eyebrow }}</p>
-          <h2 id="home-clients-title">{{ page.clients.heading }}</h2>
-          <p class="lead">{{ page.clients.lead }}</p>
-        </div>
-        {{#each page.clients.groups}}<div class="home-clients__group">
-          <h3 class="home-clients__label">{{ title }}</h3>
-          <ul class="home-clients__wall">
-            {{#each items}}<li><button type="button" class="home-clients__tile" data-client aria-label="{{ name }}"><img src="{{ logo }}" alt="" loading="lazy" decoding="async" /></button></li>
-            {{/each}}
-          </ul>
-        </div>
-        {{/each}}
-      </div>
-    </section>
-
-    <!-- NEWS AND CONTACT SCROLL CHAPTER -->
-    <section id="news" class="home-closing-story" data-home-closing data-services-section aria-label="News and contact">
-      <div class="home-closing-story__sticky">
-        <div class="container home-closing-story__inner">
-          <div class="home-closing-story__heading"><p class="eyebrow">{{ page.news.eyebrow }}</p><h2>{{ page.news.heading }}</h2></div>
-          <div class="home-closing-story__stage grid">
-            {{#each page.news.posts}}<article class="home-news-card card" data-closing-card="{{ @index }}">
-              <span class="post__date">{{ date }}</span><h3>{{ title }}</h3><p>{{ text }}</p><a class="post__link" href="{{ href }}">Read more &rarr;</a>
-            </article>{{/each}}</div>
-          <div class="home-closing-story__progress" aria-hidden="true"><span></span></div>
-        </div>
-      </div>
-    </section>
-    <!-- STANDALONE CONTACT CHAPTER -->
-    <section class="home-contact-story" data-home-contact aria-label="Contact Supreme Art">
-      <div class="home-contact-story__inner container">
-        <p class="eyebrow">Start a project</p>
-        <h2>{{ page.cta.heading }}</h2>
-        <p>{{ page.cta.text }}</p>
-        <div class="hero-actions"><a class="btn btn--accent" href="{{ page.cta.primary_href }}">{{ page.cta.primary_label }}</a><a class="btn btn--ghost" href="{{ page.cta.secondary_href }}">{{ page.cta.secondary_label }}</a></div>
-      </div>
-    </section>
+{{> cta}}
   </main>
 
 {{> footer}}
 
   <script src="/script.js"></script>
   <script src="/glass-photos.js"></script>
-  <script src="/photo-matte.js?v=20261008-4"></script>
 </body>
 </html>

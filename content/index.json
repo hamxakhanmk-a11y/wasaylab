@@ -1,329 +1,109 @@
 {
-  "title": "Supreme Art — Pharmaceutical Packaging & Printing",
-  "description": "Supreme Art manufactures pharmaceutical folding cartons, labels and leaflets in Pakistan, on Heidelberg, Bobst and hot-stamping machinery.",
+  "title": "Wasay Laboratories — Rediscover the Power of Natural Healing",
+  "description": "Wasay Laboratories (Pvt.) Ltd. is one of the largest natural products manufacturers in Pakistan, offering medicines, supplements, foods and beverages.",
   "hero": {
-    "press": {
-      "title": "Pharmaceutical packaging",
-      "title_red": "specialists",
-      "facts": [
-        "Since 2016"
-      ],
-      "footer": "Offset printing & packaging"
-    },
-    "capacity": {
-      "title": "High production",
-      "title_red": "capacity",
-      "figure_red": "1.50",
-      "figure": "Million",
-      "figure_line2": "Boxes Per Day",
-      "footer": "Pharmaceuticals packaging specialists"
-    }
+    "eyebrow": "Wasay Laboratories (Pvt.) Ltd.",
+    "heading": "Rediscover the Power of Natural Healing",
+    "lead": "Curing naturally, caring globally.",
+    "primary_label": "Order online",
+    "primary_href": "https://wasaylabs.com/shop/",
+    "secondary_label": "Our products",
+    "secondary_href": "products.html",
+    "products": [
+      { "image": "/images/wasay/Loozen-1.webp", "alt": "Wasay Loozen syrup, carton and bottle" },
+      { "image": "/images/wasay/Ginko-Biloba-1.webp", "alt": "Wasay Ginko Biloba syrup, carton and bottle" },
+      { "image": "/images/wasay/I-V-LEAF-1.webp", "alt": "Wasay I-V Leaf syrup, carton and bottle" }
+    ]
   },
-  "marquee": [
-    "Tablet cartons",
-    "Syrup cartons",
-    "Blister cartons",
-    "Ointment cartons",
-    "Drop & vial cartons",
-    "Sachet boxes"
-  ],
   "about": {
     "eyebrow": "Who we are",
-    "heading": "Where careful hands meet remarkable machines.",
-    "text": "Every medicine deserves a box that keeps its promise. At Supreme Art, that promise is made on some of the finest machinery in the trade: Heidelberg Speedmaster presses laying down five colours and a gleaming coat in a single pass, a hot-stamping machine that presses foil into the board with quiet precision, colour-shifting seals that guard against imitation, and a high-quality carton inspection machine keeping watch over the work. And when it is finished, we carry it to you ourselves, to every corner of Pakistan.",
+    "heading": "We aspire to provide accessible healthcare solutions to the masses.",
+    "text": "Our commitment lies in consistently upgrading quality standards through empowered, motivated and dedicated employees, to better serve our customers.",
     "points": [
-      "Heidelberg Speedmaster CD 102 and SM 74: five colours and a coat, in one pass",
-      "Hot stamping, colour-shifting seals and specialised coatings",
-      "A high-quality carton inspection machine",
-      "Delivery to every corner of Pakistan"
+      "One of the largest natural products manufacturers in Pakistan",
+      "Medicines, supplements, food items and beverages",
+      "Compliant with national and international regulatory bodies"
     ],
     "button_label": "More about us",
     "button_href": "about.html",
     "media": {
-      "alt": "Heidelberg SM-74 press line at Supreme Art",
-      "image": "/images/home/who-we-are-press-hall.webp"
+      "alt": "A smiling man holding a glass cup of tea, with the Urdu line “Aap bhi aadat bana lein”",
+      "image": "/images/wasay/section.webp"
     }
   },
-  "services": {
-    "button_label": "See all services",
-    "button_href": "products.html",
-    "pages": [
-      {
-        "eyebrow": "Our services",
-        "heading": "Cartons for every kind of product.",
-        "lead": "From blister-pack tablets to syrups, supplements and spices, every carton is printed and finished under one roof in Pakistan.",
-        "items": [
-          {
-            "title": "Tablets & capsules",
-            "text": "Cartons for blister and alu-alu strip packs, capsule and softgel packs, and tablet bottles, in straight-tuck, reverse-tuck and lock-bottom styles, from single strips to thirty-tablet packs.",
-            "image": "/images/home/services/tablets-capsules.webp",
-            "alt": "Tablet and capsule cartons: Bexus, Novex, Zolt, Duet, Carveda, Vazkor and Imo",
-            "href": "products.html#tablet-capsule-heading"
-          },
-          {
-            "title": "Syrups & suspensions",
-            "text": "Bottle cartons for syrups, dry-powder suspensions and drops, from 30 ml to 120 ml, with tuck-end or lock-bottom bases and room for the leaflet.",
-            "image": "/images/home/services/syrups-suspensions.webp?v=3",
-            "alt": "Syrup cartons: Bronochol, Citolin, Fenbro 8, Fedralka, Pedrol and Novex Paracetamol",
-            "href": "products.html#syrup-suspension-heading"
-          }
-        ]
-      },
-      {
-        "eyebrow": "Our services",
-        "show_all": true,
-        "items": [
-          {
-            "title": "Nutraceuticals",
-            "text": "Cartons for softgels, sachets, creams and tubes, ampoules and supplement jars, plus hanging packs with a euro slot for the pharmacy shelf.",
-            "image": "/images/home/services/nutraceuticals.webp",
-            "alt": "Nutraceutical cartons: Vosun-D, Herbion Seaweed cream, Quench, Algae-Vit, Nova-Plast and Calciferol",
-            "href": "products.html#neutra-products-heading"
-          },
-          {
-            "title": "Food",
-            "text": "Spice, masala and dessert-mix cartons in tuck-end and four- and six-corner styles, finished with food-grade water-base coatings.",
-            "image": "/images/home/services/food.webp",
-            "alt": "SwaaD food cartons: Chapli Kabab, Kali Mirch, Shahi Kheer and Bombay Biryani",
-            "href": "products.html#food-packaging-heading"
-          },
-          {
-            "title": "Labels & stickers",
-            "text": "Wrap-around bottle labels, front-and-back labels and stickers for syrups, drops and suspensions, printed to match their cartons.",
-            "image": "/images/home/services/labels-stickers.webp?v=2",
-            "alt": "Labelled syrup bottles: Bronochol, Feromalt, Pedrol, Fenbro, Pedrol Total and Citolin",
-            "href": "products.html#labels-leaflets-heading"
-          }
-        ]
-      }
-    ],
-    "finishes": {
-      "eyebrow": "Finishes",
-      "heading": "Finishes that protect and stand out.",
-      "lead": "Security features, special coatings and foils, applied in-house after printing.",
-      "button_label": "All finishes",
-      "button_href": "products.html#finishes-heading"
-    }
-  },
-  "process": {
-    "eyebrow": "How it's made",
-    "heading": "From artwork to flat-packed carton.",
-    "lead": "Three chapters under one roof in Pakistan — this is how a carton is made at Supreme Art.",
-    "button_label": "View full process",
-    "button_href": "process.html"
-  },
-  "capabilities": {
-    "eyebrow": "Our capabilities",
-    "heading": "One factory. The whole carton."
-  },
-  "quality": {
-    "eyebrow": "Quality",
-    "heading": "Built for pharma standards.",
-    "text": "Medicine packaging doesn’t get second chances. We run documented quality assurance across every stage: incoming board, Pantone-matched colour verified with a spectrophotometer on press, coating checks, hand inspection of every unit carton by our QC team, and a digital job card that follows each order from board to delivery.",
-    "stats": [
-      {
-        "number": 25,
-        "label": "+ years in print"
-      },
-      {
-        "number": 100,
-        "label": "% in-house"
-      },
-      {
-        "number": 48,
-        "label": "hr proofing"
-      }
-    ],
-    "button_label": "Our quality process",
-    "button_href": "quality.html",
-    "media": {
-      "alt": "Quality / inspection photo",
-      "image": ""
-    }
-  },
-  "gallery": {
-    "eyebrow": "Inside the factory",
-    "heading": "Where your cartons are made."
-  },
-  "clients": {
-    "eyebrow": "Trusted by",
-    "heading": "Our clients.",
-    "lead": "Pharmaceutical and consumer brands that rely on Supreme Art for their packaging.",
-    "groups": [
-      {
-        "title": "Local clients",
-        "items": [
-          {
-            "name": "Stanley Pharmaceuticals",
-            "logo": "/images/clients/stanley.png"
-          },
-          {
-            "name": "Ferozsons Laboratories",
-            "logo": "/images/clients/ferozsons.png"
-          },
-          {
-            "name": "Global Pharmaceuticals",
-            "logo": "/images/clients/global.png"
-          },
-          {
-            "name": "Vision Pharmaceuticals",
-            "logo": "/images/clients/vision.png"
-          },
-          {
-            "name": "Legacy Pharmaceuticals",
-            "logo": "/images/clients/legacy.png"
-          },
-          {
-            "name": "Universal Pharmaceuticals",
-            "logo": "/images/clients/universal.png"
-          },
-          {
-            "name": "Danas",
-            "logo": "/images/clients/danas.png"
-          },
-          {
-            "name": "Evolution",
-            "logo": "/images/clients/evolution.png"
-          },
-          {
-            "name": "Bio-Labs",
-            "logo": "/images/clients/bio-labs.png"
-          },
-          {
-            "name": "Medicraft",
-            "logo": "/images/clients/medicraft.png"
-          },
-          {
-            "name": "SwaaD — Stanley Food",
-            "logo": "/images/clients/swaad.png"
-          },
-          {
-            "name": "Nutrabiotics",
-            "logo": "/images/clients/nutrabiotics.png"
-          },
-          {
-            "name": "Fedro",
-            "logo": "/images/clients/fedro.png"
-          },
-          {
-            "name": "Shaigan",
-            "logo": "/images/clients/shaigan.png"
-          },
-          {
-            "name": "Herbion Pharma",
-            "logo": "/images/clients/herbion.png"
-          }
-        ]
-      },
-      {
-        "title": "International clients",
-        "items": [
-          {
-            "name": "Asia Noor Pharmaceuticals",
-            "logo": "/images/clients/asia-noor.png"
-          },
-          {
-            "name": "Life Pearl Pharmaceutical",
-            "logo": "/images/clients/life-pearl.png"
-          },
-          {
-            "name": "Khalid Irshad Pharma",
-            "logo": "/images/clients/khalid-irshad.png"
-          },
-          {
-            "name": "Marzada Niazi Ltd",
-            "logo": "/images/clients/marzada.png"
-          },
-          {
-            "name": "Mayar Brothers",
-            "logo": "/images/clients/mayar-brothers.png"
-          },
-          {
-            "name": "Pharma Health Pharmaceuticals",
-            "logo": "/images/clients/pharma-health.png"
-          },
-          {
-            "name": "Elmy Complex",
-            "logo": "/images/clients/elmy.png"
-          },
-          {
-            "name": "Abwar",
-            "logo": "/images/clients/abwar.png"
-          },
-          {
-            "name": "Ameer Afghan Pharmaceutical Industry",
-            "logo": "/images/clients/aapi.png"
-          },
-          {
-            "name": "Sami Pharmaceuticals",
-            "logo": "/images/clients/sami.png"
-          },
-          {
-            "name": "Hayat Mubarak",
-            "logo": "/images/clients/hayat-mubarak.png"
-          },
-          {
-            "name": "Moon Bright Pharmaceutical",
-            "logo": "/images/clients/moon-bright.png"
-          },
-          {
-            "name": "Al-Karim Pharma",
-            "logo": "/images/clients/al-karim.png"
-          },
-          {
-            "name": "Pesaran Akhundzada Ltd",
-            "logo": "/images/clients/pesaran.png"
-          },
-          {
-            "name": "Zafaran Pharmaceuticals",
-            "logo": "/images/clients/zafaran.png"
-          },
-          {
-            "name": "Bright Pharma",
-            "logo": "/images/clients/bright-pharma.png"
-          },
-          {
-            "name": "Life Care Pharma",
-            "logo": "/images/clients/life-care.png"
-          },
-          {
-            "name": "Atal Pharma",
-            "logo": "/images/clients/atal.png"
-          }
-        ]
-      }
+  "marquee": [
+    "General health",
+    "Consumer products",
+    "Personal care",
+    "Best sellers",
+    "Natural drinks",
+    "Bundles",
+    "Wellness e-reading",
+    "Q focus"
+  ],
+  "looking_for": {
+    "eyebrow": "I’m looking for",
+    "heading": "Start with what you need.",
+    "items": [
+      { "title": "Consumer Products", "icon": "/images/wasay/consumer-p-icon1.png", "href": "https://wasaylabs.com/product-category/consumers-products/" },
+      { "title": "Digestive Care", "icon": "/images/wasay/consumer-p-icon.png", "href": "https://wasaylabs.com/shop/" },
+      { "title": "Respiratory Care", "icon": "/images/wasay/respiratory-icon.png", "href": "https://wasaylabs.com/shop/" },
+      { "title": "Men’s Health", "icon": "/images/wasay/mens-icon-1.png", "href": "https://wasaylabs.com/shop/" },
+      { "title": "Women’s Health", "icon": "/images/wasay/womens-health-icon.png", "href": "https://wasaylabs.com/shop/" }
     ]
   },
-  "news": {
-    "eyebrow": "News & updates",
-    "heading": "What's happening at the factory.",
-    "posts": [
+  "featured": {
+    "eyebrow": "Featured categories",
+    "heading": "For every season and every family.",
+    "lead": "Wasay Laboratories (Pvt.) Ltd. is one of the largest natural products manufacturers in Pakistan.",
+    "button_label": "Shop now",
+    "button_href": "https://wasaylabs.com/shop/",
+    "items": [
+      { "title": "Immunity Boosters" },
+      { "title": "Summer Essentials" },
+      { "title": "Family Care" },
+      { "title": "Sports & Fitness" }
+    ]
+  },
+  "best_sellers": {
+    "eyebrow": "Best selling",
+    "heading": "What customers reach for first.",
+    "button_label": "See all products",
+    "button_href": "products.html"
+  },
+  "love": {
+    "eyebrow": "Why do customers love Wasay?",
+    "heading": "It’s simple.",
+    "text": "Wasay combines the best of nature with the best of science to bring our customers a huge family of products, from medicines and supplements to food items and beverages."
+  },
+  "why": {
+    "eyebrow": "Why choose Wasay?",
+    "heading": "Four reasons to choose us.",
+    "items": [
       {
-        "date": "Aug 2026",
-        "title": "Expanding our production floor",
-        "text": "More space and more capacity on the factory floor, so large pharmaceutical orders move through faster.",
-        "href": "contact.html"
+        "title": "A blend of heritage and modernity",
+        "text": "We have a rich history and masterful expertise in blending nature’s gifts with mankind’s technological prowess."
       },
       {
-        "date": "Jun 2026",
-        "title": "A new high-quality inspection machine",
-        "text": "Our new high-quality carton inspection machine is installed on the finishing floor, another pair of eyes on every run.",
-        "href": "contact.html"
+        "title": "Compliance with regulations",
+        "text": "We proudly comply with all national and international regulatory bodies to ensure our products are safe, effective and trustworthy."
       },
       {
-        "date": "Apr 2026",
-        "title": "A new hot-stamping machine",
-        "text": "Sharper foils and security finishes, applied in-house with greater speed and precision.",
-        "href": "contact.html"
+        "title": "National and international certifications and accreditations",
+        "text": "We actively pursue and maintain a wide range of certifications and accreditations, reflecting our dedication to quality and integrity."
+      },
+      {
+        "title": "A massive product catalogue",
+        "text": "Wasay offers a constantly expanding range of products designed to meet diverse needs, from health and wellness to food and beverages."
       }
     ]
   },
   "cta": {
-    "heading": "Have a carton to make?",
-    "text": "Send us your artwork or dieline — we'll come back with a quote and a timeline.",
-    "primary_label": "Get a quote",
-    "primary_href": "contact.html",
-    "secondary_label": "Call the floor",
-    "secondary_href": "tel:+923135585784"
+    "heading": "Why wait any longer?",
+    "text": "Start browsing and shopping for the Wasay solutions that are right for you.",
+    "primary_label": "Start shopping",
+    "primary_href": "https://wasaylabs.com/shop/",
+    "secondary_label": "Our products",
+    "secondary_href": "products.html"
   }
 }

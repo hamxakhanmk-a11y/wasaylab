@@ -1,22 +1,22 @@
-# Sveltia CMS — the editor behind www.supremeart.pk/admin
+# Sveltia CMS: the editor behind /admin on the Wasay Laboratories site.
 #
-# Saving here commits to the `main` branch on GitHub, which triggers a Vercel
-# deploy. A change is usually live about a minute after you press Publish.
+# Saving here commits to the `main` branch on GitHub, which triggers a deploy.
+#
+# BEFORE THE EDITOR WILL WORK: replace both REPLACE-WITH-SITE-DOMAIN values below with the
+# address this site is deployed at (see README, "Publishing and the editor").
 
 backend:
   name: github
-  repo: JawadZaheerKhan/supreme-art-website
+  repo: hamxakhanmk-a11y/wasaylab
   branch: main
   # Points at the OAuth endpoints in /api. See api/auth.js and api/callback.js.
-  base_url: https://www.supremeart.pk
+  base_url: https://REPLACE-WITH-SITE-DOMAIN
   auth_endpoint: api/auth
 
-site_url: https://www.supremeart.pk
+site_url: https://REPLACE-WITH-SITE-DOMAIN
 publish_mode: simple
 
-# Photos live in the repo here and are served from /images. Everything already
-# in the folder — factory shots, product photos, client logos — shows up in the
-# picker, and anything you upload joins them.
+# Photos live in the repo here and are served from /images.
 media_folder: static/images
 public_folder: /images
 
@@ -28,12 +28,19 @@ collections:
     files:
       # ---------------------------------------------------------------- shared
       - name: site
-        label: Shared — menu, footer & contact
+        label: Shared: menu and footer
         file: content/site.json
         description: Used on every page. Change it once and it updates site-wide.
         fields:
+          - { name: name, label: Company name (used for logo descriptions), widget: string }
           - { name: logo, label: Logo, widget: image }
           - { name: favicon, label: Favicon (browser tab icon), widget: image }
+          - name: shop
+            label: Online shop
+            widget: object
+            fields:
+              - { name: url, label: Shop address, widget: string }
+              - { name: home_url, label: Main website address, widget: string }
           - name: nav
             label: Top menu
             widget: object
@@ -48,61 +55,16 @@ collections:
                   - name: slug
                     label: Page it belongs to
                     widget: select
-                    options: [index, about, products, clients, process, quality, careers, contact]
-                  - { name: desktop_only, label: Only on desktop (hidden on phones and tablets), widget: boolean, required: false }
-                  - { name: dropdown_mobile_only, label: Dropdown only on phones and tablets, widget: boolean, required: false }
+                    options: [index, products, about]
                     hint: Used to highlight this item when you are on that page.
-                  - name: dropdown
-                    label: Dropdown items
-                    widget: list
-                    required: false
-                    summary: '{{fields.label}}'
-                    hint: Leave empty for a plain link with no dropdown.
-                    fields:
-                      - { name: mobile_only, label: Only on phones and tablets, widget: boolean, required: false }
-                      - { name: label, label: Text, widget: string }
-                      - { name: href, label: Links to, widget: string }
               - name: cta
                 label: Menu button
                 widget: object
                 fields:
                   - { name: label, label: Text, widget: string }
                   - { name: href, label: Links to, widget: string }
-          - name: contact
-            label: Contact details
-            widget: object
-            hint: Used in the footer, on the contact page and by the Call buttons.
-            fields:
-              - { name: email, label: Email address, widget: string }
-              - { name: phone, label: Primary phone (as displayed), widget: string }
-              - name: phone_link
-                label: Primary phone (dialling format)
-                widget: string
-                hint: What Call buttons actually dial — international format, e.g. +923135585784
-              - { name: address, label: Address (short), widget: string }
-              - { name: phone_secondary, label: Additional phone (as displayed), widget: string }
-              - name: phone_secondary_link
-                label: Additional phone (dialling format)
-                widget: string
-                hint: International format, e.g. +923135585784
-              - { name: address_long, label: Address (full), widget: string }
-          - name: capabilities
-            label: Capability cards
-            widget: list
-            summary: '{{fields.title}}'
-            hint: Shown on both the home page and the products page. Numbered automatically.
-            fields:
-              - { name: title, label: Title, widget: string }
-              - { name: text, label: Description, widget: string }
-          - name: gallery
-            label: Factory gallery
-            widget: list
-            summary: '{{fields.alt}}'
-            hint: Shown on the home page and the about page. Leave a photo empty to show a placeholder instead.
-            fields:
-              - { name: alt, label: Caption, widget: string }
-              - { name: image, label: Photo, widget: image, required: false }
-              - { name: wide, label: Double width, widget: boolean, default: false }
+                  - { name: external, label: Opens in a new tab, widget: boolean, default: true }
+                  - { name: desktop_only, label: Only on desktop, widget: boolean, default: true }
           - name: footer
             label: Footer
             widget: object
@@ -116,7 +78,14 @@ collections:
                 fields:
                   - { name: label, label: Text, widget: string }
                   - { name: href, label: Links to, widget: string }
-              - { name: contact_heading, label: Second column heading, widget: string }
+              - { name: shop_heading, label: Second column heading, widget: string }
+              - name: shop_links
+                label: Second column links
+                widget: list
+                summary: '{{fields.label}}'
+                fields:
+                  - { name: label, label: Text, widget: string }
+                  - { name: href, label: Links to, widget: string }
               - { name: copyright, label: Copyright line, widget: string, hint: 'The year and © are added automatically.' }
               - { name: tagline, label: Closing line, widget: string }
 
@@ -128,34 +97,25 @@ collections:
           - { name: title, label: Browser tab / search result title, widget: string }
           - { name: description, label: Search engine description, widget: text, hint: 'Aim for 150–160 characters.' }
           - name: hero
-            label: Hero
+            label: 'Section: Opening'
             widget: object
-            hint: The building and the logo are fixed; these are the words on the press-hall and Speedmaster stages.
             fields:
-              - name: press
-                label: 'Stage 2 — press hall'
-                widget: object
+              - { name: eyebrow, label: Small label above heading, widget: string }
+              - { name: heading, label: Heading, widget: string }
+              - { name: lead, label: Line under the heading, widget: string }
+              - { name: primary_label, label: Main button text, widget: string }
+              - { name: primary_href, label: Main button links to, widget: string }
+              - { name: secondary_label, label: Second button text, widget: string }
+              - { name: secondary_href, label: Second button links to, widget: string }
+              - name: products
+                label: Products shown (use three)
+                widget: list
+                summary: '{{fields.alt}}'
                 fields:
-                  - { name: title, label: Headline (white), widget: string }
-                  - { name: title_red, label: Headline (red), widget: string }
-                  - { name: facts, label: Facts row, widget: list }
-                  - { name: footer, label: Small label at the bottom, widget: string }
-              - name: capacity
-                label: 'Stage 3 — Speedmaster'
-                widget: object
-                fields:
-                  - { name: title, label: Headline (white), widget: string }
-                  - { name: title_red, label: Headline (red), widget: string }
-                  - { name: figure_red, label: Big figure (red), widget: string }
-                  - { name: figure, label: Big figure (white), widget: string }
-                  - { name: figure_line2, label: Big figure second line, widget: string }
-                  - { name: footer, label: Small label at the bottom, widget: string }
-          - name: marquee
-            label: Scrolling ticker
-            widget: list
-            hint: The carton types that scroll past under the hero. Repeats automatically.
+                  - { name: image, label: Photo, widget: image }
+                  - { name: alt, label: Photo description, widget: string }
           - name: about
-            label: 'Section — Who we are'
+            label: 'Section: Who we are'
             widget: object
             fields:
               - { name: eyebrow, label: Small label above heading, widget: string }
@@ -168,144 +128,84 @@ collections:
                 label: Photo
                 widget: object
                 fields:
-                  - { name: image, label: Photo, widget: image, required: false }
-                  - { name: alt, label: Caption if no photo is set, widget: string }
-          - name: capabilities
-            label: 'Section — Capabilities (headings only)'
-            widget: object
-            hint: The cards themselves are edited in "Shared — menu, footer & contact".
-            fields:
-              - { name: eyebrow, label: Small label above heading, widget: string }
-              - { name: heading, label: Heading, widget: string }
-          - name: quality
-            label: 'Section — Quality'
+                  - { name: image, label: Photo, widget: image }
+                  - { name: alt, label: Photo description, widget: string }
+          - { name: marquee, label: Scrolling ticker, widget: list, hint: 'The category names that scroll past. Repeats automatically.' }
+          - name: looking_for
+            label: 'Section: I’m looking for'
             widget: object
             fields:
               - { name: eyebrow, label: Small label above heading, widget: string }
               - { name: heading, label: Heading, widget: string }
-              - { name: text, label: Paragraph, widget: text }
-              - name: stats
-                label: Numbers
-                widget: list
-                summary: '{{fields.number}} {{fields.label}}'
-                fields:
-                  - { name: number, label: Number, widget: number, value_type: int, hint: 'Counts up when scrolled into view. Digits only.' }
-                  - { name: label, label: Text after the number, widget: string }
-              - { name: button_label, label: Button text, widget: string }
-              - { name: button_href, label: Button links to, widget: string }
-              - name: media
-                label: Photo
-                widget: object
-                fields:
-                  - { name: image, label: Photo, widget: image, required: false }
-                  - { name: alt, label: Caption if no photo is set, widget: string }
-          - name: services
-            label: 'Section — Our services'
-            widget: object
-            hint: Two pages of product families, then the finishes that have photos on the Services page.
-            fields:
-              - { name: button_label, label: Button text, widget: string }
-              - { name: button_href, label: Button links to, widget: string }
-              - name: pages
-                label: Pages
-                widget: list
-                summary: '{{fields.heading}}'
-                fields:
-                  - { name: eyebrow, label: Small label above heading, widget: string }
-                  - { name: heading, label: Heading, widget: string }
-                  - { name: lead, label: Intro line, widget: text }
-                  - { name: show_all, label: Show the button on this page, widget: boolean, required: false }
-                  - name: items
-                    label: Product families
-                    widget: list
-                    summary: '{{fields.title}}'
-                    fields:
-                      - { name: title, label: Title, widget: string }
-                      - { name: text, label: Description, widget: text }
-                      - { name: image, label: Photo, widget: image }
-                      - { name: alt, label: Photo description (for screen readers), widget: string }
-                      - { name: href, label: Links to, widget: string }
-              - name: finishes
-                label: Finishes page
-                widget: object
-                hint: The finishes themselves, with their photos, come from the Services page.
-                fields:
-                  - { name: eyebrow, label: Small label above heading, widget: string }
-                  - { name: heading, label: Heading, widget: string }
-                  - { name: lead, label: Intro line, widget: text }
-                  - { name: button_label, label: Button text, widget: string }
-                  - { name: button_href, label: Button links to, widget: string }
-          - name: process
-            label: 'Section — Our process'
-            widget: object
-            hint: The chapters, photos and words below the heading come from the Process page.
-            fields:
-              - { name: eyebrow, label: Small label above heading, widget: string }
-              - { name: heading, label: Heading, widget: string }
-              - { name: lead, label: Intro line, widget: text }
-              - { name: button_label, label: Button text, widget: string }
-              - { name: button_href, label: Button links to, widget: string }
-          - name: gallery
-            label: 'Section — Factory gallery (headings only)'
-            widget: object
-            hint: The photos themselves are edited in "Shared — menu, footer & contact".
-            fields:
-              - { name: eyebrow, label: Small label above heading, widget: string }
-              - { name: heading, label: Heading, widget: string }
-          - name: clients
-            label: 'Section — Our clients'
-            widget: object
-            fields:
-              - { name: eyebrow, label: Small label above heading, widget: string }
-              - { name: heading, label: Heading, widget: string }
-              - { name: lead, label: Intro line, widget: text }
-              - name: groups
-                label: Client groups
+              - name: items
+                label: Category tiles
                 widget: list
                 summary: '{{fields.title}}'
-                hint: Local and international clients, in the order they appear on the page.
                 fields:
-                  - { name: title, label: Group title, widget: string }
-                  - name: items
-                    label: Clients
-                    widget: list
-                    summary: '{{fields.name}}'
-                    fields:
-                      - { name: name, label: Client name, widget: string }
-                      - { name: logo, label: Logo, widget: image }
-          - name: news
-            label: 'Section — News & updates'
+                  - { name: title, label: Name, widget: string }
+                  - { name: icon, label: Icon, widget: image }
+                  - { name: href, label: Links to, widget: string }
+          - name: featured
+            label: 'Section: Featured categories'
             widget: object
             fields:
               - { name: eyebrow, label: Small label above heading, widget: string }
               - { name: heading, label: Heading, widget: string }
-              - name: posts
-                label: Posts
+              - { name: lead, label: Paragraph, widget: text }
+              - { name: button_label, label: Button text, widget: string }
+              - { name: button_href, label: Button links to, widget: string }
+              - name: items
+                label: Categories
                 widget: list
-                summary: '{{fields.date}} — {{fields.title}}'
+                summary: '{{fields.title}}'
                 fields:
-                  - { name: date, label: Date, widget: string, hint: 'Free text, e.g. "Aug 2026"' }
+                  - { name: title, label: Name, widget: string }
+          - name: best_sellers
+            label: 'Section: Best selling (products come from the Products page)'
+            widget: object
+            fields:
+              - { name: eyebrow, label: Small label above heading, widget: string }
+              - { name: heading, label: Heading, widget: string }
+              - { name: button_label, label: Button text, widget: string }
+              - { name: button_href, label: Button links to, widget: string }
+          - name: love
+            label: 'Section: Why customers love Wasay'
+            widget: object
+            fields:
+              - { name: eyebrow, label: Small label above heading, widget: string }
+              - { name: heading, label: Heading, widget: string }
+              - { name: text, label: Paragraph, widget: text }
+          - name: why
+            label: 'Section: Why choose Wasay'
+            widget: object
+            fields:
+              - { name: eyebrow, label: Small label above heading, widget: string }
+              - { name: heading, label: Heading, widget: string }
+              - name: items
+                label: Reasons
+                widget: list
+                summary: '{{fields.title}}'
+                fields:
                   - { name: title, label: Title, widget: string }
-                  - { name: text, label: Summary, widget: text }
-                  - { name: href, label: "'Read more' links to", widget: string }
+                  - { name: text, label: Text, widget: text }
           - name: cta
-            label: 'Section — Closing call to action'
+            label: 'Section: Closing call to action'
             widget: object
             fields:
               - { name: heading, label: Heading, widget: string }
               - { name: text, label: Paragraph, widget: text }
-              - { name: primary_label, label: First button text, widget: string }
-              - { name: primary_href, label: First button links to, widget: string }
+              - { name: primary_label, label: Main button text, widget: string }
+              - { name: primary_href, label: Main button links to, widget: string }
               - { name: secondary_label, label: Second button text, widget: string }
               - { name: secondary_href, label: Second button links to, widget: string }
 
-      # ----------------------------------------------------------- about page
-      - name: about
-        label: About page
-        file: content/about.json
+      # ---------------------------------------------------------- products page
+      - name: products
+        label: Products page (also feeds the home page best sellers)
+        file: content/products.json
         fields:
           - { name: title, label: Browser tab / search result title, widget: string }
-          - { name: description, label: Search engine description, widget: text }
+          - { name: description, label: Search engine description, widget: text, hint: 'Aim for 150–160 characters.' }
           - name: banner
             label: Page banner
             widget: object
@@ -313,161 +213,72 @@ collections:
               - { name: crumb, label: Breadcrumb text, widget: string }
               - { name: heading, label: Heading, widget: string }
           - name: intro
-            label: 'Section — Who we are'
+            label: Introduction
+            widget: object
+            fields:
+              - { name: eyebrow, label: Small label above heading, widget: string }
+              - { name: heading, label: Heading, widget: string }
+              - { name: text, label: Paragraph, widget: text }
+          - { name: order_label, label: Order link text, widget: string }
+          - name: items
+            label: Products (the first three show large, the rest side by side)
+            widget: list
+            summary: '{{fields.name}}'
+            fields:
+              - { name: name, label: Name, widget: string }
+              - { name: image, label: Photo, widget: image }
+              - { name: alt, label: Photo description, widget: string }
+              - { name: detail, label: Short detail line, widget: string, hint: 'e.g. 120 ml syrup' }
+              - { name: description, label: Longer description (optional), widget: text, required: false }
+              - { name: href, label: Order link, widget: string }
+          - name: categories
+            label: Shop by category
+            widget: object
+            fields:
+              - { name: eyebrow, label: Small label above heading, widget: string }
+              - { name: heading, label: Heading, widget: string }
+              - name: items
+                label: Categories
+                widget: list
+                summary: '{{fields.label}}'
+                fields:
+                  - { name: label, label: Name, widget: string }
+                  - { name: href, label: Links to, widget: string }
+          - name: cta
+            label: Closing call to action
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: text, label: Paragraph, widget: text }
+              - { name: primary_label, label: Main button text, widget: string }
+              - { name: primary_href, label: Main button links to, widget: string }
+              - { name: secondary_label, label: Second button text, widget: string }
+              - { name: secondary_href, label: Second button links to, widget: string }
+
+      # ------------------------------------------------------------- about page
+      - name: about
+        label: About us page
+        file: content/about.json
+        fields:
+          - { name: title, label: Browser tab / search result title, widget: string }
+          - { name: description, label: Search engine description, widget: text, hint: 'Aim for 150–160 characters.' }
+          - name: banner
+            label: Page banner
+            widget: object
+            fields:
+              - { name: crumb, label: Breadcrumb text, widget: string }
+              - { name: heading, label: Heading, widget: string }
+          - name: intro
+            label: 'Section: Who we are'
             widget: object
             fields:
               - { name: eyebrow, label: Small label above heading, widget: string }
               - { name: heading, label: Heading, widget: string }
               - { name: paragraphs, label: Paragraphs, widget: list, hint: 'Each entry becomes its own paragraph.' }
-              - name: media
-                label: Photo
-                widget: object
-                fields:
-                  - { name: image, label: Photo, widget: image, required: false }
-                  - { name: alt, label: Caption if no photo is set, widget: string }
+              - { name: image, label: Photo, widget: image }
+              - { name: alt, label: Photo description, widget: string }
           - name: values
-            label: 'Section — Our values'
-            widget: object
-            fields:
-              - { name: eyebrow, label: Small label above heading, widget: string }
-              - { name: heading, label: Heading, widget: string }
-              - name: items
-                label: Value cards
-                widget: list
-                summary: '{{fields.tag}} — {{fields.title}}'
-                fields:
-                  - { name: tag, label: Label in the corner, widget: string }
-                  - { name: title, label: Title, widget: string }
-                  - { name: text, label: Description, widget: string }
-          - name: numbers
-            label: 'Section — By the numbers'
-            widget: object
-            fields:
-              - { name: eyebrow, label: Small label above heading, widget: string }
-              - { name: heading, label: Heading, widget: string }
-              - name: stats
-                label: Numbers
-                widget: list
-                summary: '{{fields.number}} {{fields.label}}'
-                fields:
-                  - { name: number, label: Number, widget: number, value_type: int }
-                  - { name: label, label: Text after the number, widget: string }
-          - name: compliance
-            label: 'Section — Registered and compliant'
-            widget: object
-            fields:
-              - { name: eyebrow, label: Small label above heading, widget: string }
-              - { name: heading, label: Heading, widget: string }
-              - { name: text, label: Paragraph, widget: text }
-              - name: items
-                label: Registrations
-                widget: list
-                summary: '{{fields.title}}'
-                fields:
-                  - { name: title, label: Body, widget: string }
-                  - { name: text, label: Detail, widget: string }
-          - name: gallery
-            label: 'Section — Factory gallery (headings only)'
-            widget: object
-            hint: The photos themselves are edited in "Shared — menu, footer & contact".
-            fields:
-              - { name: eyebrow, label: Small label above heading, widget: string }
-              - { name: heading, label: Heading, widget: string }
-          - name: cta
-            label: 'Section — Closing call to action'
-            widget: object
-            fields:
-              - { name: heading, label: Heading, widget: string }
-              - { name: text, label: Paragraph, widget: text }
-              - { name: primary_label, label: First button text, widget: string }
-              - { name: primary_href, label: First button links to, widget: string }
-              - { name: secondary_label, label: Second button text, widget: string }
-              - { name: secondary_href, label: Second button links to, widget: string }
-
-      # -------------------------------------------------------- products page
-      - name: products
-        label: Products page
-        file: content/products.json
-        fields:
-          - { name: title, label: Browser tab / search result title, widget: string }
-          - { name: description, label: Search engine description, widget: text }
-          - name: banner
-            label: Page banner
-            widget: object
-            fields:
-              - { name: crumb, label: Breadcrumb text, widget: string }
-              - { name: heading, label: Heading, widget: string }
-          - name: range
-            label: 'Section — What we make'
-            widget: object
-            fields:
-              - { name: eyebrow, label: Small label above heading, widget: string }
-              - { name: heading, label: Heading, widget: string }
-              - { name: lead, label: Intro line, widget: text }
-              - name: items
-                label: Product cards
-                widget: list
-                summary: '{{fields.title}}'
-                fields:
-                  - { name: title, label: Title, widget: string }
-                  - { name: text, label: Description, widget: string }
-                  - { name: image, label: Photo, widget: image, required: false }
-                  - { name: alt, label: Caption if no photo is set, widget: string }
-          - name: capabilities
-            label: 'Section — Capabilities (headings only)'
-            widget: object
-            hint: The cards themselves are edited in "Shared — menu, footer & contact".
-            fields:
-              - { name: button_label, label: Button text, widget: string, required: false }
-              - { name: button_href, label: Button links to, widget: string, required: false }
-              - { name: eyebrow, label: Small label above heading, widget: string }
-              - { name: heading, label: Heading, widget: string }
-          - name: cta
-            label: 'Section — Closing call to action'
-            widget: object
-            fields:
-              - { name: heading, label: Heading, widget: string }
-              - { name: text, label: Paragraph, widget: text }
-              - { name: primary_label, label: First button text, widget: string }
-              - { name: primary_href, label: First button links to, widget: string }
-              - { name: secondary_label, label: Second button text, widget: string }
-              - { name: secondary_href, label: Second button links to, widget: string }
-
-      # --------------------------------------------------------- quality page
-      - name: quality
-        label: Quality page
-        file: content/quality.json
-        fields:
-          - { name: title, label: Browser tab / search result title, widget: string }
-          - { name: description, label: Search engine description, widget: text }
-          - name: banner
-            label: Page banner
-            widget: object
-            fields:
-              - { name: crumb, label: Breadcrumb text, widget: string }
-              - { name: heading, label: Heading, widget: string }
-          - name: commitment
-            label: 'Section — Our commitment'
-            widget: object
-            fields:
-              - { name: eyebrow, label: Small label above heading, widget: string }
-              - { name: heading, label: Heading, widget: string }
-              - { name: text, label: Paragraph, widget: text }
-              - name: stats
-                label: Numbers
-                widget: list
-                summary: '{{fields.number}} {{fields.label}}'
-                fields:
-                  - { name: number, label: Number, widget: number, value_type: int }
-                  - { name: label, label: Text after the number, widget: string }
-              - name: media
-                label: Photo
-                widget: object
-                fields:
-                  - { name: image, label: Photo, widget: image, required: false }
-                  - { name: alt, label: Caption if no photo is set, widget: string }
-          - name: pillars
-            label: 'Section — What quality rests on'
+            label: 'Section: Why choose Wasay'
             widget: object
             fields:
               - { name: eyebrow, label: Small label above heading, widget: string }
@@ -479,210 +290,27 @@ collections:
                 fields:
                   - { name: title, label: Title, widget: string }
                   - { name: text, label: Text, widget: text }
-          - name: process
-            label: 'Section — Our process'
+          - name: compliance
+            label: 'Section: Quality and compliance'
             widget: object
             fields:
               - { name: eyebrow, label: Small label above heading, widget: string }
               - { name: heading, label: Heading, widget: string }
-              - { name: intro, label: Introduction, widget: text }
-              - name: steps
-                label: Quality checkpoints
+              - { name: text, label: Paragraph, widget: text }
+              - name: items
+                label: Cards
                 widget: list
                 summary: '{{fields.title}}'
-                hint: Numbered automatically in the order listed here.
                 fields:
                   - { name: title, label: Title, widget: string }
-                  - { name: text, label: Description, widget: text }
-                  - { name: image, label: First photo, widget: image, required: false, hint: Shown full-screen behind this check's text. }
-                  - { name: image_2, label: Second photo, widget: image, required: false, hint: Optional. Shown in the detail band below. }
-                  - { name: caption_2, label: Second photo caption, widget: string, required: false }
-                  - { name: image_3, label: Third photo, widget: image, required: false, hint: Optional. Shown in the detail band below. }
-                  - { name: caption_3, label: Third photo caption, widget: string, required: false }
-          - name: cta
-            label: 'Section — Closing call to action'
-            widget: object
-            fields:
-              - { name: heading, label: Heading, widget: string }
-              - { name: text, label: Paragraph, widget: text }
-              - { name: primary_label, label: First button text, widget: string }
-              - { name: primary_href, label: First button links to, widget: string }
-              - { name: secondary_label, label: Second button text, widget: string }
-              - { name: secondary_href, label: Second button links to, widget: string }
-
-      # --------------------------------------------------------- careers page
-      # --------------------------------------------------------- clients page
-      - name: clients
-        label: Clients page
-        file: content/clients.json
-        fields:
-          - { name: title, label: Browser tab / search result title, widget: string }
-          - { name: description, label: Search engine description, widget: text }
-          - name: banner
-            label: Page banner
-            widget: object
-            fields:
-              - { name: crumb, label: Small label, widget: string }
-              - { name: heading, label: Main heading, widget: string }
-          - { name: intro, label: Introduction, widget: text }
-          - name: items
-            label: Clients and their cartons
-            widget: list
-            summary: '{{fields.client}} — {{fields.product}}'
-            fields:
-              - { name: client, label: Client name, widget: string }
-              - { name: logo, label: Client logo, widget: image }
-              - { name: product, label: Product name, widget: string }
-              - { name: note, label: One-line note about the carton, widget: string }
-              - { name: box_id, label: Carton box id, widget: string, hint: "Must match a box on the Services page, e.g. zeflox, duet, quench, nova-plast, swaad-biryani, pedrol." }
-              - { name: box_name, label: Carton name (for screen readers), widget: string }
-              - { name: box_front, label: Carton front photo, widget: image }
+                  - { name: text, label: Text, widget: text }
           - name: cta
             label: Closing call to action
             widget: object
             fields:
               - { name: heading, label: Heading, widget: string }
               - { name: text, label: Paragraph, widget: text }
-              - { name: label, label: Button text, widget: string }
-              - { name: href, label: Button links to, widget: string }
-      - name: careers
-        label: Careers page
-        file: content/careers.json
-        fields:
-          - { name: title, label: Browser tab / search result title, widget: string }
-          - { name: description, label: Search engine description, widget: text }
-          - name: banner
-            label: Page banner
-            widget: object
-            fields:
-              - { name: crumb, label: Breadcrumb text, widget: string }
-              - { name: heading, label: Heading, widget: string }
-          - name: intro
-            label: 'Section — Work with us'
-            widget: object
-            fields:
-              - { name: eyebrow, label: Small label above heading, widget: string }
-              - { name: heading, label: Heading, widget: string }
-              - { name: paragraphs, label: Paragraphs, widget: list }
-              - { name: button_label, label: Button text, widget: string, hint: 'Opens an email to the address set in Shared → Contact details.' }
-              - name: media
-                label: Photo
-                widget: object
-                fields:
-                  - { name: image, label: Photo, widget: image, required: false }
-                  - { name: alt, label: Caption if no photo is set, widget: string }
-          - name: roles
-            label: 'Section — Open roles'
-            widget: object
-            fields:
-              - { name: eyebrow, label: Small label above heading, widget: string }
-              - { name: heading, label: Heading, widget: string }
-              - name: items
-                label: Roles
-                widget: list
-                summary: '{{fields.title}}'
-                hint: Remove a role when it is filled, and add new ones here.
-                fields:
-                  - { name: type, label: Type & location, widget: string, hint: 'e.g. "Full-time · Peshawar"' }
-                  - { name: title, label: Job title, widget: string }
-                  - { name: text, label: Description, widget: text }
-              - { name: footnote_before, label: Note below roles — text before the link, widget: string }
-              - { name: footnote_link, label: Note below roles — link text, widget: string }
-              - { name: footnote_after, label: Note below roles — text after the link, widget: string }
-          - name: cta
-            label: 'Section — Closing call to action'
-            widget: object
-            fields:
-              - { name: heading, label: Heading, widget: string }
-              - { name: text, label: Paragraph, widget: text }
-              - { name: primary_label, label: First button text, widget: string }
-              - { name: primary_href, label: First button links to, widget: string }
-              - { name: secondary_label, label: Second button text, widget: string }
-              - { name: secondary_href, label: Second button links to, widget: string }
-
-      # --------------------------------------------------------- contact page
-      - name: contact
-        label: Contact page
-        file: content/contact.json
-        description: The email, phone and address themselves live in "Shared — menu, footer & contact".
-        fields:
-          - { name: title, label: Browser tab / search result title, widget: string }
-          - { name: description, label: Search engine description, widget: text }
-          - name: banner
-            label: Page banner
-            widget: object
-            fields:
-              - { name: crumb, label: Breadcrumb text, widget: string }
-              - { name: heading, label: Heading, widget: string }
-          - name: intro
-            label: 'Section — Get in touch'
-            widget: object
-            fields:
-              - { name: eyebrow, label: Small label above heading, widget: string }
-              - { name: heading, label: Heading, widget: string }
-              - { name: text, label: Paragraph, widget: text }
-              - { name: email_label, label: Label for the email row, widget: string }
-              - { name: phone_label, label: Label for the phone row, widget: string }
-              - { name: address_label, label: Label for the address row, widget: string }
-          - name: form
-            label: Enquiry form
-            widget: object
-            fields:
-              - { name: name_label, label: Name field label, widget: string }
-              - { name: email_label, label: Email field label, widget: string }
-              - { name: phone_label, label: Phone field label, widget: string }
-              - { name: product_label, label: Product field label, widget: string }
-              - { name: product_options, label: Product choices, widget: list }
-              - { name: message_label, label: Message field label, widget: string }
-              - { name: message_placeholder, label: Message placeholder text, widget: string }
-              - { name: submit_label, label: Submit button text, widget: string }
-              - { name: note, label: Note under the button, widget: string }
-      # --------------------------------------------------------- process page
-      - name: process
-        label: Process page
-        file: content/process.json
-        fields:
-          - { name: title, label: Browser tab / search result title, widget: string }
-          - { name: description, label: Search engine description, widget: text }
-          - name: banner
-            label: Page banner
-            widget: object
-            fields:
-              - { name: crumb, label: Small label, widget: string }
-              - { name: heading, label: Main heading, widget: string }
-          - { name: intro, label: Introduction, widget: text }
-          - name: overview
-            label: 'Section — The floor at a glance'
-            widget: object
-            fields:
-              - { name: eyebrow, label: Small label above heading, widget: string }
-              - { name: heading, label: Heading, widget: string }
-              - { name: text, label: Paragraph, widget: text }
-              - name: glance
-                label: Numbers
-                widget: list
-                summary: '{{fields.value}} {{fields.label}}'
-                fields:
-                  - { name: value, label: Number, widget: string }
-                  - { name: label, label: Text under the number, widget: string }
-          - name: steps
-            label: Process stages
-            widget: list
-            min: 1
-            summary: '{{fields.num}} — {{fields.title}}'
-            fields:
-              - { name: num, label: Step number, widget: string }
-              - { name: title, label: Stage title, widget: string }
-              - { name: text, label: Description, widget: text }
-              - { name: image, label: First photo, widget: image }
-              - { name: image_2, label: Second photo, widget: image, required: false, hint: Optional. If left empty, the first photo uses the complete picture area. }
-          - name: cta
-            label: Closing call to action
-            widget: object
-            fields:
-              - { name: heading, label: Heading, widget: string }
-              - { name: text, label: Paragraph, widget: text }
-              - { name: primary_label, label: First button text, widget: string }
-              - { name: primary_href, label: First button links to, widget: string }
+              - { name: primary_label, label: Main button text, widget: string }
+              - { name: primary_href, label: Main button links to, widget: string }
               - { name: secondary_label, label: Second button text, widget: string }
               - { name: secondary_href, label: Second button links to, widget: string }

@@ -4,7 +4,7 @@ export const PROVIDER = 'github';
 
 /** Origins allowed to receive the access token, as hostname suffixes. */
 export function allowedOrigins() {
-  return (process.env.ALLOWED_DOMAINS || 'supremeart.pk,localhost')
+  return (process.env.ALLOWED_DOMAINS || 'localhost')
     .split(',')
     .map((d) => d.trim())
     .filter(Boolean);

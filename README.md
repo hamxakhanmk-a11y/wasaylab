@@ -1,44 +1,33 @@
-# Supreme Art — Factory Website
+# Wasay Laboratories — Website
 
-Static site for Supreme Art, deployed on Vercel. Everything written on the site
-is edited through a CMS at **https://www.supremeart.pk/admin** — you should not
-need to touch the code to change wording, photos, prices, job listings or news.
+Static site for Wasay Laboratories (Pvt.) Ltd., built from the Supreme Art site
+design and filled with the content of https://wasaylabs.com/. The online shop
+(cart, checkout, accounts) stays on wasaylabs.com; this site links to it with
+"Order online" buttons.
 
-## Editing the website
+## Pages
 
-1. Go to **https://www.supremeart.pk/admin**
-2. Sign in with GitHub (you need to be a collaborator on this repo)
-3. Pick a section in the sidebar, make your change, press **Publish**
+| Page | Template | Content |
+| --- | --- | --- |
+| Home | `templates/index.html` | `content/index.json` |
+| Products | `templates/products.html` | `content/products.json` |
+| About us | `templates/about.html` | `content/about.json` |
 
-The change is committed to `main` and Vercel redeploys automatically — the site
-is usually updated about a minute later. It works fine on a phone.
-
-The sidebar has one entry per page, plus **Shared — menu, footer & contact** for
-things that appear everywhere: the top menu, the footer, the email/phone/address,
-the four capability cards and the factory gallery. Change those once and every
-page updates.
-
-### Photos
-
-Any photo box on the site can be filled from the CMS. Where a photo has not been
-set yet, the site shows a grey placeholder with a 📷 caption instead — that is
-what most of the photo slots currently show.
-
-The `images/` folder already contains factory and product photography that is
-ready to use; it all appears in the CMS image picker, and anything you upload
-joins it there.
+`content/site.json` holds what appears on every page: company name, logo, menu,
+"Order online" button and footer. The five best sellers are written once, in
+`content/products.json`, and shown on both the Products page and the home page.
 
 ## Structure
 
 ```
 content/            the words on the site, as JSON — what the CMS edits
-  site.json           shared menu, footer, contact details, capabilities, gallery
-  index.json          one file per page…
 templates/          page templates with {{ placeholders }}
-  partials/           header, footer and other repeated blocks
+  partials/           header, footer, banner, call to action
 static/             files copied to the site as-is
+  wasay.css           styles for the Wasay home hero, tiles and product cards
+  styles.css          the shared design system (see DESIGN.md)
   admin/              the CMS (Sveltia) and its config
-  images/             photography; also the CMS upload folder
+  images/wasay/       logo, product photos and category icons
 api/                GitHub sign-in for the CMS (Vercel serverless functions)
 build.js            merges content into the templates → dist/
 dist/               build output; generated, not committed
@@ -77,24 +66,21 @@ Inside `#each`, `{{ . }}` is the item itself, `{{ @n }}` its 1-based position an
 Each `templates/<name>.html` is rendered against `content/<name>.json` (available
 as `page`) plus `content/site.json` (available as `site`).
 
-## Deployment
+## Publishing and the editor
 
-Vercel runs `node build.js` and serves `dist/` (see `vercel.json`). Pushes to
-`main` deploy to production.
+Not yet set up. When the site has an address:
 
-### Required Vercel environment variables
+1. Deploy to Vercel (it runs `node build.js` and serves `dist/`, see `vercel.json`).
+2. In `static/admin/config.yml` replace both `REPLACE-WITH-SITE-DOMAIN` values with the deployed address.
+3. Create a GitHub OAuth app (GitHub → Settings → Developer settings → OAuth Apps) with callback `https://<site address>/api/callback`.
+4. Set these Vercel environment variables:
 
 | Variable | Value |
 | --- | --- |
 | `GITHUB_CLIENT_ID` | From the GitHub OAuth app |
 | `GITHUB_CLIENT_SECRET` | From the GitHub OAuth app |
-| `ALLOWED_DOMAINS` | `supremeart.pk` (comma-separated; controls which origins may receive a sign-in token) |
+| `ALLOWED_DOMAINS` | The site's hostname (comma-separated; controls which origins may receive a sign-in token) |
 
-The OAuth app lives at GitHub → Settings → Developer settings → OAuth Apps, with
-its callback URL set to `https://www.supremeart.pk/api/callback`.
+The editor is then at `https://<site address>/admin` and commits changes to `main`.
 
-## Custom domain
-
-In the Vercel project → **Settings → Domains** → add the domain, then set the DNS
-records Vercel shows at your registrar (A record `76.76.21.21` for the apex, or a
-CNAME for `www`). SSL is automatic.
+No analytics are installed. Add a tracking snippet to `templates/partials/head.html` when Wasay has an account.

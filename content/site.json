@@ -1,6 +1,11 @@
 {
+  "name": "Wasay Laboratories (Pvt.) Ltd.",
   "logo": "/logo.png",
   "favicon": "/favicon.png",
+  "shop": {
+    "url": "https://wasaylabs.com/shop/",
+    "home_url": "https://wasaylabs.com/"
+  },
   "nav": {
     "links": [
       {
@@ -10,162 +15,58 @@
         "dropdown": []
       },
       {
-        "label": "About us",
-        "href": "company-profile.html",
-        "slug": "about",
-        "dropdown": [
-          {
-            "label": "Company profile",
-            "href": "company-profile.html"
-          },
-          {
-            "label": "Company overview",
-            "href": "about.html"
-          },
-          {
-            "label": "Clients",
-            "href": "clients.html",
-            "mobile_only": true
-          },
-          {
-            "label": "Careers",
-            "href": "careers.html"
-          }
-        ]
-      },
-      {
-        "label": "Services",
+        "label": "Products",
         "href": "products.html",
         "slug": "products",
         "dropdown": []
       },
       {
-        "label": "Clients",
-        "href": "clients.html",
-        "slug": "clients",
-        "dropdown": [],
-        "desktop_only": true
-      },
-      {
-        "label": "Process",
-        "href": "process.html",
-        "slug": "process",
+        "label": "About us",
+        "href": "about.html",
+        "slug": "about",
         "dropdown": []
-      },
-      {
-        "label": "Quality Control",
-        "href": "quality.html",
-        "slug": "quality",
-        "dropdown": []
-      },
-      {
-        "label": "Careers",
-        "href": "careers.html",
-        "slug": "careers",
-        "dropdown": [
-          {
-            "label": "Get a quote",
-            "href": "contact.html",
-            "mobile_only": true
-          }
-        ],
-        "dropdown_mobile_only": true
       }
     ],
     "cta": {
-      "label": "Get a quote",
-      "href": "contact.html",
+      "label": "Order online",
+      "href": "https://wasaylabs.com/shop/",
+      "external": true,
       "desktop_only": true
     }
   },
-  "contact": {
-    "email": "info@supremeart.pk",
-    "phone": "0334 9644597",
-    "phone_link": "+923349644597",
-    "phone_secondary": "0313 5585784",
-    "phone_secondary_link": "+923135585784",
-    "address": "Industrial Estate, Hayatabad, Peshawar",
-    "address_long": "Industrial Estate, Hayatabad, Peshawar, Pakistan"
-  },
-  "capabilities": [
-    {
-      "title": "Offset Printing",
-      "text": "Heidelberg presses for sharp, colour-accurate runs."
-    },
-    {
-      "title": "Die-Cutting & Creasing",
-      "text": "Precision dies for clean cuts and crisp folds."
-    },
-    {
-      "title": "Folding & Gluing",
-      "text": "High-speed folder-gluers, flat-packed and machine-ready."
-    },
-    {
-      "title": "Prepress & Proofing",
-      "text": "Artwork checks, dielines and physical proofs."
-    }
-  ],
-  "gallery": [
-    {
-      "alt": "Printing",
-      "image": "/images/process/printing-1.jpg",
-      "wide": true
-    },
-    {
-      "alt": "Charging the ink units on the press",
-      "image": "/images/process/press/ink-loading.webp",
-      "wide": false
-    },
-    {
-      "alt": "Pasting and folder gluing on the Bobst Expert 105 A",
-      "image": "/images/process/offpress/folder-gluer-bobst.webp",
-      "wide": false
-    },
-    {
-      "alt": "Delivery",
-      "image": "/images/process/delivery-loading-1.png",
-      "wide": true
-    }
-  ],
-  "company_message": {
-    "heading": "Our message",
-    "paragraphs": [
-      "At Supreme Art Private Limited, we are driven by a singular vision: to provide innovative, high-quality printing and packaging solutions that exceed our clients' expectations and contribute to the advancement of industries globally. Since our inception in 2016, our journey has been marked by relentless dedication, hard work, and a commitment to excellence, positioning us as one of Pakistan's leading names in the printing and packaging industry.",
-      "Our success is built on a foundation of trust, transparency, and the continuous pursuit of innovation. We understand the critical importance of product integrity. Our state-of-the-art facilities, advanced technologies, and specialized expertise allow us to deliver solutions that meet the highest standards of quality and security. As we continue to expand our reach across global markets, our focus remains on sustainability, customer satisfaction, and operational excellence. We are proud to be the only printing and packaging manufacturer in Khyber Pakhtunkhwa with a significant export presence, a testament to the trust our international clients place in us.",
-      "Our dedicated team, comprising both experienced professionals and talented individuals, is our greatest asset. Together, we remain committed to fostering an environment of collaboration, integrity, and continuous growth. I am confident that with our unwavering focus on quality, innovation, and customer-centricity, Supreme Art Private Limited, will continue to lead the industry, building lasting relationships and achieving greater milestones in the years to come."
-    ]
-  },
   "footer": {
-    "blurb": "Pharmaceutical folding cartons — printed, die-cut, folded and glued under one roof in Pakistan.",
-    "company_heading": "Company",
+    "blurb": "A modern facility that manufactures and markets well-known brands, focused on healthy living.",
+    "company_heading": "Explore",
     "company_links": [
       {
-        "label": "About us",
-        "href": "about.html"
+        "label": "Home",
+        "href": "index.html"
       },
       {
-        "label": "Services",
+        "label": "Products",
         "href": "products.html"
       },
       {
-        "label": "Clients",
-        "href": "clients.html"
-      },
-      {
-        "label": "Quality Control",
-        "href": "quality.html"
-      },
-      {
-        "label": "Careers",
-        "href": "careers.html"
-      },
-      {
-        "label": "Contact",
-        "href": "contact.html"
+        "label": "About us",
+        "href": "about.html"
       }
     ],
-    "contact_heading": "Contact",
-    "copyright": "Supreme Art (Pvt) Ltd. All rights reserved.",
-    "tagline": "Printed with pride in Pakistan."
+    "shop_heading": "Shop online",
+    "shop_links": [
+      {
+        "label": "All products",
+        "href": "https://wasaylabs.com/shop/"
+      },
+      {
+        "label": "Best sellers",
+        "href": "https://wasaylabs.com/product-category/best-sellers/"
+      },
+      {
+        "label": "Visit wasaylabs.com",
+        "href": "https://wasaylabs.com/"
+      }
+    ],
+    "copyright": "Wasay Laboratories (Pvt.) Ltd. All rights reserved.",
+    "tagline": "Curing naturally, caring globally."
   }
 }

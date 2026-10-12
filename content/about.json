@@ -1,54 +1,56 @@
 {
-  "title": "About us — Supreme Art",
-  "description": "Supreme Art makes pharmaceutical cartons, labels and leaflets in Pakistan on Heidelberg, Bobst and hot-stamping machinery, with specialised security coatings.",
-  "banner": { "crumb": "About us", "heading": "About Supreme Art" },
+  "title": "About us — Wasay Laboratories",
+  "description": "Wasay Laboratories (Pvt.) Ltd. blends nature and science to provide accessible healthcare solutions, one of the largest natural products manufacturers in Pakistan.",
+  "banner": {
+    "crumb": "About us",
+    "heading": "About us"
+  },
   "intro": {
     "eyebrow": "Who we are",
-    "heading": "The paper box your medicine comes in, made with care on remarkable machines.",
+    "heading": "Accessible healthcare, made naturally.",
     "paragraphs": [
-      "Every carton that leaves Supreme Art (Pvt) Ltd begins as a promise to the patient who will one day open it. We keep that promise on machinery chosen for its precision: Heidelberg Speedmaster presses laying down five colours and a coat in a single pass, Bobst die-cutters and folder-gluers that shape each box true to its lines, a hot-stamping machine that sets foil into the board, colour-shifting seals that guard against imitation, and a high-quality carton inspection machine keeping watch over the work.",
-      "We work with pharmaceutical brands who need packaging that is accurate, consistent and traceable, because for medicine the box is part of patient safety. And when the work is done, we deliver it ourselves, to every corner of Pakistan."
+      "Wasay Laboratories (Pvt.) Ltd. is one of the largest natural products manufacturers in Pakistan. We aspire to provide accessible healthcare solutions to the masses.",
+      "Our commitment lies in consistently upgrading quality standards through empowered, motivated and dedicated employees, to better serve our customers.",
+      "Wasay combines the best of nature with the best of science to bring our customers a huge family of products, from medicines and supplements to food items and beverages."
     ],
-    "media": { "alt": "The lobby at Supreme Art: glass doors between two hexagon showcases of the cartons we print", "image": "/images/about/lobby-showcase.webp" }
+    "image": "/images/wasay/section.webp",
+    "alt": "A smiling man holding a glass cup of tea, with the Urdu line “Aap bhi aadat bana lein”"
   },
   "values": {
-    "eyebrow": "What drives us",
-    "heading": "Our values.",
+    "eyebrow": "Why choose Wasay?",
+    "heading": "What you can count on.",
     "items": [
-      { "tag": "Quality", "title": "Get it right", "text": "Documented checks at every stage, so every carton meets pharma standards." },
-      { "tag": "Precision", "title": "To the millimetre", "text": "Clean cuts, crisp creases and colour that stays consistent across runs." },
-      { "tag": "Trust", "title": "Traceable & reliable", "text": "Full batch traceability and timelines you can plan production around." },
-      { "tag": "Craft", "title": "Decades in print", "text": "An experienced team that treats every job like it carries our name." }
-    ]
-  },
-  "numbers": {
-    "eyebrow": "By the numbers",
-    "heading": "Built on experience.",
-    "stats": [
-      { "number": 25, "label": "+ years in print" },
-      { "number": 100, "label": "% in-house production" },
-      { "number": 48, "label": "hr proofing turnaround" },
-      { "number": 6, "label": "carton formats" }
+      {
+        "title": "A blend of heritage and modernity",
+        "text": "We have a rich history and masterful expertise in blending nature’s gifts with mankind’s technological prowess."
+      },
+      {
+        "title": "A massive product catalogue",
+        "text": "Wasay offers a constantly expanding range of products designed to meet diverse needs, from health and wellness to food and beverages."
+      }
     ]
   },
   "compliance": {
-    "eyebrow": "Registered and compliant",
-    "heading": "Registered, certified and accountable.",
-    "text": "Incorporated with the Securities and Exchange Commission of Pakistan in 2016, registered with the Khyber Pakhtunkhwa Directorate of Labour under the Factories Act, registered with the Federal Board of Revenue, and a corporate member of the Sarhad Chamber of Commerce and Industry.",
+    "eyebrow": "Quality and compliance",
+    "heading": "Safe, effective and trustworthy.",
+    "text": "Quality and integrity guide how we work.",
     "items": [
-      { "title": "Securities and Exchange Commission of Pakistan", "text": "Incorporated as Supreme Art (Private) Limited in 2016." },
-      { "title": "Directorate of Labour, Khyber Pakhtunkhwa", "text": "Registered under the Factories Act." },
-      { "title": "Federal Board of Revenue", "text": "A registered taxpayer." },
-      { "title": "Sarhad Chamber of Commerce and Industry", "text": "A corporate member." }
+      {
+        "title": "Compliance with regulations",
+        "text": "We proudly comply with all national and international regulatory bodies to ensure our products are safe, effective and trustworthy."
+      },
+      {
+        "title": "National and international certifications and accreditations",
+        "text": "We actively pursue and maintain a wide range of certifications and accreditations, reflecting our dedication to quality and integrity."
+      }
     ]
   },
-  "gallery": { "eyebrow": "Inside the factory", "heading": "Where your cartons are made." },
   "cta": {
-    "heading": "Have a carton to make?",
-    "text": "Send us your artwork or dieline — we'll come back with a quote and a timeline.",
-    "primary_label": "Get a quote",
-    "primary_href": "contact.html",
-    "secondary_label": "See our products",
+    "heading": "Why wait any longer?",
+    "text": "Start browsing and shopping for the Wasay solutions that are right for you.",
+    "primary_label": "Start shopping",
+    "primary_href": "https://wasaylabs.com/shop/",
+    "secondary_label": "Our products",
     "secondary_href": "products.html"
   }
 }

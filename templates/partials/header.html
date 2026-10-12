@@ -1,6 +1,6 @@
   <header class="site-header">
     <div class="container nav">
-      <a class="brand" href="index.html"><img src="{{ site.logo }}" alt="Supreme Art" class="brand__logo" /></a>
+      <a class="brand" href="index.html"><img src="{{ site.logo }}" alt="{{ site.name }}" class="brand__logo" /></a>
       <nav class="nav-links">
         {{#each nav}}{{#if dropdown}}<span class="has-dropdown{{#if dropdown_mobile_only}} has-dropdown--mobile{{/if}}">
           <a href="{{ href }}"{{#if current}} class="current"{{/if}}>{{ label }}</a>
@@ -9,7 +9,7 @@
             {{/each}}
           </span>
         </span>
-        {{else}}<a href="{{ href }}" class="{{#if current}}current{{/if}}{{#if desktop_only}} nav-desktop-only{{/if}}">{{ label }}</a>
+        {{else}}<a href="{{ href }}" class="{{#if current}}current{{/if}}{{#if desktop_only}} nav-desktop-only{{/if}}"{{#if external}} target="_blank" rel="noopener"{{/if}}>{{ label }}</a>
         {{/if}}{{/each}}
       </nav>
       <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>

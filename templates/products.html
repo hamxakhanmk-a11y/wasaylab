@@ -1,110 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-{{> head}}<link rel="stylesheet" href="/product-box.css?v=20261008-2" /><link rel="stylesheet" href="/clients-page.css?v=20261007-logos" /><link rel="stylesheet" href="/glass-photos.css" /><link rel="stylesheet" href="/service-families.css?v=20261008-2" />
+{{> head}}
+  <link rel="stylesheet" href="/glass-photos.css" />
 </head>
-<body class="photo-zoom-page services-page">
-{{> gtm-body}}
+<body>
 {{> loader}}
 {{> header}}
 
   <main>
 {{> banner}}
 
-    <section class="section services-intro">
+    <section class="section" aria-labelledby="wz-catalogue-title">
       <div class="container">
-        <p class="eyebrow reveal">{{ page.range.eyebrow }}</p>
-        <h2 class="reveal">{{ page.range.heading }}</h2>
-        <p class="lead reveal">{{ page.range.lead }}</p>
-      </div>
-    </section>
-
-    {{#each page.range.groups}}
-    <!-- Each family is a horizontal gallery like the Clients page: it opens on its middle product and the arrows,
-         a swipe or the keyboard move left and right (clients-gallery.js). -->
-    <section class="service-family client-group" aria-labelledby="{{ id }}-heading">
-      <div class="container">
-        <header class="service-family__header reveal">
-          <h2 id="{{ id }}-heading">{{ heading }}</h2>
-        </header>
-        <div class="client-gallery-tools">
-          <p>Explore both ways · Swipe left/right or use the arrows</p>
-          <div><button type="button" class="client-gallery-prev" aria-label="Previous product">←</button><span class="client-gallery-count" aria-live="polite"></span><button type="button" class="client-gallery-next" aria-label="Next product">→</button></div>
+        <div class="section-head">
+          <p class="eyebrow">{{ page.intro.eyebrow }}</p>
+          <h2 id="wz-catalogue-title">{{ page.intro.heading }}</h2>
+          <p class="lead">{{ page.intro.text }}</p>
         </div>
-      </div>
-      <div class="client-gallery" tabindex="0" role="region" aria-label="{{ heading }} products">
-        <ul class="clients-page__list service-family__products">
-          {{#each items}}
-          <li class="client-pair service-display">
-            <div class="service-display__visual">
-              {{#if interactive_bottle}}{{> product-bottle}}{{else}}{{#if interactive_box}}{{> product-box}}{{else}}
-              <img src="{{ image }}" alt="{{ alt }}" loading="lazy" />
-              {{/if}}{{/if}}
-            </div>
+        <ul class="wz-products">
+          {{#each page.items}}<li class="wz-product card">
+            <span class="wz-product__photo glass-photo"><img src="{{ image }}" alt="{{ alt }}" width="2560" height="2560" loading="lazy" decoding="async" /></span>
+            <h3>{{ name }}</h3>
+            <p>{{ detail }}</p>
+            {{#if description}}<p class="wz-product__more">{{ description }}</p>{{/if}}
+            <a class="wz-link" href="{{ href }}" target="_blank" rel="noopener">{{ page.order_label }} &rarr;</a>
           </li>
           {{/each}}
         </ul>
       </div>
     </section>
-    {{/each}}
 
-    <section class="service-family service-food client-group" aria-labelledby="food-packaging-heading">
-      {{#with page.range.food}}
+    <section class="section section-alt" aria-labelledby="wz-shop-title">
       <div class="container">
-        <header class="service-family__header reveal"><h2 id="food-packaging-heading">{{ title }}</h2></header>
-        <div class="client-gallery-tools">
-          <p>Explore both ways · Swipe left/right or use the arrows</p>
-          <div><button type="button" class="client-gallery-prev" aria-label="Previous product">←</button><span class="client-gallery-count" aria-live="polite"></span><button type="button" class="client-gallery-next" aria-label="Next product">→</button></div>
+        <div class="section-head">
+          <p class="eyebrow">{{ page.categories.eyebrow }}</p>
+          <h2 id="wz-shop-title">{{ page.categories.heading }}</h2>
         </div>
-      </div>
-      <div class="client-gallery" tabindex="0" role="region" aria-label="{{ title }} products">
-        <ul class="clients-page__list service-family__products">
-          {{#each items}}
-          <li class="client-pair service-display"><div class="service-display__visual">{{> product-box}}</div></li>
+        <ul class="wz-chips">
+          {{#each page.categories.items}}<li><a class="wz-chip" href="{{ href }}" target="_blank" rel="noopener">{{ label }}</a></li>
           {{/each}}
         </ul>
-      </div>
-      {{/with}}
-    </section>
-
-    <section class="service-family service-neutra client-group" aria-labelledby="neutra-products-heading">
-      {{#with page.neutra}}
-      <div class="container">
-        <header class="service-family__header reveal"><h2 id="neutra-products-heading">{{ heading }}</h2></header>
-        <div class="client-gallery-tools">
-          <p>Explore both ways · Swipe left/right or use the arrows</p>
-          <div><button type="button" class="client-gallery-prev" aria-label="Previous product">←</button><span class="client-gallery-count" aria-live="polite"></span><button type="button" class="client-gallery-next" aria-label="Next product">→</button></div>
-        </div>
-      </div>
-      <div class="client-gallery" tabindex="0" role="region" aria-label="{{ heading }} products">
-        <ul class="clients-page__list service-family__products">
-          {{#each items}}
-          <li class="client-pair service-display"><div class="service-display__visual">{{> product-box}}</div></li>
-          {{/each}}
-        </ul>
-      </div>
-      {{/with}}
-    </section>
-    <section data-services-section class="section" aria-labelledby="finishes-heading">
-      <div class="container">
-        <h2 class="reveal" id="finishes-heading">{{ page.finishes.heading }}</h2>
-        <p class="lead reveal">{{ page.finishes.text }}</p>
-        <h3 class="reveal">{{ page.finishes.features_heading }}</h3>
-        <ul class="finishes-features">
-          {{#each page.finishes.features}}<li class="card reveal finish{{#if photos}} has-photos{{/if}}">
-            {{#if photos}}<figure class="finish__photos"><span class="glass-photo finish__main"><img src="{{ photos.0.image }}" alt="{{ photos.0.alt }}" loading="lazy" decoding="async" /></span>{{#if more}}<div class="finish__thumbs" role="group" aria-label="More {{ title }} photos">{{#each photos}}<button type="button" class="finish__thumb{{#if @index}}{{else}} is-current{{/if}}" data-src="{{ image }}" data-alt="{{ alt }}" aria-label="Show photo {{ @index }}"><img src="{{ image }}" alt="" loading="lazy" decoding="async" /></button>{{/each}}</div>{{/if}}</figure>{{/if}}
-            <h4>{{ title }}</h4><p>{{ text }}</p>
-          </li>{{/each}}
-        </ul>
-      </div>
-    </section>
-
-    <section data-services-section class="section band">
-      <div class="container">
-        <p class="eyebrow reveal">{{ page.capabilities.eyebrow }}</p>
-        <h2 class="reveal">{{ page.capabilities.heading }}</h2>
-{{> capabilities}}
-        <p class="capabilities__more reveal"><a class="btn btn--accent" href="{{ page.capabilities.button_href }}">{{ page.capabilities.button_label }}</a></p>
       </div>
     </section>
 
@@ -114,6 +50,6 @@
 {{> footer}}
 
   <script src="/script.js"></script>
-  <script src="/product-box-syrups.js"></script><script src="/product-box-food.js"></script><script src="/product-box-neutra.js"></script><script src="/product-labels.js?v=20261008-2"></script><script src="/product-box-injections.js?v=20261008-2"></script><script src="/product-box.js?v=20261009-2"></script><script src="/clients-gallery.js?v=20261007-logos"></script><script src="/glass-photos.js"></script><script src="/finishes.js"></script>
+  <script src="/glass-photos.js"></script>
 </body>
 </html>
