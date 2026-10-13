@@ -53,14 +53,38 @@
     "eyebrow": "Shop by category",
     "heading": "Find what you need.",
     "items": [
-      { "label": "General health", "href": "https://wasaylabs.com/product-category/general-health/" },
-      { "label": "Consumer products", "href": "https://wasaylabs.com/product-category/consumers-products/" },
-      { "label": "Personal care", "href": "https://wasaylabs.com/product-category/personal-care/" },
-      { "label": "Best sellers", "href": "https://wasaylabs.com/product-category/best-sellers/" },
-      { "label": "Natural drinks", "href": "https://wasaylabs.com/product-category/natural-drinks/" },
-      { "label": "Bundles", "href": "https://wasaylabs.com/product-category/bundles/" },
-      { "label": "Wellness e-reading", "href": "https://wasaylabs.com/product-category/wellness-e-reading/" },
-      { "label": "Q focus", "href": "https://wasaylabs.com/product-category/q-focus/" }
+      {
+        "label": "General health",
+        "href": "https://wasaylabs.com/product-category/general-health/"
+      },
+      {
+        "label": "Consumer products",
+        "href": "https://wasaylabs.com/product-category/consumers-products/"
+      },
+      {
+        "label": "Personal care",
+        "href": "https://wasaylabs.com/product-category/personal-care/"
+      },
+      {
+        "label": "Best sellers",
+        "href": "https://wasaylabs.com/product-category/best-sellers/"
+      },
+      {
+        "label": "Natural drinks",
+        "href": "https://wasaylabs.com/product-category/natural-drinks/"
+      },
+      {
+        "label": "Bundles",
+        "href": "https://wasaylabs.com/product-category/bundles/"
+      },
+      {
+        "label": "Wellness e-reading",
+        "href": "https://wasaylabs.com/product-category/wellness-e-reading/"
+      },
+      {
+        "label": "Q focus",
+        "href": "https://wasaylabs.com/product-category/q-focus/"
+      }
     ]
   },
   "cta": {
@@ -70,5 +94,79 @@
     "primary_href": "https://wasaylabs.com/shop/",
     "secondary_label": "About Wasay",
     "secondary_href": "about.html"
-  }
+  },
+  "tablets": [
+    {
+      "name": "Balooti",
+      "slug": "balooti",
+      "detail": "40 tablets",
+      "image": "/images/wasay/tablets/balooti-front.jpg"
+    },
+    {
+      "name": "Nisaee",
+      "slug": "nisaee",
+      "detail": "40 tablets",
+      "image": "/images/wasay/tablets/nisaee-front.jpg"
+    },
+    {
+      "name": "Dimageen",
+      "slug": "dimageen",
+      "detail": "40 tablets",
+      "image": "/images/wasay/tablets/dimageen-front.jpg"
+    },
+    {
+      "name": "Ushba",
+      "slug": "ushba",
+      "detail": "40 tablets",
+      "image": "/images/wasay/tablets/ushba-front.jpg"
+    },
+    {
+      "name": "Lekoden",
+      "slug": "lekoden",
+      "detail": "40 tablets",
+      "image": "/images/wasay/tablets/lekoden-front.jpg"
+    },
+    {
+      "name": "Zaheeri",
+      "slug": "zaheeri",
+      "detail": "16 tablets",
+      "image": "/images/wasay/tablets/zaheeri-front.jpg"
+    },
+    {
+      "name": "Suzashi",
+      "slug": "suzashi",
+      "detail": "16 tablets",
+      "image": "/images/wasay/tablets/suzashi-front.jpg"
+    },
+    {
+      "name": "Uqreen",
+      "slug": "uqreen",
+      "detail": "40 tablets",
+      "image": "/images/wasay/tablets/uqreen-front.jpg"
+    },
+    {
+      "name": "Qurs Mulayyan",
+      "slug": "qurs-mulayyan",
+      "detail": "16 tablets",
+      "image": "/images/wasay/tablets/qurs-mulayyan-front.jpg"
+    },
+    {
+      "name": "Deedani",
+      "slug": "deedani",
+      "detail": "16 tablets",
+      "image": "/images/wasay/tablets/deedani-front.jpg"
+    },
+    {
+      "name": "Bawaseeri",
+      "slug": "bawaseeri",
+      "detail": "40 tablets",
+      "image": "/images/wasay/tablets/bawaseeri-front.jpg"
+    },
+    {
+      "name": "Itrifal Ustukhuddus",
+      "slug": "itrifal-ustukhuddus",
+      "detail": "40 tablets",
+      "image": "/images/wasay/tablets/itrifal-ustukhuddus-front.jpg"
+    }
+  ]
 }

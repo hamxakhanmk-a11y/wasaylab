@@ -272,3 +272,6 @@ When adding a page or section:
   clients wall) that no Wasay page uses. They are inert and can be deleted in a cleanup pass.
 - The product photos are 2560px square WebP (about 250 KB each); resize to about 1000px before launch.
 - "Digestive Care" reuses the Consumer Products icon, as the live site does.
+
+## Interactive tablet cartons
+User-requested exception: photographed front, sides and top form floating 3D cartons. Turn range is limited to photographed faces. Native touch browsing, buttons and keyboard turning; reduced motion disables float and automatic turning.

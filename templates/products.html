@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 {{> head}}
+  <link rel="stylesheet" href="/tablets.css" />
   <link rel="stylesheet" href="/glass-photos.css" />
 </head>
 <body>
@@ -10,6 +11,14 @@
 
   <main>
 {{> banner}}
+
+    <section class="section tablet-section" aria-labelledby="tablet-title">
+      <div class="container"><p class="eyebrow">Tablet range</p><h2 id="tablet-title">Explore our tablets.</h2><p class="lead">Move over a carton to turn it. On phones, use the turn buttons; swipe the gallery to browse.</p>
+      <div class="tablet-gallery-tools"><button type="button" data-tablet-prev aria-label="Previous products">←</button><button type="button" data-tablet-next aria-label="Next products">→</button></div></div>
+      <ul class="tablet-gallery">
+      {{#each page.tablets}}<li class="tablet-item"><div class="tablet-view" data-tablet="{{ slug }}" tabindex="0" role="group" aria-label="{{ name }} carton. Use left and right arrow keys to turn."><img class="tablet-fallback" src="{{ image }}" alt="{{ name }} carton" loading="lazy" /><div class="tablet-float"><div class="tablet-model"></div></div></div><h3>{{ name }}</h3><p>{{ detail }}</p><div class="tablet-controls"><button type="button" data-turn="-1" aria-label="Turn {{ name }} left">↶</button><button type="button" data-turn="1" aria-label="Turn {{ name }} right">↷</button></div></li>{{/each}}
+      </ul>
+    </section>
 
     <section class="section" aria-labelledby="wz-catalogue-title">
       <div class="container">
@@ -51,5 +60,6 @@
 
   <script src="/script.js"></script>
   <script src="/glass-photos.js"></script>
+  <script src="/tablets.js"></script>
 </body>
 </html>

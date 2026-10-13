@@ -1,0 +1,638 @@
+[
+  {
+    "name": "Balooti",
+    "slug": "balooti",
+    "count": 40,
+    "height": 155,
+    "photos": [
+      "/images/wasay/tablets/balooti-front.jpg",
+      "/images/wasay/tablets/balooti-left.jpg",
+      "/images/wasay/tablets/balooti-right.jpg"
+    ],
+    "faces": [
+      [
+        322,
+        350,
+        916,
+        348,
+        905,
+        664,
+        330,
+        666
+      ],
+      [
+        460,
+        370,
+        600,
+        388,
+        600,
+        717,
+        466,
+        678
+      ],
+      [
+        826,
+        302,
+        890,
+        284,
+        886,
+        549,
+        819,
+        580
+      ],
+      [
+        460,
+        368,
+        797,
+        301,
+        941,
+        319,
+        601,
+        386
+      ]
+    ]
+  },
+  {
+    "name": "Nisaee",
+    "slug": "nisaee",
+    "count": 40,
+    "height": 155,
+    "photos": [
+      "/images/wasay/tablets/nisaee-front.jpg",
+      "/images/wasay/tablets/nisaee-left.jpg",
+      "/images/wasay/tablets/nisaee-right.jpg"
+    ],
+    "faces": [
+      [
+        407,
+        373,
+        872,
+        368,
+        868,
+        601,
+        417,
+        614
+      ],
+      [
+        440,
+        370,
+        539,
+        396,
+        558,
+        653,
+        457,
+        623
+      ],
+      [
+        799,
+        339,
+        874,
+        324,
+        858,
+        536,
+        788,
+        562
+      ],
+      [
+        440,
+        368,
+        772,
+        271,
+        871,
+        292,
+        539,
+        393
+      ]
+    ]
+  },
+  {
+    "name": "Dimageen",
+    "slug": "dimageen",
+    "count": 40,
+    "height": 155,
+    "photos": [
+      "/images/wasay/tablets/dimageen-front.jpg",
+      "/images/wasay/tablets/dimageen-left.jpg",
+      "/images/wasay/tablets/dimageen-right.jpg"
+    ],
+    "faces": [
+      [
+        430,
+        381,
+        887,
+        373,
+        879,
+        588,
+        438,
+        593
+      ],
+      [
+        472,
+        381,
+        567,
+        410,
+        568,
+        637,
+        477,
+        598
+      ],
+      [
+        780,
+        389,
+        837,
+        366,
+        832,
+        573,
+        776,
+        598
+      ],
+      [
+        471,
+        379,
+        762,
+        301,
+        851,
+        325,
+        566,
+        408
+      ]
+    ]
+  },
+  {
+    "name": "Ushba",
+    "slug": "ushba",
+    "count": 40,
+    "height": 155,
+    "photos": [
+      "/images/wasay/tablets/ushba-front.jpg",
+      "/images/wasay/tablets/ushba-left.jpg",
+      "/images/wasay/tablets/ushba-right.jpg"
+    ],
+    "faces": [
+      [
+        400,
+        359,
+        902,
+        351,
+        887,
+        599,
+        407,
+        601
+      ],
+      [
+        447,
+        365,
+        550,
+        399,
+        539,
+        642,
+        446,
+        602
+      ],
+      [
+        663,
+        296,
+        725,
+        266,
+        726,
+        486,
+        663,
+        523
+      ],
+      [
+        447,
+        363,
+        758,
+        288,
+        850,
+        308,
+        552,
+        397
+      ]
+    ]
+  },
+  {
+    "name": "Lekoden",
+    "slug": "lekoden",
+    "count": 40,
+    "height": 155,
+    "photos": [
+      "/images/wasay/tablets/lekoden-front.jpg",
+      "/images/wasay/tablets/lekoden-left.jpg",
+      "/images/wasay/tablets/lekoden-right.jpg"
+    ],
+    "faces": [
+      [
+        416,
+        382,
+        870,
+        372,
+        858,
+        593,
+        426,
+        604
+      ],
+      [
+        450,
+        425,
+        554,
+        460,
+        557,
+        694,
+        457,
+        648
+      ],
+      [
+        772,
+        405,
+        817,
+        354,
+        811,
+        545,
+        765,
+        598
+      ],
+      [
+        450,
+        423,
+        766,
+        321,
+        860,
+        347,
+        554,
+        458
+      ]
+    ]
+  },
+  {
+    "name": "Zaheeri",
+    "slug": "zaheeri",
+    "count": 16,
+    "height": 116,
+    "photos": [
+      "/images/wasay/tablets/zaheeri-front.jpg",
+      "/images/wasay/tablets/zaheeri-left.jpg",
+      "/images/wasay/tablets/zaheeri-right.jpg"
+    ],
+    "faces": [
+      [
+        409,
+        375,
+        965,
+        369,
+        952,
+        575,
+        414,
+        590
+      ],
+      [
+        440,
+        424,
+        495,
+        446,
+        498,
+        670,
+        446,
+        639
+      ],
+      [
+        832,
+        365,
+        867,
+        342,
+        851,
+        539,
+        830,
+        568
+      ],
+      [
+        440,
+        422,
+        820,
+        311,
+        874,
+        330,
+        495,
+        444
+      ]
+    ]
+  },
+  {
+    "name": "Suzashi",
+    "slug": "suzashi",
+    "count": 16,
+    "height": 116,
+    "photos": [
+      "/images/wasay/tablets/suzashi-front.jpg",
+      "/images/wasay/tablets/suzashi-left.jpg",
+      "/images/wasay/tablets/suzashi-right.jpg"
+    ],
+    "faces": [
+      [
+        337,
+        338,
+        943,
+        333,
+        926,
+        560,
+        346,
+        565
+      ],
+      [
+        526,
+        398,
+        585,
+        419,
+        588,
+        648,
+        538,
+        619
+      ],
+      [
+        850,
+        377,
+        897,
+        348,
+        886,
+        568,
+        847,
+        593
+      ],
+      [
+        526,
+        396,
+        908,
+        286,
+        958,
+        307,
+        585,
+        417
+      ]
+    ]
+  },
+  {
+    "name": "Uqreen",
+    "slug": "uqreen",
+    "count": 40,
+    "height": 155,
+    "photos": [
+      "/images/wasay/tablets/uqreen-front.jpg",
+      "/images/wasay/tablets/uqreen-left.jpg",
+      "/images/wasay/tablets/uqreen-right.jpg"
+    ],
+    "faces": [
+      [
+        344,
+        365,
+        903,
+        364,
+        891,
+        644,
+        363,
+        644
+      ],
+      [
+        435,
+        286,
+        537,
+        325,
+        546,
+        589,
+        443,
+        543
+      ],
+      [
+        803,
+        334,
+        872,
+        303,
+        859,
+        538,
+        797,
+        566
+      ],
+      [
+        435,
+        284,
+        793,
+        202,
+        894,
+        225,
+        538,
+        323
+      ]
+    ]
+  },
+  {
+    "name": "Qurs Mulayyan",
+    "slug": "qurs-mulayyan",
+    "count": 16,
+    "height": 116,
+    "photos": [
+      "/images/wasay/tablets/qurs-mulayyan-front.jpg",
+      "/images/wasay/tablets/qurs-mulayyan-left.jpg",
+      "/images/wasay/tablets/qurs-mulayyan-right.jpg"
+    ],
+    "faces": [
+      [
+        388,
+        379,
+        964,
+        369,
+        952,
+        591,
+        396,
+        603
+      ],
+      [
+        454,
+        399,
+        518,
+        422,
+        518,
+        639,
+        463,
+        604
+      ],
+      [
+        779,
+        320,
+        824,
+        300,
+        815,
+        534,
+        776,
+        552
+      ],
+      [
+        454,
+        397,
+        817,
+        296,
+        873,
+        312,
+        518,
+        420
+      ]
+    ]
+  },
+  {
+    "name": "Deedani",
+    "slug": "deedani",
+    "count": 16,
+    "height": 116,
+    "photos": [
+      "/images/wasay/tablets/deedani-front.jpg",
+      "/images/wasay/tablets/deedani-left.jpg",
+      "/images/wasay/tablets/deedani-right.jpg"
+    ],
+    "faces": [
+      [
+        400,
+        345,
+        900,
+        339,
+        892,
+        543,
+        403,
+        548
+      ],
+      [
+        483,
+        384,
+        545,
+        403,
+        562,
+        625,
+        496,
+        601
+      ],
+      [
+        871,
+        369,
+        906,
+        347,
+        893,
+        581,
+        862,
+        607
+      ],
+      [
+        483,
+        382,
+        837,
+        260,
+        896,
+        276,
+        545,
+        401
+      ]
+    ]
+  },
+  {
+    "name": "Bawaseeri",
+    "slug": "bawaseeri",
+    "count": 40,
+    "height": 155,
+    "photos": [
+      "/images/wasay/tablets/bawaseeri-front.jpg",
+      "/images/wasay/tablets/bawaseeri-left.jpg",
+      "/images/wasay/tablets/bawaseeri-right.jpg"
+    ],
+    "faces": [
+      [
+        301,
+        353,
+        953,
+        344,
+        934,
+        658,
+        325,
+        673
+      ],
+      [
+        497,
+        381,
+        619,
+        416,
+        620,
+        715,
+        503,
+        646
+      ],
+      [
+        843,
+        313,
+        910,
+        283,
+        897,
+        532,
+        833,
+        567
+      ],
+      [
+        497,
+        379,
+        836,
+        286,
+        929,
+        310,
+        619,
+        414
+      ]
+    ]
+  },
+  {
+    "name": "Itrifal Ustukhuddus",
+    "slug": "itrifal-ustukhuddus",
+    "count": 40,
+    "height": 155,
+    "photos": [
+      "/images/wasay/tablets/itrifal-ustukhuddus-front.jpg",
+      "/images/wasay/tablets/itrifal-ustukhuddus-left.jpg",
+      "/images/wasay/tablets/itrifal-ustukhuddus-right.jpg"
+    ],
+    "faces": [
+      [
+        398,
+        314,
+        921,
+        323,
+        902,
+        578,
+        410,
+        574
+      ],
+      [
+        495,
+        310,
+        609,
+        342,
+        611,
+        595,
+        503,
+        551
+      ],
+      [
+        907,
+        358,
+        978,
+        324,
+        964,
+        577,
+        901,
+        609
+      ],
+      [
+        495,
+        308,
+        818,
+        212,
+        929,
+        239,
+        609,
+        340
+      ]
+    ]
+  }
+]
