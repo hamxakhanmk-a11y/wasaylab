@@ -22,3 +22,5 @@
 @media(max-width:620px){.product-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.product-tabs button{padding-inline:10px;width:100%}}
 
 .paste-view{height:320px;position:relative;display:grid;place-items:center;touch-action:pan-y}.paste-view canvas{display:none;width:240px;height:320px;max-width:100%;object-fit:contain}.paste-view.ready canvas{display:block}.paste-view.ready img{display:none}.paste-view:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+
+.tablet-view{perspective:none;isolation:auto}.tablet-float{width:100%;height:320px;transform-style:flat}.tablet-model{position:relative;inset:auto;width:100%;height:100%;transform:none!important;transform-style:flat}.tablet-model .carton-canvas{position:relative;display:block;width:256px;height:320px;margin:auto;backface-visibility:visible;-webkit-backface-visibility:visible;transform:none}.paste-view::after{content:'';position:absolute;bottom:30px;width:130px;height:14px;border-radius:50%;background:radial-gradient(ellipse,rgba(60,45,30,.14),transparent 70%);pointer-events:none}

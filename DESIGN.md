@@ -281,3 +281,5 @@ Products now use vertical grids: three columns on desktop, two on tablets, one o
 The Products page has three peer category tabs: Tablets, Multi Tonics, Syrups. Each owns a vertical grid. Tab buttons support keyboard arrows, Home/End, and category URL hashes. Source photos remain unchanged; drops and suspensions retain their packaging labels within the requested Syrups category.
 
 Paste jars use cylindrical canvas projection with photographed lids and label sectors. The main navigation exposes Tablets, Multi Tonics, Syrups, Ointments and Pastes as dedicated pages after Home. Source photographs are preserved unchanged.
+
+Cartons now use one depth-buffered WebGL canvas per product, replacing separately composited CSS faces. Paste jars use a closed lathed body with a rounded heel, continuous shoulder and screw cap, and photographed label and cap textures.
