@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{{> head}}
+  <link rel="stylesheet" href="/tablets.css" />
+  <link rel="stylesheet" href="/glass-photos.css" />
+</head>
+<body>
+{{> loader}}
+{{> header}}
+
+  <main>
+{{> banner}}
+
+    <section class="section tablet-section" id="panel-syrups" aria-label="Syrups" data-product-panel="syrups" tabindex="0">
+      <div class="container"><p class="eyebrow">Syrups</p><h2 id="syrup-title">Explore our Syrups.</h2><p class="lead">The cartons turn gently on their own. Move your mouse over one to explore its sides.</p>
+      </div>
+      <ul class="tablet-gallery">
+      {{#each page.syrups}}<li class="tablet-item"><div class="tablet-view" data-tablet="{{ slug }}" tabindex="0" role="group" aria-label="{{ name }} carton. Use left and right arrow keys to turn."><img class="tablet-fallback" src="{{ image }}" alt="{{ name }} carton" loading="lazy" /><div class="tablet-float"><div class="tablet-model"></div></div></div><h3>{{ name }}</h3><p>{{ detail }}</p></li>{{/each}}
+      </ul>
+        <section class="section" aria-labelledby="wz-catalogue-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">{{ page.intro.eyebrow }}</p>
+          <h2 id="wz-catalogue-title">{{ page.intro.heading }}</h2>
+          <p class="lead">{{ page.intro.text }}</p>
+        </div>
+        <ul class="wz-products">
+          {{#each page.items}}<li class="wz-product card">
+            <span class="wz-product__photo glass-photo"><img src="{{ image }}" alt="{{ alt }}" width="2560" height="2560" loading="lazy" decoding="async" /></span>
+            <h3>{{ name }}</h3>
+            <p>{{ detail }}</p>
+            {{#if description}}<p class="wz-product__more">{{ description }}</p>{{/if}}
+            <a class="wz-link" href="{{ href }}" target="_blank" rel="noopener">{{ page.order_label }} &rarr;</a>
+          </li>
+          {{/each}}
+        </ul>
+      </div>
+    </section>
+
+    </section>
+    <section class="section section-alt" aria-labelledby="wz-shop-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">{{ page.categories.eyebrow }}</p>
+          <h2 id="wz-shop-title">{{ page.categories.heading }}</h2>
+        </div>
+        <ul class="wz-chips">
+          {{#each page.categories.items}}<li><a class="wz-chip" href="{{ href }}" target="_blank" rel="noopener">{{ label }}</a></li>
+          {{/each}}
+        </ul>
+      </div>
+    </section>
+
+{{> cta}}
+  </main>
+
+{{> footer}}
+
+  <script src="/script.js"></script>
+  <script src="/glass-photos.js"></script>
+  <script src="/product-tabs.js"></script>
+  <script src="/tablets.js"></script>
+  <script src="/pastes.js"></script>
+</body>
+</html>

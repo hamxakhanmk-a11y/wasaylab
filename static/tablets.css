@@ -20,3 +20,5 @@
 @media(max-width:620px){.product-tabs{gap:8px;flex-wrap:nowrap}.product-tabs button{padding:12px 14px;font-size:.9rem;white-space:nowrap}}
 
 @media(max-width:620px){.product-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.product-tabs button{padding-inline:10px;width:100%}}
+
+.paste-view{height:320px;position:relative;display:grid;place-items:center;touch-action:pan-y}.paste-view canvas{display:none;width:240px;height:320px;max-width:100%;object-fit:contain}.paste-view.ready canvas{display:block}.paste-view.ready img{display:none}.paste-view:focus-visible{outline:2px solid var(--accent);outline-offset:4px}

@@ -279,3 +279,5 @@ User-requested exception: photographed front, sides and top form floating 3D car
 Products now use vertical grids: three columns on desktop, two on tablets, one on phones. Tablet and Multi Tonic categories share measured carton dimensions, native-resolution face sampling and eased manual/automatic turning. Source photographs remain unmodified.
 
 The Products page has three peer category tabs: Tablets, Multi Tonics, Syrups. Each owns a vertical grid. Tab buttons support keyboard arrows, Home/End, and category URL hashes. Source photos remain unchanged; drops and suspensions retain their packaging labels within the requested Syrups category.
+
+Paste jars use cylindrical canvas projection with photographed lids and label sectors. The main navigation exposes Tablets, Multi Tonics, Syrups, Ointments and Pastes as dedicated pages after Home. Source photographs are preserved unchanged.

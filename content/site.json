@@ -15,9 +15,33 @@
         "dropdown": []
       },
       {
-        "label": "Products",
-        "href": "products.html",
-        "slug": "products",
+        "label": "Tablets",
+        "href": "tablets.html",
+        "slug": "tablets",
+        "dropdown": []
+      },
+      {
+        "label": "Multi Tonics",
+        "href": "tonics.html",
+        "slug": "tonics",
+        "dropdown": []
+      },
+      {
+        "label": "Syrups",
+        "href": "syrups.html",
+        "slug": "syrups",
+        "dropdown": []
+      },
+      {
+        "label": "Ointments",
+        "href": "ointments.html",
+        "slug": "ointments",
+        "dropdown": []
+      },
+      {
+        "label": "Pastes",
+        "href": "pastes.html",
+        "slug": "pastes",
         "dropdown": []
       },
       {

@@ -1,0 +1,164 @@
+[
+  {
+    "name": "Hasnat",
+    "slug": "hasnat",
+    "detail": "250 gm",
+    "photos": [
+      "/images/wasay/pastes/hasnat-front.jpg",
+      "/images/wasay/pastes/hasnat-left.jpg",
+      "/images/wasay/pastes/hasnat-right.jpg"
+    ],
+    "bounds": [
+      518,
+      250,
+      850,
+      757,
+      380
+    ],
+    "wide": true
+  },
+  {
+    "name": "Slim Food",
+    "slug": "slim-food",
+    "detail": "150 gm",
+    "photos": [
+      "/images/wasay/pastes/slim-food-front.jpg",
+      "/images/wasay/pastes/slim-food-left.jpg",
+      "/images/wasay/pastes/slim-food-right.jpg"
+    ],
+    "bounds": [
+      555,
+      258,
+      843,
+      701,
+      386
+    ],
+    "wide": true
+  },
+  {
+    "name": "Laooq Sapistan",
+    "slug": "laooq-sapistan",
+    "detail": "100 gm",
+    "photos": [
+      "/images/wasay/pastes/laooq-sapistan-front.jpg",
+      "/images/wasay/pastes/laooq-sapistan-left.jpg",
+      "/images/wasay/pastes/laooq-sapistan-right.jpg"
+    ],
+    "bounds": [
+      597,
+      324,
+      817,
+      728,
+      464
+    ],
+    "wide": false
+  },
+  {
+    "name": "Itrifal Kishneezi",
+    "slug": "itrifal-kishneezi",
+    "detail": "100 gm",
+    "photos": [
+      "/images/wasay/pastes/itrifal-kishneezi-front.jpg",
+      "/images/wasay/pastes/itrifal-kishneezi-left.jpg",
+      "/images/wasay/pastes/itrifal-kishneezi-right.jpg"
+    ],
+    "bounds": [
+      579,
+      264,
+      805,
+      685,
+      426
+    ],
+    "wide": false
+  },
+  {
+    "name": "Itrifal Muqil",
+    "slug": "itrifal-muqil",
+    "detail": "100 gm",
+    "photos": [
+      "/images/wasay/pastes/itrifal-muqil-front.jpg",
+      "/images/wasay/pastes/itrifal-muqil-left.jpg",
+      "/images/wasay/pastes/itrifal-muqil-right.jpg"
+    ],
+    "bounds": [
+      498,
+      312,
+      775,
+      820,
+      497
+    ],
+    "wide": false
+  },
+  {
+    "name": "Jawarish Shahi",
+    "slug": "jawarish-shahi",
+    "detail": "100 gm",
+    "photos": [
+      "/images/wasay/pastes/jawarish-shahi-front.jpg",
+      "/images/wasay/pastes/jawarish-shahi-left.jpg",
+      "/images/wasay/pastes/jawarish-shahi-right.jpg"
+    ],
+    "bounds": [
+      539,
+      280,
+      792,
+      746,
+      455
+    ],
+    "wide": false
+  },
+  {
+    "name": "Majoon Ushba",
+    "slug": "majoon-ushba",
+    "detail": "100 gm",
+    "photos": [
+      "/images/wasay/pastes/majoon-ushba-front.jpg",
+      "/images/wasay/pastes/majoon-ushba-left.jpg",
+      "/images/wasay/pastes/majoon-ushba-right.jpg"
+    ],
+    "bounds": [
+      583,
+      290,
+      829,
+      731,
+      449
+    ],
+    "wide": false
+  },
+  {
+    "name": "Majoon Falasfa",
+    "slug": "majoon-falasfa",
+    "detail": "100 gm",
+    "photos": [
+      "/images/wasay/pastes/majoon-falasfa-front.jpg",
+      "/images/wasay/pastes/majoon-falasfa-left.jpg",
+      "/images/wasay/pastes/majoon-falasfa-right.jpg"
+    ],
+    "bounds": [
+      533,
+      209,
+      812,
+      711,
+      379
+    ],
+    "wide": false
+  },
+  {
+    "name": "Mother Tonic",
+    "slug": "mother-tonic",
+    "detail": "50 gm",
+    "photos": [
+      "/images/wasay/pastes/mother-tonic-front.jpg",
+      "/images/wasay/pastes/mother-tonic-left.jpg",
+      "/images/wasay/pastes/mother-tonic-right.jpg"
+    ],
+    "bounds": [
+      536,
+      176,
+      818,
+      695,
+      357
+    ],
+    "wide": false
+  }
+]

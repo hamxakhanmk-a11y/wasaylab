@@ -12,12 +12,7 @@
   <main>
 {{> banner}}
 
-    <div class="container product-tabs" role="tablist" aria-label="Product types">
-      <button type="button" role="tab" id="tab-tablets" aria-controls="panel-tablets" aria-selected="true" tabindex="0" data-product-tab="tablets">Tablets</button>
-      <button type="button" role="tab" id="tab-tonics" aria-controls="panel-tonics" aria-selected="false" tabindex="-1" data-product-tab="tonics">Multi Tonics</button>
-      <button type="button" role="tab" id="tab-syrups" aria-controls="panel-syrups" aria-selected="false" tabindex="-1" data-product-tab="syrups">Syrups</button>
-      <button type="button" role="tab" id="tab-ointments" aria-controls="panel-ointments" aria-selected="false" tabindex="-1" data-product-tab="ointments">Ointments</button>
-    </div>
+    <nav class="container product-tabs" aria-label="Product types"><a class="btn btn--ghost" href="tablets.html">Tablets</a><a class="btn btn--ghost" href="tonics.html">Multi Tonics</a><a class="btn btn--ghost" href="syrups.html">Syrups</a><a class="btn btn--ghost" href="ointments.html">Ointments</a><a class="btn btn--ghost" href="pastes.html">Pastes</a></nav>
     <section class="section tablet-section" role="tabpanel" id="panel-tablets" aria-labelledby="tab-tablets" data-product-panel="tablets" tabindex="0">
       <div class="container"><p class="eyebrow">Tablet range</p><h2 id="tablet-title">Explore our tablets.</h2><p class="lead">The cartons turn gently on their own. Move your mouse over one to explore its sides.</p>
       </div>
@@ -69,6 +64,11 @@
       </ul>
     </section>
 
+    <section class="section tablet-section" aria-labelledby="paste-title" data-product-panel="pastes">
+      <div class="container"><p class="eyebrow">Pastes</p><h2 id="paste-title">Explore our pastes.</h2><p class="lead">Round jars, photographed labels. Move your mouse or use the arrow keys to turn.</p></div>
+      <ul class="tablet-gallery">{{#each page.pastes}}<li class="tablet-item"><div class="paste-view" data-paste="{{ slug }}" tabindex="0" role="group" aria-label="{{ name }} jar. Use left and right arrow keys to turn."><img class="tablet-fallback" src="{{ image }}" alt="{{ name }} jar" loading="lazy" /><canvas width="420" height="560" aria-hidden="true"></canvas></div><h3>{{ name }}</h3><p>{{ detail }}</p></li>{{/each}}</ul>
+    </section>
+
     <section class="section section-alt" aria-labelledby="wz-shop-title">
       <div class="container">
         <div class="section-head">
@@ -89,7 +89,8 @@
 
   <script src="/script.js"></script>
   <script src="/glass-photos.js"></script>
-  <script src="/product-tabs.js"></script>
+
   <script src="/tablets.js"></script>
+  <script src="/pastes.js"></script>
 </body>
 </html>
