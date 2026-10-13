@@ -2332,5 +2332,170 @@
         274
       ]
     ]
+  },
+  {
+    "name": "Lozan",
+    "slug": "lozan-ointment",
+    "detail": "20 gm ointment",
+    "width": 260,
+    "height": 80,
+    "depth": 36,
+    "faces": [
+      [
+        390,
+        376,
+        964,
+        378,
+        950,
+        546,
+        398,
+        539
+      ],
+      [
+        555,
+        406,
+        609,
+        418,
+        620,
+        563,
+        563,
+        542
+      ],
+      [
+        827,
+        407,
+        868,
+        389,
+        856,
+        510,
+        818,
+        527
+      ],
+      [
+        555,
+        403,
+        850,
+        303,
+        911,
+        315,
+        609,
+        415
+      ]
+    ],
+    "photos": [
+      "/images/wasay/ointments/lozan-ointment-front.jpg",
+      "/images/wasay/ointments/lozan-ointment-left.jpg",
+      "/images/wasay/ointments/lozan-ointment-right.jpg"
+    ]
+  },
+  {
+    "name": "Amleena",
+    "slug": "amleena-hair-oil",
+    "detail": "120 ml aloe vera hair oil",
+    "width": 132,
+    "height": 280,
+    "depth": 95,
+    "faces": [
+      [
+        568,
+        317,
+        831,
+        311,
+        815,
+        870,
+        583,
+        875
+      ],
+      [
+        620,
+        244,
+        714,
+        268,
+        707,
+        802,
+        624,
+        753
+      ],
+      [
+        769,
+        295,
+        829,
+        279,
+        805,
+        754,
+        750,
+        790
+      ],
+      [
+        620,
+        241,
+        777,
+        196,
+        856,
+        220,
+        714,
+        265
+      ]
+    ],
+    "photos": [
+      "/images/wasay/ointments/amleena-hair-oil-front.jpg",
+      "/images/wasay/ointments/amleena-hair-oil-left.jpg",
+      "/images/wasay/ointments/amleena-hair-oil-right.jpg"
+    ]
+  },
+  {
+    "name": "Neemol",
+    "slug": "neemol-soap",
+    "detail": "Herbal antiseptic soap",
+    "width": 230,
+    "height": 134,
+    "depth": 47,
+    "faces": [
+      [
+        475,
+        397,
+        913,
+        395,
+        902,
+        642,
+        480,
+        639
+      ],
+      [
+        478,
+        379,
+        555,
+        411,
+        559,
+        631,
+        485,
+        593
+      ],
+      [
+        800,
+        386,
+        852,
+        362,
+        842,
+        546,
+        791,
+        572
+      ],
+      [
+        478,
+        376,
+        746,
+        285,
+        826,
+        311,
+        555,
+        408
+      ]
+    ],
+    "photos": [
+      "/images/wasay/ointments/neemol-soap-front.jpg",
+      "/images/wasay/ointments/neemol-soap-left.jpg",
+      "/images/wasay/ointments/neemol-soap-right.jpg"
+    ]
   }
 ]

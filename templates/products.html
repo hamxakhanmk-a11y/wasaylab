@@ -16,8 +16,9 @@
       <button type="button" role="tab" id="tab-tablets" aria-controls="panel-tablets" aria-selected="true" tabindex="0" data-product-tab="tablets">Tablets</button>
       <button type="button" role="tab" id="tab-tonics" aria-controls="panel-tonics" aria-selected="false" tabindex="-1" data-product-tab="tonics">Multi Tonics</button>
       <button type="button" role="tab" id="tab-syrups" aria-controls="panel-syrups" aria-selected="false" tabindex="-1" data-product-tab="syrups">Syrups</button>
+      <button type="button" role="tab" id="tab-ointments" aria-controls="panel-ointments" aria-selected="false" tabindex="-1" data-product-tab="ointments">Ointments</button>
     </div>
-    <section class="section tablet-section" role="tabpanel" id="panel-tablets" aria-labelledby="tab-tablets" data-product-panel="tablets" tabindex="0" aria-labelledby="tablet-title">
+    <section class="section tablet-section" role="tabpanel" id="panel-tablets" aria-labelledby="tab-tablets" data-product-panel="tablets" tabindex="0">
       <div class="container"><p class="eyebrow">Tablet range</p><h2 id="tablet-title">Explore our tablets.</h2><p class="lead">The cartons turn gently on their own. Move your mouse over one to explore its sides.</p>
       </div>
       <ul class="tablet-gallery">
@@ -25,7 +26,7 @@
       </ul>
     </section>
 
-    <section class="section tablet-section" role="tabpanel" id="panel-tonics" aria-labelledby="tab-tonics" data-product-panel="tonics" tabindex="0" aria-labelledby="tonic-title">
+    <section class="section tablet-section" role="tabpanel" id="panel-tonics" aria-labelledby="tab-tonics" data-product-panel="tonics" tabindex="0">
       <div class="container"><p class="eyebrow">Multi Tonics</p><h2 id="tonic-title">Explore our Multi Tonics.</h2><p class="lead">The cartons turn gently on their own. Move your mouse over one to explore its sides.</p>
       </div>
       <ul class="tablet-gallery">
@@ -33,7 +34,7 @@
       </ul>
     </section>
 
-    <section class="section tablet-section" role="tabpanel" id="panel-syrups" aria-labelledby="tab-syrups" data-product-panel="syrups" tabindex="0" aria-labelledby="syrup-title">
+    <section class="section tablet-section" role="tabpanel" id="panel-syrups" aria-labelledby="tab-syrups" data-product-panel="syrups" tabindex="0">
       <div class="container"><p class="eyebrow">Syrups</p><h2 id="syrup-title">Explore our Syrups.</h2><p class="lead">The cartons turn gently on their own. Move your mouse over one to explore its sides.</p>
       </div>
       <ul class="tablet-gallery">
@@ -60,6 +61,14 @@
     </section>
 
     </section>
+    <section class="section tablet-section" role="tabpanel" id="panel-ointments" aria-labelledby="tab-ointments" data-product-panel="ointments" tabindex="0">
+      <div class="container"><p class="eyebrow">Ointments</p><h2 id="ointment-title">Explore our Ointments.</h2><p class="lead">The cartons turn gently on their own. Move your mouse over one to explore its sides.</p>
+      </div>
+      <ul class="tablet-gallery">
+      {{#each page.ointments}}<li class="tablet-item"><div class="tablet-view" data-tablet="{{ slug }}" tabindex="0" role="group" aria-label="{{ name }} carton. Use left and right arrow keys to turn."><img class="tablet-fallback" src="{{ image }}" alt="{{ name }} carton" loading="lazy" /><div class="tablet-float"><div class="tablet-model"></div></div></div><h3>{{ name }}</h3><p>{{ detail }}</p></li>{{/each}}
+      </ul>
+    </section>
+
     <section class="section section-alt" aria-labelledby="wz-shop-title">
       <div class="container">
         <div class="section-head">

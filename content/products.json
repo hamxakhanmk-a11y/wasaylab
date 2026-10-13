@@ -358,5 +358,25 @@
       "detail": "240 ml suspension",
       "image": "/images/wasay/syrups/syrup-naxio-plus-front.jpg"
     }
+  ],
+  "ointments": [
+    {
+      "name": "Lozan",
+      "slug": "lozan-ointment",
+      "detail": "20 gm ointment",
+      "image": "/images/wasay/ointments/lozan-ointment-front.jpg"
+    },
+    {
+      "name": "Amleena",
+      "slug": "amleena-hair-oil",
+      "detail": "120 ml aloe vera hair oil",
+      "image": "/images/wasay/ointments/amleena-hair-oil-front.jpg"
+    },
+    {
+      "name": "Neemol",
+      "slug": "neemol-soap",
+      "detail": "Herbal antiseptic soap",
+      "image": "/images/wasay/ointments/neemol-soap-front.jpg"
+    }
   ]
 }
