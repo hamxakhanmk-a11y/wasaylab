@@ -13,18 +13,18 @@
 {{> banner}}
 
     <section class="section tablet-section" aria-labelledby="tablet-title">
-      <div class="container"><p class="eyebrow">Tablet range</p><h2 id="tablet-title">Explore our tablets.</h2><p class="lead">Move over a carton to turn it, or use the buttons below each product.</p>
+      <div class="container"><p class="eyebrow">Tablet range</p><h2 id="tablet-title">Explore our tablets.</h2><p class="lead">The cartons turn gently on their own. Move your mouse over one to explore its sides.</p>
       </div>
       <ul class="tablet-gallery">
-      {{#each page.tablets}}<li class="tablet-item"><div class="tablet-view" data-tablet="{{ slug }}" tabindex="0" role="group" aria-label="{{ name }} carton. Use left and right arrow keys to turn."><img class="tablet-fallback" src="{{ image }}" alt="{{ name }} carton" loading="lazy" /><div class="tablet-float"><div class="tablet-model"></div></div></div><h3>{{ name }}</h3><p>{{ detail }}</p><div class="tablet-controls"><button type="button" data-turn="-1" aria-label="Turn {{ name }} left">↶</button><button type="button" data-turn="1" aria-label="Turn {{ name }} right">↷</button></div></li>{{/each}}
+      {{#each page.tablets}}<li class="tablet-item"><div class="tablet-view" data-tablet="{{ slug }}" tabindex="0" role="group" aria-label="{{ name }} carton. Use left and right arrow keys to turn."><img class="tablet-fallback" src="{{ image }}" alt="{{ name }} carton" loading="lazy" /><div class="tablet-float"><div class="tablet-model"></div></div></div><h3>{{ name }}</h3><p>{{ detail }}</p></li>{{/each}}
       </ul>
     </section>
 
     <section class="section tablet-section" aria-labelledby="tonic-title">
-      <div class="container"><p class="eyebrow">Multi Tonics</p><h2 id="tonic-title">Explore our Multi Tonics.</h2><p class="lead">Move over a carton to turn it, or use the buttons below each product.</p>
+      <div class="container"><p class="eyebrow">Multi Tonics</p><h2 id="tonic-title">Explore our Multi Tonics.</h2><p class="lead">The cartons turn gently on their own. Move your mouse over one to explore its sides.</p>
       </div>
       <ul class="tablet-gallery">
-      {{#each page.tonics}}<li class="tablet-item"><div class="tablet-view" data-tablet="{{ slug }}" tabindex="0" role="group" aria-label="{{ name }} carton. Use left and right arrow keys to turn."><img class="tablet-fallback" src="{{ image }}" alt="{{ name }} carton" loading="lazy" /><div class="tablet-float"><div class="tablet-model"></div></div></div><h3>{{ name }}</h3><p>{{ detail }}</p><div class="tablet-controls"><button type="button" data-turn="-1" aria-label="Turn {{ name }} left">↶</button><button type="button" data-turn="1" aria-label="Turn {{ name }} right">↷</button></div></li>{{/each}}
+      {{#each page.tonics}}<li class="tablet-item"><div class="tablet-view" data-tablet="{{ slug }}" tabindex="0" role="group" aria-label="{{ name }} carton. Use left and right arrow keys to turn."><img class="tablet-fallback" src="{{ image }}" alt="{{ name }} carton" loading="lazy" /><div class="tablet-float"><div class="tablet-model"></div></div></div><h3>{{ name }}</h3><p>{{ detail }}</p></li>{{/each}}
       </ul>
     </section>
 

@@ -1,14 +1,17 @@
 /* Photographed cartons in vertically scrolling category grids. */
 .tablet-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:56px 32px;list-style:none;width:min(100%,1140px);padding:32px 24px;margin:0 auto}
 .tablet-item{min-width:0;text-align:center}.tablet-item h3{margin:16px 0 4px;font-size:1.35rem}.tablet-item p{margin:0;color:var(--muted)}
-.tablet-controls{display:flex;justify-content:center;gap:12px;margin-top:12px}.tablet-controls button{width:48px;height:48px;border-radius:50%;border:1px solid var(--border);background:var(--paper);color:var(--accent);font-size:1.4rem;cursor:pointer}
-.tablet-view{position:relative;height:320px;perspective:1000px;display:grid;place-items:center;touch-action:pan-y;isolation:isolate}.tablet-view:focus-visible,.tablet-controls button:focus-visible{outline:2px solid var(--accent);outline-offset:4px}.tablet-fallback{width:100%;height:100%;object-fit:contain}.tablet-view.ready .tablet-fallback{display:none}
+
+.tablet-view{position:relative;height:320px;perspective:1000px;display:grid;place-items:center;touch-action:pan-y;isolation:isolate}.tablet-view:focus-visible{outline:2px solid var(--accent);outline-offset:4px}.tablet-fallback{width:100%;height:100%;object-fit:contain}.tablet-view.ready .tablet-fallback{display:none}
 .tablet-float{display:none;width:var(--w);height:var(--h);position:relative;transform-style:preserve-3d;animation:tablet-float 6s ease-in-out infinite;animation-delay:var(--delay)}.tablet-view.ready .tablet-float{display:block}
-.tablet-model{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(-8deg) rotateY(0deg)}.tablet-model canvas{position:absolute;backface-visibility:hidden;width:var(--w);height:var(--h)}
-.tablet-model .front{left:0;top:0;transform:translateZ(calc(var(--d)/2))}.tablet-model .left,.tablet-model .right{width:var(--d);left:calc((var(--w) - var(--d))/2);top:0}.tablet-model .left{transform:rotateY(-90deg) translateZ(calc(var(--w)/2))}.tablet-model .right{transform:rotateY(90deg) translateZ(calc(var(--w)/2))}.tablet-model .top{left:0;height:var(--d);top:calc((var(--h) - var(--d))/2);transform:rotateX(90deg) translateZ(calc(var(--h)/2))}
+.tablet-model{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(-8deg) rotateY(0deg)}.tablet-model canvas{position:absolute;backface-visibility:hidden;-webkit-backface-visibility:hidden;width:var(--w);height:var(--h)}
+.tablet-model .front{left:0;top:0;transform:translateZ(calc(var(--d)/2)) scale(1.004)}.tablet-model .left,.tablet-model .right{width:var(--d);left:calc((var(--w) - var(--d))/2);top:0}.tablet-model .left{transform:rotateY(-90deg) translateZ(calc(var(--w)/2)) scale(1.004)}.tablet-model .right{transform:rotateY(90deg) translateZ(calc(var(--w)/2)) scale(1.004)}.tablet-model .top{left:0;height:var(--d);top:calc((var(--h) - var(--d))/2);transform:rotateX(90deg) translateZ(calc(var(--h)/2)) scale(1.004)}
 @keyframes tablet-float{0%,100%{translate:0 0}50%{translate:0 -8px}}.tablet-view:not(.visible) .tablet-float{animation-play-state:paused}.tablet-section{scroll-margin-top:100px}
 /* Use the same vertical layout for existing syrup products. */
 .wz-products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}.wz-product,.wz-product:nth-child(n+4),.wz-product:nth-child(5){grid-column:auto;display:flex;flex-direction:column}.wz-product__photo{width:100%}
 @media(max-width:1000px){.tablet-gallery,.wz-products{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:620px){.tablet-gallery,.wz-products{grid-template-columns:minmax(0,1fr)}.tablet-gallery{gap:40px;padding-inline:20px}.tablet-view{height:310px}}
 @media(prefers-reduced-motion:reduce){.tablet-float{animation:none}}
+
+/* Slight face overdraw closes subpixel raster seams while the carton turns. */
+.tablet-model canvas{outline:0;border:0;box-shadow:none;image-rendering:auto}
