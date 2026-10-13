@@ -277,3 +277,5 @@ When adding a page or section:
 User-requested exception: photographed front, sides and top form floating 3D cartons. Turn range is limited to photographed faces. Native touch browsing, buttons and keyboard turning; reduced motion disables float and automatic turning.
 
 Products now use vertical grids: three columns on desktop, two on tablets, one on phones. Tablet and Multi Tonic categories share measured carton dimensions, native-resolution face sampling and eased manual/automatic turning. Source photographs remain unmodified.
+
+The Products page has three peer category tabs: Tablets, Multi Tonics, Syrups. Each owns a vertical grid. Tab buttons support keyboard arrows, Home/End, and category URL hashes. Source photos remain unchanged; drops and suspensions retain their packaging labels within the requested Syrups category.

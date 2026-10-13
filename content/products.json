@@ -248,5 +248,115 @@
       "detail": "50 gm",
       "image": "/images/wasay/tonics/hazim-e-khaas-front.jpg"
     }
+  ],
+  "syrups": [
+    {
+      "name": "Gaster Drops",
+      "slug": "syrup-gaster-drops",
+      "detail": "30 ml drops",
+      "image": "/images/wasay/syrups/syrup-gaster-drops-front.jpg"
+    },
+    {
+      "name": "Deedani Syrup",
+      "slug": "syrup-deedani-syrup",
+      "detail": "60 ml",
+      "image": "/images/wasay/syrups/syrup-deedani-syrup-front.jpg"
+    },
+    {
+      "name": "Mah-Naz",
+      "slug": "syrup-mah-naz",
+      "detail": "120 ml",
+      "image": "/images/wasay/syrups/syrup-mah-naz-front.jpg"
+    },
+    {
+      "name": "Unnabi",
+      "slug": "syrup-unnabi",
+      "detail": "120 ml",
+      "image": "/images/wasay/syrups/syrup-unnabi-front.jpg"
+    },
+    {
+      "name": "Lozatain",
+      "slug": "syrup-lozatain",
+      "detail": "120 ml",
+      "image": "/images/wasay/syrups/syrup-lozatain-front.jpg"
+    },
+    {
+      "name": "Gastir",
+      "slug": "syrup-gastir",
+      "detail": "120 ml",
+      "image": "/images/wasay/syrups/syrup-gastir-front.jpg"
+    },
+    {
+      "name": "Uromax",
+      "slug": "syrup-uromax",
+      "detail": "120 ml",
+      "image": "/images/wasay/syrups/syrup-uromax-front.jpg"
+    },
+    {
+      "name": "Ejazi",
+      "slug": "syrup-ejazi",
+      "detail": "120 ml",
+      "image": "/images/wasay/syrups/syrup-ejazi-front.jpg"
+    },
+    {
+      "name": "Bukharol",
+      "slug": "syrup-bukharol",
+      "detail": "120 ml",
+      "image": "/images/wasay/syrups/syrup-bukharol-front.jpg"
+    },
+    {
+      "name": "Ishaleen",
+      "slug": "syrup-ishaleen",
+      "detail": "120 ml",
+      "image": "/images/wasay/syrups/syrup-ishaleen-front.jpg"
+    },
+    {
+      "name": "Gulnari",
+      "slug": "syrup-gulnari",
+      "detail": "250 ml",
+      "image": "/images/wasay/syrups/syrup-gulnari-front.jpg"
+    },
+    {
+      "name": "Livereen",
+      "slug": "syrup-livereen",
+      "detail": "240 ml",
+      "image": "/images/wasay/syrups/syrup-livereen-front.jpg"
+    },
+    {
+      "name": "Sharbat-e-Faulad",
+      "slug": "syrup-sharbat-e-faulad",
+      "detail": "250 ml",
+      "image": "/images/wasay/syrups/syrup-sharbat-e-faulad-front.jpg"
+    },
+    {
+      "name": "Sharbat Podina — Green Pack",
+      "slug": "syrup-sharbat-podina-green-pack",
+      "detail": "240 ml",
+      "image": "/images/wasay/syrups/syrup-sharbat-podina-green-pack-front.jpg"
+    },
+    {
+      "name": "Sharbat Podina — Leaf Pack",
+      "slug": "syrup-sharbat-podina-leaf-pack",
+      "detail": "240 ml",
+      "image": "/images/wasay/syrups/syrup-sharbat-podina-leaf-pack-front.jpg"
+    },
+    {
+      "name": "Gulbeen",
+      "slug": "syrup-gulbeen",
+      "detail": "250 ml",
+      "image": "/images/wasay/syrups/syrup-gulbeen-front.jpg"
+    },
+    {
+      "name": "Kofesal",
+      "slug": "syrup-kofesal",
+      "detail": "120 ml",
+      "image": "/images/wasay/syrups/syrup-kofesal-front.jpg"
+    },
+    {
+      "name": "Naxio Plus",
+      "slug": "syrup-naxio-plus",
+      "detail": "240 ml suspension",
+      "image": "/images/wasay/syrups/syrup-naxio-plus-front.jpg"
+    }
   ]
 }

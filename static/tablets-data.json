@@ -1360,5 +1360,977 @@
         339
       ]
     ]
+  },
+  {
+    "name": "Gaster Drops",
+    "slug": "syrup-gaster-drops",
+    "width": 115,
+    "height": 235,
+    "depth": 85,
+    "photos": [
+      "/images/wasay/syrups/syrup-gaster-drops-front.jpg",
+      "/images/wasay/syrups/syrup-gaster-drops-left.jpg",
+      "/images/wasay/syrups/syrup-gaster-drops-right.jpg"
+    ],
+    "faces": [
+      [
+        589,
+        325,
+        756,
+        321,
+        758,
+        669,
+        600,
+        668
+      ],
+      [
+        643,
+        364,
+        760,
+        410,
+        754,
+        746,
+        644,
+        689
+      ],
+      [
+        698,
+        337,
+        807,
+        301,
+        802,
+        672,
+        711,
+        717
+      ],
+      [
+        643,
+        362,
+        773,
+        318,
+        877,
+        361,
+        760,
+        408
+      ]
+    ]
+  },
+  {
+    "name": "Deedani Syrup",
+    "slug": "syrup-deedani-syrup",
+    "width": 135,
+    "height": 280,
+    "depth": 105,
+    "photos": [
+      "/images/wasay/syrups/syrup-deedani-syrup-front.jpg",
+      "/images/wasay/syrups/syrup-deedani-syrup-left.jpg",
+      "/images/wasay/syrups/syrup-deedani-syrup-right.jpg"
+    ],
+    "faces": [
+      [
+        579,
+        360,
+        787,
+        359,
+        780,
+        807,
+        590,
+        809
+      ],
+      [
+        591,
+        293,
+        736,
+        335,
+        732,
+        774,
+        600,
+        699
+      ],
+      [
+        751,
+        389,
+        840,
+        350,
+        817,
+        766,
+        729,
+        812
+      ],
+      [
+        591,
+        290,
+        721,
+        245,
+        866,
+        284,
+        736,
+        333
+      ]
+    ]
+  },
+  {
+    "name": "Mah-Naz",
+    "slug": "syrup-mah-naz",
+    "width": 135,
+    "height": 280,
+    "depth": 105,
+    "photos": [
+      "/images/wasay/syrups/syrup-mah-naz-front.jpg",
+      "/images/wasay/syrups/syrup-mah-naz-left.jpg",
+      "/images/wasay/syrups/syrup-mah-naz-right.jpg"
+    ],
+    "faces": [
+      [
+        548,
+        267,
+        788,
+        265,
+        777,
+        791,
+        560,
+        792
+      ],
+      [
+        585,
+        263,
+        739,
+        297,
+        735,
+        781,
+        595,
+        714
+      ],
+      [
+        704,
+        290,
+        835,
+        248,
+        814,
+        740,
+        695,
+        814
+      ],
+      [
+        585,
+        259,
+        739,
+        218,
+        872,
+        249,
+        739,
+        295
+      ]
+    ]
+  },
+  {
+    "name": "Unnabi",
+    "slug": "syrup-unnabi",
+    "width": 135,
+    "height": 280,
+    "depth": 105,
+    "photos": [
+      "/images/wasay/syrups/syrup-unnabi-front.jpg",
+      "/images/wasay/syrups/syrup-unnabi-left.jpg",
+      "/images/wasay/syrups/syrup-unnabi-right.jpg"
+    ],
+    "faces": [
+      [
+        545,
+        228,
+        781,
+        229,
+        751,
+        728,
+        547,
+        727
+      ],
+      [
+        552,
+        201,
+        713,
+        248,
+        696,
+        775,
+        552,
+        701
+      ],
+      [
+        630,
+        231,
+        754,
+        201,
+        724,
+        661,
+        615,
+        720
+      ],
+      [
+        552,
+        197,
+        720,
+        166,
+        870,
+        207,
+        713,
+        245
+      ]
+    ]
+  },
+  {
+    "name": "Lozatain",
+    "slug": "syrup-lozatain",
+    "width": 135,
+    "height": 280,
+    "depth": 105,
+    "photos": [
+      "/images/wasay/syrups/syrup-lozatain-front.jpg",
+      "/images/wasay/syrups/syrup-lozatain-left.jpg",
+      "/images/wasay/syrups/syrup-lozatain-right.jpg"
+    ],
+    "faces": [
+      [
+        549,
+        263,
+        793,
+        264,
+        783,
+        789,
+        563,
+        789
+      ],
+      [
+        509,
+        220,
+        664,
+        265,
+        671,
+        771,
+        536,
+        725
+      ],
+      [
+        700,
+        244,
+        797,
+        205,
+        782,
+        704,
+        683,
+        750
+      ],
+      [
+        509,
+        217,
+        664,
+        173,
+        821,
+        209,
+        664,
+        262
+      ]
+    ]
+  },
+  {
+    "name": "Gastir",
+    "slug": "syrup-gastir",
+    "width": 135,
+    "height": 280,
+    "depth": 105,
+    "photos": [
+      "/images/wasay/syrups/syrup-gastir-front.jpg",
+      "/images/wasay/syrups/syrup-gastir-left.jpg",
+      "/images/wasay/syrups/syrup-gastir-right.jpg"
+    ],
+    "faces": [
+      [
+        525,
+        217,
+        774,
+        215,
+        753,
+        753,
+        537,
+        752
+      ],
+      [
+        513,
+        198,
+        660,
+        245,
+        656,
+        786,
+        531,
+        727
+      ],
+      [
+        724,
+        231,
+        840,
+        202,
+        822,
+        671,
+        710,
+        715
+      ],
+      [
+        513,
+        195,
+        676,
+        156,
+        838,
+        197,
+        660,
+        242
+      ]
+    ]
+  },
+  {
+    "name": "Uromax",
+    "slug": "syrup-uromax",
+    "width": 135,
+    "height": 280,
+    "depth": 105,
+    "photos": [
+      "/images/wasay/syrups/syrup-uromax-front.jpg",
+      "/images/wasay/syrups/syrup-uromax-left.jpg",
+      "/images/wasay/syrups/syrup-uromax-right.jpg"
+    ],
+    "faces": [
+      [
+        593,
+        277,
+        816,
+        279,
+        798,
+        780,
+        596,
+        779
+      ],
+      [
+        654,
+        226,
+        796,
+        258,
+        789,
+        757,
+        658,
+        694
+      ],
+      [
+        745,
+        258,
+        848,
+        219,
+        821,
+        693,
+        728,
+        731
+      ],
+      [
+        654,
+        222,
+        798,
+        191,
+        943,
+        223,
+        796,
+        255
+      ]
+    ]
+  },
+  {
+    "name": "Ejazi",
+    "slug": "syrup-ejazi",
+    "width": 135,
+    "height": 280,
+    "depth": 105,
+    "photos": [
+      "/images/wasay/syrups/syrup-ejazi-front.jpg",
+      "/images/wasay/syrups/syrup-ejazi-left.jpg",
+      "/images/wasay/syrups/syrup-ejazi-right.jpg"
+    ],
+    "faces": [
+      [
+        557,
+        321,
+        794,
+        321,
+        782,
+        835,
+        571,
+        837
+      ],
+      [
+        606,
+        269,
+        737,
+        304,
+        739,
+        757,
+        617,
+        726
+      ],
+      [
+        810,
+        295,
+        891,
+        261,
+        869,
+        659,
+        800,
+        707
+      ],
+      [
+        606,
+        266,
+        750,
+        238,
+        874,
+        270,
+        737,
+        301
+      ]
+    ]
+  },
+  {
+    "name": "Bukharol",
+    "slug": "syrup-bukharol",
+    "width": 135,
+    "height": 280,
+    "depth": 105,
+    "photos": [
+      "/images/wasay/syrups/syrup-bukharol-front.jpg",
+      "/images/wasay/syrups/syrup-bukharol-left.jpg",
+      "/images/wasay/syrups/syrup-bukharol-right.jpg"
+    ],
+    "faces": [
+      [
+        530,
+        301,
+        782,
+        300,
+        765,
+        833,
+        541,
+        835
+      ],
+      [
+        598,
+        233,
+        752,
+        273,
+        745,
+        790,
+        605,
+        719
+      ],
+      [
+        784,
+        288,
+        885,
+        261,
+        858,
+        682,
+        761,
+        737
+      ],
+      [
+        598,
+        230,
+        752,
+        195,
+        904,
+        231,
+        752,
+        270
+      ]
+    ]
+  },
+  {
+    "name": "Ishaleen",
+    "slug": "syrup-ishaleen",
+    "width": 135,
+    "height": 280,
+    "depth": 105,
+    "photos": [
+      "/images/wasay/syrups/syrup-ishaleen-front.jpg",
+      "/images/wasay/syrups/syrup-ishaleen-left.jpg",
+      "/images/wasay/syrups/syrup-ishaleen-right.jpg"
+    ],
+    "faces": [
+      [
+        553,
+        341,
+        794,
+        339,
+        783,
+        855,
+        566,
+        856
+      ],
+      [
+        556,
+        268,
+        685,
+        308,
+        684,
+        802,
+        568,
+        749
+      ],
+      [
+        735,
+        202,
+        853,
+        176,
+        831,
+        638,
+        718,
+        696
+      ],
+      [
+        556,
+        265,
+        693,
+        238,
+        842,
+        273,
+        685,
+        305
+      ]
+    ]
+  },
+  {
+    "name": "Gulnari",
+    "slug": "syrup-gulnari",
+    "width": 135,
+    "height": 280,
+    "depth": 105,
+    "photos": [
+      "/images/wasay/syrups/syrup-gulnari-front.jpg",
+      "/images/wasay/syrups/syrup-gulnari-left.jpg",
+      "/images/wasay/syrups/syrup-gulnari-right.jpg"
+    ],
+    "faces": [
+      [
+        498,
+        275,
+        762,
+        277,
+        746,
+        837,
+        507,
+        840
+      ],
+      [
+        609,
+        225,
+        780,
+        275,
+        759,
+        831,
+        618,
+        741
+      ],
+      [
+        794,
+        298,
+        917,
+        247,
+        883,
+        742,
+        776,
+        814
+      ],
+      [
+        609,
+        221,
+        782,
+        185,
+        953,
+        226,
+        780,
+        272
+      ]
+    ]
+  },
+  {
+    "name": "Livereen",
+    "slug": "syrup-livereen",
+    "width": 135,
+    "height": 280,
+    "depth": 105,
+    "photos": [
+      "/images/wasay/syrups/syrup-livereen-front.jpg",
+      "/images/wasay/syrups/syrup-livereen-left.jpg",
+      "/images/wasay/syrups/syrup-livereen-right.jpg"
+    ],
+    "faces": [
+      [
+        535,
+        230,
+        819,
+        227,
+        797,
+        815,
+        546,
+        816
+      ],
+      [
+        598,
+        200,
+        757,
+        246,
+        739,
+        762,
+        603,
+        692
+      ],
+      [
+        809,
+        269,
+        937,
+        235,
+        902,
+        706,
+        786,
+        774
+      ],
+      [
+        598,
+        197,
+        760,
+        173,
+        919,
+        208,
+        757,
+        243
+      ]
+    ]
+  },
+  {
+    "name": "Sharbat-e-Faulad",
+    "slug": "syrup-sharbat-e-faulad",
+    "width": 135,
+    "height": 280,
+    "depth": 105,
+    "photos": [
+      "/images/wasay/syrups/syrup-sharbat-e-faulad-front.jpg",
+      "/images/wasay/syrups/syrup-sharbat-e-faulad-left.jpg",
+      "/images/wasay/syrups/syrup-sharbat-e-faulad-right.jpg"
+    ],
+    "faces": [
+      [
+        554,
+        270,
+        814,
+        269,
+        790,
+        827,
+        558,
+        826
+      ],
+      [
+        595,
+        212,
+        768,
+        256,
+        751,
+        842,
+        598,
+        751
+      ],
+      [
+        829,
+        248,
+        969,
+        212,
+        928,
+        731,
+        811,
+        799
+      ],
+      [
+        595,
+        208,
+        772,
+        176,
+        949,
+        213,
+        768,
+        253
+      ]
+    ]
+  },
+  {
+    "name": "Sharbat Podina — Green Pack",
+    "slug": "syrup-sharbat-podina-green-pack",
+    "width": 135,
+    "height": 280,
+    "depth": 105,
+    "photos": [
+      "/images/wasay/syrups/syrup-sharbat-podina-green-pack-front.jpg",
+      "/images/wasay/syrups/syrup-sharbat-podina-green-pack-left.jpg",
+      "/images/wasay/syrups/syrup-sharbat-podina-green-pack-right.jpg"
+    ],
+    "faces": [
+      [
+        563,
+        271,
+        850,
+        270,
+        825,
+        858,
+        575,
+        859
+      ],
+      [
+        595,
+        280,
+        778,
+        317,
+        751,
+        820,
+        599,
+        743
+      ],
+      [
+        734,
+        302,
+        867,
+        261,
+        853,
+        736,
+        721,
+        787
+      ],
+      [
+        595,
+        275,
+        759,
+        239,
+        924,
+        273,
+        778,
+        314
+      ]
+    ]
+  },
+  {
+    "name": "Sharbat Podina — Leaf Pack",
+    "slug": "syrup-sharbat-podina-leaf-pack",
+    "width": 135,
+    "height": 280,
+    "depth": 105,
+    "photos": [
+      "/images/wasay/syrups/syrup-sharbat-podina-leaf-pack-front.jpg",
+      "/images/wasay/syrups/syrup-sharbat-podina-leaf-pack-left.jpg",
+      "/images/wasay/syrups/syrup-sharbat-podina-leaf-pack-right.jpg"
+    ],
+    "faces": [
+      [
+        561,
+        291,
+        847,
+        288,
+        817,
+        866,
+        577,
+        868
+      ],
+      [
+        588,
+        222,
+        760,
+        270,
+        743,
+        821,
+        593,
+        729
+      ],
+      [
+        734,
+        291,
+        860,
+        247,
+        839,
+        658,
+        731,
+        723
+      ],
+      [
+        588,
+        217,
+        765,
+        179,
+        937,
+        227,
+        760,
+        267
+      ]
+    ]
+  },
+  {
+    "name": "Gulbeen",
+    "slug": "syrup-gulbeen",
+    "width": 135,
+    "height": 280,
+    "depth": 105,
+    "photos": [
+      "/images/wasay/syrups/syrup-gulbeen-front.jpg",
+      "/images/wasay/syrups/syrup-gulbeen-left.jpg",
+      "/images/wasay/syrups/syrup-gulbeen-right.jpg"
+    ],
+    "faces": [
+      [
+        555,
+        237,
+        842,
+        232,
+        824,
+        851,
+        566,
+        854
+      ],
+      [
+        542,
+        173,
+        710,
+        222,
+        699,
+        825,
+        550,
+        725
+      ],
+      [
+        813,
+        216,
+        969,
+        173,
+        932,
+        780,
+        788,
+        855
+      ],
+      [
+        542,
+        169,
+        712,
+        135,
+        910,
+        174,
+        710,
+        219
+      ]
+    ]
+  },
+  {
+    "name": "Kofesal",
+    "slug": "syrup-kofesal",
+    "width": 135,
+    "height": 280,
+    "depth": 105,
+    "photos": [
+      "/images/wasay/syrups/syrup-kofesal-front.jpg",
+      "/images/wasay/syrups/syrup-kofesal-left.jpg",
+      "/images/wasay/syrups/syrup-kofesal-right.jpg"
+    ],
+    "faces": [
+      [
+        577,
+        359,
+        790,
+        354,
+        788,
+        832,
+        595,
+        833
+      ],
+      [
+        583,
+        269,
+        718,
+        300,
+        718,
+        718,
+        581,
+        661
+      ],
+      [
+        689,
+        298,
+        798,
+        271,
+        785,
+        673,
+        689,
+        738
+      ],
+      [
+        583,
+        264,
+        727,
+        233,
+        829,
+        268,
+        718,
+        297
+      ]
+    ]
+  },
+  {
+    "name": "Naxio Plus",
+    "slug": "syrup-naxio-plus",
+    "width": 135,
+    "height": 280,
+    "depth": 105,
+    "photos": [
+      "/images/wasay/syrups/syrup-naxio-plus-front.jpg",
+      "/images/wasay/syrups/syrup-naxio-plus-left.jpg",
+      "/images/wasay/syrups/syrup-naxio-plus-right.jpg"
+    ],
+    "faces": [
+      [
+        531,
+        316,
+        807,
+        312,
+        790,
+        869,
+        550,
+        870
+      ],
+      [
+        573,
+        223,
+        745,
+        277,
+        729,
+        819,
+        587,
+        729
+      ],
+      [
+        790,
+        311,
+        905,
+        260,
+        877,
+        720,
+        782,
+        783
+      ],
+      [
+        573,
+        218,
+        740,
+        183,
+        917,
+        228,
+        745,
+        274
+      ]
+    ]
   }
 ]
