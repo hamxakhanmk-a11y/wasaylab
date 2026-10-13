@@ -168,5 +168,85 @@
       "detail": "40 tablets",
       "image": "/images/wasay/tablets/itrifal-ustukhuddus-front.jpg"
     }
+  ],
+  "tonics": [
+    {
+      "name": "Ulcereen",
+      "slug": "ulcereen",
+      "detail": "10 sachets",
+      "image": "/images/wasay/tonics/ulcereen-front.jpg"
+    },
+    {
+      "name": "Jawarish Zarooni Sada",
+      "slug": "jawarish-zarooni-sada",
+      "detail": "100 gm",
+      "image": "/images/wasay/tonics/jawarish-zarooni-sada-front.jpg"
+    },
+    {
+      "name": "Majon Fehmina",
+      "slug": "majon-fehmina",
+      "detail": "100 gm",
+      "image": "/images/wasay/tonics/majon-fehmina-front.jpg"
+    },
+    {
+      "name": "Khameera Gaozuban Sada",
+      "slug": "khameera-gaozuban-sada",
+      "detail": "100 gm",
+      "image": "/images/wasay/tonics/khameera-gaozuban-sada-front.jpg"
+    },
+    {
+      "name": "Majon Suranjan",
+      "slug": "majon-suranjan",
+      "detail": "100 gm",
+      "image": "/images/wasay/tonics/majon-suranjan-front.jpg"
+    },
+    {
+      "name": "Jawarish Kamooni",
+      "slug": "jawarish-kamooni",
+      "detail": "100 gm",
+      "image": "/images/wasay/tonics/jawarish-kamooni-front.jpg"
+    },
+    {
+      "name": "Majon Aqreen",
+      "slug": "majon-aqreen",
+      "detail": "100 gm",
+      "image": "/images/wasay/tonics/majon-aqreen-front.jpg"
+    },
+    {
+      "name": "Laboob Kabir Khas",
+      "slug": "laboob-kabir-khas",
+      "detail": "100 gm",
+      "image": "/images/wasay/tonics/laboob-kabir-khas-front.jpg"
+    },
+    {
+      "name": "Majon Chob Chini",
+      "slug": "majon-chob-chini",
+      "detail": "100 gm",
+      "image": "/images/wasay/tonics/majon-chob-chini-front.jpg"
+    },
+    {
+      "name": "Atrifal Ustukudus",
+      "slug": "atrifal-ustukudus",
+      "detail": "100 gm",
+      "image": "/images/wasay/tonics/atrifal-ustukudus-front.jpg"
+    },
+    {
+      "name": "Majon Ard Khurma",
+      "slug": "majon-ard-khurma",
+      "detail": "100 gm",
+      "image": "/images/wasay/tonics/majon-ard-khurma-front.jpg"
+    },
+    {
+      "name": "Slim Capsules",
+      "slug": "slim-capsules",
+      "detail": "60 capsules",
+      "image": "/images/wasay/tonics/slim-capsules-front.jpg"
+    },
+    {
+      "name": "Hazim E Khaas",
+      "slug": "hazim-e-khaas",
+      "detail": "50 gm",
+      "image": "/images/wasay/tonics/hazim-e-khaas-front.jpg"
+    }
   ]
 }

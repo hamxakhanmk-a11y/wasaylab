@@ -50,7 +50,9 @@
         601,
         386
       ]
-    ]
+    ],
+    "width": 260,
+    "depth": 46
   },
   {
     "name": "Nisaee",
@@ -103,7 +105,9 @@
         539,
         393
       ]
-    ]
+    ],
+    "width": 260,
+    "depth": 46
   },
   {
     "name": "Dimageen",
@@ -156,7 +160,9 @@
         566,
         408
       ]
-    ]
+    ],
+    "width": 260,
+    "depth": 46
   },
   {
     "name": "Ushba",
@@ -209,7 +215,9 @@
         552,
         397
       ]
-    ]
+    ],
+    "width": 260,
+    "depth": 46
   },
   {
     "name": "Lekoden",
@@ -262,7 +270,9 @@
         554,
         458
       ]
-    ]
+    ],
+    "width": 260,
+    "depth": 46
   },
   {
     "name": "Zaheeri",
@@ -315,7 +325,9 @@
         495,
         444
       ]
-    ]
+    ],
+    "width": 260,
+    "depth": 46
   },
   {
     "name": "Suzashi",
@@ -368,7 +380,9 @@
         585,
         417
       ]
-    ]
+    ],
+    "width": 260,
+    "depth": 46
   },
   {
     "name": "Uqreen",
@@ -421,7 +435,9 @@
         538,
         323
       ]
-    ]
+    ],
+    "width": 260,
+    "depth": 46
   },
   {
     "name": "Qurs Mulayyan",
@@ -474,7 +490,9 @@
         518,
         420
       ]
-    ]
+    ],
+    "width": 260,
+    "depth": 46
   },
   {
     "name": "Deedani",
@@ -527,7 +545,9 @@
         545,
         401
       ]
-    ]
+    ],
+    "width": 260,
+    "depth": 46
   },
   {
     "name": "Bawaseeri",
@@ -580,7 +600,9 @@
         619,
         414
       ]
-    ]
+    ],
+    "width": 260,
+    "depth": 46
   },
   {
     "name": "Itrifal Ustukhuddus",
@@ -632,6 +654,710 @@
         239,
         609,
         340
+      ]
+    ],
+    "width": 260,
+    "depth": 46
+  },
+  {
+    "name": "Ulcereen",
+    "slug": "ulcereen",
+    "width": 208,
+    "height": 250,
+    "depth": 90,
+    "photos": [
+      "/images/wasay/tonics/ulcereen-front.jpg",
+      "/images/wasay/tonics/ulcereen-left.jpg",
+      "/images/wasay/tonics/ulcereen-right.jpg"
+    ],
+    "faces": [
+      [
+        474,
+        322,
+        820,
+        324,
+        804,
+        702,
+        480,
+        699
+      ],
+      [
+        546,
+        352,
+        674,
+        383,
+        675,
+        731,
+        553,
+        680
+      ],
+      [
+        763,
+        344,
+        865,
+        312,
+        846,
+        644,
+        749,
+        697
+      ],
+      [
+        546,
+        348,
+        725,
+        282,
+        865,
+        309,
+        674,
+        381
+      ]
+    ]
+  },
+  {
+    "name": "Jawarish Zarooni Sada",
+    "slug": "jawarish-zarooni-sada",
+    "width": 150,
+    "height": 250,
+    "depth": 130,
+    "photos": [
+      "/images/wasay/tonics/jawarish-zarooni-sada-front.jpg",
+      "/images/wasay/tonics/jawarish-zarooni-sada-left.jpg",
+      "/images/wasay/tonics/jawarish-zarooni-sada-right.jpg"
+    ],
+    "faces": [
+      [
+        526,
+        358,
+        760,
+        361,
+        751,
+        713,
+        533,
+        716
+      ],
+      [
+        494,
+        337,
+        641,
+        382,
+        639,
+        715,
+        505,
+        648
+      ],
+      [
+        678,
+        381,
+        800,
+        341,
+        795,
+        626,
+        674,
+        679
+      ],
+      [
+        494,
+        334,
+        643,
+        294,
+        782,
+        327,
+        641,
+        380
+      ]
+    ]
+  },
+  {
+    "name": "Majon Fehmina",
+    "slug": "majon-fehmina",
+    "width": 150,
+    "height": 250,
+    "depth": 130,
+    "photos": [
+      "/images/wasay/tonics/majon-fehmina-front.jpg",
+      "/images/wasay/tonics/majon-fehmina-left.jpg",
+      "/images/wasay/tonics/majon-fehmina-right.jpg"
+    ],
+    "faces": [
+      [
+        524,
+        352,
+        782,
+        353,
+        776,
+        747,
+        531,
+        741
+      ],
+      [
+        563,
+        350,
+        728,
+        406,
+        716,
+        775,
+        568,
+        724
+      ],
+      [
+        690,
+        368,
+        812,
+        314,
+        793,
+        657,
+        678,
+        724
+      ],
+      [
+        563,
+        347,
+        733,
+        292,
+        894,
+        345,
+        728,
+        404
+      ]
+    ]
+  },
+  {
+    "name": "Khameera Gaozuban Sada",
+    "slug": "khameera-gaozuban-sada",
+    "width": 150,
+    "height": 250,
+    "depth": 130,
+    "photos": [
+      "/images/wasay/tonics/khameera-gaozuban-sada-front.jpg",
+      "/images/wasay/tonics/khameera-gaozuban-sada-left.jpg",
+      "/images/wasay/tonics/khameera-gaozuban-sada-right.jpg"
+    ],
+    "faces": [
+      [
+        535,
+        338,
+        796,
+        336,
+        784,
+        727,
+        541,
+        731
+      ],
+      [
+        439,
+        317,
+        587,
+        375,
+        594,
+        716,
+        459,
+        644
+      ],
+      [
+        712,
+        366,
+        791,
+        297,
+        776,
+        655,
+        696,
+        718
+      ],
+      [
+        439,
+        314,
+        581,
+        254,
+        758,
+        309,
+        587,
+        372
+      ]
+    ]
+  },
+  {
+    "name": "Majon Suranjan",
+    "slug": "majon-suranjan",
+    "width": 150,
+    "height": 250,
+    "depth": 130,
+    "photos": [
+      "/images/wasay/tonics/majon-suranjan-front.jpg",
+      "/images/wasay/tonics/majon-suranjan-left.jpg",
+      "/images/wasay/tonics/majon-suranjan-right.jpg"
+    ],
+    "faces": [
+      [
+        547,
+        414,
+        787,
+        410,
+        772,
+        757,
+        552,
+        759
+      ],
+      [
+        529,
+        365,
+        654,
+        420,
+        655,
+        720,
+        538,
+        651
+      ],
+      [
+        679,
+        358,
+        777,
+        318,
+        767,
+        594,
+        671,
+        650
+      ],
+      [
+        529,
+        362,
+        660,
+        320,
+        800,
+        374,
+        654,
+        417
+      ]
+    ]
+  },
+  {
+    "name": "Jawarish Kamooni",
+    "slug": "jawarish-kamooni",
+    "width": 150,
+    "height": 250,
+    "depth": 130,
+    "photos": [
+      "/images/wasay/tonics/jawarish-kamooni-front.jpg",
+      "/images/wasay/tonics/jawarish-kamooni-left.jpg",
+      "/images/wasay/tonics/jawarish-kamooni-right.jpg"
+    ],
+    "faces": [
+      [
+        487,
+        396,
+        735,
+        395,
+        729,
+        760,
+        497,
+        764
+      ],
+      [
+        482,
+        421,
+        663,
+        480,
+        664,
+        822,
+        499,
+        740
+      ],
+      [
+        642,
+        393,
+        734,
+        340,
+        719,
+        647,
+        632,
+        693
+      ],
+      [
+        482,
+        417,
+        638,
+        356,
+        799,
+        413,
+        663,
+        477
+      ]
+    ]
+  },
+  {
+    "name": "Majon Aqreen",
+    "slug": "majon-aqreen",
+    "width": 150,
+    "height": 250,
+    "depth": 130,
+    "photos": [
+      "/images/wasay/tonics/majon-aqreen-front.jpg",
+      "/images/wasay/tonics/majon-aqreen-left.jpg",
+      "/images/wasay/tonics/majon-aqreen-right.jpg"
+    ],
+    "faces": [
+      [
+        542,
+        339,
+        790,
+        336,
+        775,
+        700,
+        545,
+        700
+      ],
+      [
+        566,
+        309,
+        700,
+        373,
+        698,
+        728,
+        569,
+        620
+      ],
+      [
+        657,
+        382,
+        772,
+        320,
+        764,
+        627,
+        650,
+        696
+      ],
+      [
+        565,
+        306,
+        710,
+        262,
+        861,
+        322,
+        700,
+        370
+      ]
+    ]
+  },
+  {
+    "name": "Laboob Kabir Khas",
+    "slug": "laboob-kabir-khas",
+    "width": 150,
+    "height": 250,
+    "depth": 130,
+    "photos": [
+      "/images/wasay/tonics/laboob-kabir-khas-front.jpg",
+      "/images/wasay/tonics/laboob-kabir-khas-left.jpg",
+      "/images/wasay/tonics/laboob-kabir-khas-right.jpg"
+    ],
+    "faces": [
+      [
+        546,
+        326,
+        753,
+        325,
+        744,
+        639,
+        551,
+        641
+      ],
+      [
+        491,
+        280,
+        631,
+        341,
+        629,
+        672,
+        501,
+        592
+      ],
+      [
+        688,
+        363,
+        791,
+        311,
+        782,
+        590,
+        680,
+        655
+      ],
+      [
+        491,
+        277,
+        617,
+        227,
+        792,
+        282,
+        631,
+        338
+      ]
+    ]
+  },
+  {
+    "name": "Majon Chob Chini",
+    "slug": "majon-chob-chini",
+    "width": 150,
+    "height": 250,
+    "depth": 130,
+    "photos": [
+      "/images/wasay/tonics/majon-chob-chini-front.jpg",
+      "/images/wasay/tonics/majon-chob-chini-left.jpg",
+      "/images/wasay/tonics/majon-chob-chini-right.jpg"
+    ],
+    "faces": [
+      [
+        575,
+        304,
+        818,
+        303,
+        805,
+        657,
+        583,
+        657
+      ],
+      [
+        756,
+        371,
+        871,
+        313,
+        847,
+        627,
+        744,
+        685
+      ],
+      [
+        596,
+        289,
+        715,
+        355,
+        714,
+        696,
+        596,
+        589
+      ],
+      [
+        596,
+        286,
+        752,
+        242,
+        907,
+        308,
+        715,
+        352
+      ]
+    ]
+  },
+  {
+    "name": "Atrifal Ustukudus",
+    "slug": "atrifal-ustukudus",
+    "width": 150,
+    "height": 250,
+    "depth": 130,
+    "photos": [
+      "/images/wasay/tonics/atrifal-ustukudus-front.jpg",
+      "/images/wasay/tonics/atrifal-ustukudus-left.jpg",
+      "/images/wasay/tonics/atrifal-ustukudus-right.jpg"
+    ],
+    "faces": [
+      [
+        535,
+        333,
+        778,
+        330,
+        763,
+        687,
+        539,
+        690
+      ],
+      [
+        565,
+        302,
+        717,
+        346,
+        714,
+        650,
+        574,
+        594
+      ],
+      [
+        720,
+        319,
+        830,
+        262,
+        816,
+        575,
+        712,
+        632
+      ],
+      [
+        565,
+        298,
+        710,
+        245,
+        837,
+        276,
+        717,
+        343
+      ]
+    ]
+  },
+  {
+    "name": "Majon Ard Khurma",
+    "slug": "majon-ard-khurma",
+    "width": 150,
+    "height": 250,
+    "depth": 130,
+    "photos": [
+      "/images/wasay/tonics/majon-ard-khurma-front.jpg",
+      "/images/wasay/tonics/majon-ard-khurma-left.jpg",
+      "/images/wasay/tonics/majon-ard-khurma-right.jpg"
+    ],
+    "faces": [
+      [
+        550,
+        359,
+        820,
+        353,
+        802,
+        731,
+        565,
+        737
+      ],
+      [
+        559,
+        323,
+        716,
+        382,
+        705,
+        682,
+        565,
+        598
+      ],
+      [
+        719,
+        373,
+        830,
+        314,
+        816,
+        624,
+        708,
+        675
+      ],
+      [
+        559,
+        320,
+        694,
+        263,
+        840,
+        309,
+        716,
+        379
+      ]
+    ]
+  },
+  {
+    "name": "Slim Capsules",
+    "slug": "slim-capsules",
+    "width": 150,
+    "height": 250,
+    "depth": 130,
+    "photos": [
+      "/images/wasay/tonics/slim-capsules-front.jpg",
+      "/images/wasay/tonics/slim-capsules-left.jpg",
+      "/images/wasay/tonics/slim-capsules-right.jpg"
+    ],
+    "faces": [
+      [
+        569,
+        377,
+        809,
+        374,
+        805,
+        740,
+        580,
+        744
+      ],
+      [
+        508,
+        307,
+        673,
+        364,
+        670,
+        712,
+        517,
+        646
+      ],
+      [
+        733,
+        357,
+        835,
+        301,
+        822,
+        627,
+        722,
+        685
+      ],
+      [
+        507,
+        304,
+        660,
+        245,
+        815,
+        294,
+        673,
+        361
+      ]
+    ]
+  },
+  {
+    "name": "Hazim E Khaas",
+    "slug": "hazim-e-khaas",
+    "width": 150,
+    "height": 250,
+    "depth": 130,
+    "photos": [
+      "/images/wasay/tonics/hazim-e-khaas-front.jpg",
+      "/images/wasay/tonics/hazim-e-khaas-left.jpg",
+      "/images/wasay/tonics/hazim-e-khaas-right.jpg"
+    ],
+    "faces": [
+      [
+        596,
+        335,
+        823,
+        332,
+        809,
+        671,
+        599,
+        672
+      ],
+      [
+        611,
+        294,
+        750,
+        342,
+        747,
+        660,
+        615,
+        598
+      ],
+      [
+        740,
+        369,
+        858,
+        313,
+        839,
+        627,
+        734,
+        669
+      ],
+      [
+        611,
+        291,
+        768,
+        236,
+        891,
+        280,
+        750,
+        339
       ]
     ]
   }
