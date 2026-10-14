@@ -44,12 +44,12 @@ const a=s.angle,calm=reduced.matches?0:1,lift=TILT+calm*.02*Math.sin(t/2300+s.in
 s.renderer.draw(a,lift,s.scale);
 s.canvas.style.transform='translate3d('+(Math.sin(a)*7)+'px,'+(calm*Math.sin(t/1300+s.index)*5)+'px,0) rotate('+(Math.sin(a)*1.1)+'deg)';
 s.view.style.setProperty('--turn',Math.sin(a).toFixed(3));s.view.style.setProperty('--turn-abs',Math.abs(Math.sin(a)).toFixed(3));s.view.dataset.angle=a.toFixed(3);}
-async function build(s){s.images=await Promise.all(s.p.photos.map(load));s.topImage=s.p.top?await load(s.p.top.photo):null;const gloss=s.p.animation==='showcase';const renderer=Wasay3D(s.canvas),p=s.p,nominal=p.wide?2.95:3.85,bb=p.bounds,H=Math.max(2.3,(2*(bb[3]-bb[1])/(bb[2]-bb[0])-2*Math.sin(PHOTO_TILT))/Math.cos(PHOTO_TILT)),base=(p.wide?.12:.24)*H/nominal,labelTop=H*(1-(bb[4]-bb[1])/(bb[3]-bb[1])),neckTop=H*(1-(p.wide?.142:Math.min(.27,Math.max(.15,(p.measured.cap[5]-bb[1])/(bb[3]-bb[1])))));
+async function build(s){s.images=await Promise.all(s.p.photos.map(load));s.topImage=s.p.top?await load(s.p.top.photo):null;const gloss=s.p.animation==='showcase';const renderer=Wasay3D(s.canvas),p=s.p,nominal=p.wide?2.95:3.85,bb=p.bounds,H=Math.max(2.3,(2*(bb[3]-bb[1])/(bb[2]-bb[0])-2*Math.sin(PHOTO_TILT))/Math.cos(PHOTO_TILT)),base=(p.wide?.12:.24)*H/nominal,labelTop=H*(1-(bb[4]-bb[1])/(bb[3]-bb[1])),neckTop=H*(1-(p.wide?Math.min(.16,Math.max(.11,(p.measured.cap[5]+6-bb[1])/(bb[3]-bb[1]))):Math.min(.27,Math.max(.15,(p.measured.cap[5]-bb[1])/(bb[3]-bb[1])))));
 const photo=pixels(s.images[0]),b=p.bounds;const plastic=[0,1,2].map(k=>sample(photo,(b[0]+b[2])/2,b[3]-12,k)/255);
 // Closed bottom, rounded heel, cylindrical label, shoulder and neck all share ring vertices.
-renderer.add(lathe([[0,.025],[.83,.025],[.92,.04],[.975,.10],[1,base]],H),null,plastic,1,gloss?.2:0);
-renderer.add(lathe([[1,base],[1,labelTop]],H,[base,labelTop]),await label(s),[.89,.92,.91],1,gloss?.14:0);
-renderer.add(lathe([[1,labelTop],[1,labelTop+.04],[.96,labelTop+.14],[.88,neckTop-.04],[.88,neckTop+.035]],H),null,[.94,.955,.94],1,gloss?.22:0);
+renderer.add(lathe(p.wide?[[0,.02],[.88,.02],[.945,.034],[.984,.07],[1,base]]:[[0,.025],[.83,.025],[.92,.04],[.975,.10],[1,base]],H),null,plastic,1,gloss?(p.wide?.08:.2):0);
+renderer.add(lathe([[1,base],[1,labelTop]],H,[base,labelTop]),await label(s),[.89,.92,.91],1,gloss?(p.wide?.07:.14):0);
+renderer.add(lathe(p.wide?[[1,labelTop],[1,labelTop+.035],[.975,labelTop+.12],[.935,neckTop-.30],[.89,neckTop-.17],[.86,neckTop-.13],[.872,neckTop-.115],[.89,neckTop-.095],[.892,neckTop-.045],[.878,neckTop-.01],[.84,neckTop+.012],[.84,neckTop+.035]]:[[1,labelTop],[1,labelTop+.04],[.96,labelTop+.14],[.88,neckTop-.04],[.88,neckTop+.035]],H),null,[.94,.955,.94],1,gloss?(p.wide?.1:.22):0);
 const capMesh=vertices=>{if(p.wide)for(let i=0;i<vertices.length;i+=8){vertices[i]*=.92;vertices[i+2]*=.92;}return vertices;};
 const capColor=p.wide?[.98,.78,.025]:[.85,.90,.89],c=s.p.measured.cap;
 const capBand=document.createElement('canvas');capBand.width=1024;capBand.height=192;const bc=capBand.getContext('2d'),band=bc.createImageData(1024,192);
