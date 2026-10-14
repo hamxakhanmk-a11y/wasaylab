@@ -66,6 +66,20 @@ Inside `#each`, `{{ . }}` is the item itself, `{{ @n }}` its 1-based position an
 Each `templates/<name>.html` is rendered against `content/<name>.json` (available
 as `page`) plus `content/site.json` (available as `site`).
 
+## Adding a paste jar
+
+Jars live in `static/pastes-data.json` (the jar and its measurements) and `content/pastes.json` (the name, detail line and fallback photo). `static/pastes.js` builds each jar in WebGL from photographs, so a new jar needs measuring once:
+
+- `photos`: front, left and right photos of the jar, 1280 x 960.
+- `bounds`: `[left, top, right, bottom, label top]` of the jar in the front photo, in photo pixels.
+- `side`: the same five numbers for the left photo, then the right photo.
+- `measured.label`: `[label top, label bottom, top curve, bottom curve]` in the front photo (the curves are how far the label edges rise at the sides).
+- `measured.cap`: `[centre x, centre y, radius x, radius y, ribs top, ribs bottom]` of the cap in the front photo.
+- `top` (optional): `{ "photo": ..., "ellipse": [centre x, centre y, radius x, radius y] }`, a photo from above for the lid.
+- `animation` (optional): `"showcase"` for the wide, draggable motion with a highlight; leave it out for the gentle sway.
+
+If `side` or `measured` are left out, the jar falls back to the older index-based tables in `pastes.js`.
+
 ## Publishing and the editor
 
 Not yet set up. When the site has an address:

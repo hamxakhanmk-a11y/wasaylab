@@ -226,6 +226,7 @@ and set the photo beside the text. On phones they stack.
 - **chip** (`.wz-chip`): a clear glass pill for shop-by-category links.
 - **cta-band**: kraft paper with a 2px lime line along the top.
 - **photo loupe** (`.glass-photo`): a round 170px lens follows the cursor over a photo at 2.2x. Off on touch and reduced motion.
+- **paste jar** (`.paste-view`): a real WebGL jar built from three photos of the pack (front, left, right), with the label wrapped round a cylinder. A jar marked `"animation": "showcase"` also takes a top-down photo for the lid, a soft specular highlight, and the showcase motion: an eased sweep of about 47 degrees each way that gives way to hover, mouse or finger drag (with inertia) and the arrow keys, then resumes from where the jar was left. A little roll and sideways drift sell the turn, and the ground shadow follows. Reduced motion holds the jar still until it is turned by hand.
 - **footer**: off-white, hairline top, three columns, never dark.
 
 ## Do's and Don'ts

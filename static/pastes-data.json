@@ -99,13 +99,55 @@
       "/images/wasay/pastes/jawarish-shahi-right.jpg"
     ],
     "bounds": [
-      539,
-      280,
-      792,
-      746,
-      455
+      495,
+      244,
+      779,
+      744,
+      402
     ],
-    "wide": false
+    "side": [
+      [
+        496,
+        208,
+        826,
+        791,
+        397
+      ],
+      [
+        565,
+        240,
+        874,
+        789,
+        410
+      ]
+    ],
+    "measured": {
+      "label": [
+        402,
+        688,
+        5,
+        12
+      ],
+      "cap": [
+        637,
+        255,
+        139,
+        9,
+        262,
+        362
+      ]
+    },
+    "top": {
+      "photo": "/images/wasay/pastes/jawarish-shahi-top.jpg",
+      "ellipse": [
+        639.5,
+        328,
+        139,
+        61
+      ]
+    },
+    "wide": false,
+    "animation": "showcase"
   },
   {
     "name": "Majoon Ushba",
