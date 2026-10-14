@@ -29,3 +29,5 @@
 @media (prefers-reduced-motion:reduce){.paste-showcase::after{transform:none;opacity:1}}
 .paste-js .paste-view:not(.ready):not(.failed) .tablet-fallback{visibility:hidden}
 .paste-js .paste-view:not(.ready):not(.failed)::before{content:"Preparing jar\2026";position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);font-size:.85rem;pointer-events:none}
+.tablet-js .tablet-view:not(.ready):not(.failed) .tablet-fallback{visibility:hidden}
+.tablet-js .tablet-view:not(.ready):not(.failed)::before{content:"Preparing carton\2026";position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);font-size:.85rem;pointer-events:none}
