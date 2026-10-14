@@ -432,7 +432,8 @@
       "name": "Mother Tonic",
       "slug": "mother-tonic",
       "detail": "50 gm",
-      "image": "/images/wasay/pastes/mother-tonic-front.jpg"
+      "image": "/images/wasay/pastes/mother-tonic-front.jpg",
+      "motion": true
     }
   ]
 }

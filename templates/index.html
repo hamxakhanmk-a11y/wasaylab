@@ -4,6 +4,7 @@
 {{> head}}
   <link rel="stylesheet" href="/quality-story.css" />
   <link rel="stylesheet" href="/glass-photos.css" />
+  <link rel="stylesheet" href="/product-motion.css" />
 </head>
 <body>
 {{> loader}}
@@ -27,6 +28,18 @@
             </div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section id="mother-tonic" class="motion-feature" aria-labelledby="motion-title">
+      <div class="container motion-feature__inner">
+        <div class="motion-feature__copy">
+          <p class="eyebrow">Up close with Wasay</p>
+          <h2 id="motion-title">A closer look.<br />Mother Tonic.</h2>
+          <p class="lead">Explore our 50 gm jar from side to side.</p>
+          <a class="btn btn--ghost" href="/pastes.html">Explore the range &rarr;</a>
+        </div>
+        {{> product-motion}}
       </div>
     </section>
 
@@ -137,5 +150,6 @@
 
   <script src="/script.js"></script>
   <script src="/glass-photos.js"></script>
+  <script src="/product-motion.js"></script>
 </body>
 </html>

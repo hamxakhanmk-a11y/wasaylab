@@ -283,3 +283,8 @@ The Products page has three peer category tabs: Tablets, Multi Tonics, Syrups. E
 Paste jars use cylindrical canvas projection with photographed lids and label sectors. The main navigation exposes Tablets, Multi Tonics, Syrups, Ointments and Pastes as dedicated pages after Home. Source photographs are preserved unchanged.
 
 Cartons now use one depth-buffered WebGL canvas per product, replacing separately composited CSS faces. Paste jars use a closed lathed body with a rounded heel, continuous shoulder and screw cap, and photographed label and cap textures.
+
+
+## Video-based product view
+
+Mother Tonic uses 73 transparent WebP frames extracted from the supplied handheld video (6–12 seconds), with its real packaging retained. This user-requested animation uses gentle floating and a small lean. The home page features it; Pastes and Products replace only this jar’s synthetic rendering. Pointer movement, touch drag and a keyboard-accessible range control explore the filmed partial turn. Pause and Front controls are always available once loaded. Reduced motion starts with a still image; offscreen and background views stop animating. The complete sequence loads only when the view enters the viewport. Other products keep their existing renderers.
