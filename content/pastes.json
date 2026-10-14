@@ -109,16 +109,34 @@
       "image": "/images/wasay/pastes/slim-food-front.jpg"
     },
     {
+      "name": "Laooq Sapistan",
+      "slug": "laooq-sapistan",
+      "detail": "100 gm",
+      "image": "/images/wasay/pastes/laooq-sapistan-front.jpg"
+    },
+    {
       "name": "Itrifal Kishneezi",
       "slug": "itrifal-kishneezi",
       "detail": "100 gm",
       "image": "/images/wasay/pastes/itrifal-kishneezi-front.jpg"
     },
     {
+      "name": "Itrifal Muqil",
+      "slug": "itrifal-muqil",
+      "detail": "100 gm",
+      "image": "/images/wasay/pastes/itrifal-muqil-front.jpg"
+    },
+    {
       "name": "Jawarish Shahi",
       "slug": "jawarish-shahi",
       "detail": "100 gm",
       "image": "/images/wasay/pastes/jawarish-shahi-front.jpg"
+    },
+    {
+      "name": "Majoon Ushba",
+      "slug": "majoon-ushba",
+      "detail": "100 gm",
+      "image": "/images/wasay/pastes/majoon-ushba-front.jpg"
     },
     {
       "name": "Majoon Falasfa",

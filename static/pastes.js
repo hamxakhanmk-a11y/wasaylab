@@ -1,5 +1,5 @@
 (() => {
-const reduced=matchMedia('(prefers-reduced-motion: reduce)'),states=[],clamp=(n,a,b)=>Math.max(a,Math.min(b,n)),SWING=.82;
+const reduced=matchMedia('(prefers-reduced-motion: reduce)'),states=[],clamp=(n,a,b)=>Math.max(a,Math.min(b,n)),SWING=.82,TILT=.16,PHOTO_TILT=.12,silhouette=(h,t)=>h*Math.cos(t)+2*Math.sin(t);
 const load=src=>new Promise((ok,no)=>{const im=new Image();im.onload=()=>ok(im);im.onerror=no;im.src=src;});
 function pixels(image){const c=document.createElement('canvas');c.width=image.width;c.height=image.height;const ctx=c.getContext('2d',{willReadFrequently:true});ctx.drawImage(image,0,0);return {data:ctx.getImageData(0,0,c.width,c.height).data,w:c.width,h:c.height};}
 function sample(im,x,y,k){x=Math.max(0,Math.min(im.w-2,x));y=Math.max(0,Math.min(im.h-2,y));const ix=Math.floor(x),iy=Math.floor(y),fx=x-ix,fy=y-iy,p=(iy*im.w+ix)*4;return (im.data[p+k]*(1-fx)+im.data[p+4+k]*fx)*(1-fy)+(im.data[p+im.w*4+k]*(1-fx)+im.data[p+im.w*4+4+k]*fx)*fy;}
@@ -40,11 +40,11 @@ function stepShowcase(s,t){const dt=s.last?Math.min(48,t-s.last):16;s.last=t;con
 if(manual){s.wasManual=true;if(!s.drag&&Math.abs(s.vel)>.0004){s.goal=clamp(s.goal+s.vel*dt/16,-SWING,SWING);s.vel*=Math.exp(-dt/320)}}
 else if(!reduced.matches){if(s.wasManual){s.clock=600+Math.asin(clamp(s.goal/SWING,-1,1))/(Math.PI*2)*15000;s.wasManual=false}s.clock+=dt;s.goal=Math.sin(Math.max(0,s.clock-600)/15000*Math.PI*2)*SWING}
 s.angle+=(s.goal-s.angle)*(reduced.matches?1:1-Math.exp(-dt/(s.drag?55:150)));
-const a=s.angle,calm=reduced.matches?0:1,lift=.22+calm*.025*Math.sin(t/2300+s.index);
+const a=s.angle,calm=reduced.matches?0:1,lift=TILT+calm*.02*Math.sin(t/2300+s.index);
 s.renderer.draw(a,lift,s.scale);
 s.canvas.style.transform='translate3d('+(Math.sin(a)*7)+'px,'+(calm*Math.sin(t/1300+s.index)*5)+'px,0) rotate('+(Math.sin(a)*1.1)+'deg)';
 s.view.style.setProperty('--turn',Math.sin(a).toFixed(3));s.view.style.setProperty('--turn-abs',Math.abs(Math.sin(a)).toFixed(3));s.view.dataset.angle=a.toFixed(3);}
-async function build(s){s.images=await Promise.all(s.p.photos.map(load));s.topImage=s.p.top?await load(s.p.top.photo):null;const gloss=s.p.animation==='showcase';const renderer=Wasay3D(s.canvas),p=s.p,H=p.wide?2.95:3.85,base=p.wide?.12:.24,labelTop=H-(p.wide?.98:1.05),neckTop=H-(p.wide?.42:.65);
+async function build(s){s.images=await Promise.all(s.p.photos.map(load));s.topImage=s.p.top?await load(s.p.top.photo):null;const gloss=s.p.animation==='showcase';const renderer=Wasay3D(s.canvas),p=s.p,nominal=p.wide?2.95:3.85,bb=p.bounds,H=Math.max(2.3,(2*(bb[3]-bb[1])/(bb[2]-bb[0])-2*Math.sin(PHOTO_TILT))/Math.cos(PHOTO_TILT)),base=(p.wide?.12:.24)*H/nominal,labelTop=H*(1-(bb[4]-bb[1])/(bb[3]-bb[1])),neckTop=H*(1-(p.wide?.142:Math.min(.27,Math.max(.15,(p.measured.cap[5]-bb[1])/(bb[3]-bb[1])))));
 const photo=pixels(s.images[0]),b=p.bounds;const plastic=[0,1,2].map(k=>sample(photo,(b[0]+b[2])/2,b[3]-12,k)/255);
 // Closed bottom, rounded heel, cylindrical label, shoulder and neck all share ring vertices.
 renderer.add(lathe([[0,.025],[.83,.025],[.92,.04],[.975,.10],[1,base]],H),null,plastic,1,gloss?.2:0);
@@ -75,7 +75,7 @@ const height=H-.025+Math.max(0,luminance-.58)*.022;
 return [x,height-H/2,z,0,1,0,u,v];};
 for(let j=0;j<40;j++)for(let i=0;i<128;i++){const ra=.852*j/40,rb=.852*(j+1)/40,aa=i/128*Math.PI*2,ab=(i+1)/128*Math.PI*2;for(const [rr,angle] of [[ra,aa],[rb,aa],[rb,ab],[ra,aa],[rb,ab],[ra,ab]])relief.push(...vertex(rr,angle));}
 renderer.add(capMesh(relief),cap,capColor,.25,gloss?.3:0);
-s.renderer=renderer;s.scale=p.wide?.51:.405;s.ready=true;renderer.draw(0,.22,s.scale);s.view.classList.add('ready');
+s.renderer=renderer;s.scale=(p.wide?.51:.405)*silhouette(nominal,.22)/silhouette(H,TILT);s.ready=true;renderer.draw(0,TILT,s.scale);s.view.classList.add('ready');
 }
 fetch('/pastes-data.json').then(r=>{if(!r.ok)throw Error('Jar data unavailable');return r.json()}).then(data=>{
 const observer=new IntersectionObserver(entries=>entries.forEach(e=>{const s=states.find(s=>s.view===e.target);s.visible=e.isIntersecting;if(s.visible&&!s.started){s.started=true;build(s).catch(error=>console.error('Unable to build jar',s.p.name,error))}}),{rootMargin:'150px'});
@@ -83,6 +83,6 @@ document.querySelectorAll('[data-paste]').forEach(view=>{const index=data.findIn
 view.addEventListener('pointermove',e=>{if(s.showcase||e.pointerType!=='mouse')return;const r=view.getBoundingClientRect();s.manual=true;s.target=((e.clientX-r.left)/r.width-.5)*1.1});view.addEventListener('pointerleave',()=>{if(!s.showcase)s.manual=false});
 view.addEventListener('keydown',e=>{if(s.showcase||!['ArrowLeft','ArrowRight','Home'].includes(e.key))return;e.preventDefault();s.manual=e.key!=='Home';s.target=e.key==='Home'?0:Math.max(-.55,Math.min(.55,s.target+(e.key==='ArrowLeft'?-.15:.15)))});
 });
-let frame;function render(t){for(const s of states)if(s.visible&&s.ready){if(s.showcase){stepShowcase(s,t);continue}const target=s.manual?s.target:reduced.matches?0:Math.sin(t/3400+s.index)*.22;s.angle+=(target-s.angle)*(reduced.matches?1:.1);s.renderer.draw(s.angle,.22,s.scale);s.canvas.style.transform='translateY('+(reduced.matches?0:Math.sin(t/1100+s.index)*5)+'px)';s.view.dataset.angle=s.angle.toFixed(3);}frame=requestAnimationFrame(render)}frame=requestAnimationFrame(render);document.addEventListener('visibilitychange',()=>{cancelAnimationFrame(frame);if(!document.hidden)frame=requestAnimationFrame(render)});
+let frame;function render(t){for(const s of states)if(s.visible&&s.ready){if(s.showcase){stepShowcase(s,t);continue}const target=s.manual?s.target:reduced.matches?0:Math.sin(t/3400+s.index)*.22;s.angle+=(target-s.angle)*(reduced.matches?1:.1);s.renderer.draw(s.angle,TILT,s.scale);s.canvas.style.transform='translateY('+(reduced.matches?0:Math.sin(t/1100+s.index)*5)+'px)';s.view.dataset.angle=s.angle.toFixed(3);}frame=requestAnimationFrame(render)}frame=requestAnimationFrame(render);document.addEventListener('visibilitychange',()=>{cancelAnimationFrame(frame);if(!document.hidden)frame=requestAnimationFrame(render)});
 }).catch(console.error);
 })();

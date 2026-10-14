@@ -128,6 +128,70 @@
     ]
   },
   {
+    "name": "Laooq Sapistan",
+    "slug": "laooq-sapistan",
+    "detail": "100 gm",
+    "photos": [
+      "/images/wasay/pastes/laooq-sapistan-front.jpg",
+      "/images/wasay/pastes/laooq-sapistan-left.jpg",
+      "/images/wasay/pastes/laooq-sapistan-right.jpg"
+    ],
+    "bounds": [
+      430,
+      56,
+      780,
+      684,
+      246
+    ],
+    "side": [
+      [
+        490,
+        221,
+        798,
+        777,
+        336
+      ],
+      [
+        468,
+        253,
+        794,
+        831,
+        428
+      ]
+    ],
+    "measured": {
+      "label": [
+        248,
+        657.72,
+        0,
+        22
+      ],
+      "cap": [
+        606,
+        0,
+        172,
+        4,
+        100,
+        214
+      ]
+    },
+    "top": {
+      "photo": "/images/wasay/pastes/laooq-sapistan-top.jpg",
+      "ellipse": [
+        657,
+        188,
+        192,
+        60
+      ]
+    },
+    "wide": false,
+    "animation": "showcase",
+    "cam": [
+      0.8,
+      1.3
+    ]
+  },
+  {
     "name": "Itrifal Kishneezi",
     "slug": "itrifal-kishneezi",
     "detail": "100 gm",
@@ -192,6 +256,70 @@
     ]
   },
   {
+    "name": "Itrifal Muqil",
+    "slug": "itrifal-muqil",
+    "detail": "100 gm",
+    "photos": [
+      "/images/wasay/pastes/itrifal-muqil-front.jpg",
+      "/images/wasay/pastes/itrifal-muqil-left.jpg",
+      "/images/wasay/pastes/itrifal-muqil-right.jpg"
+    ],
+    "bounds": [
+      474,
+      100,
+      900,
+      826,
+      336
+    ],
+    "side": [
+      [
+        470,
+        53,
+        910,
+        831,
+        312
+      ],
+      [
+        472,
+        170,
+        882,
+        888,
+        388
+      ]
+    ],
+    "measured": {
+      "label": [
+        338,
+        796.6,
+        0,
+        22
+      ],
+      "cap": [
+        687,
+        0,
+        203,
+        4,
+        135,
+        240
+      ]
+    },
+    "top": {
+      "photo": "/images/wasay/pastes/itrifal-muqil-top.jpg",
+      "ellipse": [
+        628,
+        268,
+        172,
+        50
+      ]
+    },
+    "wide": false,
+    "animation": "showcase",
+    "cam": [
+      0.9,
+      1.2
+    ]
+  },
+  {
     "name": "Jawarish Shahi",
     "slug": "jawarish-shahi",
     "detail": "100 gm",
@@ -250,6 +378,70 @@
     },
     "wide": false,
     "animation": "showcase"
+  },
+  {
+    "name": "Majoon Ushba",
+    "slug": "majoon-ushba",
+    "detail": "100 gm",
+    "photos": [
+      "/images/wasay/pastes/majoon-ushba-front.jpg",
+      "/images/wasay/pastes/majoon-ushba-left.jpg",
+      "/images/wasay/pastes/majoon-ushba-right.jpg"
+    ],
+    "bounds": [
+      460,
+      170,
+      830,
+      810,
+      350
+    ],
+    "side": [
+      [
+        610,
+        77,
+        944,
+        659,
+        250
+      ],
+      [
+        490,
+        200,
+        790,
+        730,
+        372
+      ]
+    ],
+    "measured": {
+      "label": [
+        352,
+        782.4,
+        0,
+        22
+      ],
+      "cap": [
+        648,
+        0,
+        172,
+        4,
+        200,
+        300
+      ]
+    },
+    "top": {
+      "photo": "/images/wasay/pastes/majoon-ushba-top.jpg",
+      "ellipse": [
+        644,
+        288,
+        140,
+        44
+      ]
+    },
+    "wide": false,
+    "animation": "showcase",
+    "cam": [
+      0.9,
+      1.04
+    ]
   },
   {
     "name": "Majoon Falasfa",
