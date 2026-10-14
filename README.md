@@ -75,6 +75,7 @@ Jars live in `static/pastes-data.json` (the jar and its measurements) and `conte
 - `side`: the same five numbers for the left photo, then the right photo.
 - `measured.label`: `[label top, label bottom, top curve, bottom curve]` in the front photo (the curves are how far the label edges rise at the sides).
 - `measured.cap`: `[centre x, centre y, radius x, radius y, ribs top, ribs bottom]` of the cap in the front photo.
+- `cam` (optional): `[left, right]`, how far the jar was turned (in radians) for the left and right photos. Typically about 1.0 (60 degrees). It decides where the front photo hands over to each side photo; without it the older default of 0.70 is used. It is best found by registering the side photos against the front one rather than by eye.
 - `top` (optional): `{ "photo": ..., "ellipse": [centre x, centre y, radius x, radius y] }`, a photo from above for the lid.
 - `animation` (optional): `"showcase"` for the wide, draggable motion with a highlight; leave it out for the gentle sway.
 

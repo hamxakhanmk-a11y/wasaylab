@@ -1,5 +1,197 @@
 [
   {
+    "name": "Hasnat",
+    "slug": "hasnat",
+    "detail": "250 gm",
+    "photos": [
+      "/images/wasay/pastes/hasnat-front.jpg",
+      "/images/wasay/pastes/hasnat-left.jpg",
+      "/images/wasay/pastes/hasnat-right.jpg"
+    ],
+    "bounds": [
+      346,
+      103,
+      859,
+      860,
+      330
+    ],
+    "side": [
+      [
+        442,
+        46,
+        948,
+        794,
+        330
+      ],
+      [
+        404,
+        93,
+        928,
+        869,
+        330
+      ]
+    ],
+    "measured": {
+      "label": [
+        342,
+        858,
+        14,
+        50
+      ],
+      "cap": [
+        601,
+        160,
+        224,
+        6,
+        128,
+        194
+      ]
+    },
+    "top": {
+      "photo": "/images/wasay/pastes/hasnat-top.jpg",
+      "ellipse": [
+        600,
+        285,
+        196,
+        60
+      ]
+    },
+    "wide": true,
+    "animation": "showcase",
+    "cam": [
+      1.16,
+      1.1
+    ]
+  },
+  {
+    "name": "Slim Food",
+    "slug": "slim-food",
+    "detail": "150 gm",
+    "photos": [
+      "/images/wasay/pastes/slim-food-front.jpg",
+      "/images/wasay/pastes/slim-food-left.jpg",
+      "/images/wasay/pastes/slim-food-right.jpg"
+    ],
+    "bounds": [
+      419,
+      124,
+      902,
+      836,
+      364
+    ],
+    "side": [
+      [
+        422,
+        159,
+        878,
+        813,
+        364
+      ],
+      [
+        426,
+        110,
+        890,
+        784,
+        364
+      ]
+    ],
+    "measured": {
+      "label": [
+        364,
+        836,
+        0,
+        24
+      ],
+      "cap": [
+        667,
+        175,
+        206,
+        4,
+        144,
+        214
+      ]
+    },
+    "top": {
+      "photo": "/images/wasay/pastes/slim-food-top.jpg",
+      "ellipse": [
+        645,
+        285,
+        190,
+        58
+      ]
+    },
+    "wide": true,
+    "animation": "showcase",
+    "cam": [
+      1.12,
+      1.06
+    ]
+  },
+  {
+    "name": "Itrifal Kishneezi",
+    "slug": "itrifal-kishneezi",
+    "detail": "100 gm",
+    "photos": [
+      "/images/wasay/pastes/itrifal-kishneezi-front.jpg",
+      "/images/wasay/pastes/itrifal-kishneezi-left.jpg",
+      "/images/wasay/pastes/itrifal-kishneezi-right.jpg"
+    ],
+    "bounds": [
+      424,
+      75,
+      842,
+      823,
+      303
+    ],
+    "side": [
+      [
+        474,
+        136,
+        906,
+        916,
+        303
+      ],
+      [
+        422,
+        193,
+        798,
+        863,
+        303
+      ]
+    ],
+    "measured": {
+      "label": [
+        305,
+        728,
+        0,
+        20
+      ],
+      "cap": [
+        636,
+        100,
+        203,
+        4,
+        106,
+        238
+      ]
+    },
+    "top": {
+      "photo": "/images/wasay/pastes/itrifal-kishneezi-top.jpg",
+      "ellipse": [
+        644,
+        232,
+        186,
+        56
+      ]
+    },
+    "wide": false,
+    "animation": "showcase",
+    "cam": [
+      0.96,
+      0.88
+    ]
+  },
+  {
     "name": "Jawarish Shahi",
     "slug": "jawarish-shahi",
     "detail": "100 gm",
@@ -58,5 +250,133 @@
     },
     "wide": false,
     "animation": "showcase"
+  },
+  {
+    "name": "Majoon Falasfa",
+    "slug": "majoon-falasfa",
+    "detail": "100 gm",
+    "photos": [
+      "/images/wasay/pastes/majoon-falasfa-front.jpg",
+      "/images/wasay/pastes/majoon-falasfa-left.jpg",
+      "/images/wasay/pastes/majoon-falasfa-right.jpg"
+    ],
+    "bounds": [
+      446,
+      67,
+      879,
+      830,
+      313
+    ],
+    "side": [
+      [
+        462,
+        139,
+        874,
+        883,
+        313
+      ],
+      [
+        450,
+        167,
+        858,
+        871,
+        313
+      ]
+    ],
+    "measured": {
+      "label": [
+        313,
+        790,
+        0,
+        26
+      ],
+      "cap": [
+        664,
+        100,
+        209,
+        4,
+        100,
+        236
+      ]
+    },
+    "top": {
+      "photo": "/images/wasay/pastes/majoon-falasfa-top.jpg",
+      "ellipse": [
+        676,
+        262,
+        166,
+        50
+      ]
+    },
+    "wide": false,
+    "animation": "showcase",
+    "cam": [
+      1.14,
+      1
+    ]
+  },
+  {
+    "name": "Mother Tonic",
+    "slug": "mother-tonic",
+    "detail": "50 gm",
+    "photos": [
+      "/images/wasay/pastes/mother-tonic-front.jpg",
+      "/images/wasay/pastes/mother-tonic-left.jpg",
+      "/images/wasay/pastes/mother-tonic-right.jpg"
+    ],
+    "bounds": [
+      437,
+      99,
+      849,
+      842,
+      306
+    ],
+    "side": [
+      [
+        436,
+        100,
+        840,
+        826,
+        306
+      ],
+      [
+        426,
+        139,
+        830,
+        835,
+        306
+      ]
+    ],
+    "measured": {
+      "label": [
+        306,
+        815,
+        0,
+        20
+      ],
+      "cap": [
+        644,
+        130,
+        204,
+        4,
+        128,
+        256
+      ]
+    },
+    "top": {
+      "photo": "/images/wasay/pastes/mother-tonic-top.jpg",
+      "ellipse": [
+        663,
+        270,
+        174,
+        42
+      ]
+    },
+    "wide": false,
+    "animation": "showcase",
+    "cam": [
+      1,
+      1.08
+    ]
   }
 ]

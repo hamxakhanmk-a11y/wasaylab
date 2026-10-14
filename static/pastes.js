@@ -4,9 +4,9 @@ const load=src=>new Promise((ok,no)=>{const im=new Image();im.onload=()=>ok(im);
 function pixels(image){const c=document.createElement('canvas');c.width=image.width;c.height=image.height;const ctx=c.getContext('2d',{willReadFrequently:true});ctx.drawImage(image,0,0);return {data:ctx.getImageData(0,0,c.width,c.height).data,w:c.width,h:c.height};}
 function sample(im,x,y,k){x=Math.max(0,Math.min(im.w-2,x));y=Math.max(0,Math.min(im.h-2,y));const ix=Math.floor(x),iy=Math.floor(y),fx=x-ix,fy=y-iy,p=(iy*im.w+ix)*4;return (im.data[p+k]*(1-fx)+im.data[p+4+k]*fx)*(1-fy)+(im.data[p+im.w*4+k]*(1-fx)+im.data[p+im.w*4+4+k]*fx)*fy;}
 async function label(s){
-const out=document.createElement('canvas');out.width=1024;out.height=640;const ctx=out.getContext('2d'),target=ctx.createImageData(out.width,out.height),photos=s.images.map(pixels),bounds=[s.p.bounds,...s.p.side],camera=[0,-.70,.70];
+const out=document.createElement('canvas');out.width=1024;out.height=640;const ctx=out.getContext('2d'),target=ctx.createImageData(out.width,out.height),photos=s.images.map(pixels),bounds=[s.p.bounds,...s.p.side],cam=s.p.cam,camera=cam?[0,-cam[0],cam[1]]:[0,-.70,.70];
 for(let y=0;y<out.height;y++){for(let x=0;x<out.width;x++){
-const theta=(x/out.width-.5)*Math.PI*2,side=theta<0?1:2,blend=Math.max(0,Math.min(1,(Math.abs(theta)-.95)/.35)),v=y/(out.height-1),offset=(y*out.width+x)*4;
+const theta=(x/out.width-.5)*Math.PI*2,side=theta<0?1:2,blend=Math.max(0,Math.min(1,(Math.abs(theta)-(cam?cam[side-1]/2+.1:.95))/.35)),v=y/(out.height-1),offset=(y*out.width+x)*4;
 for(let k=0;k<3;k++){
 let value=0;for(const sector of [0,side]){const q=bounds[sector],local=Math.max(-1.49,Math.min(1.49,theta-camera[sector])),sx=(q[0]+q[2])/2+Math.sin(local)*(q[2]-q[0])*.485;
 // Remove the photographed base from the label: it is a continuous molded mesh below.
@@ -63,7 +63,7 @@ bc.putImageData(band,0,0);
 renderer.add(capMesh(lathe([[.88,neckTop-.025],[.92,neckTop-.025],[.945,neckTop+.02],[.945,H-.065],[.925,H-.035]],H,[neckTop-.025,H-.035],!p.wide)),capBand,capColor,.35,gloss?.32:0);
 // Rectify the lid ellipse to a circular top. Never copy its embossed top into the side wall.
 const cap=document.createElement('canvas');cap.width=512;cap.height=512;const cx=cap.getContext('2d'),topPixels=cx.createImageData(512,512),topSrc=s.topImage?pixels(s.topImage):photo,e=s.topImage?s.p.top.ellipse:[c[0],c[1],c[2],c[3]];
-for(let y=0;y<512;y++)for(let x=0;x<512;x++){const u=(x+.5)/256-1,v=(y+.5)/256-1;for(let k=0;k<3;k++)topPixels.data[(y*512+x)*4+k]=sample(topSrc,e[0]+u*e[2]*.985,e[1]+v*e[3]*.97,k);topPixels.data[(y*512+x)*4+3]=255;}
+for(let y=0;y<512;y++)for(let x=0;x<512;x++){const u=(x+.5)/256-1,v=(y+.5)/256-1;for(let k=0;k<3;k++)topPixels.data[(y*512+x)*4+k]=sample(topSrc,e[0]+u*e[2]*(s.topImage?.935:.985),e[1]+v*e[3]*(s.topImage?.9:.97),k);topPixels.data[(y*512+x)*4+3]=255;}
 cx.putImageData(topPixels,0,0);
 // Rounded outer lip, recessed central plane and concentric molded rings.
 renderer.add(capMesh(lathe([[.925,H-.035],[.916,H-.009],[.893,H],[.869,H-.008],[.852,H-.025]],H)),null,capColor,.35,gloss?.3:0);

@@ -381,10 +381,40 @@
   ],
   "pastes": [
     {
+      "name": "Hasnat",
+      "slug": "hasnat",
+      "detail": "250 gm",
+      "image": "/images/wasay/pastes/hasnat-front.jpg"
+    },
+    {
+      "name": "Slim Food",
+      "slug": "slim-food",
+      "detail": "150 gm",
+      "image": "/images/wasay/pastes/slim-food-front.jpg"
+    },
+    {
+      "name": "Itrifal Kishneezi",
+      "slug": "itrifal-kishneezi",
+      "detail": "100 gm",
+      "image": "/images/wasay/pastes/itrifal-kishneezi-front.jpg"
+    },
+    {
       "name": "Jawarish Shahi",
       "slug": "jawarish-shahi",
       "detail": "100 gm",
       "image": "/images/wasay/pastes/jawarish-shahi-front.jpg"
+    },
+    {
+      "name": "Majoon Falasfa",
+      "slug": "majoon-falasfa",
+      "detail": "100 gm",
+      "image": "/images/wasay/pastes/majoon-falasfa-front.jpg"
+    },
+    {
+      "name": "Mother Tonic",
+      "slug": "mother-tonic",
+      "detail": "50 gm",
+      "image": "/images/wasay/pastes/mother-tonic-front.jpg"
     }
   ]
 }
