@@ -1,29 +1,16 @@
 (() => {
 const reduced=matchMedia('(prefers-reduced-motion: reduce)'),states=[],clamp=(n,a,b)=>Math.max(a,Math.min(b,n)),SWING=.82;
 const load=src=>new Promise((ok,no)=>{const im=new Image();im.onload=()=>ok(im);im.onerror=no;im.src=src;});
-const sideBounds=[[[588,282,873,710,389],[582,242,862,668,338]],[[568,231,852,674,358],[563,211,816,594,315]],[[670,278,890,658,400],[605,253,810,621,373]],[[614,277,819,658,416],[640,288,830,635,407]],[[622,335,858,774,484],[541,317,760,711,438]],[[622,271,864,710,450],[558,279,753,638,403]],[[652,253,895,679,417],[650,270,829,578,378]],[[626,302,866,741,470],[554,185,833,689,352]],[[670,129,943,600,282],[576,284,787,664,415]]];
-// Measured front label edges and lid ellipses, in original photo pixels.
-const measured=[
-{label:[474,750,40,34],cap:[686,284,143,34,326,374]},
-{label:[473,688,38,31],cap:[701,296,125,38,340,382]},
-{label:[491,695,20,19],cap:[710,351,107,27,386,449]},
-{label:[456,653,22,20],cap:[692,302,113,38,346,409]},
-{label:[529,780,29,26],cap:[636,355,136,42,402,478]},
-{label:[486,714,24,22],cap:[665,318,124,38,360,429]},
-{label:[478,700,24,22],cap:[707,325,119,35,366,428]},
-{label:[410,680,26,23],cap:[672,244,139,35,287,355]},
-{label:[380,672,29,24],cap:[678,217,139,41,263,336]}
-];
 function pixels(image){const c=document.createElement('canvas');c.width=image.width;c.height=image.height;const ctx=c.getContext('2d',{willReadFrequently:true});ctx.drawImage(image,0,0);return {data:ctx.getImageData(0,0,c.width,c.height).data,w:c.width,h:c.height};}
 function sample(im,x,y,k){x=Math.max(0,Math.min(im.w-2,x));y=Math.max(0,Math.min(im.h-2,y));const ix=Math.floor(x),iy=Math.floor(y),fx=x-ix,fy=y-iy,p=(iy*im.w+ix)*4;return (im.data[p+k]*(1-fx)+im.data[p+4+k]*fx)*(1-fy)+(im.data[p+im.w*4+k]*(1-fx)+im.data[p+im.w*4+4+k]*fx)*fy;}
 async function label(s){
-const out=document.createElement('canvas');out.width=1024;out.height=640;const ctx=out.getContext('2d'),target=ctx.createImageData(out.width,out.height),photos=s.images.map(pixels),bounds=[s.p.bounds,...(s.p.side||sideBounds[s.index])],camera=[0,-.70,.70];
+const out=document.createElement('canvas');out.width=1024;out.height=640;const ctx=out.getContext('2d'),target=ctx.createImageData(out.width,out.height),photos=s.images.map(pixels),bounds=[s.p.bounds,...s.p.side],camera=[0,-.70,.70];
 for(let y=0;y<out.height;y++){for(let x=0;x<out.width;x++){
 const theta=(x/out.width-.5)*Math.PI*2,side=theta<0?1:2,blend=Math.max(0,Math.min(1,(Math.abs(theta)-.95)/.35)),v=y/(out.height-1),offset=(y*out.width+x)*4;
 for(let k=0;k<3;k++){
 let value=0;for(const sector of [0,side]){const q=bounds[sector],local=Math.max(-1.49,Math.min(1.49,theta-camera[sector])),sx=(q[0]+q[2])/2+Math.sin(local)*(q[2]-q[0])*.485;
 // Remove the photographed base from the label: it is a continuous molded mesh below.
-const m=(s.p.measured||measured[s.index]).label,front=s.p.bounds,factor=(q[3]-q[1])/(front[3]-front[1]);
+const m=s.p.measured.label,front=s.p.bounds,factor=(q[3]-q[1])/(front[3]-front[1]);
 const labelStart=sector===0?m[0]:q[1]+(m[0]-front[1])*factor,bottom=sector===0?m[1]:q[1]+(m[1]-front[1])*factor;
 // Invert the photographed camera elevation before wrapping onto the 3D cylinder.
 const curvature=1-Math.cos(local),topCurve=m[2]*factor,bottomCurve=m[3]*factor;
@@ -64,7 +51,7 @@ renderer.add(lathe([[0,.025],[.83,.025],[.92,.04],[.975,.10],[1,base]],H),null,p
 renderer.add(lathe([[1,base],[1,labelTop]],H,[base,labelTop]),await label(s),[.89,.92,.91],1,gloss?.14:0);
 renderer.add(lathe([[1,labelTop],[1,labelTop+.04],[.96,labelTop+.14],[.88,neckTop-.04],[.88,neckTop+.035]],H),null,[.94,.955,.94],1,gloss?.22:0);
 const capMesh=vertices=>{if(p.wide)for(let i=0;i<vertices.length;i+=8){vertices[i]*=.92;vertices[i+2]*=.92;}return vertices;};
-const capColor=p.wide?[.98,.78,.025]:[.85,.90,.89],c=(s.p.measured||measured[s.index]).cap;
+const capColor=p.wide?[.98,.78,.025]:[.85,.90,.89],c=s.p.measured.cap;
 const capBand=document.createElement('canvas');capBand.width=1024;capBand.height=192;const bc=capBand.getContext('2d'),band=bc.createImageData(1024,192);
 for(let y=0;y<192;y++)for(let x=0;x<1024;x++){
 const theta=(x/1024-.5)*Math.PI*2,local=Math.max(-1.4,Math.min(1.4,theta)),v=y/191,curve=1-Math.cos(local);

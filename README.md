@@ -78,7 +78,7 @@ Jars live in `static/pastes-data.json` (the jar and its measurements) and `conte
 - `top` (optional): `{ "photo": ..., "ellipse": [centre x, centre y, radius x, radius y] }`, a photo from above for the lid.
 - `animation` (optional): `"showcase"` for the wide, draggable motion with a highlight; leave it out for the gentle sway.
 
-If `side` or `measured` are left out, the jar falls back to the older index-based tables in `pastes.js`.
+`side` and `measured` are required for every jar; there are no shared tables to fall back on.
 
 ## Publishing and the editor
 
