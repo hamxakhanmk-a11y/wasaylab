@@ -27,3 +27,5 @@
 .paste-showcase{cursor:grab;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}.paste-showcase.is-dragging{cursor:grabbing}.paste-showcase canvas{-webkit-user-drag:none}
 .paste-showcase::after{transform:translateX(calc(var(--turn,0)*-12px)) scaleX(calc(1 - var(--turn-abs,0)*.12));opacity:calc(1 - var(--turn-abs,0)*.28)}
 @media (prefers-reduced-motion:reduce){.paste-showcase::after{transform:none;opacity:1}}
+.paste-js .paste-view:not(.ready):not(.failed) .tablet-fallback{visibility:hidden}
+.paste-js .paste-view:not(.ready):not(.failed)::before{content:"Preparing jar\2026";position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);font-size:.85rem;pointer-events:none}
