@@ -1,13 +1,11 @@
-# Botanical animation
+# Botanical scroll story
 
-Original vector animation authored for Wasay Laboratories.
+Original scene authored for Wasay Laboratories, inspired by the leaf-to-bottle concept at https://www.istockphoto.com/en/video/speed-ramp-droplet-drips-over-a-green-leaf-into-a-small-bottle-gm1387581235-445422133 . No iStock media is included.
 
-Visual reference: https://www.istockphoto.com/en/video/speed-ramp-droplet-drips-over-a-green-leaf-into-a-small-bottle-gm1387581235-445422133
+Who we are spans 300svh. The scene pins below the header, with three chapters using existing company copy. Scroll progress controls drop formation, elongation, fall and impact; reverse scrolling reverses the scene. Chapter buttons are keyboard accessible. There is no timed playback.
 
-The reference was viewed for droplet timing and the leaf-to-bottle concept. No iStock video, preview, thumbnail or watermark is included in the website. The shipped graphic is original SVG geometry with CSS animation, not filmed footage.
+The WebGL scene has a curved, procedurally textured leaf; double-wall amber glass; threaded bottle neck; liquid volume; a transmissive droplet; reflected studio lighting; and a ripple. It is a rendered 3D scene, not filmed footage. Mild pointer parallax is disabled under reduced motion.
 
-Files: templates/partials/botanical-motion.html, static/botanical-motion.css and static/botanical-motion.js. No third-party asset downloads or runtime dependencies.
+Three.js 0.180.0 is bundled locally from the official npm package. Its MIT license is preserved at static/vendor/three/LICENSE. No runtime CDN or external models/textures are needed. The renderer loads near the section and draws on demand. The original SVG remains a scroll-controlled fallback for unsupported WebGL. Reduced motion displays every text chapter in normal flow and a static scene.
 
-A drop forms at the leaf tip, elongates, falls into the bottle opening and triggers a ripple. The leaf flexes slightly. Pausing preserves the current frame; offscreen and background scenes stop. Reduced motion starts paused; pressing Play explicitly enables motion. Without JavaScript the scene is a still illustration.
-
-The original /images/wasay/section.webp photograph has moved from Who we are to Why customers love Wasay, with its proportions and wording retained.
+Files: static/botanical-motion.js (story control), static/botanical-three.js (renderer), static/botanical-motion.css, templates/partials/botanical-motion.html and the Who we are block in templates/index.html.

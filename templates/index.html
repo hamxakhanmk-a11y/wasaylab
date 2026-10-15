@@ -62,17 +62,35 @@
 
 {{> product-view}}
 
-    <!-- WHO WE ARE: original leaf-to-bottle motion beside the company introduction. -->
-    <article class="botanical-about" aria-label="{{ page.about.eyebrow }}">
-      <div class="container botanical-about__inner">
-        <div class="botanical-about__copy">
-          <p class="eyebrow">{{ page.about.eyebrow }}</p>
-          <h2>{{ page.about.heading }}</h2>
-          <p>{{ page.about.text }}</p>
-          <ul class="about-points">{{#each page.about.points}}<li>{{ . }}</li>{{/each}}</ul>
-          <p class="wz-action"><a class="btn btn--accent" href="{{ page.about.button_href }}">{{ page.about.button_label }}</a></p>
+    <!-- WHO WE ARE: a three-screen, scroll-controlled botanical story. -->
+    <article class="botanical-about" data-botanical-story data-stack-skip aria-label="{{ page.about.eyebrow }}">
+      <div class="botanical-story__pin">
+        <div class="container botanical-about__inner">
+          <div class="botanical-about__copy">
+            <p class="eyebrow">{{ page.about.eyebrow }}</p>
+            <div class="botanical-story__panels">
+              <section class="botanical-story__panel is-current" data-story-panel>
+                <h2>{{ page.about.heading }}</h2>
+                <p>{{ page.about.text }}</p>
+              </section>
+              <section class="botanical-story__panel" data-story-panel>
+                <h2>{{ page.about.points.0 }}</h2>
+                <p>{{ page.about.points.1 }}</p>
+              </section>
+              <section class="botanical-story__panel" data-story-panel>
+                <h2>{{ page.about.points.2 }}</h2>
+                <p class="wz-action"><a class="btn btn--accent" href="{{ page.about.button_href }}">{{ page.about.button_label }}</a></p>
+              </section>
+            </div>
+            <nav class="botanical-story__nav" aria-label="Company story">
+              <button type="button" data-story-target="0" aria-label="Our purpose">01</button>
+              <button type="button" data-story-target="1" aria-label="Our products">02</button>
+              <button type="button" data-story-target="2" aria-label="Our commitment">03</button>
+              <span class="botanical-story__hint">Scroll to explore</span>
+            </nav>
+          </div>
+          {{> botanical-motion}}
         </div>
-        {{> botanical-motion}}
       </div>
     </article>
 
