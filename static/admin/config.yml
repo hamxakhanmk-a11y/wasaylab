@@ -172,12 +172,6 @@ collections:
               - { name: points, label: Bullet points, widget: list }
               - { name: button_label, label: Button text, widget: string }
               - { name: button_href, label: Button links to, widget: string }
-              - name: media
-                label: Photo
-                widget: object
-                fields:
-                  - { name: image, label: Photo, widget: image }
-                  - { name: alt, label: Photo description, widget: string }
           - { name: marquee, label: Scrolling ticker, widget: list, hint: 'The category names that scroll past. Repeats automatically.' }
           - name: looking_for
             label: 'Section: I’m looking for'
@@ -225,6 +219,12 @@ collections:
               - { name: eyebrow, label: Small label above heading, widget: string }
               - { name: heading, label: Heading, widget: string }
               - { name: text, label: Paragraph, widget: text }
+              - name: media
+                label: Photo
+                widget: object
+                fields:
+                  - { name: image, label: Photo, widget: image }
+                  - { name: alt, label: Photo description, widget: string }
           - name: why
             label: 'Section: Why choose Wasay'
             widget: object
@@ -385,6 +385,7 @@ collections:
               - { name: uses_note, label: Missing-use explanation, widget: text, required: false }
               - { name: ingredients, label: Readable ingredient names, widget: list }
               - { name: composition_status, label: Composition evidence, widget: select, options: [listed, partial, unreadable, not-visible] }
+              - { name: partial_composition, label: Show as key ingredients (incomplete formula), widget: boolean, default: false }
               - { name: composition_note, label: Composition note, widget: text }
               - name: sources
                 label: Source photographs

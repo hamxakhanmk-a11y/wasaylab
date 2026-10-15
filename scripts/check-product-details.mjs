@@ -29,6 +29,8 @@ for (const category of ['tablets', 'tonics', 'syrups', 'ointments', 'pastes']) {
 assert.equal(actual.size, records.size, 'Orphan or missing records');
 for (const page of ['index', 'products', 'tablets', 'tonics', 'syrups', 'ointments', 'pastes']) {
   const html = read(`dist/${page}.html`);
+  const productCopy = [...html.matchAll(/<template data-pv-copy="[^"]+">([\s\S]*?)<\/template>/g)].map((m) => m[1]).join('');
+  assert(!/Urdu|photographs|transcrib|as printed|wraps out of view|not visible|not clear enough/.test(productCopy), `${page}: research commentary leaked into customer-facing copy`);
   assert(!html.includes('data-detail-photos'), `${page}: old gallery remains`);
   assert(!html.includes('wz-detail__specs'), `${page}: old specifications remain`);
   const copies = [...html.matchAll(/data-pv-copy="([^"]+)"/g)].map((m) => m[1]);

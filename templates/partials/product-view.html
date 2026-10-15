@@ -8,14 +8,14 @@
     <h3>{{ site.product_view.about_heading }}</h3>
     <div><p>{{ about }}</p></div>
   </section>
-  <section class="wz-detail__section">
+  {{#if uses}}<section class="wz-detail__section">
     <h3>{{ site.product_view.uses_heading }}</h3>
-    <div>{{#if uses}}<ul>{{#each uses}}<li>{{ . }}</li>{{/each}}</ul>{{else}}<p class="wz-detail__unconfirmed">{{ uses_note }}</p>{{/if}}</div>
-  </section>
-  <section class="wz-detail__section">
-    <h3>{{ site.product_view.composition_heading }}</h3>
-    <div>{{#if ingredients}}<ul class="wz-detail__ingredients">{{#each ingredients}}<li>{{ . }}</li>{{/each}}</ul>{{/if}}<p class="wz-detail__unconfirmed">{{ composition_note }}</p></div>
-  </section>
+    <div><ul>{{#each uses}}<li>{{ . }}</li>{{/each}}</ul></div>
+  </section>{{/if}}
+  {{#if ingredients}}<section class="wz-detail__section">
+    <h3>{{#if partial_composition}}{{ site.product_view.key_ingredients_heading }}{{else}}{{ site.product_view.composition_heading }}{{/if}}</h3>
+    <div><ul class="wz-detail__ingredients">{{#each ingredients}}<li>{{ . }}</li>{{/each}}</ul></div>
+  </section>{{/if}}
 </template>
 {{/each}}
     <dialog class="wz-detail" aria-labelledby="wz-detail-name" data-product-view>
@@ -30,7 +30,6 @@
       </div>
       <div class="wz-detail__body">
         <div data-detail-copy></div>
-        <p class="wz-detail__label-note">{{ site.product_view.label_note }}</p>
         <nav class="wz-detail__nav" aria-label="{{ site.product_view.nav_label }}">
           <button type="button" data-detail-step="-1"><span aria-hidden="true">&larr;</span> {{ site.product_view.prev_label }}: <b data-detail-neighbour="-1"></b></button>
           <a href="pastes.html" data-pv-all data-fill="all_label"></a>

@@ -1,0 +1,43 @@
+/* Original, locally rendered leaf-to-bottle motion. No external stock preview is used. */
+.botanical-about { background: var(--paper); }
+.botanical-about__inner { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: clamp(32px, 5vw, 80px); padding-block: clamp(64px, 8vw, 112px); }
+.botanical-about__copy h2 { font-size: clamp(2rem, 3.6vw, 3.2rem); line-height: 1.08; margin: 12px 0 24px; max-width: 19ch; text-wrap: balance; }
+.botanical-about__copy > p:not(.eyebrow):not(.wz-action) { max-width: 50ch; color: var(--muted); line-height: 1.8; }
+.botanical-about__copy .about-points { margin: 24px 0 28px; padding-left: 1.15em; color: var(--muted); font-size: .95rem; line-height: 1.7; }
+.botanical-about__copy .about-points li + li { margin-top: 10px; }
+.botanical-scene { position: relative; width: 100%; overflow: hidden; border-radius: 10px; background: #eef1e5; }
+.botanical-scene__art { display: block; width: 100%; height: auto; }
+.botanical-scene__control { position: absolute; right: 16px; bottom: 16px; min-height: 44px; padding: 10px 16px; border: 1px solid rgba(255,255,255,.85); border-radius: 999px; background: rgba(250,248,244,.86); color: var(--text); font: 500 .8rem var(--font); cursor: pointer; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.botanical-scene__control:hover { background: #fff; }
+.botanical-scene__control:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.botanical-scene__drop { animation: botanical-drop 6.8s linear infinite; transform-origin: 0 0; }
+.botanical-scene__ripple { animation: botanical-ripple 6.8s linear infinite; transform-origin: 0 0; opacity: 0; }
+.botanical-scene__leaf { animation: botanical-leaf 6.8s ease-in-out infinite; transform-origin: 104px 70px; }
+.botanical-scene__drop, .botanical-scene__ripple, .botanical-scene__leaf { animation-play-state: paused; }
+.botanical-scene.is-playing .botanical-scene__drop, .botanical-scene.is-playing .botanical-scene__ripple, .botanical-scene.is-playing .botanical-scene__leaf { animation-play-state: running; }
+@keyframes botanical-drop {
+  0%, 8% { opacity: 1; transform: translateY(-3px) scale(.32,.24); }
+  35% { opacity: 1; transform: translateY(0) scale(.85,.8); }
+  46% { opacity: 1; transform: translateY(3px) scale(.9,1.12); }
+  50% { opacity: 1; transform: translateY(13px) scale(.8,1.25); }
+  56% { opacity: 1; transform: translateY(40px) scale(.95,1.08); }
+  61.5% { opacity: 1; transform: translateY(83px) scale(.8,.6); }
+  63%, 100% { opacity: 0; transform: translateY(90px) scale(.5,.2); }
+}
+@keyframes botanical-ripple {
+  0%, 61% { opacity: 0; transform: scale(.15); }
+  64% { opacity: .75; transform: scale(.3); }
+  76% { opacity: .25; transform: scale(1); }
+  85%, 100% { opacity: 0; transform: scale(1.2); }
+}
+@keyframes botanical-leaf { 0%, 100% { transform: rotate(0); } 46% { transform: rotate(.35deg); } 62% { transform: rotate(-.2deg); } }
+.wz-love__inner { max-width: 1140px; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 80px); align-items: center; text-align: left; }
+.wz-love__photo { margin: 0; }
+.wz-love__photo img { display: block; width: 100%; height: auto; border-radius: 8px; }
+.wz-love__copy .lead { margin-inline: 0; }
+@media (max-width: 760px) {
+  .botanical-about__inner, .wz-love__inner { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .botanical-about__copy h2 { max-width: none; }
+  .botanical-scene { max-width: 520px; margin-inline: auto; }
+  .wz-love__photo { max-width: 520px; margin-inline: auto; }
+}

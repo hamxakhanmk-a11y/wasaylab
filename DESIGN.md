@@ -304,3 +304,9 @@ The home jars follow a continuous shallow arc, with gradual size changes and a s
 ## Product information
 
 The shared product view now replaces the generic specifications and pack-photo gallery with About the product, Uses and Composition. All 55 products share the slug-based records in content/product_details.json, so Home and category views use identical copy. The animated opening is retained. Paper-white editorial rows pair headings with readable text; phones stack the columns. Only readable Wasay label wording is transcribed or conservatively paraphrased. Missing and partial ingredient lists remain explicit; no other manufacturer’s traditional formula, dosage or efficacy guarantee is inferred. See PRODUCT-CONTENT-AUDIT.md for source checks and outstanding labels.
+
+Customer-facing product descriptions use direct product language. Photo angles, label languages, transcription notes and missing-data explanations belong only in the editorial audit and content metadata. Unverified Uses or Composition sections are omitted. Verified partial ingredient lists use the heading Key ingredients, so they do not imply a complete formula.
+
+## Botanical company introduction
+
+Who we are pairs the existing company copy with an original SVG macro illustration: a green leaf, a forming and falling droplet, an amber glass bottle and a ripple at its opening. The 6.8-second cycle uses transform/opacity animation; the leaf has a small flex. Play/pause, reduced-motion defaults, viewport suspension and background-tab suspension are supported. It is an original animated illustration, not the paid iStock footage. The previous tea photograph is shown whole beside Why customers love Wasay; both sections stack on phones. No new health claims are introduced.

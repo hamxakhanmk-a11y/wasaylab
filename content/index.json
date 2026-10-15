@@ -55,11 +55,7 @@
       "Compliant with national and international regulatory bodies"
     ],
     "button_label": "More about us",
-    "button_href": "about.html",
-    "media": {
-      "alt": "A smiling man holding a glass cup of tea, with the Urdu line “Aap bhi aadat bana lein”",
-      "image": "/images/wasay/section.webp"
-    }
+    "button_href": "about.html"
   },
   "marquee": [
     "General health",
@@ -141,7 +137,11 @@
   "love": {
     "eyebrow": "Why do customers love Wasay?",
     "heading": "It’s simple.",
-    "text": "Wasay combines the best of nature with the best of science to bring our customers a huge family of products, from medicines and supplements to food items and beverages."
+    "text": "Wasay combines the best of nature with the best of science to bring our customers a huge family of products, from medicines and supplements to food items and beverages.",
+    "media": {
+      "alt": "A smiling man holding a glass cup of tea, with the Urdu line “Aap bhi aadat bana lein”",
+      "image": "/images/wasay/section.webp"
+    }
   },
   "why": {
     "eyebrow": "Why choose Wasay?",

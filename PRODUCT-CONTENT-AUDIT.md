@@ -64,7 +64,7 @@ Two products still need a readable use statement: Qurs Mulayyan and Itrifal Ustu
 | Hasnat (pastes) | Label text available | unreadable |
 | Slim Food (pastes) | Label text available | not-visible |
 | Laooq Sapistan (pastes) | Label text available | not-visible |
-| Itrifal Kishneezi (pastes) | Label text available | not-visible |
+| Itrifal Kishneezi (pastes) | Needs confirmation | not-visible |
 | Itrifal Muqil (pastes) | Label text available | not-visible |
 | Jawarish Shahi (pastes) | Label text available | not-visible |
 | Majoon Ushba (pastes) | Label text available | not-visible |
@@ -72,3 +72,7 @@ Two products still need a readable use statement: Qurs Mulayyan and Itrifal Ustu
 | Mother Tonic (pastes) | Label text available | listed |
 
 Full per-product evidence notes and original photo paths are in content/product_details.json. “listed” means the printed ingredient-name list could be read; it does not certify efficacy or completeness of excipients.
+
+## Customer-facing copy revision
+
+Research commentary is no longer rendered in product views. Unknown sections are hidden, not replaced with speculative information. Partial ingredient lists are headed Key ingredients. Itrifal Kishneezi’s visible use statement is incomplete, so its Uses section is withheld alongside Qurs Mulayyan and Itrifal Ustukhuddus tablets. Research/source metadata remains preserved in content/product_details.json.

@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="/glass-photos.css" />
   <link rel="stylesheet" href="/wasay-ring.css" />
   <link rel="stylesheet" href="/wellness-banner.css" />
+  <link rel="stylesheet" href="/botanical-motion.css" />
   <link rel="stylesheet" href="/wasay-detail.css" />
 </head>
 <body>
@@ -61,18 +62,17 @@
 
 {{> product-view}}
 
-    <!-- WHO WE ARE: a quality-control window. The photo stays still and is uncovered as the page scrolls past. -->
-    <article class="qc-window home-about-window" aria-label="{{ page.about.eyebrow }}">
-      <div class="qc-window__media" style="--qc-photo: url('{{ page.about.media.image }}')"><img src="{{ page.about.media.image }}" alt="{{ page.about.media.alt }}" loading="lazy" decoding="async" /></div>
-      <div class="qc-window__band container">
-        <p class="eyebrow">{{ page.about.eyebrow }}</p>
-        <h2>{{ page.about.heading }}</h2>
-        <p>{{ page.about.text }}</p>
-        <ul class="about-points">
-          {{#each page.about.points}}<li>{{ . }}</li>
-          {{/each}}
-        </ul>
-        <p class="wz-action"><a class="btn btn--accent" href="{{ page.about.button_href }}">{{ page.about.button_label }}</a></p>
+    <!-- WHO WE ARE: original leaf-to-bottle motion beside the company introduction. -->
+    <article class="botanical-about" aria-label="{{ page.about.eyebrow }}">
+      <div class="container botanical-about__inner">
+        <div class="botanical-about__copy">
+          <p class="eyebrow">{{ page.about.eyebrow }}</p>
+          <h2>{{ page.about.heading }}</h2>
+          <p>{{ page.about.text }}</p>
+          <ul class="about-points">{{#each page.about.points}}<li>{{ . }}</li>{{/each}}</ul>
+          <p class="wz-action"><a class="btn btn--accent" href="{{ page.about.button_href }}">{{ page.about.button_label }}</a></p>
+        </div>
+        {{> botanical-motion}}
       </div>
     </article>
 
@@ -119,9 +119,12 @@
     <!-- WHY CUSTOMERS LOVE WASAY -->
     <section class="wz-love" aria-labelledby="wz-love-title">
       <div class="container wz-love__inner">
-        <p class="eyebrow">{{ page.love.eyebrow }}</p>
-        <h2 id="wz-love-title">{{ page.love.heading }}</h2>
-        <p class="lead">{{ page.love.text }}</p>
+        <figure class="wz-love__photo"><img src="{{ page.love.media.image }}" alt="{{ page.love.media.alt }}" width="826" height="747" loading="lazy" decoding="async" /></figure>
+        <div class="wz-love__copy">
+          <p class="eyebrow">{{ page.love.eyebrow }}</p>
+          <h2 id="wz-love-title">{{ page.love.heading }}</h2>
+          <p class="lead">{{ page.love.text }}</p>
+        </div>
       </div>
     </section>
 
@@ -149,5 +152,6 @@
   <script src="/wasay-detail.js"></script>
   <script src="/wasay-ring.js"></script>
   <script src="/wellness-banner.js"></script>
+  <script src="/botanical-motion.js"></script>
 </body>
 </html>
