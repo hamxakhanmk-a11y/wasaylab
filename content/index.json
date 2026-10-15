@@ -12,6 +12,14 @@
     "image_mobile": "/images/wasay/mob-banner.webp",
     "alt": "Wasay products on a green background: Ironprove, T-Restris plus Majoon and Dibec"
   },
+  "ring": {
+    "eyebrow": "Our products",
+    "heading": "Explore our pastes.",
+    "label": "Wasay paste jars. Drag, scroll or use the left and right arrow keys to turn the ring.",
+    "arch_text": "Power of Natural Healing",
+    "link_label": "See all pastes",
+    "link_href": "pastes.html"
+  },
   "about": {
     "eyebrow": "Who we are",
     "heading": "We aspire to provide accessible healthcare solutions to the masses.",

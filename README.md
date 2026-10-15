@@ -81,6 +81,17 @@ Jars live in `static/pastes-data.json` (the jar and its measurements) and `conte
 
 `side` and `measured` are required for every jar; there are no shared tables to fall back on.
 
+### The home page ring
+
+The ring under the home hero shows every jar in `content/pastes.json` as a transparent front-view image from `static/images/wasay/ring/<slug>.webp`. These are rendered from the 3D jars, so after adding a jar or changing its photos or measurements run:
+
+```sh
+node scripts/render-jar-cutouts.mjs            # every jar
+node scripts/render-jar-cutouts.mjs hasnat     # one jar
+```
+
+It builds the site, draws each jar from the front in a headless Chrome or Edge (set `CHROME` to a browser path if it is not found), and writes the images. A jar without an image shows as a gap in the ring. The arch colour is `--ring-arch` in `static/wasay-ring.css`.
+
 ## Publishing and the editor
 
 Not yet set up. When the site has an address:

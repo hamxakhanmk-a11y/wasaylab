@@ -5,6 +5,7 @@
   <link rel="stylesheet" href="/quality-story.css" />
   <link rel="stylesheet" href="/glass-photos.css" />
   <link rel="stylesheet" href="/product-motion.css" />
+  <link rel="stylesheet" href="/wasay-ring.css" />
 </head>
 <body>
 {{> loader}}
@@ -29,6 +30,28 @@
           </div>
         </div>
       </div>
+    </section>
+
+    <!-- PRODUCT RING: the pastes drift past in front of a big arch, tilting as they move. Cutouts are rendered ahead of time
+         by scripts/render-jar-cutouts.mjs, so nothing has to be built in the browser. -->
+    <section class="wz-ring" aria-labelledby="wz-ring-title">
+      <div class="container wz-ring__head">
+        <p class="eyebrow">{{ page.ring.eyebrow }}</p>
+        <h2 id="wz-ring-title">{{ page.ring.heading }}</h2>
+      </div>
+      <div class="wz-ring__stage" data-ring tabindex="0" role="group" aria-label="{{ page.ring.label }}">
+        <svg class="wz-ring__arch" viewBox="0 0 1000 300" aria-hidden="true" focusable="false">
+          <defs><path id="wz-arch-text" d="M44 296 V186 C44 118 100 66 176 66 H824 C900 66 956 118 956 186 V296" /></defs>
+          <path class="wz-ring__shape" d="M0 300 V176 C0 82 70 28 168 28 H832 C930 28 1000 82 1000 176 V300 Z" />
+          <text class="wz-ring__text"><textPath href="#wz-arch-text" startOffset="50%" text-anchor="middle">{{ page.ring.arch_text }} &middot; {{ page.ring.arch_text }}</textPath></text>
+        </svg>
+        <ul class="wz-ring__items">
+          {{#each content.pastes.pastes}}<li class="wz-ring__item" data-ring-item data-name="{{ name }}" data-detail="{{ detail }}"><a href="pastes.html" aria-label="{{ name }}, {{ detail }}" draggable="false"><img src="/images/wasay/ring/{{ slug }}.webp" alt="" height="640" decoding="async" draggable="false" /></a></li>
+          {{/each}}
+        </ul>
+      </div>
+      <p class="wz-ring__caption" aria-live="polite" data-ring-caption>&nbsp;</p>
+      <p class="wz-ring__more"><a class="btn btn--ghost" href="{{ page.ring.link_href }}">{{ page.ring.link_label }} &rarr;</a></p>
     </section>
 
     <section id="mother-tonic" class="motion-feature" aria-labelledby="motion-title">
@@ -151,5 +174,6 @@
   <script src="/script.js"></script>
   <script src="/glass-photos.js"></script>
   <script src="/product-motion.js"></script>
+  <script src="/wasay-ring.js"></script>
 </body>
 </html>
