@@ -292,3 +292,7 @@ Cartons now use one depth-buffered WebGL canvas per product, replacing separatel
 ## Video-based product view
 
 Mother Tonic uses 73 transparent WebP frames extracted from the supplied handheld video (6–12 seconds), with its real packaging retained. This user-requested animation uses gentle floating and a small lean. The home page features it; Pastes and Products replace only this jar’s synthetic rendering. Pointer movement, touch drag and a keyboard-accessible range control explore the filmed partial turn. Pause and Front controls are always available once loaded. Reduced motion starts with a still image; offscreen and background views stop animating. The complete sequence loads only when the view enters the viewport. Other products keep their existing renderers.
+
+## Landscape homepage banner
+
+The requested Zenith-style banner replaces only the opening hero. Original generated hillside artwork sits behind a centred Wasay headline and an Order online link; a paper panel inside the bottom of the frame carries the logo and links to the five ranges. The natural sky in the artwork is a user-requested exception to the no-blue imagery rule; all interface accents remain Wasay green. Ambient motion is a slow CSS camera drift, not filmed people walking. Pause/play, reduced motion, offscreen and background-tab suspension are supported. This banner is an explicit exception to the static-photo rule. Existing product ring and detail views follow unchanged.

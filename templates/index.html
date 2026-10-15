@@ -5,6 +5,7 @@
   <link rel="stylesheet" href="/quality-story.css" />
   <link rel="stylesheet" href="/glass-photos.css" />
   <link rel="stylesheet" href="/wasay-ring.css" />
+  <link rel="stylesheet" href="/wellness-banner.css" />
   <link rel="stylesheet" href="/wasay-detail.css" />
 </head>
 <body>
@@ -12,22 +13,24 @@
 {{> header}}
 
   <main>
-    <!-- HERO: the live site's banner, shown whole. The headline and button are real text laid over its empty green side. -->
-    <section class="wz-hero" aria-labelledby="wz-hero-title">
-      <div class="container">
-        <div class="wz-hero__banner">
-          <picture>
-            <source media="(max-width: 700px)" srcset="{{ page.hero.image_mobile }}" width="2560" height="2560" />
-            <img src="{{ page.hero.image }}" alt="{{ page.hero.alt }}" width="1880" height="720" fetchpriority="high" decoding="async" />
-          </picture>
-          <div class="wz-hero__copy">
-            <h1 id="wz-hero-title">{{ page.hero.heading }}</h1>
-            <p class="wz-hero__lead">{{ page.hero.lead }}</p>
-            <div class="hero-actions">
-              <a class="btn btn--accent" href="{{ page.hero.primary_href }}" target="_blank" rel="noopener">{{ page.hero.primary_label }}</a>
-              <a class="btn btn--ghost" href="{{ page.hero.secondary_href }}">{{ page.hero.secondary_label }}</a>
-            </div>
+    <!-- Landscape banner: original artwork with ambient camera motion and a paper navigation panel. -->
+    <section class="wellness-banner" data-wellness-banner aria-labelledby="wellness-title">
+      <div class="wellness-banner__scene">
+        <img class="wellness-banner__landscape" src="{{ page.hero.landscape }}" alt="" width="1672" height="941" fetchpriority="high" decoding="async" />
+        <div class="wellness-banner__copy">
+          <h1 id="wellness-title">{{ page.hero.heading }}</h1>
+          <p>{{ page.hero.lead }}</p>
+          <a class="btn btn--accent" href="{{ page.hero.primary_href }}" target="_blank" rel="noopener">{{ page.hero.primary_label }} <span aria-hidden="true">↗</span></a>
+        </div>
+        <button class="wellness-banner__motion" type="button" data-banner-motion hidden aria-pressed="false">Pause motion</button>
+        <div class="wellness-banner__panel">
+          <div class="wellness-banner__identity">
+            <img src="{{ site.logo }}" alt="{{ site.name }}" width="58" height="58" />
+            <div><p>{{ page.hero.panel_heading }}</p><a href="{{ page.hero.secondary_href }}">{{ page.hero.secondary_label }} <span aria-hidden="true">↗</span></a></div>
           </div>
+          <nav class="wellness-banner__ranges" aria-label="Explore Wasay products">
+            {{#each page.hero.ranges}}<a href="{{ href }}">{{ label }} <span aria-hidden="true">↗</span></a>{{/each}}
+          </nav>
         </div>
       </div>
     </section>
@@ -143,5 +146,6 @@
   <script src="/glass-photos.js"></script>
   <script src="/wasay-detail.js"></script>
   <script src="/wasay-ring.js"></script>
+  <script src="/wellness-banner.js"></script>
 </body>
 </html>

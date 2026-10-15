@@ -10,7 +10,31 @@
     "secondary_href": "products.html",
     "image": "/images/wasay/Wasay-banner.webp",
     "image_mobile": "/images/wasay/mob-banner.webp",
-    "alt": "Wasay products on a green background: Ironprove, T-Restris plus Majoon and Dibec"
+    "alt": "Wasay products on a green background: Ironprove, T-Restris plus Majoon and Dibec",
+    "landscape": "/images/wasay/wellness-hillside.webp",
+    "panel_heading": "Wasay Laboratories",
+    "ranges": [
+      {
+        "label": "Tablets",
+        "href": "tablets.html"
+      },
+      {
+        "label": "Multi Tonics",
+        "href": "tonics.html"
+      },
+      {
+        "label": "Syrups",
+        "href": "syrups.html"
+      },
+      {
+        "label": "Ointments",
+        "href": "ointments.html"
+      },
+      {
+        "label": "Pastes",
+        "href": "pastes.html"
+      }
+    ]
   },
   "ring": {
     "eyebrow": "Our products",

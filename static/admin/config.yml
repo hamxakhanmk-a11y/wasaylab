@@ -133,6 +133,14 @@ collections:
             label: 'Section: Opening banner'
             widget: object
             fields:
+              - { name: landscape, label: Landscape banner artwork, widget: image }
+              - { name: panel_heading, label: Brand panel heading, widget: string }
+              - name: ranges
+                label: Product range links
+                widget: list
+                fields:
+                  - { name: label, label: Link text, widget: string }
+                  - { name: href, label: Links to, widget: string }
               - { name: image, label: Banner photo (wide, with an empty left side for the text), widget: image }
               - { name: image_mobile, label: Banner photo for phones (square, empty top half), widget: image }
               - { name: alt, label: Photo description, widget: string }
