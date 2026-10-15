@@ -4,8 +4,8 @@
 {{> head}}
   <link rel="stylesheet" href="/quality-story.css" />
   <link rel="stylesheet" href="/glass-photos.css" />
-  <link rel="stylesheet" href="/product-motion.css" />
   <link rel="stylesheet" href="/wasay-ring.css" />
+  <link rel="stylesheet" href="/wasay-detail.css" />
 </head>
 <body>
 {{> loader}}
@@ -46,7 +46,7 @@
           <text class="wz-ring__text"><textPath href="#wz-arch-text" startOffset="50%" text-anchor="middle">{{ page.ring.arch_text }} &middot; {{ page.ring.arch_text }}</textPath></text>
         </svg>
         <ul class="wz-ring__items">
-          {{#each content.pastes.pastes}}<li class="wz-ring__item" data-ring-item data-name="{{ name }}" data-detail="{{ detail }}"><a href="pastes.html" aria-label="{{ name }}, {{ detail }}" draggable="false"><img src="/images/wasay/ring/{{ slug }}.webp" alt="" height="640" decoding="async" draggable="false" /></a></li>
+          {{#each content.pastes.pastes}}<li class="wz-ring__item" data-ring-item data-slug="{{ slug }}" data-name="{{ name }}" data-detail="{{ detail }}"><a href="pastes.html" aria-label="{{ name }}, {{ detail }}" draggable="false"><img src="/images/wasay/ring/{{ slug }}.webp" alt="" height="640" decoding="async" draggable="false" /></a></li>
           {{/each}}
         </ul>
       </div>
@@ -54,17 +54,35 @@
       <p class="wz-ring__more"><a class="btn btn--ghost" href="{{ page.ring.link_href }}">{{ page.ring.link_label }} &rarr;</a></p>
     </section>
 
-    <section id="mother-tonic" class="motion-feature" aria-labelledby="motion-title">
-      <div class="container motion-feature__inner">
-        <div class="motion-feature__copy">
-          <p class="eyebrow">Up close with Wasay</p>
-          <h2 id="motion-title">A closer look.<br />Mother Tonic.</h2>
-          <p class="lead">Explore our 50 gm jar from side to side.</p>
-          <a class="btn btn--ghost" href="/pastes.html">Explore the range &rarr;</a>
+    <!-- PRODUCT VIEW: opens when a jar in the ring is clicked. The name rises from behind the jar, which tilts as the page is
+         scrolled; wasay-detail.js fills it in. -->
+    <dialog class="wz-detail" aria-labelledby="wz-detail-name" data-product-view>
+      <button class="wz-detail__back" type="button" data-detail-close aria-label="{{ page.ring.detail.close_label }}"><span aria-hidden="true">&larr;</span> {{ page.ring.detail.back_label }}</button>
+      <div class="wz-detail__hero" data-detail-hero>
+        <div class="wz-detail__stick">
+          <div class="wz-detail__title"><h2 class="wz-detail__name" id="wz-detail-name" data-fill="name"></h2></div>
+          <p class="wz-detail__cap wz-detail__cap--l">{{ page.ring.detail.type }}</p>
+          <p class="wz-detail__cap wz-detail__cap--r" data-fill="detail"></p>
+          <div class="wz-detail__stage"><img class="wz-detail__jar" alt="" width="570" height="1000" data-detail-jar /></div>
         </div>
-        {{> product-motion}}
       </div>
-    </section>
+      <div class="wz-detail__body">
+        <p class="wz-detail__intro" data-tpl="{{ page.ring.detail.intro }}"></p>
+        <h3>{{ page.ring.detail.specs_heading }}</h3>
+        <dl class="wz-detail__specs">
+          {{#each page.ring.detail.specs}}<div><dt>{{ label }}</dt><dd data-tpl="{{ value }}"></dd></div>
+          {{/each}}
+        </dl>
+        <h3>{{ page.ring.detail.photos_heading }}</h3>
+        <p class="wz-detail__note">{{ page.ring.detail.photos_note }}</p>
+        <div class="wz-detail__photos" data-detail-photos></div>
+        <nav class="wz-detail__nav" aria-label="{{ page.ring.eyebrow }}">
+          <button type="button" data-detail-step="-1"><span aria-hidden="true">&larr;</span> {{ page.ring.detail.prev_label }}: <b data-detail-neighbour="-1"></b></button>
+          <a href="{{ page.ring.detail.all_href }}">{{ page.ring.detail.all_label }}</a>
+          <button type="button" data-detail-step="1">{{ page.ring.detail.next_label }}: <b data-detail-neighbour="1"></b> <span aria-hidden="true">&rarr;</span></button>
+        </nav>
+      </div>
+    </dialog>
 
     <!-- WHO WE ARE: a quality-control window. The photo stays still and is uncovered as the page scrolls past. -->
     <article class="qc-window home-about-window" aria-label="{{ page.about.eyebrow }}">
@@ -121,28 +139,6 @@
       </div>
     </section>
 
-    <!-- BEST SELLERS -->
-    <section class="section wz-best" aria-labelledby="wz-best-title">
-      <div class="container">
-        <div class="wz-head-row">
-          <div class="section-head">
-            <p class="eyebrow">{{ page.best_sellers.eyebrow }}</p>
-            <h2 id="wz-best-title">{{ page.best_sellers.heading }}</h2>
-          </div>
-          <p class="wz-action"><a class="btn btn--ghost" href="{{ page.best_sellers.button_href }}">{{ page.best_sellers.button_label }}</a></p>
-        </div>
-        <ul class="wz-products">
-          {{#each content.products.items}}<li class="wz-product card">
-            <span class="wz-product__photo glass-photo"><img src="{{ image }}" alt="{{ alt }}" width="2560" height="2560" loading="lazy" decoding="async" /></span>
-            <h3>{{ name }}</h3>
-            <p>{{ detail }}</p>
-            <a class="wz-link" href="{{ href }}" target="_blank" rel="noopener">{{ content.products.order_label }} &rarr;</a>
-          </li>
-          {{/each}}
-        </ul>
-      </div>
-    </section>
-
     <!-- WHY CUSTOMERS LOVE WASAY -->
     <section class="wz-love" aria-labelledby="wz-love-title">
       <div class="container wz-love__inner">
@@ -173,7 +169,7 @@
 
   <script src="/script.js"></script>
   <script src="/glass-photos.js"></script>
-  <script src="/product-motion.js"></script>
+  <script src="/wasay-detail.js"></script>
   <script src="/wasay-ring.js"></script>
 </body>
 </html>

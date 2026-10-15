@@ -29,9 +29,9 @@
     const lean = reduced.matches ? 0 : clamp(shown * LEAN, -26, 26);
     for (let i = 0; i < N; i++) {
       const off = wrapDiff(i, pos), ao = Math.abs(off);
-      const d = Math.max(0, Math.cos(Math.min(ao, 3.1) * 0.5));
-      const scale = 0.6 + 0.4 * Math.pow(d, 1.25);
-      const x = off * perJar, y = -(1 - d) * h * 0.16;
+      const d = Math.exp(-(off * off) / 1.3);
+      const scale = 0.4 + 0.6 * Math.pow(d, 0.8);
+      const x = off * perJar, y = -(1 - d) * h * 0.12;
       const roll = lean - clamp(off, -2.5, 2.5) * 3.2;
       const el = items[i];
       el.style.transform = `translate(-50%,-50%) translate(${x.toFixed(1)}px,${y.toFixed(1)}px) rotate(${roll.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
@@ -51,6 +51,7 @@
     const dt = last ? Math.min(0.05, (t - last) / 1000) : 0.016;
     last = t;
     const now = performance.now();
+    if (document.documentElement.classList.contains('has-detail')) { last = 0; if (visible) frame = requestAnimationFrame(tick); return; }
     if (drag) {
       // position follows the finger or mouse in pointermove
     } else if (target !== null) {
@@ -114,14 +115,16 @@
   stage.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') hover = true; });
   stage.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') { hover = false; hold(600); } });
 
-  // ---- a click on a side jar brings it to the front; a click on the front jar opens the pastes
+  // ---- a click opens the jar's product view (a drag never does); without the product view the link goes to the Pastes tab
   stage.addEventListener('click', (e) => {
     const a = e.target.closest('a');
     if (!a) return;
-    const li = a.closest('[data-ring-item]');
-    const index = items.indexOf(li);
     if (moved > 6) { e.preventDefault(); return; }
-    if (Math.abs(wrapDiff(index, pos)) > 0.4) { e.preventDefault(); goTo(index); }
+    if (window.WasayDetail) {
+      e.preventDefault();
+      const li = a.closest('[data-ring-item]');
+      window.WasayDetail.open(items.indexOf(li), li.querySelector('img'));
+    }
   });
 
   // ---- horizontal wheel or trackpad

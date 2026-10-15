@@ -6,7 +6,7 @@
  *
  * It builds the site, serves dist/, opens pastes.html in a headless Chrome or Edge (software WebGL), waits for each 3D
  * jar to be built by static/pastes.js, draws it once more at high resolution from the front, crops it to its outline and
- * writes static/images/wasay/ring/<slug>.webp. Run it again whenever a jar is added or its photos or measurements change.
+ * writes static/images/wasay/ring/<slug>.webp (for the ring) and <slug>-large.webp (for the product view). Run it again whenever a jar is added or its photos or measurements change.
  * Needs Node 22+ and Chrome or Edge (set CHROME to a browser path if it is not found).
  */
 import { spawn, execFileSync } from 'node:child_process';
@@ -18,7 +18,7 @@ import { fileURLToPath } from 'node:url';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(root, 'static', 'images', 'wasay', 'ring');
 const PORT = 4619, DEBUG = 9339;
-const HEIGHT = 640;
+const SIZES = [['', 640, 0.92], ['-large', 1000, 0.9]];   // file suffix, height in px, WebP quality
 const only = process.argv.slice(2);
 
 const candidates = [process.env.CHROME,
@@ -69,19 +69,25 @@ try {
     for (let i = 0; i < 180 && !ok; i++) { ok = await run(`(() => { const j = window.__jars.find((e) => e.canvas.closest('[data-paste]').dataset.paste === '${slug}'); return !!(j && j.last && j.canvas.closest('[data-paste]').classList.contains('ready')); })()`); if (!ok) await sleep(500); }
     if (!ok) throw new Error('Jar did not build: ' + slug);
     const shot = await run(`(() => { const j = window.__jars.find((e) => e.canvas.closest('[data-paste]').dataset.paste === '${slug}');
-      const c = j.canvas, W = 1000, H = Math.round(1000 * c.height / c.width), keep = [c.width, c.height];
+      const c = j.canvas, W = 1500, H = Math.round(1000 * c.height / c.width), keep = [c.width, c.height];
       c.width = W; c.height = H; j.renderer.draw(0, j.last[1], j.last[2]);
       const t = document.createElement('canvas'); t.width = W; t.height = H; const x = t.getContext('2d', { willReadFrequently: true }); x.drawImage(c, 0, 0);
       const d = x.getImageData(0, 0, W, H).data; let x0 = W, y0 = H, x1 = -1, y1 = -1;
       for (let y = 0; y < H; y++) for (let xx = 0; xx < W; xx++) if (d[(y * W + xx) * 4 + 3] > 8) { if (xx < x0) x0 = xx; if (xx > x1) x1 = xx; if (y < y0) y0 = y; if (y > y1) y1 = y; }
       const pad = 8; x0 = Math.max(0, x0 - pad); y0 = Math.max(0, y0 - pad); x1 = Math.min(W - 1, x1 + pad); y1 = Math.min(H - 1, y1 + pad);
-      const w = x1 - x0 + 1, h = y1 - y0 + 1, k = ${HEIGHT} / h, o = document.createElement('canvas'); o.width = Math.round(w * k); o.height = ${HEIGHT};
-      const ctx = o.getContext('2d'); ctx.imageSmoothingQuality = 'high'; ctx.drawImage(t, x0, y0, w, h, 0, 0, o.width, o.height);
+      const w = x1 - x0 + 1, h = y1 - y0 + 1, out = {};
+      for (const [suffix, height, quality] of ${JSON.stringify(SIZES)}) {
+        const k = height / h, o = document.createElement('canvas'); o.width = Math.round(w * k); o.height = height;
+        const ctx = o.getContext('2d'); ctx.imageSmoothingQuality = 'high'; ctx.drawImage(t, x0, y0, w, h, 0, 0, o.width, o.height);
+        out[suffix] = { url: o.toDataURL('image/webp', quality), w: o.width, h: o.height };
+      }
       c.width = keep[0]; c.height = keep[1];
-      return { url: o.toDataURL('image/webp', 0.92), w: o.width, h: o.height }; })()`);
-    const bytes = Buffer.from(shot.url.split(',')[1], 'base64');
-    writeFileSync(join(OUT, slug + '.webp'), bytes);
-    console.log(`${slug.padEnd(20)} ${shot.w} x ${shot.h}  ${(bytes.length / 1024).toFixed(0)} KB`);
+      return out; })()`);
+    for (const [suffix, , ] of SIZES) {
+      const one = shot[suffix], bytes = Buffer.from(one.url.split(',')[1], 'base64');
+      writeFileSync(join(OUT, slug + suffix + '.webp'), bytes);
+      console.log(`${(slug + suffix).padEnd(26)} ${one.w} x ${one.h}  ${(bytes.length / 1024).toFixed(0)} KB`);
+    }
   }
   ws.close();
 } finally { cleanup(); }

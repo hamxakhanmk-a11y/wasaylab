@@ -90,7 +90,7 @@ node scripts/render-jar-cutouts.mjs            # every jar
 node scripts/render-jar-cutouts.mjs hasnat     # one jar
 ```
 
-It builds the site, draws each jar from the front in a headless Chrome or Edge (set `CHROME` to a browser path if it is not found), and writes the images. A jar without an image shows as a gap in the ring. The arch colour is `--ring-arch` in `static/wasay-ring.css`.
+It builds the site, draws each jar from the front (a 640px picture for the ring and a 1000px one, `<slug>-large.webp`, for the product view) in a headless Chrome or Edge (set `CHROME` to a browser path if it is not found), and writes the images. A jar without an image shows as a gap in the ring. The arch colour is `--ring-arch` in `static/wasay-ring.css`. Clicking a jar opens a product view whose text and specification rows are in `content/index.json` under `ring.detail`; add a row such as composition there once the real wording is known.
 
 ## Publishing and the editor
 
