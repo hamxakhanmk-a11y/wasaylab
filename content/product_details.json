@@ -1,0 +1,1664 @@
+{
+  "reviewed_on": "2026-10-15",
+  "basis": "Transcribed and conservatively paraphrased from the supplied Wasay pack photographs. Labelled uses are manufacturer statements, not independent clinical verification. No other manufacturer’s formula has been substituted.",
+  "products": [
+    {
+      "slug": "balooti",
+      "name": "Balooti",
+      "category": "tablets",
+      "about": "Wasay’s herbal tablet preparation for urinary health.",
+      "uses": [
+        "The pack lists excessive urination and support for the urinary bladder."
+      ],
+      "ingredients": [],
+      "composition_status": "not-visible",
+      "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/tablets/balooti-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tablets/balooti-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tablets/balooti-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Front: For Control of Excessive Urination and Tonic For Urinary Bladder."
+    },
+    {
+      "slug": "nisaee",
+      "name": "Nisaee",
+      "category": "tablets",
+      "about": "A herbal tablet preparation presented by Wasay as a women’s health tonic.",
+      "uses": [
+        "The label identifies leucorrhoea (vaginal discharge) and general health."
+      ],
+      "ingredients": [],
+      "composition_status": "not-visible",
+      "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/tablets/nisaee-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tablets/nisaee-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tablets/nisaee-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Front: An Ideal Tonic for Leucorrhoea; Also Improves General Health."
+    },
+    {
+      "slug": "dimageen",
+      "name": "Dimageen",
+      "category": "tablets",
+      "about": "A herbal tablet preparation labelled for nervous tension and stress.",
+      "uses": [
+        "Nervous tension, stress and related problems, as described on the carton."
+      ],
+      "ingredients": [],
+      "composition_status": "not-visible",
+      "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/tablets/dimageen-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tablets/dimageen-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tablets/dimageen-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Front: FOR NERVOUS TENSION STRESS & RELATED PROBLEMS."
+    },
+    {
+      "slug": "ushba",
+      "name": "Ushba",
+      "category": "tablets",
+      "about": "Wasay’s herbal tablets marketed for skin complaints.",
+      "uses": [
+        "The carton describes a blood-purifying preparation for boils and skin diseases."
+      ],
+      "ingredients": [],
+      "composition_status": "not-visible",
+      "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/tablets/ushba-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tablets/ushba-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tablets/ushba-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Front: Blood Purifier A Cure for Boils & Skin Diseases."
+    },
+    {
+      "slug": "lekoden",
+      "name": "Lekoden",
+      "category": "tablets",
+      "about": "A herbal tablet tonic labelled for weakness associated with a lack of calcium.",
+      "uses": [
+        "Weakness due to lack of calcium, as stated on the front panel."
+      ],
+      "ingredients": [],
+      "composition_status": "not-visible",
+      "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/tablets/lekoden-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tablets/lekoden-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tablets/lekoden-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Front: TONIC FOR WEAKNESS DUE TO LACK OF CALCIUM."
+    },
+    {
+      "slug": "zaheeri",
+      "name": "Zaheeri",
+      "category": "tablets",
+      "about": "Wasay’s tablet preparation labelled for diarrhoea and dysentery.",
+      "uses": [
+        "The carton lists specific and non-specific diarrhoea and dysentery."
+      ],
+      "ingredients": [],
+      "composition_status": "not-visible",
+      "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/tablets/zaheeri-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tablets/zaheeri-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tablets/zaheeri-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Front: indicated in all types of specific and non specific diarrhoea and dysentry."
+    },
+    {
+      "slug": "suzashi",
+      "name": "Suzashi",
+      "category": "tablets",
+      "about": "A tablet preparation labelled for urinary-tract and bladder complaints.",
+      "uses": [
+        "Irritation and inflammation of the urinary tract and bladder are listed on the carton.",
+        "The label also refers to pain and discharge of blood or pus."
+      ],
+      "ingredients": [],
+      "composition_status": "not-visible",
+      "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/tablets/suzashi-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tablets/suzashi-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tablets/suzashi-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Front: Relieves irritability and inflammation of urinary track and bladdar; discharge of Blood, Pus & pain."
+    },
+    {
+      "slug": "uqreen",
+      "name": "Uqreen",
+      "category": "tablets",
+      "about": "A herbal tablet preparation marketed for men’s reproductive health.",
+      "uses": [
+        "The pack identifies azoospermia and infertility in men."
+      ],
+      "ingredients": [],
+      "composition_status": "not-visible",
+      "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/tablets/uqreen-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tablets/uqreen-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tablets/uqreen-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Front: BEST FOR AZOSPERMIA AND INFERTILITY IN MEN."
+    },
+    {
+      "slug": "qurs-mulayyan",
+      "name": "Qurs Mulayyan",
+      "category": "tablets",
+      "about": "Qurs Mulayyan is a Wasay tablet preparation supplied in a 16-tablet carton.",
+      "uses": [],
+      "ingredients": [],
+      "composition_status": "not-visible",
+      "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+      "uses_note": "The available photographs do not show a complete, clearly readable indication. Please confirm the intended use with Wasay Laboratories.",
+      "sources": [
+        {
+          "path": "/images/wasay/tablets/qurs-mulayyan-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tablets/qurs-mulayyan-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tablets/qurs-mulayyan-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Front confirms name and tablet count. Top-panel indication is too oblique to transcribe confidently."
+    },
+    {
+      "slug": "deedani",
+      "name": "Deedani",
+      "category": "tablets",
+      "about": "Wasay’s Deedani tablets, a preparation labelled for intestinal worms.",
+      "uses": [
+        "The Urdu top panel describes use for intestinal worms."
+      ],
+      "ingredients": [],
+      "composition_status": "not-visible",
+      "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/tablets/deedani-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tablets/deedani-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tablets/deedani-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Left photo, Urdu top panel: medicine for stomach/intestinal worms. No ingredients visible."
+    },
+    {
+      "slug": "bawaseeri",
+      "name": "Bawaseeri",
+      "category": "tablets",
+      "about": "A herbal tablet preparation marketed for haemorrhoids.",
+      "uses": [
+        "Piles (haemorrhoids), as stated on the front of the carton."
+      ],
+      "ingredients": [],
+      "composition_status": "not-visible",
+      "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/tablets/bawaseeri-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tablets/bawaseeri-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tablets/bawaseeri-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Front: EFFECTIVE REMEDY FOR PILES."
+    },
+    {
+      "slug": "itrifal-ustukhuddus",
+      "name": "Itrifal Ustukhuddus",
+      "category": "tablets",
+      "about": "Wasay’s Itrifal Ustukhuddus preparation in tablet form, supplied in a 40-tablet carton.",
+      "uses": [],
+      "ingredients": [],
+      "composition_status": "not-visible",
+      "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+      "uses_note": "The available photographs do not show a complete, clearly readable indication. Please confirm the intended use with Wasay Laboratories.",
+      "sources": [
+        {
+          "path": "/images/wasay/tablets/itrifal-ustukhuddus-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tablets/itrifal-ustukhuddus-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tablets/itrifal-ustukhuddus-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Front identifies tablet form and name. No fully readable use statement or composition panel in the supplied angles."
+    },
+    {
+      "slug": "ulcereen",
+      "name": "Ulcereen",
+      "category": "tonics",
+      "about": "A Wasay preparation supplied in sachets and labelled for digestive complaints.",
+      "uses": [
+        "The carton lists peptic ulcer, gastritis, flatulence, dysentery and constipation."
+      ],
+      "ingredients": [],
+      "composition_status": "unreadable",
+      "composition_note": "A composition panel is present, but the ingredient names and amounts are not clear enough to transcribe reliably.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/tonics/ulcereen-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tonics/ulcereen-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tonics/ulcereen-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Front: Peptic Ulcer Gastritis Flatulence Dysentery ... remove Constipation."
+    },
+    {
+      "slug": "jawarish-zarooni-sada",
+      "name": "Jawarish Zarooni Sada",
+      "category": "tonics",
+      "about": "A traditional Jawarish preparation presented by Wasay for kidney and bladder health.",
+      "uses": [
+        "The Urdu front panel describes use for the kidneys and bladder."
+      ],
+      "ingredients": [],
+      "composition_status": "unreadable",
+      "composition_note": "A composition panel is present, but the ingredient names and amounts are not clear enough to transcribe reliably.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/tonics/jawarish-zarooni-sada-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tonics/jawarish-zarooni-sada-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tonics/jawarish-zarooni-sada-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Front Urdu: گردہ اور مثانہ کیلئے مفید. Side composition is blurred."
+    },
+    {
+      "slug": "majon-fehmina",
+      "name": "Majon Fehmina",
+      "category": "tonics",
+      "about": "A traditional Majon preparation described on the pack as a brain and nerve tonic.",
+      "uses": [
+        "Brain and nerve support, as stated on the carton."
+      ],
+      "ingredients": [],
+      "composition_status": "unreadable",
+      "composition_note": "A composition panel is present, but the ingredient names and amounts are not clear enough to transcribe reliably.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/tonics/majon-fehmina-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tonics/majon-fehmina-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tonics/majon-fehmina-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Front: BRAIN & NERVE TONIC."
+    },
+    {
+      "slug": "khameera-gaozuban-sada",
+      "name": "Khameera Gaozuban Sada",
+      "category": "tonics",
+      "about": "Wasay’s Khameera Gaozuban Sada, a traditional preparation labelled as a brain and intestine tonic.",
+      "uses": [
+        "The carton identifies brain and intestinal support."
+      ],
+      "ingredients": [],
+      "composition_status": "unreadable",
+      "composition_note": "A composition panel is present, but the ingredient names and amounts are not clear enough to transcribe reliably.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/tonics/khameera-gaozuban-sada-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tonics/khameera-gaozuban-sada-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tonics/khameera-gaozuban-sada-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Front: TONIC FOR BRAIN & INTESTINE."
+    },
+    {
+      "slug": "majon-suranjan",
+      "name": "Majon Suranjan",
+      "category": "tonics",
+      "about": "A traditional Majon preparation marketed for joint complaints.",
+      "uses": [
+        "Arthritis, as identified on the front panel."
+      ],
+      "ingredients": [],
+      "composition_status": "unreadable",
+      "composition_note": "A composition panel is present, but the ingredient names and amounts are not clear enough to transcribe reliably.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/tonics/majon-suranjan-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tonics/majon-suranjan-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tonics/majon-suranjan-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Front: TONIC FOR ARTHRITIS."
+    },
+    {
+      "slug": "jawarish-kamooni",
+      "name": "Jawarish Kamooni",
+      "category": "tonics",
+      "about": "A traditional Jawarish preparation with digestive uses described on the Urdu side panel.",
+      "uses": [
+        "The side label describes indigestion and weakness of the stomach."
+      ],
+      "ingredients": [],
+      "composition_status": "unreadable",
+      "composition_note": "A composition panel is present, but the ingredient names and amounts are not clear enough to transcribe reliably.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/tonics/jawarish-kamooni-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tonics/jawarish-kamooni-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tonics/jawarish-kamooni-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Left Urdu panel: ہضم کی خرابی ... معدہ ... ضعف ..."
+    },
+    {
+      "slug": "majon-aqreen",
+      "name": "Majon Aqreen",
+      "category": "tonics",
+      "about": "A traditional Majon preparation presented by Wasay as a men’s health tonic.",
+      "uses": [
+        "Men’s health support, as stated on the front panel."
+      ],
+      "ingredients": [],
+      "composition_status": "unreadable",
+      "composition_note": "A composition panel is present, but the ingredient names and amounts are not clear enough to transcribe reliably.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/tonics/majon-aqreen-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tonics/majon-aqreen-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tonics/majon-aqreen-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Front: MEN’S HEALTH TONIC."
+    },
+    {
+      "slug": "laboob-kabir-khas",
+      "name": "Laboob Kabir Khas",
+      "category": "tonics",
+      "about": "Wasay’s Laboob Kabir Khas, also labelled Majon Zarmina.",
+      "uses": [
+        "The Urdu side panel describes physical weakness and men’s reproductive health."
+      ],
+      "ingredients": [],
+      "composition_status": "unreadable",
+      "composition_note": "A composition panel is present, but the ingredient names and amounts are not clear enough to transcribe reliably.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/tonics/laboob-kabir-khas-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tonics/laboob-kabir-khas-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tonics/laboob-kabir-khas-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Front: Majon Zarmina. Left Urdu properties mention physical weakness and reproductive support."
+    },
+    {
+      "slug": "majon-chob-chini",
+      "name": "Majon Chob Chini",
+      "category": "tonics",
+      "about": "A traditional Majon preparation marketed for joint pain and described as a blood purifier.",
+      "uses": [
+        "Joint pain, as stated on the front of the carton."
+      ],
+      "ingredients": [],
+      "composition_status": "unreadable",
+      "composition_note": "A composition panel is present, but the ingredient names and amounts are not clear enough to transcribe reliably.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/tonics/majon-chob-chini-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tonics/majon-chob-chini-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tonics/majon-chob-chini-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Front: BLOOD PURIFIER & TONIC FOR JOINTS PAIN."
+    },
+    {
+      "slug": "atrifal-ustukudus",
+      "name": "Atrifal Ustukudus",
+      "category": "tonics",
+      "about": "Wasay’s traditional Atrifal Ustukudus preparation, distinct from the tablet product.",
+      "uses": [
+        "The carton describes a tonic for the brain and intestines."
+      ],
+      "ingredients": [],
+      "composition_status": "unreadable",
+      "composition_note": "A composition panel is present, but the ingredient names and amounts are not clear enough to transcribe reliably.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/tonics/atrifal-ustukudus-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tonics/atrifal-ustukudus-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tonics/atrifal-ustukudus-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Front: TONIC FOR BRAIN & INTESTINE."
+    },
+    {
+      "slug": "majon-ard-khurma",
+      "name": "Majon Ard Khurma",
+      "category": "tonics",
+      "about": "A traditional Majon preparation whose Urdu label describes reproductive and bladder support.",
+      "uses": [
+        "The side label refers to seminal fluid and bladder weakness."
+      ],
+      "ingredients": [],
+      "composition_status": "unreadable",
+      "composition_note": "A composition panel is present, but the ingredient names and amounts are not clear enough to transcribe reliably.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/tonics/majon-ard-khurma-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tonics/majon-ard-khurma-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tonics/majon-ard-khurma-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Left Urdu properties: رقت منی ... مثانہ کی کمزوری ..."
+    },
+    {
+      "slug": "slim-capsules",
+      "name": "Slim Capsules",
+      "category": "tonics",
+      "about": "Wasay’s Slim preparation in capsule form, marketed for weight management.",
+      "uses": [
+        "The carton presents the capsules for reducing excess body fat and maintaining a slim figure."
+      ],
+      "ingredients": [],
+      "composition_status": "unreadable",
+      "composition_note": "A composition panel is present, but the ingredient names and amounts are not clear enough to transcribe reliably.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/tonics/slim-capsules-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tonics/slim-capsules-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tonics/slim-capsules-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Front: remove extra fats of the body and keep the body slim and smart."
+    },
+    {
+      "slug": "hazim-e-khaas",
+      "name": "Hazim E Khaas",
+      "category": "tonics",
+      "about": "A traditional digestive preparation from Wasay, supplied in a 50 gm carton.",
+      "uses": [
+        "The Urdu side label describes digestion support and gas-related discomfort."
+      ],
+      "ingredients": [
+        "Tabasheer",
+        "Cinnamon (Darchini)",
+        "Large cardamom (Ilaichi Kalan)",
+        "White cumin (Zeera Sufaid)",
+        "Small cardamom (Ilaichi Khurd)",
+        "Black pepper (Filfil Siyah)",
+        "Fennel (Saunf)",
+        "Long pepper (Filfil Daraz)"
+      ],
+      "composition_status": "listed",
+      "composition_note": "Ingredient names transcribed from the photographed label. Ingredient amounts are not reproduced here.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/tonics/hazim-e-khaas-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tonics/hazim-e-khaas-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/tonics/hazim-e-khaas-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Right Urdu properties refer to improving digestion and gas. Left Urdu ingredients list is readable."
+    },
+    {
+      "slug": "syrup-gaster-drops",
+      "name": "Gaster Drops",
+      "category": "syrups",
+      "about": "Wasay’s Gaster preparation in liquid drop form, labelled for digestive discomfort.",
+      "uses": [
+        "The pack lists nausea, vomiting, dyspepsia, flatulence and heartburn."
+      ],
+      "ingredients": [
+        "Ginger (Zanjabeel)",
+        "Ajwain Khurasani",
+        "Badiyan",
+        "Dill (Soya)"
+      ],
+      "composition_status": "partial",
+      "composition_note": "Only the clearly readable ingredients are listed here. The complete formula and ingredient amounts still need confirmation.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/syrups/syrup-gaster-drops-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-gaster-drops-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-gaster-drops-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Front stomach graphic: Nausea Vomiting Dyspepsia Flatulence heartburn. Urdu side ingredients include ginger, ajwain khurasani, badiyan and soya."
+    },
+    {
+      "slug": "syrup-deedani-syrup",
+      "name": "Deedani Syrup",
+      "category": "syrups",
+      "about": "A sweetened and flavoured anthelmintic syrup from Wasay.",
+      "uses": [
+        "The side label identifies roundworms."
+      ],
+      "ingredients": [
+        "Mallotus philippinensis"
+      ],
+      "composition_status": "partial",
+      "composition_note": "The label identifies Mallotus philippinensis. A complete formula, including the syrup base and ingredient amounts, is not shown.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/syrups/syrup-deedani-syrup-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-deedani-syrup-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-deedani-syrup-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Front: ANTHELMINTIC SYRUP. Right: A preparation of Mallotus Philippinensis for complete eradication of round worms."
+    },
+    {
+      "slug": "syrup-mah-naz",
+      "name": "Mah-Naz",
+      "category": "syrups",
+      "about": "A Wasay herbal syrup presented for women’s pelvic and menstrual health.",
+      "uses": [
+        "The label lists pelvic complaints, muscle spasms and menstrual irregularities.",
+        "Premenstrual symptoms are also mentioned on the pack."
+      ],
+      "ingredients": [
+        "Morus nigra extract",
+        "Glycyrrhiza glabra extract",
+        "Cydonia oblonga",
+        "Curcuma longa extract"
+      ],
+      "composition_status": "listed",
+      "composition_note": "Ingredient names transcribed from the photographed label. Ingredient amounts are not reproduced here.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/syrups/syrup-mah-naz-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-mah-naz-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-mah-naz-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Right English composition and indications panel."
+    },
+    {
+      "slug": "syrup-unnabi",
+      "name": "Unnabi",
+      "category": "syrups",
+      "about": "A herbal syrup described by Wasay as a blood-purifying preparation.",
+      "uses": [
+        "The label lists digestive complaints, constipation, boils, pimples and skin eruptions."
+      ],
+      "ingredients": [],
+      "composition_status": "not-visible",
+      "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/syrups/syrup-unnabi-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-unnabi-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-unnabi-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Left English panel: digestive system, constipation, boils, pimples and skin eruption."
+    },
+    {
+      "slug": "syrup-lozatain",
+      "name": "Lozatain",
+      "category": "syrups",
+      "about": "Wasay’s Toot Siyah and Mulathi syrup, labelled for the throat and cough.",
+      "uses": [
+        "The label lists cough, hoarseness, throat irritation, pharyngitis and tonsillitis."
+      ],
+      "ingredients": [
+        "Morus nigra extract",
+        "Glycyrrhiza glabra extract",
+        "Cydonia oblonga",
+        "Curcuma longa extract"
+      ],
+      "composition_status": "listed",
+      "composition_note": "Ingredient names transcribed from the photographed label. Ingredient amounts are not reproduced here.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/syrups/syrup-lozatain-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-lozatain-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-lozatain-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Front: Toot Siyah + Mulathi. Right English composition and indications."
+    },
+    {
+      "slug": "syrup-gastir",
+      "name": "Gastir",
+      "category": "syrups",
+      "about": "A Wasay syrup labelled for gastric pain, hyperacidity and heartburn.",
+      "uses": [
+        "The pack identifies gastric discomfort, hyperacidity, heartburn, dyspepsia and flatulence."
+      ],
+      "ingredients": [
+        "Zingiber officinale extract",
+        "Cinnamomum tamala",
+        "Trachyspermum ammi",
+        "Foeniculum vulgare",
+        "Acorus calamus",
+        "Illicium verum",
+        "Mentha piperita"
+      ],
+      "composition_status": "listed",
+      "composition_note": "Ingredient names transcribed from the photographed label. Ingredient amounts are not reproduced here.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/syrups/syrup-gastir-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-gastir-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-gastir-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Front and right English indications/composition."
+    },
+    {
+      "slug": "syrup-uromax",
+      "name": "Uromax",
+      "category": "syrups",
+      "about": "Wasay’s Uromax, described on the carton as a diuretic and kidney syrup.",
+      "uses": [
+        "The side label lists urinary complaints including cystitis, dysuria, renal colic and retention of urine."
+      ],
+      "ingredients": [
+        "Berberis Vulg (as printed)",
+        "Sarsaparilla",
+        "Sabal Ser (as printed)",
+        "Epigea Repen (as printed)",
+        "Stigmata",
+        "Cantharis",
+        "Equisetum",
+        "Pereira Brava",
+        "Hydrangea",
+        "Solanum nigrum leaves",
+        "Solanum nigrum berries",
+        "Barley salt"
+      ],
+      "composition_status": "partial",
+      "composition_note": "Only the clearly readable ingredients are listed here. The complete formula and ingredient amounts still need confirmation.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/syrups/syrup-uromax-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-uromax-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-uromax-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Front: Diuretic & Kidney Syrup. Left composition and indication list; one ingredient name is unclear."
+    },
+    {
+      "slug": "syrup-ejazi",
+      "name": "Ejazi",
+      "category": "syrups",
+      "about": "A Wasay syrup labelled for cough, cold and respiratory discomfort.",
+      "uses": [
+        "Cough, cold, bronchitis, throat irritation and nasal congestion are listed on the side panel."
+      ],
+      "ingredients": [],
+      "composition_status": "unreadable",
+      "composition_note": "A composition panel is present, but the ingredient names and amounts are not clear enough to transcribe reliably.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/syrups/syrup-ejazi-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-ejazi-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-ejazi-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Left English: For Cough, Cold, Bronchitis, Irritation of throat & Nasal congestion."
+    },
+    {
+      "slug": "syrup-bukharol",
+      "name": "Bukharol",
+      "category": "syrups",
+      "about": "Wasay’s Bukharol syrup, marketed for fever-related complaints.",
+      "uses": [
+        "The label describes seasonal fever and fever associated with cold and cough."
+      ],
+      "ingredients": [],
+      "composition_status": "unreadable",
+      "composition_note": "A composition panel is present, but the ingredient names and amounts are not clear enough to transcribe reliably.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/syrups/syrup-bukharol-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-bukharol-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-bukharol-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Left English: Seasonal Fever ... Fever due to Cold and Cough. Strong malaria claim deliberately not reproduced as a treatment recommendation."
+    },
+    {
+      "slug": "syrup-ishaleen",
+      "name": "Ishaleen",
+      "category": "syrups",
+      "about": "A Wasay syrup described on the pack as an anti-diarrhoeal preparation.",
+      "uses": [
+        "Diarrhoea, dysentery and associated abdominal cramps are described on the label."
+      ],
+      "ingredients": [
+        "Mentha arvensis",
+        "Illicium verum",
+        "Myrtus communis",
+        "Polygonum bistorta",
+        "Papaver somniferum",
+        "Punica granatum",
+        "Aegle marmelos",
+        "Rheum rhabarbarum",
+        "Cinnamomum verum",
+        "Pure honey"
+      ],
+      "composition_status": "listed",
+      "composition_note": "Ingredient names transcribed from the photographed label. Ingredient amounts are not reproduced here.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/syrups/syrup-ishaleen-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-ishaleen-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-ishaleen-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Front and right English composition/indications."
+    },
+    {
+      "slug": "syrup-gulnari",
+      "name": "Gulnari",
+      "category": "syrups",
+      "about": "A Wasay herbal tonic presented on the carton as a family tonic.",
+      "uses": [
+        "The label lists anaemia, nervous debility, poor food absorption and malnutrition."
+      ],
+      "ingredients": [],
+      "composition_status": "not-visible",
+      "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/syrups/syrup-gulnari-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-gulnari-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-gulnari-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Right English list; no readable composition panel. Pomegranate imagery is not treated as ingredient evidence."
+    },
+    {
+      "slug": "syrup-livereen",
+      "name": "Livereen",
+      "category": "syrups",
+      "about": "A Wasay syrup labelled Akseer Jigar and presented as a liver-support preparation.",
+      "uses": [
+        "The front panel describes liver protection and antioxidant support.",
+        "Digestive complaints including dyspepsia, flatulence and heartburn are also listed."
+      ],
+      "ingredients": [
+        "Silybum marianum extract",
+        "Artichoke leaf extract",
+        "Turmeric extract"
+      ],
+      "composition_status": "listed",
+      "composition_note": "Ingredient names transcribed from the photographed label. Ingredient amounts are not reproduced here.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/syrups/syrup-livereen-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-livereen-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-livereen-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Front Hepato Protector / De Toxifier / Anti Oxidant. Right composition and indications. Hepatitis cure claim not reproduced."
+    },
+    {
+      "slug": "syrup-sharbat-e-faulad",
+      "name": "Sharbat-e-Faulad",
+      "category": "syrups",
+      "about": "Wasay’s Sharbat-e-Faulad, presented as a general herbal tonic.",
+      "uses": [
+        "The label lists anaemia, nervous debility, poor food absorption and malnutrition."
+      ],
+      "ingredients": [],
+      "composition_status": "unreadable",
+      "composition_note": "A composition panel is present, but the ingredient names and amounts are not clear enough to transcribe reliably.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/syrups/syrup-sharbat-e-faulad-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-sharbat-e-faulad-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-sharbat-e-faulad-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Left English indications. Bottom right Urdu formula is blurred; no iron amount inferred from the name."
+    },
+    {
+      "slug": "syrup-sharbat-podina-green-pack",
+      "name": "Sharbat Podina — Green Pack",
+      "category": "syrups",
+      "about": "Wasay’s Sharbat Podina, a mint-based digestive syrup in the green carton.",
+      "uses": [
+        "The Urdu side panel describes indigestion, gas and stomach discomfort."
+      ],
+      "ingredients": [
+        "Podina",
+        "Ajwain Desi",
+        "Kachor",
+        "Darchini",
+        "Gul Surkh Irani",
+        "Ilaichi Kalan",
+        "Tez Paat",
+        "Sundh",
+        "Soey",
+        "Mirch Siah",
+        "Zeera Sufaid",
+        "Menthol"
+      ],
+      "composition_status": "listed",
+      "composition_note": "Ingredient names transcribed from the photographed label. Ingredient amounts are not reproduced here.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/syrups/syrup-sharbat-podina-green-pack-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-sharbat-podina-green-pack-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-sharbat-podina-green-pack-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Right English INGREDIENTS panel; opposite Urdu uses panel."
+    },
+    {
+      "slug": "syrup-sharbat-podina-leaf-pack",
+      "name": "Sharbat Podina — Leaf Pack",
+      "category": "syrups",
+      "about": "Wasay’s Sharbat Podina, a mint-based digestive syrup in the leaf-design carton.",
+      "uses": [
+        "The Urdu side panel describes indigestion, gas and stomach discomfort."
+      ],
+      "ingredients": [
+        "Podina",
+        "Ajwain Desi",
+        "Kachor",
+        "Darchini",
+        "Gul Surkh Irani",
+        "Ilaichi Kalan",
+        "Tez Paat",
+        "Sundh",
+        "Soey",
+        "Mirch Siah",
+        "Zeera Sufaid",
+        "Menthol"
+      ],
+      "composition_status": "listed",
+      "composition_note": "Ingredient names transcribed from the photographed label. Ingredient amounts are not reproduced here.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/syrups/syrup-sharbat-podina-leaf-pack-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-sharbat-podina-leaf-pack-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-sharbat-podina-leaf-pack-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Left English INGREDIENTS panel; opposite Urdu uses panel."
+    },
+    {
+      "slug": "syrup-gulbeen",
+      "name": "Gulbeen",
+      "category": "syrups",
+      "about": "A Wasay food-supplement tonic described as a syrup made from selected herbs, fruits and flowers.",
+      "uses": [
+        "The label describes appetite, digestion and general strength.",
+        "The pack also describes a tonic for the brain and nerves."
+      ],
+      "ingredients": [],
+      "composition_status": "unreadable",
+      "composition_note": "The pack describes herbs, fruits and flowers, but the individual ingredient names on the Urdu panel are not all clear enough to transcribe.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/syrups/syrup-gulbeen-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-gulbeen-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-gulbeen-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Right English description: prepared from selected herbs, fruits and flowers; appetite, digestion, strength, brain and nerves."
+    },
+    {
+      "slug": "syrup-kofesal",
+      "name": "Kofesal",
+      "category": "syrups",
+      "about": "Wasay’s cough syrup, labelled as a dietary supplement.",
+      "uses": [
+        "The pack lists cough, chest congestion, a blocked nose and an irritated throat."
+      ],
+      "ingredients": [
+        "Adhatoda vasica extract",
+        "Glycyrrhiza glabra extract",
+        "Piper longum extract",
+        "Viola odorata extract",
+        "Hyssopus officinalis extract",
+        "Alpinia galanga extract",
+        "Cordia latifolia extract",
+        "Althaea officinalis",
+        "Zingiber extract",
+        "Onosma bracteatum extract",
+        "Foeniculum vulgare",
+        "Rosa damascena"
+      ],
+      "composition_status": "partial",
+      "composition_note": "The readable ingredient names are listed. The full botanical name of one ingredient and the printed amounts need a clearer label photograph.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/syrups/syrup-kofesal-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-kofesal-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-kofesal-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Front cough symptoms; right English composition panel."
+    },
+    {
+      "slug": "syrup-naxio-plus",
+      "name": "Naxio Plus",
+      "category": "syrups",
+      "about": "Wasay’s mint-labelled oral suspension for acid-related digestive complaints.",
+      "uses": [
+        "The carton lists gastritis, indigestion, heartburn, hyperacidity, dyspepsia, acid reflux and nausea."
+      ],
+      "ingredients": [
+        "Ginger",
+        "Cucumber",
+        "Cocos oil (as printed)",
+        "Menthol",
+        "Cinnamon oil"
+      ],
+      "composition_status": "partial",
+      "composition_note": "Only the clearly readable ingredients are listed here. The complete formula and ingredient amounts still need confirmation.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/syrups/syrup-naxio-plus-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-naxio-plus-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/syrups/syrup-naxio-plus-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Front indications and right composition. Several composition entries remain ambiguous."
+    },
+    {
+      "slug": "lozan-ointment",
+      "name": "Lozan",
+      "category": "ointments",
+      "about": "Wasay’s Lozan, an ointment supplied in a 20 gm pack.",
+      "uses": [
+        "The carton identifies eczema."
+      ],
+      "ingredients": [],
+      "composition_status": "not-visible",
+      "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/ointments/lozan-ointment-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/ointments/lozan-ointment-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/ointments/lozan-ointment-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Front: ECZEMA OINTMENT."
+    },
+    {
+      "slug": "amleena-hair-oil",
+      "name": "Amleena",
+      "category": "ointments",
+      "about": "Wasay’s aloe vera hair oil, presented for hair care.",
+      "uses": [
+        "The front label describes healthy, shiny hair."
+      ],
+      "ingredients": [
+        "Aloe vera"
+      ],
+      "composition_status": "partial",
+      "composition_note": "Aloe vera is identified on the front label. The complete oil blend and ingredient amounts are not visible.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/ointments/amleena-hair-oil-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/ointments/amleena-hair-oil-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/ointments/amleena-hair-oil-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Front: Aloevera Hair Oil; For Healthy And Shinny Hairs Of All The Family."
+    },
+    {
+      "slug": "neemol-soap",
+      "name": "Neemol",
+      "category": "ointments",
+      "about": "Wasay’s herbal antiseptic soap made with the extracts named on the carton.",
+      "uses": [
+        "The pack identifies an antiseptic soap for skin cleansing."
+      ],
+      "ingredients": [
+        "Neem extract",
+        "Rose extract",
+        "Lemon extract"
+      ],
+      "composition_status": "partial",
+      "composition_note": "These extracts are named on the front label. The complete soap-base formula and ingredient amounts are not visible.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/ointments/neemol-soap-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/ointments/neemol-soap-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/ointments/neemol-soap-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Front: Herbal Antiseptic; Prepared from extract of Neem, Roses and Lemon."
+    },
+    {
+      "slug": "hasnat",
+      "name": "Hasnat",
+      "category": "pastes",
+      "about": "A Wasay jar preparation whose Urdu label describes cardiovascular uses.",
+      "uses": [
+        "The label refers to high blood pressure and cardiovascular complaints."
+      ],
+      "ingredients": [],
+      "composition_status": "unreadable",
+      "composition_note": "The available photograph shows ingredient amounts, but the corresponding names wrap out of view. The formula cannot be reliably transcribed.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/pastes/hasnat-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/pastes/hasnat-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/pastes/hasnat-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Right Urdu panel explicitly prints High Blood Pressure in English; ingredient names wrap out of view on the left."
+    },
+    {
+      "slug": "slim-food",
+      "name": "Slim Food",
+      "category": "pastes",
+      "about": "Wasay’s fibre-based powder presented as a special diet for weight management.",
+      "uses": [
+        "The label markets Slim Food for weight management."
+      ],
+      "ingredients": [],
+      "composition_status": "not-visible",
+      "composition_note": "The label describes fibre with natural vitamins and minerals, but does not show a complete readable ingredient list or nutrient amounts.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/pastes/slim-food-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/pastes/slim-food-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/pastes/slim-food-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Front: Special Diet for Losing Weight; Prepared from fiber ... natural vitamins and minerals. Left says SLIM FOOD Powder."
+    },
+    {
+      "slug": "laooq-sapistan",
+      "name": "Laooq Sapistan",
+      "category": "pastes",
+      "about": "Wasay’s traditional Laooq Sapistan preparation in a jar.",
+      "uses": [
+        "The Urdu side label describes clearing phlegm from the chest."
+      ],
+      "ingredients": [],
+      "composition_status": "not-visible",
+      "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/pastes/laooq-sapistan-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/pastes/laooq-sapistan-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/pastes/laooq-sapistan-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Left Urdu: سینے کو بلغم سے صاف ..."
+    },
+    {
+      "slug": "itrifal-kishneezi",
+      "name": "Itrifal Kishneezi",
+      "category": "pastes",
+      "about": "Wasay’s traditional Itrifal Kishneezi jar preparation.",
+      "uses": [
+        "The visible Urdu text refers to the brain and stomach. The complete indication wraps out of view."
+      ],
+      "ingredients": [],
+      "composition_status": "not-visible",
+      "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/pastes/itrifal-kishneezi-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/pastes/itrifal-kishneezi-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/pastes/itrifal-kishneezi-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Left Urdu fragment: دماغ اور معدے کو ... No broader use inferred."
+    },
+    {
+      "slug": "itrifal-muqil",
+      "name": "Itrifal Muqil",
+      "category": "pastes",
+      "about": "Wasay’s traditional Itrifal Muqil jar preparation.",
+      "uses": [
+        "The Urdu side label refers to piles and constipation."
+      ],
+      "ingredients": [],
+      "composition_status": "not-visible",
+      "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/pastes/itrifal-muqil-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/pastes/itrifal-muqil-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/pastes/itrifal-muqil-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Left Urdu visible fragments: خونی بواسیر ... قبض دور ..."
+    },
+    {
+      "slug": "jawarish-shahi",
+      "name": "Jawarish Shahi",
+      "category": "pastes",
+      "about": "Wasay’s traditional Jawarish Shahi jar preparation.",
+      "uses": [
+        "The Urdu side label describes strengthening the heart and brain."
+      ],
+      "ingredients": [],
+      "composition_status": "not-visible",
+      "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/pastes/jawarish-shahi-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/pastes/jawarish-shahi-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/pastes/jawarish-shahi-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Left Urdu: دل و دماغ کو تقویت ..."
+    },
+    {
+      "slug": "majoon-ushba",
+      "name": "Majoon Ushba",
+      "category": "pastes",
+      "about": "Wasay’s traditional Majoon Ushba preparation for skin complaints.",
+      "uses": [
+        "The visible Urdu label mentions itching and skin complaints."
+      ],
+      "ingredients": [],
+      "composition_status": "not-visible",
+      "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/pastes/majoon-ushba-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/pastes/majoon-ushba-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/pastes/majoon-ushba-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Left Urdu: خارش ... جلد ... No further hidden wording inferred."
+    },
+    {
+      "slug": "majoon-falasfa",
+      "name": "Majoon Falasfa",
+      "category": "pastes",
+      "about": "Wasay’s traditional Majoon Falasfa jar preparation.",
+      "uses": [
+        "The visible Urdu label mentions phlegmatic complaints and urinary complaints."
+      ],
+      "ingredients": [],
+      "composition_status": "not-visible",
+      "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/pastes/majoon-falasfa-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/pastes/majoon-falasfa-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/pastes/majoon-falasfa-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Left Urdu: بلغمی مادوں ... پیشاب ... Remaining text wraps out of view."
+    },
+    {
+      "slug": "mother-tonic",
+      "name": "Mother Tonic",
+      "category": "pastes",
+      "about": "Wasay’s Mother Tonic, a preparation marketed for breastfeeding mothers.",
+      "uses": [
+        "The label describes use as a galactagogue, a preparation intended to support milk production."
+      ],
+      "ingredients": [
+        "Cheiranthus cheiri",
+        "Zingiber officinalis (as printed)",
+        "Mathiola incana (as printed)",
+        "Sugar"
+      ],
+      "composition_status": "listed",
+      "composition_note": "Ingredient names transcribed from the photographed label. Ingredient amounts are not reproduced here.",
+      "uses_note": "",
+      "sources": [
+        {
+          "path": "/images/wasay/pastes/mother-tonic-front.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/pastes/mother-tonic-left.jpg",
+          "type": "pack-photo"
+        },
+        {
+          "path": "/images/wasay/pastes/mother-tonic-right.jpg",
+          "type": "pack-photo"
+        }
+      ],
+      "evidence": "Right English: Used as galactagogue. Composition lists Cheiranthus cheiri, Zingiber officinalis, Mathiola incana, Sugar."
+    }
+  ]
+}

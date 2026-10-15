@@ -1,6 +1,22 @@
 <!-- PRODUCT VIEW: opens when a product is clicked, on the home ring and on every product tab. The name rises from behind the
      product, which tilts as the page is scrolled; static/wasay-detail.js fills it in from the clicked product's data attributes. -->
-{{#each site.product_view.kinds}}<template data-pv-kind="{{ key }}" data-range="{{ range }}" data-pack="{{ pack }}" data-noun="{{ noun }}" data-photos-note="{{ photos_note }}" data-all-label="{{ all_label }}" data-all-href="{{ all_href }}"></template>
+{{#each site.product_view.kinds}}<template data-pv-kind="{{ key }}" data-range="{{ range }}" data-pack="{{ pack }}" data-noun="{{ noun }}" data-all-label="{{ all_label }}" data-all-href="{{ all_href }}"></template>
+{{/each}}
+{{#each content.product_details.products}}
+<template data-pv-copy="{{ slug }}">
+  <section class="wz-detail__section">
+    <h3>{{ site.product_view.about_heading }}</h3>
+    <div><p>{{ about }}</p></div>
+  </section>
+  <section class="wz-detail__section">
+    <h3>{{ site.product_view.uses_heading }}</h3>
+    <div>{{#if uses}}<ul>{{#each uses}}<li>{{ . }}</li>{{/each}}</ul>{{else}}<p class="wz-detail__unconfirmed">{{ uses_note }}</p>{{/if}}</div>
+  </section>
+  <section class="wz-detail__section">
+    <h3>{{ site.product_view.composition_heading }}</h3>
+    <div>{{#if ingredients}}<ul class="wz-detail__ingredients">{{#each ingredients}}<li>{{ . }}</li>{{/each}}</ul>{{/if}}<p class="wz-detail__unconfirmed">{{ composition_note }}</p></div>
+  </section>
+</template>
 {{/each}}
     <dialog class="wz-detail" aria-labelledby="wz-detail-name" data-product-view>
       <button class="wz-detail__back" type="button" data-detail-close aria-label="{{ site.product_view.close_label }}"><span aria-hidden="true">&larr;</span> {{ site.product_view.back_label }}</button>
@@ -13,15 +29,8 @@
         </div>
       </div>
       <div class="wz-detail__body">
-        <p class="wz-detail__intro" data-tpl="{{ site.product_view.intro }}"></p>
-        <h3>{{ site.product_view.specs_heading }}</h3>
-        <dl class="wz-detail__specs">
-          {{#each site.product_view.specs}}<div><dt>{{ label }}</dt><dd data-tpl="{{ value }}"></dd></div>
-          {{/each}}
-        </dl>
-        <h3>{{ site.product_view.photos_heading }}</h3>
-        <p class="wz-detail__note" data-fill="photos_note"></p>
-        <div class="wz-detail__photos" data-detail-photos></div>
+        <div data-detail-copy></div>
+        <p class="wz-detail__label-note">{{ site.product_view.label_note }}</p>
         <nav class="wz-detail__nav" aria-label="{{ site.product_view.nav_label }}">
           <button type="button" data-detail-step="-1"><span aria-hidden="true">&larr;</span> {{ site.product_view.prev_label }}: <b data-detail-neighbour="-1"></b></button>
           <a href="pastes.html" data-pv-all data-fill="all_label"></a>

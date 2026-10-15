@@ -96,31 +96,6 @@
   "product_view": {
     "back_label": "Back",
     "close_label": "Close this product and go back",
-    "intro": "{name} is part of the {range} range from Wasay Laboratories (Pvt.) Ltd. Directions, composition and batch details are printed on the pack, and the photographs below show every side of it.",
-    "specs_heading": "Specifications",
-    "specs": [
-      {
-        "label": "Product",
-        "value": "{name}"
-      },
-      {
-        "label": "Range",
-        "value": "{range}"
-      },
-      {
-        "label": "Details",
-        "value": "{detail}"
-      },
-      {
-        "label": "Pack",
-        "value": "{pack}"
-      },
-      {
-        "label": "Made by",
-        "value": "Wasay Laboratories (Pvt.) Ltd."
-      }
-    ],
-    "photos_heading": "On the pack",
     "prev_label": "Previous",
     "next_label": "Next",
     "nav_label": "Products",
@@ -170,6 +145,10 @@
         "all_label": "See all pastes",
         "all_href": "pastes.html"
       }
-    ]
+    ],
+    "about_heading": "About the product",
+    "uses_heading": "Uses",
+    "composition_heading": "Composition",
+    "label_note": "Uses reflect Wasay’s product labelling. Follow the current pack directions and your clinician’s advice."
   }
 }

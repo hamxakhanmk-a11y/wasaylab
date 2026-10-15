@@ -1,6 +1,6 @@
 // Product view, shared by the home ring and the product tabs. Opening a product flies it to the middle of a clean page, the name
 // rises from behind it, and it tilts as the page is scrolled. The back button, Escape and the browser's back button all close it.
-// Every product on the page is an element with [data-pv-item] (name, detail, kind, a large cutout and a photo list as data attributes).
+// Every product on the page is an element with [data-pv-item] (name, detail, kind, a large cutout and slug-matched description copy).
 (() => {
   const dlg = document.querySelector('[data-product-view]');
   const items = [...document.querySelectorAll('[data-pv-item]')];
@@ -12,18 +12,12 @@
   const jar = q('[data-detail-jar]'), stage = q('.wz-detail__stage'), hero = q('[data-detail-hero]'), nameEl = q('.wz-detail__name');
   const hashOf = (it) => '#product-' + it.dataset.slug;
   const HASH = /^#product-(.+)$/;
-  const labels = ['Front', 'Left', 'Right', 'From above'];
+  const copies = new Map([...document.querySelectorAll('template[data-pv-copy]')].map((t) => [t.dataset.pvCopy, t]));
   const kinds = {};
   document.querySelectorAll('template[data-pv-kind]').forEach((t) => { kinds[t.dataset.pvKind] = { ...t.dataset }; });
   const kindOf = (it) => kinds[it.dataset.kind] || {};
-  const lists = new Map();   // photo list url -> promise of its json
   let progress = 0, motionTime = 0;
-  let current = -1, opener = null, closing = false, opening = false, pushed = false, paintToken = 0, ticking = false;
-
-  const fill = (text, it) => {
-    const k = kindOf(it), v = { name: it.dataset.name, detail: it.dataset.detail, range: k.range, pack: k.pack, noun: k.noun };
-    return text.replace(/\{(name|detail|range|pack|noun)\}/g, (m, key) => v[key] || '');
-  };
+  let current = -1, opener = null, closing = false, opening = false, pushed = false, ticking = false;
 
   // the large picture is loaded and decoded before the view opens, so the flight starts from the right size and position
   const preload = (it) => new Promise((done) => {
@@ -37,22 +31,6 @@
     img.src = it.dataset.img;
   });
 
-  async function paintPhotos(it, token) {
-    const url = it.dataset.photos;
-    if (!lists.has(url)) lists.set(url, fetch(url).then((r) => r.json()).catch(() => []));
-    const data = (await lists.get(url)).find((p) => p.slug === it.dataset.slug);
-    if (token !== paintToken) return;
-    const box = q('[data-detail-photos]');
-    box.replaceChildren();
-    if (!data) return;
-    [...data.photos, data.top && data.top.photo].filter(Boolean).forEach((src, i) => {
-      const fig = document.createElement('figure'), img = new Image(), cap = document.createElement('figcaption');
-      img.src = src; img.alt = `${it.dataset.name} ${kindOf(it).noun || 'pack'}, ${labels[i].toLowerCase()}`; img.loading = 'lazy'; img.decoding = 'async';
-      cap.textContent = labels[i];
-      fig.append(img, cap); box.append(fig);
-    });
-  }
-
   function render(index, dimensions) {
     const it = items[index], k = kindOf(it);
     current = index;
@@ -62,16 +40,13 @@
     dlg.querySelectorAll('[data-fill="detail"]').forEach((e) => { e.textContent = it.dataset.detail; });
     dlg.querySelectorAll('[data-fill="range"]').forEach((e) => { e.textContent = k.range || ''; });
     dlg.querySelectorAll('[data-fill="all_label"]').forEach((e) => { e.textContent = k.allLabel || ''; });
-    dlg.querySelectorAll('[data-fill="photos_note"]').forEach((e) => { e.textContent = k.photosNote || ''; });
     dlg.querySelectorAll('[data-pv-all]').forEach((e) => { e.href = k.allHref || '#'; });
-    dlg.querySelectorAll('[data-tpl]').forEach((e) => { e.textContent = fill(e.dataset.tpl, it); });
     jar.src = it.dataset.img;
     jar.alt = `${it.dataset.name}, ${it.dataset.detail} ${k.noun || ''}`.trim();
     dlg.style.setProperty('--pv-ar', dimensions && dimensions.height ? (dimensions.width / dimensions.height).toFixed(3) : '.6');
     dlg.querySelectorAll('[data-detail-neighbour]').forEach((e) => { e.textContent = items[(index + Number(e.dataset.detailNeighbour) + N) % N].dataset.name; });
-    const token = ++paintToken;
-    q('[data-detail-photos]').replaceChildren();
-    paintPhotos(it, token);
+    const copy = copies.get(it.dataset.slug);
+    q('[data-detail-copy]').replaceChildren(...(copy ? [copy.content.cloneNode(true)] : []));
     dlg.scrollTop = 0;
     progress = 0; motionTime = 0;
     update();

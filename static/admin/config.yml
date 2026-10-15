@@ -364,3 +364,32 @@ collections:
               - { name: primary_href, label: Main button links to, widget: string }
               - { name: secondary_label, label: Second button text, widget: string }
               - { name: secondary_href, label: Second button links to, widget: string }
+
+      - name: product_details
+        label: Product descriptions and composition
+        file: content/product_details.json
+        description: Shared by Home and all product tabs. Use approved Wasay labels only; record source photos and incomplete formulas.
+        fields:
+          - { name: reviewed_on, label: Review date, widget: string }
+          - { name: basis, label: Editorial source policy, widget: text }
+          - name: products
+            label: Products
+            widget: list
+            summary: '{{fields.name}}'
+            fields:
+              - { name: slug, label: Product ID (must match the gallery), widget: string }
+              - { name: name, label: Product name, widget: string }
+              - { name: category, label: Category, widget: select, options: [tablets, tonics, syrups, ointments, pastes] }
+              - { name: about, label: About the product, widget: text }
+              - { name: uses, label: Labelled uses, widget: list }
+              - { name: uses_note, label: Missing-use explanation, widget: text, required: false }
+              - { name: ingredients, label: Readable ingredient names, widget: list }
+              - { name: composition_status, label: Composition evidence, widget: select, options: [listed, partial, unreadable, not-visible] }
+              - { name: composition_note, label: Composition note, widget: text }
+              - name: sources
+                label: Source photographs
+                widget: list
+                fields:
+                  - { name: path, label: Original label photograph, widget: image }
+                  - { name: type, label: Source type, widget: string }
+              - { name: evidence, label: Transcription and verification notes, widget: text }
