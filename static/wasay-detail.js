@@ -17,6 +17,7 @@
   document.querySelectorAll('template[data-pv-kind]').forEach((t) => { kinds[t.dataset.pvKind] = { ...t.dataset }; });
   const kindOf = (it) => kinds[it.dataset.kind] || {};
   const lists = new Map();   // photo list url -> promise of its json
+  let progress = 0, motionTime = 0;
   let current = -1, opener = null, closing = false, opening = false, pushed = false, paintToken = 0, ticking = false;
 
   const fill = (text, it) => {
@@ -27,7 +28,11 @@
   // the large picture is loaded and decoded before the view opens, so the flight starts from the right size and position
   const preload = (it) => new Promise((done) => {
     const img = new Image(), timer = setTimeout(done, 700);
-    img.onload = () => { clearTimeout(timer); (img.decode ? img.decode() : Promise.resolve()).then(done, done); };
+    img.onload = () => {
+      clearTimeout(timer);
+      const dimensions = { width: img.naturalWidth, height: img.naturalHeight };
+      (img.decode ? img.decode() : Promise.resolve()).then(() => done(dimensions), () => done(dimensions));
+    };
     img.onerror = () => { clearTimeout(timer); done(); };
     img.src = it.dataset.img;
   });
@@ -48,7 +53,7 @@
     });
   }
 
-  function render(index) {
+  function render(index, dimensions) {
     const it = items[index], k = kindOf(it);
     current = index;
     dlg.dataset.slug = it.dataset.slug;
@@ -62,12 +67,13 @@
     dlg.querySelectorAll('[data-tpl]').forEach((e) => { e.textContent = fill(e.dataset.tpl, it); });
     jar.src = it.dataset.img;
     jar.alt = `${it.dataset.name}, ${it.dataset.detail} ${k.noun || ''}`.trim();
-    dlg.style.setProperty('--pv-ar', jar.naturalWidth && jar.naturalHeight ? (jar.naturalWidth / jar.naturalHeight).toFixed(3) : '.6');
+    dlg.style.setProperty('--pv-ar', dimensions && dimensions.height ? (dimensions.width / dimensions.height).toFixed(3) : '.6');
     dlg.querySelectorAll('[data-detail-neighbour]').forEach((e) => { e.textContent = items[(index + Number(e.dataset.detailNeighbour) + N) % N].dataset.name; });
     const token = ++paintToken;
     q('[data-detail-photos]').replaceChildren();
     paintPhotos(it, token);
     dlg.scrollTop = 0;
+    progress = 0; motionTime = 0;
     update();
   }
   jar.addEventListener('load', () => { if (jar.naturalHeight) dlg.style.setProperty('--pv-ar', (jar.naturalWidth / jar.naturalHeight).toFixed(3)); });
@@ -76,25 +82,29 @@
   function update() {
     ticking = false;
     const total = Math.max(1, hero.offsetHeight - innerHeight);
-    const p = clamp(dlg.scrollTop / total, 0, 1);
-    stage.style.transform = reduced.matches ? 'translateX(-50%) translateY(12svh)'
-      : `translateX(-50%) translateY(${(34 - p * 44).toFixed(2)}svh) rotate(${(p * 22).toFixed(2)}deg) scale(${(1 + p * 0.07).toFixed(3)})`;
+    const desired = clamp(dlg.scrollTop / total, 0, 1);
+    const now = performance.now(), dt = motionTime ? Math.min(.05, (now - motionTime) / 1000) : 1 / 60;
+    motionTime = now;
+    progress = reduced.matches ? desired : progress + (desired - progress) * (1 - Math.exp(-dt * 14));
+    if (Math.abs(desired - progress) < .0002) progress = desired;
+    const p = progress;
+    stage.style.transform = reduced.matches ? 'translateX(-50%) translateY(-10svh)'
+      : `translateX(-50%) translateY(${(34 - p * 52).toFixed(2)}svh) rotate(${(p * 22).toFixed(2)}deg) scale(${(1 + p * 0.07).toFixed(3)})`;
     nameEl.style.transform = reduced.matches ? '' : `translateY(${(-p * 5).toFixed(2)}svh)`;
+    if (dlg.open && progress !== desired && !document.hidden) { ticking = true; requestAnimationFrame(update); }
   }
   dlg.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
   addEventListener('resize', () => { if (dlg.open) update(); });
 
-  function animateIn(fromEl) {
+  function animateIn(source) {
     if (reduced.matches) return;
-    dlg.getAnimations().forEach((a) => a.cancel());
+    dlg.getAnimations({ subtree: true }).forEach((a) => a.cancel());
     dlg.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, easing: 'ease-out' });
     const to = jar.getBoundingClientRect();
-    if (fromEl && to.height) {
-      const from = fromEl.getBoundingClientRect();
-      const ring = fromEl.closest('[data-ring-item]');
-      const roll = ring ? parseFloat((ring.style.transform.split('rotate(')[1] || '0')) || 0 : 0;
+    if (source && to.height) {
+      const { from, roll, height } = source;
       const dx = from.left + from.width / 2 - (to.left + to.width / 2), dy = from.top + from.height / 2 - (to.top + to.height / 2);
-      jar.animate([{ transform: `translate(${dx}px, ${dy}px) rotate(${roll}deg) scale(${from.height / to.height})` }, { transform: 'translate(0, 0) rotate(0deg) scale(1)' }], { duration: 850, easing: 'cubic-bezier(.22, 1, .36, 1)' });
+      jar.animate([{ transform: `translate(${dx}px, ${dy}px) rotate(${roll}deg) scale(${height / to.height})` }, { transform: 'translate(0, 0) rotate(0deg) scale(1)' }], { duration: 850, easing: 'cubic-bezier(.22, 1, .36, 1)' });
     } else {
       jar.animate([{ opacity: 0, transform: 'translateY(8svh)' }, { opacity: 1, transform: 'none' }], { duration: 650, easing: 'cubic-bezier(.22, 1, .36, 1)' });
     }
@@ -108,19 +118,27 @@
     if (index < 0 || opening) return;
     opening = true;
     opener = fromEl || null;
-    await preload(items[index]);
+    // Capture the clicked jar before preload, scroll locking or the modal can move the source.
+    const ring = fromEl && fromEl.closest('[data-ring-item]');
+    const transform = ring ? ring.style.transform : '';
+    const source = fromEl ? {
+      from: fromEl.getBoundingClientRect(),
+      roll: parseFloat((transform.split('rotate(')[1] || '0')) || 0,
+      height: ring ? fromEl.offsetHeight * (parseFloat((transform.split('scale(')[1] || '1')) || 1) : fromEl.getBoundingClientRect().height
+    } : null;
+    const dimensions = await preload(items[index]);
     opening = false;
-    render(index);
+    render(index, dimensions);
     document.documentElement.classList.add('has-detail');
     if (!dlg.open) dlg.showModal();
     dlg.scrollTop = 0; update();
     if (push) { history.pushState({ product: items[index].dataset.slug }, '', hashOf(items[index])); pushed = true; }
-    animateIn(fromEl);
+    animateIn(source);
     q('[data-detail-close]').focus({ preventScroll: true });
   }
 
   function finishClose() {
-    dlg.getAnimations().forEach((a) => a.cancel());
+    dlg.getAnimations({ subtree: true }).forEach((a) => a.cancel());
     dlg.close();
     document.documentElement.classList.remove('has-detail');
     closing = false;
@@ -143,14 +161,14 @@
     const i = m ? items.findIndex((it) => it.dataset.slug === m[1]) : -1;
     if (dlg.open) {
       if (i < 0) { closing = true; pushed = false; fadeOut(); }
-      else if (i !== current) preload(items[i]).then(() => { render(i); animateIn(null); });
+      else if (i !== current) preload(items[i]).then((dimensions) => { render(i, dimensions); animateIn(null); });
     } else if (i >= 0) open(i, null, false);
   });
 
   function step(delta) {
     const next = (current + delta + N) % N;
-    preload(items[next]).then(() => {
-      render(next);
+    preload(items[next]).then((dimensions) => {
+      render(next, dimensions);
       history.replaceState(history.state, '', hashOf(items[next]));
       animateIn(null);
     });
