@@ -1,5 +1,6 @@
 // Home product ring: jars sit on a circle seen from the front. The ring drifts on its own, follows a drag, a horizontal
-// wheel or the page scroll, keeps gliding after a flick, and the jars lean the way they are being carried.
+// wheel or the page scroll, keeps gliding after a flick, and the jars lean the way they are being carried. Moving the mouse over a
+// jar turns it, as on the product tabs, by playing a strip of pre-rendered turn frames that loads the first time a jar is touched.
 (() => {
   const stage = document.querySelector('[data-ring]');
   if (!stage) return;
@@ -16,6 +17,8 @@
   let pos = 0, shown = 0, prev = 0, last = 0, frame = 0, visible = false;
   let hover = false, pauseUntil = 0, target = null, drag = null, moved = 0, lastScroll = scrollY, current = -1;
   let w = 0, h = 0, perJar = 1;
+  const FRAMES = 21, SWING = 1;   // frames in a turn strip; the pointer's position across a jar runs from -SWING to +SWING
+  const turns = items.map((el) => ({ el, url: el.dataset.turn, state: 'idle', span: null, cur: 0, goal: 0, pointer: 0 }));
 
   const mod = (n) => ((n % N) + N) % N;
   const wrapDiff = (a, b) => { let d = mod(a - b); if (d > N / 2) d -= N; return d; };
@@ -46,6 +49,51 @@
     }
   }
 
+  // ---- turning a jar with the mouse (and a gentle sway of the front jar once its frames are here)
+  let hot = null;   // the jar under the mouse
+  function load(tn) {
+    if (tn.state !== 'idle' || !tn.url) return;
+    tn.state = 'loading';
+    const img = new Image();
+    img.onload = () => {
+      const span = document.createElement('span');
+      span.className = 'wz-ring__turn'; span.setAttribute('aria-hidden', 'true');
+      span.style.backgroundImage = `url("${tn.url}")`;
+      span.style.backgroundSize = `${FRAMES * 100}% 100%`;
+      tn.el.firstElementChild.append(span);
+      tn.span = span; tn.state = 'ready'; wake();
+    };
+    img.onerror = () => { tn.state = 'failed'; };
+    img.src = tn.url;
+  }
+  function spin(t, dt) {
+    const front = mod(Math.round(pos));
+    for (let i = 0; i < N; i++) {
+      const tn = turns[i];
+      if (tn.state !== 'ready') continue;
+      const mouse = hot === tn && !drag;
+      const sway = !reduced.matches && !mouse && !hover && i === front && Math.abs(wrapDiff(i, pos)) < 0.35 ? Math.sin(t / 2600) * 0.38 : 0;
+      tn.goal = mouse ? tn.pointer : sway;
+      tn.cur += (tn.goal - tn.cur) * (reduced.matches ? 1 : 1 - Math.exp(-dt * 9));
+      const idle = !mouse && Math.abs(tn.cur) < 0.012 && sway === 0;
+      if (idle) { if (tn.span.style.opacity !== '0') { tn.span.style.opacity = '0'; tn.el.firstElementChild.firstElementChild.style.visibility = ''; } continue; }
+      const f = clamp((tn.cur / SWING + 1) / 2, 0, 1) * (FRAMES - 1);
+      tn.span.style.backgroundPosition = `${(Math.round(f) / (FRAMES - 1)) * 100}% 0`;
+      if (tn.span.style.opacity !== '1') { tn.span.style.opacity = '1'; tn.el.firstElementChild.firstElementChild.style.visibility = 'hidden'; }
+    }
+  }
+  stage.addEventListener('pointermove', (e) => {
+    if (e.pointerType !== 'mouse' || (drag && drag.started)) return;
+    const el = e.target.closest ? e.target.closest('[data-ring-item]') : null;
+    hot = el ? turns[items.indexOf(el)] : null;
+    if (!hot) return;
+    load(hot);
+    const r = el.querySelector('img').getBoundingClientRect();
+    hot.pointer = clamp(((e.clientX - r.left) / Math.max(1, r.width) - 0.5) * 2 * SWING, -SWING, SWING);
+    wake();
+  });
+  stage.addEventListener('pointerleave', () => { hot = null; });
+
   function tick(t) {
     frame = 0;
     const dt = last ? Math.min(0.05, (t - last) / 1000) : 0.016;
@@ -68,6 +116,7 @@
     shown += (raw - shown) * (1 - Math.exp(-dt * 9));
     prev = pos;
     place();
+    spin(t, dt);
     if (visible && !document.hidden) frame = requestAnimationFrame(tick);
     else last = 0;
   }
@@ -123,7 +172,7 @@
     if (window.WasayDetail) {
       e.preventDefault();
       const li = a.closest('[data-ring-item]');
-      window.WasayDetail.open(items.indexOf(li), li.querySelector('img'));
+      window.WasayDetail.open(li, li.querySelector('img'));
     }
   });
 

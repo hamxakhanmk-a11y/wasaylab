@@ -33,7 +33,7 @@
     </section>
 
     <!-- PRODUCT RING: the pastes drift past in front of a big arch, tilting as they move. Cutouts are rendered ahead of time
-         by scripts/render-jar-cutouts.mjs, so nothing has to be built in the browser. -->
+         by scripts/render-cutouts.mjs, so nothing has to be built in the browser. -->
     <section class="wz-ring" aria-labelledby="wz-ring-title">
       <div class="container wz-ring__head">
         <p class="eyebrow">{{ page.ring.eyebrow }}</p>
@@ -46,7 +46,7 @@
           <text class="wz-ring__text"><textPath href="#wz-arch-text" startOffset="50%" text-anchor="middle">{{ page.ring.arch_text }} &middot; {{ page.ring.arch_text }}</textPath></text>
         </svg>
         <ul class="wz-ring__items">
-          {{#each content.pastes.pastes}}<li class="wz-ring__item" data-ring-item data-slug="{{ slug }}" data-name="{{ name }}" data-detail="{{ detail }}"><a href="pastes.html" aria-label="{{ name }}, {{ detail }}" draggable="false"><img src="/images/wasay/ring/{{ slug }}.webp" alt="" height="640" decoding="async" draggable="false" /></a></li>
+          {{#each content.pastes.pastes}}<li class="wz-ring__item" data-ring-item data-pv-item data-slug="{{ slug }}" data-name="{{ name }}" data-detail="{{ detail }}" data-kind="pastes" data-img="/images/wasay/ring/{{ slug }}-large.webp" data-photos="/pastes-data.json" data-turn="/images/wasay/ring/{{ slug }}-turn.webp"><a href="pastes.html" aria-label="{{ name }}, {{ detail }}" draggable="false"><img src="/images/wasay/ring/{{ slug }}.webp" alt="" height="640" decoding="async" draggable="false" /></a></li>
           {{/each}}
         </ul>
       </div>
@@ -54,35 +54,7 @@
       <p class="wz-ring__more"><a class="btn btn--ghost" href="{{ page.ring.link_href }}">{{ page.ring.link_label }} &rarr;</a></p>
     </section>
 
-    <!-- PRODUCT VIEW: opens when a jar in the ring is clicked. The name rises from behind the jar, which tilts as the page is
-         scrolled; wasay-detail.js fills it in. -->
-    <dialog class="wz-detail" aria-labelledby="wz-detail-name" data-product-view>
-      <button class="wz-detail__back" type="button" data-detail-close aria-label="{{ page.ring.detail.close_label }}"><span aria-hidden="true">&larr;</span> {{ page.ring.detail.back_label }}</button>
-      <div class="wz-detail__hero" data-detail-hero>
-        <div class="wz-detail__stick">
-          <div class="wz-detail__title"><h2 class="wz-detail__name" id="wz-detail-name" data-fill="name"></h2></div>
-          <p class="wz-detail__cap wz-detail__cap--l">{{ page.ring.detail.type }}</p>
-          <p class="wz-detail__cap wz-detail__cap--r" data-fill="detail"></p>
-          <div class="wz-detail__stage"><img class="wz-detail__jar" alt="" width="570" height="1000" data-detail-jar /></div>
-        </div>
-      </div>
-      <div class="wz-detail__body">
-        <p class="wz-detail__intro" data-tpl="{{ page.ring.detail.intro }}"></p>
-        <h3>{{ page.ring.detail.specs_heading }}</h3>
-        <dl class="wz-detail__specs">
-          {{#each page.ring.detail.specs}}<div><dt>{{ label }}</dt><dd data-tpl="{{ value }}"></dd></div>
-          {{/each}}
-        </dl>
-        <h3>{{ page.ring.detail.photos_heading }}</h3>
-        <p class="wz-detail__note">{{ page.ring.detail.photos_note }}</p>
-        <div class="wz-detail__photos" data-detail-photos></div>
-        <nav class="wz-detail__nav" aria-label="{{ page.ring.eyebrow }}">
-          <button type="button" data-detail-step="-1"><span aria-hidden="true">&larr;</span> {{ page.ring.detail.prev_label }}: <b data-detail-neighbour="-1"></b></button>
-          <a href="{{ page.ring.detail.all_href }}">{{ page.ring.detail.all_label }}</a>
-          <button type="button" data-detail-step="1">{{ page.ring.detail.next_label }}: <b data-detail-neighbour="1"></b> <span aria-hidden="true">&rarr;</span></button>
-        </nav>
-      </div>
-    </dialog>
+{{> product-view}}
 
     <!-- WHO WE ARE: a quality-control window. The photo stays still and is uncovered as the page scrolls past. -->
     <article class="qc-window home-about-window" aria-label="{{ page.about.eyebrow }}">

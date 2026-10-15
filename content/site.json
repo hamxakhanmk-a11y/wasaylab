@@ -92,5 +92,84 @@
     ],
     "copyright": "Wasay Laboratories (Pvt.) Ltd. All rights reserved.",
     "tagline": "Curing naturally, caring globally."
+  },
+  "product_view": {
+    "back_label": "Back",
+    "close_label": "Close this product and go back",
+    "intro": "{name} is part of the {range} range from Wasay Laboratories (Pvt.) Ltd. Directions, composition and batch details are printed on the pack, and the photographs below show every side of it.",
+    "specs_heading": "Specifications",
+    "specs": [
+      {
+        "label": "Product",
+        "value": "{name}"
+      },
+      {
+        "label": "Range",
+        "value": "{range}"
+      },
+      {
+        "label": "Details",
+        "value": "{detail}"
+      },
+      {
+        "label": "Pack",
+        "value": "{pack}"
+      },
+      {
+        "label": "Made by",
+        "value": "Wasay Laboratories (Pvt.) Ltd."
+      }
+    ],
+    "photos_heading": "On the pack",
+    "prev_label": "Previous",
+    "next_label": "Next",
+    "nav_label": "Products",
+    "kinds": [
+      {
+        "key": "tablets",
+        "range": "Tablets",
+        "pack": "Carton",
+        "noun": "carton",
+        "photos_note": "Photographs of the real carton: front, left and right.",
+        "all_label": "See all tablets",
+        "all_href": "tablets.html"
+      },
+      {
+        "key": "tonics",
+        "range": "Multi Tonics",
+        "pack": "Carton",
+        "noun": "carton",
+        "photos_note": "Photographs of the real carton: front, left and right.",
+        "all_label": "See all multi tonics",
+        "all_href": "tonics.html"
+      },
+      {
+        "key": "syrups",
+        "range": "Syrups",
+        "pack": "Carton",
+        "noun": "carton",
+        "photos_note": "Photographs of the real carton: front, left and right.",
+        "all_label": "See all syrups",
+        "all_href": "syrups.html"
+      },
+      {
+        "key": "ointments",
+        "range": "Ointments",
+        "pack": "Carton",
+        "noun": "carton",
+        "photos_note": "Photographs of the real carton: front, left and right.",
+        "all_label": "See all ointments",
+        "all_href": "ointments.html"
+      },
+      {
+        "key": "pastes",
+        "range": "Pastes",
+        "pack": "Jar with a screw cap",
+        "noun": "jar",
+        "photos_note": "Photographs of the real jar: front, left, right and from above.",
+        "all_label": "See all pastes",
+        "all_href": "pastes.html"
+      }
+    ]
   }
 }

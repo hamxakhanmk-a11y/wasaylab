@@ -4,6 +4,7 @@
 {{> head}}
   <link rel="stylesheet" href="/tablets.css" />
   <link rel="stylesheet" href="/glass-photos.css" />
+  <link rel="stylesheet" href="/wasay-detail.css" />
 </head>
 <body>
 {{> loader}}
@@ -13,10 +14,10 @@
 {{> banner}}
 
     <section class="section tablet-section" id="panel-tonics" aria-label="Multi Tonics" data-product-panel="tonics" tabindex="0">
-      <div class="container"><p class="eyebrow">Multi Tonics</p><h2 id="tonic-title">Explore our Multi Tonics.</h2><p class="lead">The cartons turn gently on their own. Move your mouse over one to explore its sides.</p>
+      <div class="container"><p class="eyebrow">Multi Tonics</p><h2 id="tonic-title">Explore our Multi Tonics.</h2><p class="lead">The cartons turn gently on their own. Move your mouse over one to explore its sides, or click one to open it.</p>
       </div>
       <ul class="tablet-gallery">
-      {{#each page.tonics}}<li class="tablet-item"><div class="tablet-view" data-tablet="{{ slug }}" tabindex="0" role="group" aria-label="{{ name }} carton. Use left and right arrow keys to turn."><img class="tablet-fallback" src="{{ image }}" alt="{{ name }} carton" loading="lazy" /><div class="tablet-float"><div class="tablet-model"></div></div></div><h3>{{ name }}</h3><p>{{ detail }}</p></li>{{/each}}
+      {{#each page.tonics}}<li class="tablet-item" data-pv-item data-slug="{{ slug }}" data-name="{{ name }}" data-detail="{{ detail }}" data-kind="tonics" data-img="/images/wasay/products/{{ slug }}-large.webp" data-photos="/tablets-data.json"><div class="tablet-view" data-tablet="{{ slug }}" tabindex="0" role="group" aria-label="{{ name }} carton. Use left and right arrow keys to turn."><img class="tablet-fallback" src="{{ image }}" alt="{{ name }} carton" loading="lazy" /><div class="tablet-float"><div class="tablet-model"></div></div></div><h3><a href="#product-{{ slug }}" data-pv-link>{{ name }}</a></h3><p>{{ detail }}</p></li>{{/each}}
       </ul>
     </section>
 
@@ -38,11 +39,14 @@
 
 {{> footer}}
 
+{{> product-view}}
+
   <script src="/script.js"></script>
   <script src="/glass-photos.js"></script>
   <script src="/product-tabs.js"></script>
   <script src="/product-3d.js"></script>
   <script src="/tablets.js"></script>
   <script src="/pastes.js"></script>
+  <script src="/wasay-detail.js"></script>
 </body>
 </html>

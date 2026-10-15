@@ -83,14 +83,18 @@ Jars live in `static/pastes-data.json` (the jar and its measurements) and `conte
 
 ### The home page ring
 
-The ring under the home hero shows every jar in `content/pastes.json` as a transparent front-view image from `static/images/wasay/ring/<slug>.webp`. These are rendered from the 3D jars, so after adding a jar or changing its photos or measurements run:
+The ring under the home hero shows every jar in `content/pastes.json` as a transparent front-view image from `static/images/wasay/ring/<slug>.webp`, and the product view shows every product from a larger picture. These are rendered from the 3D models the product pages build, so after adding a product or changing its photos or measurements run:
 
 ```sh
-node scripts/render-jar-cutouts.mjs            # every jar
-node scripts/render-jar-cutouts.mjs hasnat     # one jar
+node scripts/render-cutouts.mjs            # every jar and carton
+node scripts/render-cutouts.mjs jars       # the paste jars only
+node scripts/render-cutouts.mjs cartons    # the carton products only
+node scripts/render-cutouts.mjs hasnat     # one product, by its slug
 ```
 
-It builds the site, draws each jar from the front (a 640px picture for the ring and a 1000px one, `<slug>-large.webp`, for the product view) in a headless Chrome or Edge (set `CHROME` to a browser path if it is not found), and writes the images. A jar without an image shows as a gap in the ring. The arch colour is `--ring-arch` in `static/wasay-ring.css`. Clicking a jar opens a product view whose text and specification rows are in `content/index.json` under `ring.detail`; add a row such as composition there once the real wording is known.
+It builds the site, draws each product in a headless Chrome or Edge (set `CHROME` to a browser path if it is not found), and writes the images: for a jar a 640px picture for the ring (`ring/<slug>.webp`), a 1000px one for the product view (`ring/<slug>-large.webp`) and a strip of 21 turn frames (`ring/<slug>-turn.webp`) that the ring plays when the mouse moves over the jar; for a carton a 900px picture (`products/<slug>-large.webp`) for the product view. A jar without its pictures shows as a gap in the ring, and a product without its large picture opens an empty view. The arch colour is `--ring-arch` in `static/wasay-ring.css`.
+
+Clicking any product, in the ring or on a tab, opens the product view. Its text, specification rows and per-range wording (range name, pack, photo caption, link back to the range) are in `content/site.json` under `product_view`; add a row such as composition there once the real wording is known. The tiles carry the product's details as `data-pv-*` attributes, so a new product on a tab only needs its item in that tab's content file and its pictures.
 
 ## Publishing and the editor
 

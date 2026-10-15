@@ -1,0 +1,31 @@
+<!-- PRODUCT VIEW: opens when a product is clicked, on the home ring and on every product tab. The name rises from behind the
+     product, which tilts as the page is scrolled; static/wasay-detail.js fills it in from the clicked product's data attributes. -->
+{{#each site.product_view.kinds}}<template data-pv-kind="{{ key }}" data-range="{{ range }}" data-pack="{{ pack }}" data-noun="{{ noun }}" data-photos-note="{{ photos_note }}" data-all-label="{{ all_label }}" data-all-href="{{ all_href }}"></template>
+{{/each}}
+    <dialog class="wz-detail" aria-labelledby="wz-detail-name" data-product-view>
+      <button class="wz-detail__back" type="button" data-detail-close aria-label="{{ site.product_view.close_label }}"><span aria-hidden="true">&larr;</span> {{ site.product_view.back_label }}</button>
+      <div class="wz-detail__hero" data-detail-hero>
+        <div class="wz-detail__stick">
+          <div class="wz-detail__title"><h2 class="wz-detail__name" id="wz-detail-name" data-fill="name"></h2></div>
+          <p class="wz-detail__cap wz-detail__cap--l" data-fill="range"></p>
+          <p class="wz-detail__cap wz-detail__cap--r" data-fill="detail"></p>
+          <div class="wz-detail__stage"><img class="wz-detail__jar" alt="" width="570" height="1000" data-detail-jar /></div>
+        </div>
+      </div>
+      <div class="wz-detail__body">
+        <p class="wz-detail__intro" data-tpl="{{ site.product_view.intro }}"></p>
+        <h3>{{ site.product_view.specs_heading }}</h3>
+        <dl class="wz-detail__specs">
+          {{#each site.product_view.specs}}<div><dt>{{ label }}</dt><dd data-tpl="{{ value }}"></dd></div>
+          {{/each}}
+        </dl>
+        <h3>{{ site.product_view.photos_heading }}</h3>
+        <p class="wz-detail__note" data-fill="photos_note"></p>
+        <div class="wz-detail__photos" data-detail-photos></div>
+        <nav class="wz-detail__nav" aria-label="{{ site.product_view.nav_label }}">
+          <button type="button" data-detail-step="-1"><span aria-hidden="true">&larr;</span> {{ site.product_view.prev_label }}: <b data-detail-neighbour="-1"></b></button>
+          <a href="pastes.html" data-pv-all data-fill="all_label"></a>
+          <button type="button" data-detail-step="1">{{ site.product_view.next_label }}: <b data-detail-neighbour="1"></b> <span aria-hidden="true">&rarr;</span></button>
+        </nav>
+      </div>
+    </dialog>

@@ -18,42 +18,7 @@
     "label": "Wasay paste jars. Drag, scroll or use the left and right arrow keys to turn the ring, and press Enter or click to open a jar.",
     "arch_text": "Power of Natural Healing",
     "link_label": "See all pastes",
-    "link_href": "pastes.html",
-    "detail": {
-      "back_label": "All pastes",
-      "close_label": "Close this jar and go back to the pastes",
-      "type": "Pastes",
-      "intro": "{name} comes in a {detail} jar from Wasay Laboratories (Pvt.) Ltd. Directions, composition and batch details are printed on the pack, and the photographs below show every side of it.",
-      "specs_heading": "Specifications",
-      "specs": [
-        {
-          "label": "Product",
-          "value": "{name}"
-        },
-        {
-          "label": "Range",
-          "value": "Pastes"
-        },
-        {
-          "label": "Net content",
-          "value": "{detail}"
-        },
-        {
-          "label": "Pack",
-          "value": "Jar with a screw cap"
-        },
-        {
-          "label": "Made by",
-          "value": "Wasay Laboratories (Pvt.) Ltd."
-        }
-      ],
-      "photos_heading": "On the pack",
-      "photos_note": "Photographs of the real jar: front, left, right and from above.",
-      "prev_label": "Previous",
-      "next_label": "Next",
-      "all_label": "See all pastes",
-      "all_href": "pastes.html"
-    }
+    "link_href": "pastes.html"
   },
   "about": {
     "eyebrow": "Who we are",

@@ -89,6 +89,39 @@ collections:
               - { name: copyright, label: Copyright line, widget: string, hint: 'The year and © are added automatically.' }
               - { name: tagline, label: Closing line, widget: string }
 
+          - name: product_view
+            label: Product view (opens when any product is clicked)
+            widget: object
+            hint: 'Use {name}, {detail}, {range}, {pack} in any text where the product''s own words should appear.'
+            fields:
+              - { name: back_label, label: Back button text, widget: string }
+              - { name: close_label, label: Back button description for screen readers, widget: string }
+              - { name: intro, label: Paragraph under the product, widget: text }
+              - { name: specs_heading, label: Specifications heading, widget: string }
+              - name: specs
+                label: Specifications
+                widget: list
+                summary: '{{fields.label}}: {{fields.value}}'
+                hint: Add rows such as composition once Wasay supplies them.
+                fields:
+                  - { name: label, label: Label, widget: string }
+                  - { name: value, label: Value, widget: string }
+              - { name: photos_heading, label: Photos heading, widget: string }
+              - { name: prev_label, label: Previous button text, widget: string }
+              - { name: next_label, label: Next button text, widget: string }
+              - { name: nav_label, label: Previous / next description for screen readers, widget: string }
+              - name: kinds
+                label: Product ranges
+                widget: list
+                summary: '{{fields.range}}'
+                fields:
+                  - { name: key, label: Key (do not change), widget: string }
+                  - { name: range, label: Range name, widget: string }
+                  - { name: pack, label: Pack type, widget: string }
+                  - { name: noun, label: Pack word (jar, carton), widget: string }
+                  - { name: photos_note, label: Photos caption, widget: string }
+                  - { name: all_label, label: Link text to the whole range, widget: string }
+                  - { name: all_href, label: Link goes to, widget: string }
       # ------------------------------------------------------------ home page
       - name: index
         label: Home page
@@ -112,7 +145,7 @@ collections:
           - name: ring
             label: 'Section: Product ring (under the opening banner)'
             widget: object
-            hint: The jars come from the Pastes page. Each needs a picture in static/images/wasay/ring, made with scripts/render-jar-cutouts.mjs.
+            hint: The jars come from the Pastes page. Each needs pictures in static/images/wasay/ring, made with scripts/render-cutouts.mjs.
             fields:
               - { name: eyebrow, label: Small label above heading, widget: string }
               - { name: heading, label: Heading, widget: string }
@@ -120,29 +153,6 @@ collections:
               - { name: arch_text, label: Words curved along the arch, widget: string }
               - { name: link_label, label: Button text, widget: string }
               - { name: link_href, label: Button links to, widget: string }
-              - name: detail
-                label: What a jar shows when it is opened
-                widget: object
-                fields:
-                  - { name: back_label, label: Back button text, widget: string }
-                  - { name: close_label, label: Back button description for screen readers, widget: string }
-                  - { name: type, label: Small caption at the left, widget: string }
-                  - { name: intro, label: Paragraph under the jar, widget: text, hint: 'Use {name} and {detail} where the jar''s name and size should appear.' }
-                  - { name: specs_heading, label: Specifications heading, widget: string }
-                  - name: specs
-                    label: Specifications
-                    widget: list
-                    summary: '{{fields.label}}: {{fields.value}}'
-                    hint: 'Use {name} and {detail} in a value to fill in the jar''s name and size. Add rows such as composition once Wasay supplies them.'
-                    fields:
-                      - { name: label, label: Label, widget: string }
-                      - { name: value, label: Value, widget: string }
-                  - { name: photos_heading, label: Photos heading, widget: string }
-                  - { name: photos_note, label: Photos caption, widget: string }
-                  - { name: prev_label, label: Previous button text, widget: string }
-                  - { name: next_label, label: Next button text, widget: string }
-                  - { name: all_label, label: Link text to all pastes, widget: string }
-                  - { name: all_href, label: Link goes to, widget: string }
           - name: about
             label: 'Section: Who we are'
             widget: object
