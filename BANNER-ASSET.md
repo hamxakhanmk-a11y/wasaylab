@@ -1,9 +1,17 @@
-# Homepage landscape banner
+# Homepage video banner
 
-Composition reference: https://motionsites.ai/?prompt=zenith-footer (viewed in the browser).
+Composition reference: https://motionsites.ai/?prompt=zenith-footer
 
-`static/images/wasay/wellness-hillside.webp` is original artwork generated with the built-in image-generation tool, then encoded as WebP (154 KB). It is illustrative wellness scenery, not a photograph of Wasay's premises or employees. No media or code from MotionSites is bundled.
+Current footage: “A woman running on a grassy hill”, Khanh Hoang Minh 2, Pexels, video 18206674.
+Source: https://www.pexels.com/video/a-woman-running-on-a-grassy-hill-18206674/
+License: https://www.pexels.com/license/
 
-Generation prompt: “Create a photorealistic wide landscape website banner background, aspect ratio 16:9, no text, no logos, no interface. Calm premium natural wellness editorial photography. Sunlit rolling green grassy hill rising gently from left to right across the lower third. Two very small distant adults in modest light neutral athletic clothing walking along the ridge, one left of center and one right of center, occupying only 10 percent of image height, never near foreground. Vast airy pale natural sky with delicate soft white clouds filling top two thirds, warm hazy daylight, realistic grass, tranquil, subtle analog film grain. Keep upper central area uncluttered and very pale for a dark forest green headline overlay. Landscape should feel expansive and real, not fantasy, no mountains blocking sky. Deliver only the background photograph, no captions or frames.”
+The Pexels page describes a woman hiking on a sunny day. This is alternate clean footage, not the exact two-runner scene in the MotionSites preview. No MotionSites footage or template code is included. The person shown is not presented as a Wasay employee, customer or endorser.
 
-The current banner animates a still image with a slow camera drift. It is not a video of people walking. The motion has a pause control, obeys reduced motion and pauses offscreen or in a background tab.
+Project media:
+- static/videos/wellness-hillside.mp4: local silent H.264, 1600 x 900, about 11.2 seconds and 2.6 MB. The first eight seconds of the source are played at a slower pace with a one-second crossfade toward the opening.
+- static/images/wasay/wellness-video-poster.webp: first frame of the finished clip, for loading, disabled motion and playback failures.
+
+The old generated wellness-hillside.webp is no longer referenced by the banner. Actual walking is now recorded movement in video frames; no CSS zoom or simulated walk is used.
+
+The video starts muted when visible, pauses offscreen and in background tabs, and respects reduced motion. An explicit Play action can start it under reduced motion. If autoplay is blocked, the Play button remains available. If loading fails, the poster remains and the control reports that video is unavailable.

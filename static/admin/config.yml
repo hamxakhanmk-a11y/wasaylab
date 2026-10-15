@@ -133,7 +133,8 @@ collections:
             label: 'Section: Opening banner'
             widget: object
             fields:
-              - { name: landscape, label: Landscape banner artwork, widget: image }
+              - { name: video, label: Banner video (MP4), widget: file }
+              - { name: landscape, label: Banner poster / still fallback, widget: image }
               - { name: panel_heading, label: Brand panel heading, widget: string }
               - name: ranges
                 label: Product range links
