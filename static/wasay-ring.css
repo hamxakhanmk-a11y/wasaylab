@@ -10,7 +10,7 @@
 
 .wz-ring__arch { position: absolute; left: 50%; bottom: 0; width: min(1060px, 92vw); height: auto; transform: translateX(-50%); display: block; overflow: visible; }
 .wz-ring__shape { fill: var(--ring-arch); }
-.wz-ring__text { fill: var(--ring-text); font-family: var(--display); font-weight: 700; font-size: 58px; letter-spacing: .08em; text-transform: uppercase; }
+.wz-ring__text { fill: var(--ring-text); font-family: var(--poster); font-weight: 700; font-size: 74px; letter-spacing: .1em; text-transform: uppercase; }
 
 /* until the script has laid the ring out, show one jar rather than a pile of nine */
 .wz-ring__stage:not(.is-ready) .wz-ring__item + .wz-ring__item { visibility: hidden; }
@@ -28,7 +28,7 @@
 @media (max-width: 640px) {
   .wz-ring__stage { height: 360px; }
   .wz-ring__arch { width: 150vw; }
-  .wz-ring__text { font-size: 64px; }
+  .wz-ring__text { font-size: 80px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .wz-ring__item { will-change: auto; }

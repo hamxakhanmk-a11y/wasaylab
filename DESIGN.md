@@ -184,9 +184,11 @@ they are never reused in the interface.
 
 ## Typography
 
-- **Display:** Space Grotesk 400 to 700 (Google Fonts). All h1, h2, h3.
-- **Body:** Inter 400 to 600. Everything else.
-- Headlines are tight: negative or zero tracking, line height at or under 1.1.
+- **Display:** Newsreader, a warm editorial serif (400 to 700, variable with optical sizes). All h1, h2, h3 (weight 600 unless a component says otherwise). It replaced Space Grotesk, which read as generic "tech"; the serif suits a herbal medicine maker and keeps the pages calm.
+- **Poster:** Barlow Condensed 700 in capitals, for the huge product name behind the product in the product view and for the lettering round the ring's arch. Sturdy and close in spirit to the WASAY logo lettering. Used nowhere else.
+- **Body:** Source Sans 3 400 to 700, 17px base. Everything else.
+- All three are self-hosted in `static/fonts` (SIL Open Font License, Latin subset) and declared in `static/wasay-fonts.css`; the head partial preloads the first two. Do not add a Google Fonts link. The variables are `--display`, `--poster` and `--font` in `styles.css`.
+- Headlines are tight but not squeezed: serif tracking stays between -.015em and 0, line height at or under 1.1.
 - Eyebrows are the one uppercase element.
 - Body copy sits in a measure (46 to 62ch), never full width.
 - Urdu text appears only inside photographs of the packaging. Keep it there; do not set Urdu in the UI without a proper Urdu face.
@@ -314,3 +316,7 @@ Every page scrolls as a stack of pages (`static/wasay-stack.css` and `.js`, load
 ## Botanical company introduction
 
 Who we are is one scene that holds its place while the page scrolls past it (`.botanical-story`, 100svh plus a 260svh hold, a section of the page turn). It is deliberately not a set of sliding pages. Scrolling forms a droplet on the leaf, lets it fall into the bottle and lands it with a ripple; scrolling up reverses it. The three texts rise in from the bottom one after another as the droplet does (the first until the droplet is full, the second while it falls, the third once it has landed): the text on show leaves upward while the next comes up from below, so it reads as turning through pages while the scene keeps moving. The droplet is amber like the liquid in the bottle, so it reads as medicine, not water; only the dew beads on the leaf are clear. The bottle carries a cream paper label with the real Wasay Laboratories logo (`/logo.png`, which already includes the name); nothing else is printed on it. The numbered buttons jump to each text; Scroll to explore is the hint. The scene is a locally bundled Three.js renderer drawn on an off-screen canvas and copied into the section's canvas: curved, textured leaf geometry, double-wall transmissive amber glass, reflections and ripples. Mouse movement adds a small camera parallax. Rendering is demand-driven and stops offscreen or in a background tab. WebGL failure keeps the drawn SVG scene (same label and amber droplet), animated by the same progress. Reduced motion removes the hold, shows the three texts in normal flow and holds the scene still. Phones use the same layout with the copy above the scene. The previous tea photograph remains whole in Why customers love Wasay. No new product claims or stock footage are introduced.
+
+## Product tiles on the tabs
+
+A product stands near the bottom of its tile and its name sits right under it (about 10px of gap, no more). The 3D canvas has empty space round the model, so each tile is trimmed to the product: `--trim` shortens the tile and `--drop` moves the canvas, and rows are bottom-aligned so the names stay on one line. The two numbers are measured ahead of time for every product by `node scripts/render-cutouts.mjs fit` and stored as `fit` in `static/tablets-data.json` and `static/pastes-data.json`, so a tile has its final height before its 3D model is built and nothing jumps when models finish. Run it again after adding a product or changing its model (a normal run of the script does it too). A product without a stored fit is measured live as a fallback.

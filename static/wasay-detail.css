@@ -12,7 +12,7 @@ html.has-detail { overflow: hidden; }
 .wz-detail__hero { position: relative; height: 190svh; }
 .wz-detail__stick { position: sticky; top: 0; height: 100svh; overflow: hidden; }
 .wz-detail__title { position: absolute; inset: 0 0 18svh; display: grid; place-items: center; padding: 0 4vw; z-index: 1; }
-.wz-detail__name { margin: 0; max-width: 92vw; text-align: center; text-wrap: balance; font-family: var(--display); font-weight: 700; font-size: clamp(3rem, 12vw, 10.5rem); line-height: .94; white-space: pre-line; letter-spacing: -.012em; color: var(--accent); will-change: transform, opacity; }
+.wz-detail__name { margin: 0; max-width: 92vw; text-align: center; text-wrap: balance; font-family: var(--poster); font-weight: 700; text-transform: uppercase; font-size: clamp(4rem, 16.5vw, 14rem); line-height: .86; white-space: pre-line; letter-spacing: .004em; color: var(--accent); will-change: transform, opacity; }
 .wz-detail__stage { position: absolute; left: 50%; bottom: 4svh; z-index: 2; pointer-events: none; transform: translateX(-50%) translateY(34svh); transform-origin: 50% 62%; will-change: transform; }
 .wz-detail__jar { transform-origin: 50% 50%; display: block; height: min(52svh, 480px, calc(56vw / var(--pv-ar, .6))); width: auto; max-width: 78vw; object-fit: contain; filter: drop-shadow(0 30px 28px rgba(60, 45, 30, .3)); }
 .wz-detail__cap { position: absolute; z-index: 1; top: 56%; margin: 0; max-width: 22vw; font-size: clamp(.82rem, 1.3vw, 1.05rem); line-height: 1.35; color: var(--muted); }
@@ -27,7 +27,7 @@ html.has-detail { overflow: hidden; }
 .wz-detail__nav button:hover, .wz-detail__nav a:hover { text-decoration: underline; text-decoration-color: var(--lime); text-decoration-thickness: 2px; text-underline-offset: 5px; }
 
 @media (max-width: 700px) {
-  .wz-detail__name { font-size: clamp(2.6rem, 15vw, 4.6rem); }
+  .wz-detail__name { font-size: clamp(3.4rem, 22vw, 6.4rem); }
   .wz-detail__jar { height: min(46svh, 400px, calc(50vw / var(--pv-ar, .6))); }
   .wz-detail__cap { top: 11svh; max-width: 28vw; }
   .wz-detail__nav { flex-wrap: wrap; justify-content: center; }

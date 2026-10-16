@@ -5,6 +5,7 @@
  *   node scripts/render-cutouts.mjs jars         (the nine paste jars only)
  *   node scripts/render-cutouts.mjs cartons      (the carton products only)
  *   node scripts/render-cutouts.mjs hasnat       (one product, by its slug)
+ *   node scripts/render-cutouts.mjs fit          (only measure each product's fit in its tile, no pictures)
  *
  * It builds the site, serves dist/, opens each product page in a headless Chrome or Edge (software WebGL), waits for each 3D model
  * to be built by static/pastes.js or static/tablets.js, draws it again at high resolution, crops it to its outline and writes:
@@ -12,11 +13,13 @@
  *   static/images/wasay/ring/<slug>-large.webp      jar, front view, for the product view
  *   static/images/wasay/ring/<slug>-turn.webp       jar, 21 frames turning left to right in one strip, which the ring plays as the mouse moves
  *   static/images/wasay/products/<slug>-large.webp  carton, front view, for the product view
+ * Every run also measures where each model sits in its tile and stores the result as "fit" ([trim, drop] in px) in
+ * static/tablets-data.json and static/pastes-data.json, so the tabs know each tile's height before its 3D model is built.
  * Run it again whenever a product is added or its photos or measurements change.
  * Needs Node 22+ and Chrome or Edge (set CHROME to a browser path if it is not found).
  */
 import { spawn, execFileSync } from 'node:child_process';
-import { existsSync, mkdirSync, mkdtempSync, writeFileSync, rmSync } from 'node:fs';
+import { existsSync, mkdirSync, mkdtempSync, writeFileSync, readFileSync, rmSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
@@ -28,7 +31,8 @@ const SIZES = [['', 640, 0.92], ['-large', 1000, 0.9]];   // jars: file suffix, 
 const CARTON = [['-large', 900, 0.88]];
 const TURN = { frames: 21, swing: 0.82, height: 480, quality: 0.8 };   // the same swing as the jars on the Pastes page
 const only = process.argv.slice(2);
-const kindArg = only.filter((a) => a === 'jars' || a === 'cartons'), slugArg = only.filter((a) => a !== 'jars' && a !== 'cartons');
+const KEYWORDS = ['jars', 'cartons', 'fit'], fitOnly = only.includes('fit');
+const kindArg = only.filter((a) => a === 'jars' || a === 'cartons'), slugArg = only.filter((a) => !KEYWORDS.includes(a));
 const doJars = !kindArg.length || kindArg.includes('jars'), doCartons = !kindArg.length || kindArg.includes('cartons');
 
 const candidates = [process.env.CHROME,
@@ -110,14 +114,25 @@ try {
   };
   const report = (slug, suffix, one, bytes) => console.log(`${(slug + suffix).padEnd(34)} ${one.w} x ${one.h}  ${(bytes / 1024).toFixed(0)} KB`);
   let found = 0;
+  const fits = { jars: {}, cartons: {} };
+  const measure = async (sel, attr, slug, kind, gap) => {
+    const m = await run(`(() => { const j = window.__jars.find((e) => e.canvas.closest('${sel}').dataset.${attr} === '${slug}'); j.renderer.draw(0, j.last[1], j.last[2]); return window.WasayFitMeasure(j.canvas); })()`);
+    if (!m) throw new Error('Could not measure ' + slug);
+    const [trim, drop] = await run(`WasayFitNumbers(${JSON.stringify(m)}, ${gap}, 320)`);
+    fits[kind][slug] = [trim, drop];
+    console.log(`${slug.padEnd(34)} fit  trim ${trim}px  drop ${drop}px`);
+  };
 
   if (doJars) {
     const slugs = (await pageSlugs('pastes', '[data-paste]', 'paste')).filter((s) => !slugArg.length || slugArg.includes(s));
     const yaws = Array.from({ length: TURN.frames }, (_, i) => -TURN.swing + (2 * TURN.swing * i) / (TURN.frames - 1));
     for (const slug of slugs) {
       await build('[data-paste]', 'paste', slug);
-      const shot = await renderModel('[data-paste]', 'paste', slug, yaws, SIZES, true);
-      for (const suffix of [...SIZES.map((z) => z[0]), '-turn']) report(slug, suffix, shot[suffix], save(RING, slug + suffix + '.webp', shot[suffix].url));
+      await measure('[data-paste]', 'paste', slug, 'jars', 14);
+      if (!fitOnly) {
+        const shot = await renderModel('[data-paste]', 'paste', slug, yaws, SIZES, true);
+        for (const suffix of [...SIZES.map((z) => z[0]), '-turn']) report(slug, suffix, shot[suffix], save(RING, slug + suffix + '.webp', shot[suffix].url));
+      }
       found++;
     }
   }
@@ -126,13 +141,22 @@ try {
       const slugs = (await pageSlugs(page, '[data-tablet]', 'tablet')).filter((s) => !slugArg.length || slugArg.includes(s));
       for (const slug of slugs) {
         await build('[data-tablet]', 'tablet', slug);
-        const shot = await renderModel('[data-tablet]', 'tablet', slug, [0], CARTON, false);
-        for (const [suffix] of CARTON) report(slug, suffix, shot[suffix], save(PRODUCTS, slug + suffix + '.webp', shot[suffix].url));
+        await measure('[data-tablet]', 'tablet', slug, 'cartons', 8);
+        if (!fitOnly) {
+          const shot = await renderModel('[data-tablet]', 'tablet', slug, [0], CARTON, false);
+          for (const [suffix] of CARTON) report(slug, suffix, shot[suffix], save(PRODUCTS, slug + suffix + '.webp', shot[suffix].url));
+        }
         found++;
       }
     }
   }
   if (!found) throw new Error('No matching product: ' + slugArg.join(', '));
+  for (const [kind, file] of [['jars', 'pastes-data.json'], ['cartons', 'tablets-data.json']]) {
+    if (!Object.keys(fits[kind]).length) continue;
+    const path = join(root, 'static', file), data = JSON.parse(readFileSync(path, 'utf8'));
+    for (const item of data) if (fits[kind][item.slug]) item.fit = fits[kind][item.slug];
+    writeFileSync(path, JSON.stringify(data, null, 2).replace(/\n/g, '\r\n') + '\r\n');
+  }
   ws.close();
 } finally { cleanup(); }
 process.exit(0);

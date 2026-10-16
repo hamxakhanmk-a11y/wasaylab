@@ -77,12 +77,12 @@ const height=H-.025+Math.max(0,luminance-.58)*.022;
 return [x,height-H/2,z,0,1,0,u,v];};
 for(let j=0;j<40;j++)for(let i=0;i<128;i++){const ra=.852*j/40,rb=.852*(j+1)/40,aa=i/128*Math.PI*2,ab=(i+1)/128*Math.PI*2;for(const [rr,angle] of [[ra,aa],[rb,aa],[rb,ab],[ra,aa],[rb,ab],[ra,ab]])relief.push(...vertex(rr,angle));}
 renderer.add(capMesh(relief),cap,capColor,.25,gloss?.3:0);
-s.renderer=renderer;s.scale=(p.wide?.51:.405)*silhouette(nominal,.22)/silhouette(H,TILT);s.ready=true;renderer.draw(0,TILT,s.scale);s.view.classList.add('ready');
+s.renderer=renderer;s.scale=(p.wide?.51:.405)*silhouette(nominal,.22)/silhouette(H,TILT);s.ready=true;renderer.draw(0,TILT,s.scale);s.view.classList.add('ready');if(window.WasayFit&&!s.p.fit)WasayFit(s.view,s.canvas,14);
 }
 fetch('/pastes-data.json').then(r=>{if(!r.ok)throw Error('Jar data unavailable');return r.json()}).then(data=>{
 const observer=new IntersectionObserver(entries=>entries.forEach(e=>{const s=states.find(s=>s.view===e.target);s.visible=e.isIntersecting}),{rootMargin:'150px'});
 const loader=new IntersectionObserver(entries=>entries.forEach(e=>{const s=states.find(s=>s.view===e.target);if(e.isIntersecting&&!s.started){s.started=true;queue.push(s);pump()}}),{rootMargin:'700px'});
-document.querySelectorAll('[data-paste]').forEach(view=>{const index=data.findIndex(p=>p.slug===view.dataset.paste);if(index<0)return;const canvas=view.querySelector('canvas');canvas.width=640;canvas.height=850;const s={view,canvas,p:data[index],index,angle:0,target:0,manual:false,showcase:data[index].animation==='showcase'};states.push(s);observer.observe(view);loader.observe(view);if(s.showcase)showcase(s);
+document.querySelectorAll('[data-paste]').forEach(view=>{const index=data.findIndex(p=>p.slug===view.dataset.paste);if(index<0)return;const canvas=view.querySelector('canvas');canvas.width=640;canvas.height=850;const s={view,canvas,p:data[index],index,angle:0,target:0,manual:false,showcase:data[index].animation==='showcase'};if(s.p.fit){view.style.setProperty('--trim',s.p.fit[0]+'px');view.style.setProperty('--drop',s.p.fit[1]+'px');}states.push(s);observer.observe(view);loader.observe(view);if(s.showcase)showcase(s);
 view.addEventListener('pointermove',e=>{if(s.showcase||e.pointerType!=='mouse')return;const r=view.getBoundingClientRect();s.manual=true;s.target=((e.clientX-r.left)/r.width-.5)*1.1});view.addEventListener('pointerleave',()=>{if(!s.showcase)s.manual=false});
 view.addEventListener('keydown',e=>{if(s.showcase||!['ArrowLeft','ArrowRight','Home'].includes(e.key))return;e.preventDefault();s.manual=e.key!=='Home';s.target=e.key==='Home'?0:Math.max(-.55,Math.min(.55,s.target+(e.key==='ArrowLeft'?-.15:.15)))});
 });

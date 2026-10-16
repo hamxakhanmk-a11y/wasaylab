@@ -16,3 +16,13 @@ function draw(y,x,scale){if(surface.width!==canvas.width||surface.height!==canva
 return {add,draw};
 };
 window.Wasay3DQuad=function(points,normal){const vertices=[];for(const i of [0,1,2,0,2,3])vertices.push(...points[i],...normal,...[[0,0],[1,0],[1,1],[0,1]][i]);return vertices;};
+
+/* The 3D canvas has empty space round the model, so a product floats well above the name under it and leaves a gap above it too.
+   WasayFitMeasure finds the model's highest and lowest pixels (as fractions of the canvas), WasayFitNumbers turns that into --trim
+   (how much shorter the tile can be) and --drop (how far the canvas moves, up) so the product stands a small distance above the
+   bottom of its box with little spare above it. The numbers are measured ahead of time by scripts/render-cutouts.mjs and stored as
+   "fit" in tablets-data.json and pastes-data.json, so tiles have their final height before their 3D model is built; WasayFit measures
+   live for a product that has no stored fit. Rows are bottom-aligned, so the names stay on one line. */
+window.WasayFitMeasure=function(canvas){try{const w=96,h=120,c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d',{willReadFrequently:true});x.drawImage(canvas,0,0,w,h);const d=x.getImageData(0,0,w,h).data;const has=r=>{for(let k=0;k<w;k++)if(d[(r*w+k)*4+3]>24)return true;return false;};let top=-1,bottom=-1;for(let r=0;r<h&&top<0;r++)if(has(r))top=r;for(let r=h-1;r>=0&&bottom<0;r--)if(has(r))bottom=r;if(top<0||bottom<0)return null;return{top:top/h,bottom:1-(bottom+1)/h};}catch(e){return null;}};
+window.WasayFitNumbers=function(m,gap,H){H=H||320;const eT=m.top*H,eB=m.bottom*H;return[Math.max(0,Math.min(Math.round(H*.7),Math.round(eB+eT-gap-12))),Math.round(12-eT)];};
+window.WasayFit=function(view,canvas,gap){const m=WasayFitMeasure(canvas);if(!m)return;const n=WasayFitNumbers(m,gap,canvas.getBoundingClientRect().height||320);view.style.setProperty('--trim',n[0]+'px');view.style.setProperty('--drop',n[1]+'px');};
