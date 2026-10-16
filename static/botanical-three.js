@@ -76,9 +76,13 @@ export function createBotanicalScene({ onChange = () => {} } = {}) {
   const water = new T.MeshPhysicalMaterial({ color: '#f5ffed', roughness: .015, transmission: 1,
     thickness: .24, ior: 1.333, envMapIntensity: 2.1, clearcoat: 1 });
   const dropPoints = [[0,.22],[.025,.14],[.08,.065],[.125,-.015],[.12,-.085],[.075,-.14],[0,-.16]];
-  const drop = new T.Mesh(new T.LatheGeometry(dropPoints.map(([x,y]) => new T.Vector2(x,y)),48), water);
+  // The falling droplet is the medicine: the same amber as the liquid it joins, not clear water.
+  const medicine = new T.MeshPhysicalMaterial({ color: '#e9a41f', roughness: .04, transmission: .4, thickness: .5, ior: 1.45,
+    attenuationColor: new T.Color('#c4720a'), attenuationDistance: .22, clearcoat: 1, clearcoatRoughness: .03,
+    emissive: new T.Color('#8a4a05'), emissiveIntensity: .45, envMapIntensity: 1.8 });
+  const drop = new T.Mesh(new T.LatheGeometry(dropPoints.map(([x,y]) => new T.Vector2(x,y)),48), medicine);
   scene.add(drop);
-  const rippleMaterial = new T.MeshBasicMaterial({ color: '#fff8d2', transparent: true, opacity: 0, depthWrite: false });
+  const rippleMaterial = new T.MeshBasicMaterial({ color: '#f4c04e', transparent: true, opacity: 0, depthWrite: false });
   const ripple = new T.Mesh(new T.TorusGeometry(.27,.008,8,64), rippleMaterial);
   ripple.rotation.x = Math.PI / 2; ripple.position.y = .29; scene.add(ripple);
 
@@ -142,7 +146,7 @@ export function createBotanicalScene({ onChange = () => {} } = {}) {
     if(!w||!h)return;
     if(w!==width||h!==height){width=w;height=h;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
     const p=clamp(progress),grow=clamp(p/.34),fall=clamp((p-.34)/.44),impact=clamp((p-.78)/.2);
-    const size=.22+grow*.78;
+    const size=.28+grow*1.02;
     drop.visible=p<.79;drop.scale.set(size*(1-.18*Math.sin(fall*Math.PI)),size*(1+.35*Math.sin(fall*Math.PI)),size);
     drop.position.set(0,1.45-.22*size-fall*fall*.99,.04);
     leaf.rotation.z=Math.sin(p*Math.PI)*.018;leaf.rotation.y=-.08+p*.12;
