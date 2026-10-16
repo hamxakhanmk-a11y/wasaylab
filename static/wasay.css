@@ -9,7 +9,7 @@
 
 /* ---------- Hero: the live site's banner shown whole, headline and button laid over its empty green side ---------- */
 .wz-hero { padding: 28px 0 clamp(40px, 6vw, 72px); background: linear-gradient(180deg, var(--paper) 0%, var(--paper-deep) 100%); box-shadow: inset 0 -1px 0 var(--line); }
-.wz-hero__banner { position: relative; container-type: inline-size; border-radius: 10px; overflow: hidden; background: #0a6a30; box-shadow: 0 18px 22px rgba(60, 45, 30, .22); }
+.wz-hero__banner { position: relative; container-type: inline-size; border-radius: 10px; overflow: hidden; background: #0a6a30; box-shadow: 0 18px 22px rgba(18, 52, 32, .22); }
 .wz-hero__banner picture, .wz-hero__banner img { display: block; width: 100%; height: auto; }
 .wz-hero__copy { position: absolute; left: 6.4%; top: 50%; width: 54%; transform: translateY(-50%); color: #fff; }
 .wz-hero h1 { margin: 0 0 14px; color: #fff; font-size: clamp(1.5rem, 5.2cqw, 4.2rem); line-height: 1.05; letter-spacing: -.01em; text-wrap: balance; }
@@ -26,7 +26,7 @@
 
 /* On phones the photo is pinned behind the copy, so the copy sits on frosted glass to stay readable. */
 @media (max-width: 900px) {
-  .home-about-window .qc-window__band { width: auto; margin-inline: 12px; padding: 24px 20px; border-radius: 16px; background: rgba(250, 248, 244, .9); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); box-shadow: 0 18px 22px -14px rgba(60, 45, 30, .3), inset 0 0 0 1px rgba(255, 255, 255, .75); }
+  .home-about-window .qc-window__band { width: auto; margin-inline: 12px; padding: 24px 20px; border-radius: 16px; background: rgba(250, 248, 244, .9); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); box-shadow: 0 18px 22px -14px rgba(18, 52, 32, .3), inset 0 0 0 1px rgba(255, 255, 255, .75); }
   .home-about-window .about-points { max-width: none; }
 }
 
@@ -62,11 +62,11 @@
   display: inline-flex; align-items: center; min-height: 48px; padding: 12px 22px; border-radius: 999px;
   color: var(--text); font-weight: 600; text-decoration: none;
   background: linear-gradient(115deg, #ffffff 0%, #ffffffb3 100%);
-  border: 1px solid rgba(60, 45, 30, .28);
-  box-shadow: inset 0 1px 0 #ffffffcc, 0 6px 18px -10px rgba(60, 45, 30, .35);
+  border: 1px solid rgba(18, 52, 32, .28);
+  box-shadow: inset 0 1px 0 #ffffffcc, 0 6px 18px -10px rgba(18, 52, 32, .35);
   transition: transform .35s cubic-bezier(.22, 1, .36, 1), box-shadow .35s cubic-bezier(.22, 1, .36, 1), border-color .35s ease;
 }
-.wz-chip:hover, .wz-chip:focus-visible { transform: translateY(-3px); border-color: rgba(1, 101, 47, .45); box-shadow: 0 0 0 4px #ffffff, 0 0 28px rgba(242, 248, 255, .9), 0 18px 32px -18px rgba(60, 45, 30, .5); }
+.wz-chip:hover, .wz-chip:focus-visible { transform: translateY(-3px); border-color: rgba(1, 101, 47, .45); box-shadow: 0 0 0 4px #ffffff, 0 0 28px rgba(242, 248, 255, .9), 0 18px 32px -18px rgba(18, 52, 32, .5); }
 .wz-chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 
 /* ---------- Why customers love Wasay ---------- */

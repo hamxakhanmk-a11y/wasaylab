@@ -95,6 +95,31 @@ function deriveCatalog(content) {
   }
   products.sort((a, b) => (Number(a.order) || 1e6) - (Number(b.order) || 1e6) || a.name.localeCompare(b.name));
   content.catalog = { all: products, ...Object.fromEntries(TABS.map((t) => [t, products.filter((p) => p.tab === t)])) };
+
+  // What each product view shows besides its own text: its range name, its pack photographs and a few more products from its tab.
+  const kinds = Object.fromEntries(((content.site && content.site.product_view && content.site.product_view.kinds) || []).map((k) => [k.key, k]));
+  const photoLabels = ['Front', 'Left side', 'Right side', 'From above'];
+  for (const p of products) {
+    p.range = (kinds[p.tab] && kinds[p.tab].range) || p.tab;
+    p.range_href = `${p.tab}.html`;
+    p.photos = (p.sources || []).map((s, i) => ({ src: s.path, label: photoLabels[i] || `Photo ${i + 1}` }));
+    const mates = content.catalog[p.tab], at = mates.indexOf(p);
+    p.related = mates.length > 1 ? Array.from({ length: Math.min(4, mates.length - 1) }, (_, i) => mates[(at + 1 + i) % mates.length]) : [];
+  }
+  // The home page "ranges" cards and figures, counted from the catalogue so they stay right when products move between tabs.
+  const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
+  content.home_ranges = TABS.filter((t) => content.catalog[t].length).map((t) => {
+    const list = content.catalog[t];
+    const names = list.slice(0, 3).map((p) => p.name);
+    return {
+      key: t, label: (kinds[t] && kinds[t].range) || t, href: `${t}.html`, count: list.length, count_label: plural(list.length, 'product'),
+      pics: list.slice(0, 3).map((p) => ({ image: p.ring_image, name: p.name, jar: p.jar })),
+      names: list.length > 3 ? `${names.join(', ')} and ${list.length - 3} more` : names.join(', '),
+      sizes: [...new Set(list.map((p) => p.detail))].slice(0, 4).join(' · '),
+    };
+  });
+  content.range_info = Object.fromEntries(content.home_ranges.map((r) => [r.key, r]));
+  content.stats = { products: products.length, ranges: content.home_ranges.length };
   const chosen = (content.home_products && content.home_products.products) || [];
   content.home_ring = chosen.map((slug) => {
     const p = products.find((x) => x.slug === slug);

@@ -12,6 +12,13 @@
             {{/each}}
           </ul>
         </div>
+        <div class="footer-col">
+          <h4>{{ site.footer.ranges_heading }}</h4>
+          <ul>
+            {{#each content.home_ranges}}<li><a href="{{ href }}">{{ label }}</a></li>
+            {{/each}}
+          </ul>
+        </div>
       </div>
       <div class="footer-bottom">
         <p>&copy; <span id="year"></span> {{ site.footer.copyright }}</p>

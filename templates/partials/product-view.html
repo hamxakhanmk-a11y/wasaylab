@@ -4,6 +4,14 @@
 {{/each}}
 {{#each content.catalog.all}}
 <template data-pv-copy="{{ slug }}">
+  <section class="wz-detail__facts" aria-label="{{ site.product_view.facts_heading }}">
+    <dl>
+      <div><dt>{{ site.product_view.range_label }}</dt><dd>{{ range }}</dd></div>
+      <div><dt>{{ site.product_view.size_label }}</dt><dd>{{ detail }}</dd></div>
+      <div><dt>{{ site.product_view.pack_label }}</dt><dd>{{#if jar}}{{ site.product_view.pack_jar }}{{else}}{{ site.product_view.pack_carton }}{{/if}}</dd></div>
+      <div><dt>{{ site.product_view.made_label }}</dt><dd>{{ site.product_view.made_value }}</dd></div>
+    </dl>
+  </section>
   <section class="wz-detail__section">
     <h3>{{ site.product_view.about_heading }}</h3>
     <div><p>{{ about }}</p></div>
@@ -15,6 +23,15 @@
   {{#if ingredients}}<section class="wz-detail__section">
     <h3>{{#if partial_composition}}{{ site.product_view.key_ingredients_heading }}{{else}}{{ site.product_view.composition_heading }}{{/if}}</h3>
     <div><ul class="wz-detail__ingredients">{{#each ingredients}}<li>{{ . }}</li>{{/each}}</ul></div>
+  </section>{{/if}}
+  {{#if photos}}<section class="wz-detail__section wz-detail__pack">
+    <h3>{{ site.product_view.photos_heading }}</h3>
+    <div><p class="wz-detail__note">{{ site.product_view.photos_note }}</p><div class="wz-detail__photos">{{#each photos}}<figure><img src="{{ src }}" alt="{{ name }}, {{ label }}" width="1280" height="960" loading="lazy" decoding="async" /><figcaption>{{ label }}</figcaption></figure>{{/each}}</div></div>
+  </section>{{/if}}
+  {{#if related}}<section class="wz-detail__more">
+    <h3>{{ site.product_view.related_heading }} <span>{{ range }}</span></h3>
+    <ul>{{#each related}}<li><a href="{{ tab }}.html#product-{{ slug }}" data-pv-go="{{ slug }}"><span class="wz-detail__more-pic"><img src="{{ ring_image }}" alt="" loading="lazy" decoding="async" /></span><b>{{ name }}</b><span>{{ detail }}</span></a></li>{{/each}}</ul>
+    <a class="wz-link" href="{{ range_href }}">{{ site.product_view.range_link }} {{ range }} &rarr;</a>
   </section>{{/if}}
 </template>
 {{/each}}

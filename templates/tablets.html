@@ -14,7 +14,7 @@
 {{> banner}}
 
     <section class="section tablet-section" id="panel-tablets" aria-label="Tablets" data-product-panel="tablets" tabindex="0">
-      <div class="container"><p class="eyebrow">Tablet range</p><h2 id="tablet-title">Explore our tablets.</h2><p class="lead">The packs turn gently on their own. Move your mouse over one to explore its sides, or click one to open it.</p>
+      <div class="container"><p class="eyebrow">Tablet range</p><h2 id="tablet-title">Explore our tablets.</h2><p class="lead">The packs turn gently on their own. Move your mouse over one to explore its sides, or click one to open it.</p>{{#if content.range_info.tablets}}<p class="wz-range-facts"><b>{{ content.range_info.tablets.count_label }}</b><span>{{ content.range_info.tablets.sizes }}</span></p>{{/if}}
       </div>
       <ul class="tablet-gallery">
       {{#each content.catalog.tablets}}{{> product-tile}}{{/each}}

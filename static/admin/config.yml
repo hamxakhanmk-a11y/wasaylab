@@ -125,6 +125,7 @@ collections:
                 fields:
                   - { name: label, label: Text, widget: string }
                   - { name: href, label: Links to, widget: string }
+              - { name: ranges_heading, label: Heading of the ranges column, widget: string }
               - { name: copyright, label: Copyright line, widget: string, hint: 'The year and © are added automatically.' }
               - { name: tagline, label: Closing line, widget: string }
 
@@ -149,6 +150,17 @@ collections:
               - { name: prev_label, label: Previous button text, widget: string }
               - { name: next_label, label: Next button text, widget: string }
               - { name: nav_label, label: Previous / next description for screen readers, widget: string }
+              - { name: facts_heading, label: At a glance (for screen readers), widget: string }
+              - { name: range_label, label: 'At a glance: range', widget: string }
+              - { name: size_label, label: 'At a glance: size', widget: string }
+              - { name: pack_label, label: 'At a glance: pack', widget: string }
+              - { name: made_label, label: 'At a glance: made by', widget: string }
+              - { name: made_value, label: Maker shown on every product, widget: string }
+              - { name: pack_jar, label: Pack of a jar, widget: string }
+              - { name: pack_carton, label: Pack of a carton, widget: string }
+              - { name: photos_note, label: Caption over the pack photographs, widget: string }
+              - { name: related_heading, label: Heading before the range name (More from ...), widget: string }
+              - { name: range_link, label: Link text before the range name (See all ...), widget: string }
               - name: kinds
                 label: Product ranges
                 widget: list
@@ -190,6 +202,33 @@ collections:
               - { name: primary_href, label: Main button links to, widget: string }
               - { name: secondary_label, label: Second button text, widget: string }
               - { name: secondary_href, label: Second button links to, widget: string }
+          - name: ranges
+            label: 'Section: Our ranges (cards, one per tab)'
+            widget: object
+            hint: The cards themselves are made from the products, so they follow products moved between tabs.
+            fields:
+              - { name: eyebrow, label: Small label above heading, widget: string }
+              - { name: heading, label: Heading, widget: string }
+              - { name: text, label: Paragraph, widget: text }
+              - { name: link_label, label: Card link text, widget: string }
+          - name: stats
+            label: 'Section: Wasay at a glance (green band)'
+            widget: object
+            hint: The number of products and of ranges are counted automatically.
+            fields:
+              - { name: eyebrow, label: Small label above heading, widget: string }
+              - { name: heading, label: Heading, widget: string }
+              - { name: text, label: Paragraph, widget: text }
+              - { name: products_label, label: Words under the number of products, widget: string }
+              - { name: ranges_label, label: Words under the number of ranges, widget: string }
+              - name: facts
+                label: More figures (only true ones)
+                widget: list
+                required: false
+                summary: '{{fields.value}}'
+                fields:
+                  - { name: value, label: Big text, widget: string }
+                  - { name: label, label: Words under it, widget: string }
           - name: ring
             label: 'Section: Product ring (under the opening banner)'
             widget: object
@@ -211,21 +250,6 @@ collections:
               - { name: points, label: Bullet points, widget: list }
               - { name: button_label, label: Button text, widget: string }
               - { name: button_href, label: Button links to, widget: string }
-          - { name: marquee, label: Scrolling ticker, widget: list, hint: 'The category names that scroll past. Repeats automatically.' }
-          - name: looking_for
-            label: 'Section: I’m looking for'
-            widget: object
-            fields:
-              - { name: eyebrow, label: Small label above heading, widget: string }
-              - { name: heading, label: Heading, widget: string }
-              - name: items
-                label: Category tiles
-                widget: list
-                summary: '{{fields.title}}'
-                fields:
-                  - { name: title, label: Name, widget: string }
-                  - { name: icon, label: Icon, widget: image }
-                  - { name: href, label: Links to, widget: string }
           - name: best_sellers
             label: 'Section: Best selling (products come from the Products page)'
             widget: object

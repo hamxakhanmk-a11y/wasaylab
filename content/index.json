@@ -37,6 +37,12 @@
     ],
     "video": "/videos/wellness-hillside.mp4"
   },
+  "ranges": {
+    "eyebrow": "Our ranges",
+    "heading": "Find the right range.",
+    "text": "Tablets, multi tonics, syrups, ointments and pastes from Wasay Laboratories. Open a range to see every product in it, turn it in 3D and read about it.",
+    "link_label": "See the range"
+  },
   "ring": {
     "eyebrow": "Our products",
     "heading": "Explore our products.",
@@ -57,52 +63,18 @@
     "button_label": "More about us",
     "button_href": "about.html"
   },
-  "marquee": [
-    "General health",
-    "Consumer products",
-    "Personal care",
-    "Best sellers",
-    "Natural drinks",
-    "Bundles",
-    "Wellness e-reading",
-    "Q focus"
-  ],
-  "looking_for": {
-    "eyebrow": "I’m looking for",
-    "heading": "Start with what you need.",
-    "items": [
+  "stats": {
+    "eyebrow": "Wasay at a glance",
+    "heading": "One of the largest natural products manufacturers in Pakistan.",
+    "text": "Wasay combines the best of nature with the best of science, from medicines and supplements to food items and beverages.",
+    "products_label": "products to explore on this site",
+    "ranges_label": "product ranges",
+    "facts": [
       {
-        "title": "Consumer Products",
-        "icon": "/images/wasay/consumer-p-icon1.png",
-        "href": "https://wasaylabs.com/product-category/consumers-products/"
-      },
-      {
-        "title": "Digestive Care",
-        "icon": "/images/wasay/consumer-p-icon.png",
-        "href": "https://wasaylabs.com/shop/"
-      },
-      {
-        "title": "Respiratory Care",
-        "icon": "/images/wasay/respiratory-icon.png",
-        "href": "https://wasaylabs.com/shop/"
-      },
-      {
-        "title": "Men’s Health",
-        "icon": "/images/wasay/mens-icon-1.png",
-        "href": "https://wasaylabs.com/shop/"
-      },
-      {
-        "title": "Women’s Health",
-        "icon": "/images/wasay/womens-health-icon.png",
-        "href": "https://wasaylabs.com/shop/"
+        "value": "Peshawar",
+        "label": "Pakistan, the home of Wasay Laboratories"
       }
     ]
-  },
-  "best_sellers": {
-    "eyebrow": "Best selling",
-    "heading": "What customers reach for first.",
-    "button_label": "See all products",
-    "button_href": "products.html"
   },
   "why": {
     "eyebrow": "Why choose Wasay?",
@@ -133,5 +105,11 @@
     "primary_href": "contact.html",
     "secondary_label": "Our products",
     "secondary_href": "products.html"
+  },
+  "best_sellers": {
+    "eyebrow": "Best selling",
+    "heading": "What customers reach for first.",
+    "button_label": "See all products",
+    "button_href": "products.html"
   }
 }

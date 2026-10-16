@@ -160,27 +160,27 @@ The tone is calm and plain. Copy is short and factual. Headlines are a geometric
 
 ## Colors
 
+Green and off-white (the owner's choice, October 2026). The values live in `static/wasay-theme.css`, loaded after the other stylesheets.
+
 | Token | Value | Use |
 |---|---|---|
-| `{colors.canvas}` | #ffffff | Page background, cards |
-| `{colors.surface-alt}` | #f6f5f2 | Alternate section band, footer |
-| `{colors.paper}` | #faf8f4 | Hero, "Who we are" window, closing statement, banners |
-| `{colors.paper-deep}` | #f3efe7 | Bottom of the hero and banner gradient |
-| `{colors.kraft}` | #f1e9dd | Call-to-action band, the one warmer surface |
-| `{colors.ink}` | #1b1c1f | Headlines and body |
-| `{colors.muted}` | #616369 | Card copy, captions, nav links at rest, footer |
-| `{colors.accent}` | #01652f | Eyebrows, nav pill, accent button, focus rings, links |
-| `{colors.accent-dark}` | #014a22 | Hover state of green fills |
-| `{colors.lime}` | #a3cf3c | Decorative only: a 2px dash, an underline, the line above the CTA band. Never text. |
+| `--bg` | #f7f9f2 | Page background: an off-white with a breath of green |
+| `--surface` | #ffffff | Cards |
+| `--surface-alt` | #ecf3e4 | Alternate section band (sage) |
+| `--paper` / `--paper-deep` | #f5f8ee / #e6efdb | Story panels, product view, gradients |
+| `--sage` | #e3edd7 | Tinted cards: the range cards, the product facts, the range line on each tab |
+| `--mint` | #cfe4bf | The closing band (with `--kraft` #dcebd0) |
+| `--forest` / `--forest-2` | #0b3b23 / #12603a | Strong bands: page banners, the "at a glance" band on the home page, the footer |
+| `--text` | #13241a | Headlines and body (a green-black) |
+| `--muted` | #536459 | Card copy, captions |
+| `--accent` / `--accent-dark` | #01652f / #014a22 | Wasay green: eyebrows, links, the accent button, focus rings |
+| `--lime` | #a3cf3c | Small accents only: the line along a band's edge, numbers on dark green, the first figure. Never body text. |
 
-Sections alternate between white and one of the off-whites. There is no dark band, no grey band and no black section.
-If a page needs contrast, it comes from a photo, not from a coloured surface. All drop shadows are warm brown, never
-neutral grey or black; glows are ice white.
+Every page has colour, but it is always green: off-white pages, sage and mint for alternate sections and cards, and deep forest green for a few strong bands (each page's banner, one band on the home page, the footer), with white text on them. Drop shadows are green-tinted (rgba 18, 52, 32), never grey or black. Photographs keep their own colours.
 
 ### Never
 
-Blue is not in the palette: not as an accent, a link colour or a tint. Product packaging contains its own colours;
-they are never reused in the interface.
+Blue is not in the palette: not as an accent, a link colour or a tint (the banner's sky and the product packs are photographs, not interface). No brown, beige or kraft surfaces any more; no black bands.
 
 ## Typography
 
@@ -326,3 +326,9 @@ A product stands near the bottom of its tile and its name sits right under it (a
 The menu is Home, the five product tabs, About us and Contact; there is no "Order online" button, shop catalogue, shop-category chips or shop column in the footer, and every closing band and the banner button lead to Contact. The Contact page (`templates/contact.html`, `content/contact.json`) is a banner, a short introduction and one card per detail: the company name always, then whichever of address, phone, email, opening hours and extra details are filled in, then optional links. A detail left empty is simply not drawn, so nothing is invented while a detail is unconfirmed; only the address printed on the packs is filled in.
 
 Products are data, not templates: one file each in `content/catalog/` with a `tab`, so a product can be moved between tabs, and `content/home_products.json` picks the home ring from any of them. A jar is drawn as a jar and a carton as a carton wherever it sits. On the ring a carton is held inside the jar's height and width (`.wz-ring__item--carton`) so it never dwarfs a jar, and it does not turn with the mouse (there is no turn strip for cartons).
+
+## Home page sections and product information
+
+The home page runs: banner, **Our ranges** (one card per tab with three of its products, how many there are and their names; counted from the catalogue, so a card follows products moved between tabs), the product ring on a sage gradient, Who we are, **Wasay at a glance** (a forest band: the number of products and of ranges, counted automatically, plus Wasay's own description of itself and Peshawar, the address printed on every pack), **Why choose Wasay** (four numbered cards), and the mint closing band. The ticker and "I'm looking for" linked to the online shop and were removed with it.
+
+Each product view opens with **At a glance** (range, size, pack, maker) and ends with **On the pack** (the three real photographs, front and both sides, shown whole) and **More from <range>** (the next four products of its tab, with a link to the whole range). A product from "More from" opens in place when it is on the page and otherwise opens on its own tab. Each tab shows how many products it has and their sizes under its heading. Nothing here is new wording about the products: it is the catalogue's own facts and Wasay's photographs.

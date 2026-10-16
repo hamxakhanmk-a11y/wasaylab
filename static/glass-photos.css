@@ -10,7 +10,7 @@
   transform: translate(-50%, -50%) scale(.6); border-radius: 50%; pointer-events: none; opacity: 0;
   background: var(--lens-img) no-repeat; background-size: var(--bgw) var(--bgh); background-position: var(--bgx) var(--bgy);
   border: 2px solid rgba(255, 255, 255, .85);
-  box-shadow: 0 0 0 1px rgba(60, 45, 30, .18), 0 18px 40px -14px rgba(60, 45, 30, .55), inset 0 0 0 1px rgba(255, 255, 255, .35), inset 0 -14px 24px -16px rgba(0, 0, 0, .25), inset 0 12px 18px -12px rgba(255, 255, 255, .55);
+  box-shadow: 0 0 0 1px rgba(18, 52, 32, .18), 0 18px 40px -14px rgba(18, 52, 32, .55), inset 0 0 0 1px rgba(255, 255, 255, .35), inset 0 -14px 24px -16px rgba(0, 0, 0, .25), inset 0 12px 18px -12px rgba(255, 255, 255, .55);
   transition: opacity .25s ease, transform .35s cubic-bezier(.22, 1, .36, 1);
 }
 .glass-photo .loupe::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: radial-gradient(circle at 32% 26%, rgba(255, 255, 255, .32), rgba(255, 255, 255, 0) 42%); pointer-events: none; }

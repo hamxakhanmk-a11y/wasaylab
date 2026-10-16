@@ -3,7 +3,7 @@
    sets --stack-top (0, or the viewport height minus the section's own height for tall sections, so a tall section is read
    to its end before it pins) and --stack-z, and updates --cover (0 to 1) on the section that is being covered. */
 html.has-stack main > .stack-chapter { position: sticky; top: var(--stack-top, 0px); z-index: var(--stack-z, 1); }
-html.has-stack main > .stack-chapter + .stack-chapter { box-shadow: 0 -34px 56px -38px rgba(40, 32, 20, .34), 0 -1px 0 rgba(60, 45, 30, .08); }
+html.has-stack main > .stack-chapter + .stack-chapter { box-shadow: 0 -34px 56px -38px rgba(40, 32, 20, .34), 0 -1px 0 rgba(18, 52, 32, .08); }
 html.has-stack main > .stack-chapter::after { content: ""; position: absolute; inset: 0; z-index: 9999; pointer-events: none; background: #2a2418; opacity: calc(var(--cover, 0) * .2); }
 :where(.stack-chapter) { background-color: var(--paper, #faf8f4); }
 .botanical-defs { position: absolute; width: 0; height: 0; overflow: hidden; }

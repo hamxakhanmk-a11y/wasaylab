@@ -18,8 +18,8 @@
 .wz-ring__item { position: absolute; left: 50%; top: 46%; margin: 0; will-change: transform, opacity; transform-origin: 50% 62%; pointer-events: none; }
 .wz-ring__item a { display: block; pointer-events: auto; border-radius: 12px; }
 .wz-ring__item a { position: relative; }
-.wz-ring__turn { position: absolute; inset: 0; opacity: 0; pointer-events: none; background-repeat: no-repeat; filter: drop-shadow(0 22px 20px rgba(60, 45, 30, .28)); }
-.wz-ring__item img { display: block; height: var(--jar-h); width: auto; max-width: none; -webkit-user-drag: none; filter: drop-shadow(0 22px 20px rgba(60, 45, 30, .28)); }
+.wz-ring__turn { position: absolute; inset: 0; opacity: 0; pointer-events: none; background-repeat: no-repeat; filter: drop-shadow(0 22px 20px rgba(18, 52, 32, .28)); }
+.wz-ring__item img { display: block; height: var(--jar-h); width: auto; max-width: none; -webkit-user-drag: none; filter: drop-shadow(0 22px 20px rgba(18, 52, 32, .28)); }
 
 .wz-ring__caption { margin: 14px 0 0; text-align: center; color: var(--muted); font-size: .95rem; min-height: 1.6em; }
 .wz-ring__caption b { color: var(--text); font-family: var(--display); font-size: 1.15rem; font-weight: 600; margin-right: 8px; }

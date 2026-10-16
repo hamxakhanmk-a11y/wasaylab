@@ -38,6 +38,30 @@
       </div>
     </section>
 
+    <!-- RANGES: one card per tab, with three of its products, how many there are and their sizes. Built from the catalogue, so a card
+         follows the products when they move between tabs. -->
+    <section class="section wz-ranges" aria-labelledby="wz-ranges-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">{{ page.ranges.eyebrow }}</p>
+          <h2 id="wz-ranges-title">{{ page.ranges.heading }}</h2>
+          <p class="lead">{{ page.ranges.text }}</p>
+        </div>
+        <ul class="wz-ranges__grid">
+          {{#each content.home_ranges}}<li><a class="wz-range wz-range--{{ key }}" href="{{ href }}">
+            <span class="wz-range__pics" aria-hidden="true">{{#each pics}}<img src="{{ image }}" alt="" loading="lazy" decoding="async" />{{/each}}</span>
+            <span class="wz-range__body">
+              <span class="wz-range__count">{{ count_label }}</span>
+              <span class="wz-range__name">{{ label }}</span>
+              <span class="wz-range__names">{{ names }}</span>
+              <span class="wz-range__go">{{ page.ranges.link_label }} <span aria-hidden="true">&rarr;</span></span>
+            </span>
+          </a></li>
+          {{/each}}
+        </ul>
+      </div>
+    </section>
+
     <!-- PRODUCT RING: the pastes drift past in front of a big arch, tilting as they move. Cutouts are rendered ahead of time
          by scripts/render-cutouts.mjs, so nothing has to be built in the browser. -->
     <section class="wz-ring" aria-labelledby="wz-ring-title">
@@ -96,24 +120,20 @@
       </div>
     </section>
 
-    <div class="marquee" aria-hidden="true">
-      <div class="marquee__track">
-        {{#each page.marquee}}<span>{{ . }}</span><span>•</span>{{/each}}
-        {{#each page.marquee}}<span>{{ . }}</span><span>•</span>{{/each}}
-      </div>
-    </div>
-
-    <!-- I'M LOOKING FOR -->
-    <section class="section wz-looking" aria-labelledby="wz-looking-title">
-      <div class="container">
-        <div class="section-head">
-          <p class="eyebrow">{{ page.looking_for.eyebrow }}</p>
-          <h2 id="wz-looking-title">{{ page.looking_for.heading }}</h2>
+    <!-- AT A GLANCE: a deep green band with figures counted from the catalogue and Wasay's own description of itself. -->
+    <section class="wz-stats" aria-labelledby="wz-stats-title">
+      <div class="container wz-stats__inner">
+        <div class="wz-stats__lead">
+          <p class="eyebrow">{{ page.stats.eyebrow }}</p>
+          <h2 id="wz-stats-title">{{ page.stats.heading }}</h2>
+          <p>{{ page.stats.text }}</p>
         </div>
-        <ul class="wz-looking__grid">
-          {{#each page.looking_for.items}}<li><a class="wz-tile card" href="{{ href }}" target="_blank" rel="noopener"><img class="wz-tile__icon" src="{{ icon }}" alt="" width="500" height="500" loading="lazy" decoding="async" /><span class="wz-tile__title">{{ title }}</span></a></li>
+        <dl class="wz-stats__grid">
+          <div><dt>{{ content.stats.products }}</dt><dd>{{ page.stats.products_label }}</dd></div>
+          <div><dt>{{ content.stats.ranges }}</dt><dd>{{ page.stats.ranges_label }}</dd></div>
+          {{#each page.stats.facts}}<div><dt>{{ value }}</dt><dd>{{ label }}</dd></div>
           {{/each}}
-        </ul>
+        </dl>
       </div>
     </section>
 
@@ -125,7 +145,7 @@
           <h2 id="wz-why-title">{{ page.why.heading }}</h2>
         </div>
         <div class="grid">
-          {{#each page.why.items}}<article class="card"><h3>{{ title }}</h3><p>{{ text }}</p></article>
+          {{#each page.why.items}}<article class="card wz-why__card"><span class="wz-why__num" aria-hidden="true">{{ @num }}</span><h3>{{ title }}</h3><p>{{ text }}</p></article>
           {{/each}}
         </div>
       </div>

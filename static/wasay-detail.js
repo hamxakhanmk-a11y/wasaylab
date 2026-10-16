@@ -149,6 +149,21 @@
     });
   }
 
+  // "More from this range": a product that is on this page opens here; one that is not follows its link to its own tab, which opens it
+  dlg.addEventListener('click', (e) => {
+    const go = e.target.closest('[data-pv-go]');
+    if (!go) return;
+    const i = items.findIndex((it) => it.dataset.slug === go.dataset.pvGo);
+    if (i < 0) return;
+    e.preventDefault();
+    preload(items[i]).then((dimensions) => {
+      render(i, dimensions);
+      history.replaceState(history.state, '', hashOf(items[i]));
+      dlg.scrollTop = 0;
+      animateIn(null);
+    });
+  });
+
   q('[data-detail-close]').addEventListener('click', close);
   dlg.addEventListener('cancel', (e) => { e.preventDefault(); close(); });
   dlg.querySelectorAll('[data-detail-step]').forEach((b) => b.addEventListener('click', () => step(Number(b.dataset.detailStep))));

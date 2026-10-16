@@ -6,8 +6,8 @@
 .wellness-banner__copy { position: relative; margin: 0 auto; padding: clamp(40px, 5vw, 68px) 24px 36px; max-width: 1040px; text-align: center; color: #fff; }
 .wellness-banner__copy h1 { font-size: clamp(2.4rem, 5.3vw, 5.25rem); line-height: 1.02; letter-spacing: -.015em; font-weight: 500; color: #fff; text-shadow: 0 2px 24px rgba(30,55,35,.25); text-wrap: balance; margin: 0 auto 22px; max-width: 18ch; }
 .wellness-banner__copy > p { font-size: clamp(.95rem, 1.3vw, 1.1rem); margin: 0 0 26px; color: #fff; text-shadow: 0 1px 8px rgba(30,55,35,.5); }
-.wellness-banner__copy .btn { justify-content: center; min-height: 48px; box-shadow: 0 6px 20px rgba(60,45,30,.16); }
-.wellness-banner__panel { display: flex; justify-content: space-between; align-items: center; gap: 30px; margin: 64px 32px 28px; padding: 30px 38px; border-radius: 16px; border: 1px solid rgba(255,255,255,.8); background: rgba(250,248,244,.96); box-shadow: 0 12px 36px -16px rgba(60,45,30,.3); }
+.wellness-banner__copy .btn { justify-content: center; min-height: 48px; box-shadow: 0 6px 20px rgba(18,52,32,.16); }
+.wellness-banner__panel { display: flex; justify-content: space-between; align-items: center; gap: 30px; margin: 64px 32px 28px; padding: 30px 38px; border-radius: 16px; border: 1px solid rgba(255,255,255,.8); background: rgba(250,248,244,.96); box-shadow: 0 12px 36px -16px rgba(18,52,32,.3); }
 .wellness-banner__identity { display: flex; align-items: center; gap: 20px; }
 .wellness-banner__identity > img { width: 58px; height: 58px; object-fit: contain; }
 .wellness-banner__identity p { font-family: var(--display); font-size: clamp(1.05rem,1.6vw,1.45rem); line-height: 1.2; letter-spacing: -.035em; margin: 0 0 12px; max-width: 23ch; color: var(--accent-dark); }

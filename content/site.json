@@ -80,7 +80,8 @@
       }
     ],
     "copyright": "Wasay Laboratories (Pvt.) Ltd. All rights reserved.",
-    "tagline": "Curing naturally, caring globally."
+    "tagline": "Curing naturally, caring globally.",
+    "ranges_heading": "Our ranges"
   },
   "product_view": {
     "back_label": "Back",
@@ -138,6 +139,18 @@
     "about_heading": "About the product",
     "uses_heading": "Uses",
     "composition_heading": "Composition",
-    "key_ingredients_heading": "Key ingredients"
+    "key_ingredients_heading": "Key ingredients",
+    "facts_heading": "At a glance",
+    "range_label": "Range",
+    "size_label": "Size",
+    "pack_label": "Pack",
+    "made_label": "Made by",
+    "made_value": "Wasay Laboratories (Pvt.) Ltd., Peshawar, Pakistan",
+    "pack_jar": "Jar with a screw cap",
+    "pack_carton": "Carton",
+    "photos_heading": "On the pack",
+    "photos_note": "Photographs of the real pack, from the front and both sides.",
+    "related_heading": "More from",
+    "range_link": "See all"
   }
 }
