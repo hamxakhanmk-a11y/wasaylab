@@ -187,23 +187,6 @@ collections:
                   - { name: title, label: Name, widget: string }
                   - { name: icon, label: Icon, widget: image }
                   - { name: href, label: Links to, widget: string }
-          - name: featured
-            label: 'Section: Featured categories'
-            widget: object
-            fields:
-              - { name: eyebrow, label: Small label above heading, widget: string }
-              - { name: heading, label: Heading, widget: string }
-              - { name: lead, label: Paragraph, widget: text }
-              - { name: card_label, label: Link text on each card, widget: string }
-              - name: items
-                label: Categories
-                widget: list
-                summary: '{{fields.title}}'
-                fields:
-                  - { name: title, label: Name, widget: string }
-                  - { name: image, label: Photo (optional), widget: image, required: false }
-                  - { name: alt, label: Photo description, widget: string, required: false }
-                  - { name: href, label: Links to, widget: string }
           - name: best_sellers
             label: 'Section: Best selling (products come from the Products page)'
             widget: object
@@ -212,19 +195,6 @@ collections:
               - { name: heading, label: Heading, widget: string }
               - { name: button_label, label: Button text, widget: string }
               - { name: button_href, label: Button links to, widget: string }
-          - name: love
-            label: 'Section: Why customers love Wasay'
-            widget: object
-            fields:
-              - { name: eyebrow, label: Small label above heading, widget: string }
-              - { name: heading, label: Heading, widget: string }
-              - { name: text, label: Paragraph, widget: text }
-              - name: media
-                label: Photo
-                widget: object
-                fields:
-                  - { name: image, label: Photo, widget: image }
-                  - { name: alt, label: Photo description, widget: string }
           - name: why
             label: 'Section: Why choose Wasay'
             widget: object

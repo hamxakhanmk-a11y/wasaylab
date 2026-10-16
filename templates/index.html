@@ -117,37 +117,6 @@
       </div>
     </section>
 
-    <!-- FEATURED CATEGORIES -->
-    <section class="section section-alt wz-featured" aria-labelledby="wz-featured-title">
-      <div class="container">
-        <div class="section-head">
-          <p class="eyebrow">{{ page.featured.eyebrow }}</p>
-          <h2 id="wz-featured-title">{{ page.featured.heading }}</h2>
-          <p class="lead">{{ page.featured.lead }}</p>
-        </div>
-        <ul class="wz-featured__grid">
-          {{#each page.featured.items}}<li><a class="card wz-featured__card" href="{{ href }}" target="_blank" rel="noopener">
-            {{#if image}}<span class="wz-featured__photo"><img src="{{ image }}" alt="{{ alt }}" loading="lazy" decoding="async" /></span>{{/if}}
-            <h3>{{ title }}</h3>
-            <span class="wz-link">{{ page.featured.card_label }} &rarr;</span>
-          </a></li>
-          {{/each}}
-        </ul>
-      </div>
-    </section>
-
-    <!-- WHY CUSTOMERS LOVE WASAY -->
-    <section class="wz-love" aria-labelledby="wz-love-title">
-      <div class="container wz-love__inner">
-        <figure class="wz-love__photo"><img src="{{ page.love.media.image }}" alt="{{ page.love.media.alt }}" width="826" height="747" loading="lazy" decoding="async" /></figure>
-        <div class="wz-love__copy">
-          <p class="eyebrow">{{ page.love.eyebrow }}</p>
-          <h2 id="wz-love-title">{{ page.love.heading }}</h2>
-          <p class="lead">{{ page.love.text }}</p>
-        </div>
-      </div>
-    </section>
-
     <!-- WHY CHOOSE WASAY -->
     <section class="section wz-why" aria-labelledby="wz-why-title">
       <div class="container">

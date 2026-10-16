@@ -98,50 +98,11 @@
       }
     ]
   },
-  "featured": {
-    "eyebrow": "Featured categories",
-    "heading": "For every season and every family.",
-    "lead": "Wasay Laboratories (Pvt.) Ltd. is one of the largest natural products manufacturers in Pakistan.",
-    "card_label": "Shop now",
-    "items": [
-      {
-        "title": "Immunity Boosters",
-        "image": "/images/wasay/imunity_1.webp",
-        "alt": "A man in a face mask giving a thumbs up at his laptop",
-        "href": "https://wasaylabs.com/shop/"
-      },
-      {
-        "title": "Summer Essentials",
-        "image": "/images/wasay/summer_1.webp",
-        "alt": "A man in glasses cooling himself with a blue hand fan",
-        "href": "https://wasaylabs.com/shop/"
-      },
-      {
-        "title": "Family Care",
-        "image": "/images/wasay/family_1.webp",
-        "alt": "A smiling family of four holding a colourful hoop",
-        "href": "https://wasaylabs.com/shop/"
-      },
-      {
-        "title": "Sports & Fitness",
-        "href": "https://wasaylabs.com/shop/"
-      }
-    ]
-  },
   "best_sellers": {
     "eyebrow": "Best selling",
     "heading": "What customers reach for first.",
     "button_label": "See all products",
     "button_href": "products.html"
-  },
-  "love": {
-    "eyebrow": "Why do customers love Wasay?",
-    "heading": "It’s simple.",
-    "text": "Wasay combines the best of nature with the best of science to bring our customers a huge family of products, from medicines and supplements to food items and beverages.",
-    "media": {
-      "alt": "A smiling man holding a glass cup of tea, with the Urdu line “Aap bhi aadat bana lein”",
-      "image": "/images/wasay/section.webp"
-    }
   },
   "why": {
     "eyebrow": "Why choose Wasay?",
