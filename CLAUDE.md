@@ -14,4 +14,4 @@ photos, glass effects, no blue, no dark bands, no one-by-one card entrances).
 
 ## Git
 
-Work on the `hamza` branch. Ask before pushing, and never merge with or push `main` unless the owner asks.
+Work on the `main` branch (the owner chose this on 16 October 2026; `hamza` is kept as an old branch). Commit as you go and ask before pushing: the owner says "push" to authorise each push.
