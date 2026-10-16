@@ -1,7 +1,7 @@
 /* Who we are: one scene that holds its place (a section of the page-turn stack, wasay-stack.css) while the page scrolls through a
    stretch of --dwell. The droplet falls into the bottle and each text rises in from below as it does (script sets --o, the
    panel's distance from the one on show, -1 to 1). */
-.botanical-story { --dwell: 260svh; min-height: calc(100svh + var(--dwell)); background: var(--paper); }
+.botanical-story { --dwell: 400svh; min-height: calc(100svh + var(--dwell)); background: var(--paper); }
 .botanical-story__stage { position: sticky; top: 0; box-sizing: border-box; height: 100svh; padding-top: 68px; display: flex; align-items: center; }
 .botanical-story__stage > .container { width: 100%; }
 .botanical-about__inner { display: grid; grid-template-columns: .95fr 1.05fr; align-items: center; gap: clamp(24px, 5vw, 72px); padding-block: 32px; }

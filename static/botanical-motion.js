@@ -26,8 +26,12 @@
     dirty = true;
   }
 
-  // the text on show: 0 at the start, 1 once the droplet is falling, 2 once it has landed
-  function step(p) { return ease((p - .3) / .12) + ease((p - .72) / .12); }
+  // the text on show: 0, 1 and 2 are the three Who we are texts while the droplet grows and mixes colour, 3 (It's simple) once it has
+  // fallen into the bottle. The droplet's own moments (growing to .62, falling .64 to .86, landing after) are in botanical-three.js.
+  function step(p) { return ease((p - .16) / .1) + ease((p - .4) / .1) + ease((p - .8) / .12); }
+  const hex = (c) => '#' + [c[0], c[1], c[2]].map((v) => Math.round(v).toString(16).padStart(2, '0')).join('');
+  const GREEN = [121, 184, 58], GOLD = [232, 182, 40], AMBER = [212, 128, 15];
+  const mixRGB = (k) => { k = clamp(k); const a = k < .5 ? GREEN : GOLD, b = k < .5 ? GOLD : AMBER, u = ease(k < .5 ? k / .5 : (k - .5) / .5); return a.map((v, i) => v + (b[i] - v) * u); };
 
   function paint(p) {
     const s = reduced.matches ? 0 : step(p), current = Math.round(s);
@@ -42,12 +46,14 @@
     if (three) three.draw(scene, reduced.matches ? .12 : p, reduced.matches ? { x: 0, y: 0 } : pointer);
     // the drawn fallback art, used until (or unless) WebGL is ready
     if (!three || !scene.classList.contains('is-three-ready')) {
-      const grow = clamp(p / .34), fall = clamp((p - .34) / .44);
+      const grow = clamp(p / .62), fall = clamp((p - .64) / .22);
       const drop = scene.querySelector('.botanical-scene__drop'), ripple = scene.querySelector('.botanical-scene__ripple');
       drop.style.transform = `translateY(${fall * fall * 90}px) scale(${.25 + grow * .75},${.25 + grow * .75})`;
-      drop.style.opacity = p < .79 ? '1' : '0';
-      ripple.style.opacity = p > .78 && p < .98 ? String(1 - (p - .78) / .2) : '0';
-      ripple.style.transform = `scale(${clamp((p - .78) / .2)})`;
+      drop.style.opacity = p < .875 ? '1' : '0';
+      ripple.style.opacity = p > .86 && p < .98 ? String(1 - (p - .86) / .12) : '0';
+      ripple.style.transform = `scale(${clamp((p - .86) / .12)})`;
+      const root = document.documentElement.style;
+      root.setProperty('--drop-a', hex(mixRGB(grow - .15))); root.setProperty('--drop-b', hex(mixRGB(grow))); root.setProperty('--drop-c', hex(mixRGB(grow + .2)));
     }
     dirty = false;
   }
@@ -100,7 +106,7 @@
   // 01 / 02 / 03 jump to where that text is on show
   controls.forEach((button, i) => button.addEventListener('click', () => {
     measure();
-    const stops = [.04, .55, .93];
+    const stops = [.04, .28, .55, .97];
     scrollTo({ top: top + dwell * stops[i], behavior: reduced.matches ? 'instant' : 'smooth' });
   }));
 

@@ -37,13 +37,10 @@
     ],
     "video": "/videos/wellness-hillside.mp4"
   },
-  "ring": {
-    "eyebrow": "Our products",
-    "heading": "Explore our pastes.",
-    "label": "Wasay paste jars. Drag, scroll or use the left and right arrow keys to turn the ring, and press Enter or click to open a jar.",
-    "arch_text": "Power of Natural Healing",
-    "link_label": "See all pastes",
-    "link_href": "pastes.html"
+  "tale": {
+    "enabled": true,
+    "label": "A short film that plays as you scroll: a person leaps from a cliff onto a mossy tree trunk, the trunk gives under their landing, and a droplet falls out of it.",
+    "dwell": 480
   },
   "about": {
     "eyebrow": "Who we are",
@@ -55,93 +52,20 @@
       "Compliant with national and international regulatory bodies"
     ],
     "button_label": "More about us",
-    "button_href": "about.html"
-  },
-  "marquee": [
-    "General health",
-    "Consumer products",
-    "Personal care",
-    "Best sellers",
-    "Natural drinks",
-    "Bundles",
-    "Wellness e-reading",
-    "Q focus"
-  ],
-  "looking_for": {
-    "eyebrow": "I’m looking for",
-    "heading": "Start with what you need.",
-    "items": [
-      {
-        "title": "Consumer Products",
-        "icon": "/images/wasay/consumer-p-icon1.png",
-        "href": "https://wasaylabs.com/product-category/consumers-products/"
-      },
-      {
-        "title": "Digestive Care",
-        "icon": "/images/wasay/consumer-p-icon.png",
-        "href": "https://wasaylabs.com/shop/"
-      },
-      {
-        "title": "Respiratory Care",
-        "icon": "/images/wasay/respiratory-icon.png",
-        "href": "https://wasaylabs.com/shop/"
-      },
-      {
-        "title": "Men’s Health",
-        "icon": "/images/wasay/mens-icon-1.png",
-        "href": "https://wasaylabs.com/shop/"
-      },
-      {
-        "title": "Women’s Health",
-        "icon": "/images/wasay/womens-health-icon.png",
-        "href": "https://wasaylabs.com/shop/"
-      }
-    ]
-  },
-  "featured": {
-    "eyebrow": "Featured categories",
-    "heading": "For every season and every family.",
-    "lead": "Wasay Laboratories (Pvt.) Ltd. is one of the largest natural products manufacturers in Pakistan.",
-    "card_label": "Shop now",
-    "items": [
-      {
-        "title": "Immunity Boosters",
-        "image": "/images/wasay/imunity_1.webp",
-        "alt": "A man in a face mask giving a thumbs up at his laptop",
-        "href": "https://wasaylabs.com/shop/"
-      },
-      {
-        "title": "Summer Essentials",
-        "image": "/images/wasay/summer_1.webp",
-        "alt": "A man in glasses cooling himself with a blue hand fan",
-        "href": "https://wasaylabs.com/shop/"
-      },
-      {
-        "title": "Family Care",
-        "image": "/images/wasay/family_1.webp",
-        "alt": "A smiling family of four holding a colourful hoop",
-        "href": "https://wasaylabs.com/shop/"
-      },
-      {
-        "title": "Sports & Fitness",
-        "href": "https://wasaylabs.com/shop/"
-      }
-    ]
-  },
-  "best_sellers": {
-    "eyebrow": "Best selling",
-    "heading": "What customers reach for first.",
-    "button_label": "See all products",
-    "button_href": "products.html"
-  },
-  "love": {
-    "eyebrow": "Why do customers love Wasay?",
-    "heading": "It’s simple.",
-    "text": "Wasay combines the best of nature with the best of science to bring our customers a huge family of products, from medicines and supplements to food items and beverages.",
-    "media": {
-      "alt": "A smiling man holding a glass cup of tea, with the Urdu line “Aap bhi aadat bana lein”",
-      "image": "/images/wasay/section.webp"
+    "button_href": "about.html",
+    "simple": {
+      "eyebrow": "Why do customers love Wasay?",
+      "heading": "It’s simple.",
+      "text": "Wasay combines the best of nature with the best of science to bring our customers a huge family of products, from medicines and supplements to food items and beverages."
     }
+  },
+  "ring": {
+    "eyebrow": "Our products",
+    "heading": "Explore our pastes.",
+    "label": "Wasay paste jars. Drag, scroll or use the left and right arrow keys to turn the ring, and press Enter or click to open a jar.",
+    "arch_text": "Power of Natural Healing",
+    "link_label": "See all pastes",
+    "link_href": "pastes.html"
   },
   "why": {
     "eyebrow": "Why choose Wasay?",

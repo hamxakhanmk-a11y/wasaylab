@@ -76,10 +76,27 @@ export function createBotanicalScene({ onChange = () => {} } = {}) {
   const water = new T.MeshPhysicalMaterial({ color: '#f5ffed', roughness: .015, transmission: 1,
     thickness: .24, ior: 1.333, envMapIntensity: 2.1, clearcoat: 1 });
   const dropPoints = [[0,.22],[.025,.14],[.08,.065],[.125,-.015],[.12,-.085],[.075,-.14],[0,-.16]];
-  // The falling droplet is the medicine: the same amber as the liquid it joins, not clear water.
-  const medicine = new T.MeshPhysicalMaterial({ color: '#e9a41f', roughness: .04, transmission: .4, thickness: .5, ior: 1.45,
+  // The droplet is the medicine, not clear water. While it grows on the leaf it takes on a mixture of colours, green to gold to amber (the
+  // amber of the liquid in the bottle it will fall into): the base colour moves along that range and a marbled texture of the three
+  // colours slides through the drop, so two neighbouring colours always swirl together.
+  const GREEN = new T.Color('#79b83a'), GOLD = new T.Color('#e8b628'), AMBER = new T.Color('#d4800f');
+  const mix = (c, out) => { const k = clamp(c); return k < .5 ? out.copy(GREEN).lerp(GOLD, smooth01(k / .5)) : out.copy(GOLD).lerp(AMBER, smooth01((k - .5) / .5)); };
+  const smooth01 = (n) => { n = clamp(n); return n * n * (3 - 2 * n); };
+  const swirl = texture(128, 256, (ctx) => {
+    const g = ctx.createLinearGradient(0, 256, 0, 0);
+    g.addColorStop(0, '#79b83a'); g.addColorStop(.5, '#e8b628'); g.addColorStop(1, '#d4800f');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, 128, 256);
+    for (let i = 0; i < 46; i++) {
+      const y = random() * 256, cs = ['#79b83a', '#e8b628', '#d4800f', '#f6d86a'][Math.floor(random() * 4)];
+      const r = ctx.createRadialGradient(random() * 128, y, 2, random() * 128, y, 26 + random() * 40);
+      r.addColorStop(0, cs + 'cc'); r.addColorStop(1, cs + '00'); ctx.fillStyle = r; ctx.fillRect(0, 0, 128, 256);
+    }
+  });
+  swirl.colorSpace = T.SRGBColorSpace; swirl.repeat.set(1, .5);
+  const medicine = new T.MeshPhysicalMaterial({ color: '#e9a41f', roughness: .04, transmission: .35, thickness: .5, ior: 1.45,
     attenuationColor: new T.Color('#c4720a'), attenuationDistance: .22, clearcoat: 1, clearcoatRoughness: .03,
-    emissive: new T.Color('#8a4a05'), emissiveIntensity: .45, envMapIntensity: 1.8 });
+    emissive: new T.Color('#ffffff'), emissiveMap: swirl, emissiveIntensity: .7, envMapIntensity: 1.8 });
+  const tmpColor = new T.Color();
   const drop = new T.Mesh(new T.LatheGeometry(dropPoints.map(([x,y]) => new T.Vector2(x,y)),48), medicine);
   scene.add(drop);
   const rippleMaterial = new T.MeshBasicMaterial({ color: '#f4c04e', transparent: true, opacity: 0, depthWrite: false });
@@ -145,12 +162,15 @@ export function createBotanicalScene({ onChange = () => {} } = {}) {
     const w=host.clientWidth,h=host.clientHeight;
     if(!w||!h)return;
     if(w!==width||h!==height){width=w;height=h;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
-    const p=clamp(progress),grow=clamp(p/.34),fall=clamp((p-.34)/.44),impact=clamp((p-.78)/.2);
-    const size=.28+grow*1.02;
-    drop.visible=p<.79;drop.scale.set(size*(1-.18*Math.sin(fall*Math.PI)),size*(1+.35*Math.sin(fall*Math.PI)),size);
+    // the story: the drop grows and mixes colour through the three Who we are texts (0 to .62), falls into the bottle (.64 to .86), lands
+    const p=clamp(progress),grow=clamp(p/.62),fall=clamp((p-.64)/.22),impact=clamp((p-.86)/.12);
+    const size=.55+grow*1.55;
+    drop.visible=p<.875;drop.scale.set(size*(1-.18*Math.sin(fall*Math.PI)),size*(1+.35*Math.sin(fall*Math.PI)),size);
     drop.position.set(0,1.45-.22*size-fall*fall*.99,.04);
+    mix(grow,tmpColor);medicine.color.copy(tmpColor);medicine.attenuationColor.copy(tmpColor).multiplyScalar(.7);swirl.offset.y=grow*.5;
     leaf.rotation.z=Math.sin(p*Math.PI)*.018;leaf.rotation.y=-.08+p*.12;
-    ripple.visible=p>=.78&&p<.99;ripple.scale.setScalar(.1+impact*.9);rippleMaterial.opacity=(1-impact)*.65;
+    ripple.visible=p>=.86&&p<.995;ripple.scale.setScalar(.1+impact*.9);rippleMaterial.opacity=(1-impact)*.65;
+    mix(1,rippleMaterial.color);
     const orbit=p*.13;
     camera.position.set(.65+orbit+pointer.x*.16,.9+pointer.y*.08,8.1-(Math.sin(p*Math.PI)*.2));
     camera.lookAt(-.45,.57,0);

@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="/wellness-banner.css" />
   <link rel="stylesheet" href="/botanical-motion.css" />
   <link rel="stylesheet" href="/wasay-detail.css" />
+  <link rel="stylesheet" href="/wasay-tale.css" />
 </head>
 <body>
 {{> loader}}
@@ -38,6 +39,58 @@
       </div>
     </section>
 
+    <!-- SCROLL FILM: a person leaps onto a mossy trunk, the trunk gives under the landing and a droplet falls out of it. Drawn in 3D by
+         static/wasay-tale-three.js as the page scrolls; switched on with tale.enabled in content/index.json. -->
+{{#if page.tale.enabled}}
+    <section class="wz-tale" data-tale aria-label="{{ page.tale.label }}" style="--dwell: {{ page.tale.dwell }}svh">
+      <div class="wz-tale__stage">
+        <canvas class="wz-tale__canvas" aria-hidden="true"></canvas>
+      </div>
+    </section>
+{{/if}}
+
+    <!-- WHO WE ARE: one scene that holds its place while the page scrolls. A droplet grows on the leaf and mixes colour at each of the
+         three stages, then falls into the bottle and the last text (It's simple) rises. Each text comes up from below as its stage arrives. -->
+{{> botanical-defs}}
+    <section class="botanical-story" data-botanical-story aria-label="{{ page.about.eyebrow }}">
+      <div class="botanical-story__stage">
+        <div class="container botanical-about__inner">
+          <div class="botanical-about__copy">
+            <div class="botanical-story__panels">
+              <div class="botanical-story__panel" data-story-panel>
+                <p class="eyebrow">{{ page.about.eyebrow }}</p>
+                <h2>{{ page.about.heading }}</h2>
+                <p>{{ page.about.text }}</p>
+              </div>
+              <div class="botanical-story__panel" data-story-panel>
+                <p class="eyebrow">{{ page.about.eyebrow }}</p>
+                <h2>{{ page.about.points.0 }}</h2>
+                <p>{{ page.about.points.1 }}</p>
+              </div>
+              <div class="botanical-story__panel" data-story-panel>
+                <p class="eyebrow">{{ page.about.eyebrow }}</p>
+                <h2>{{ page.about.points.2 }}</h2>
+                <p class="wz-action"><a class="btn btn--accent" href="{{ page.about.button_href }}">{{ page.about.button_label }}</a></p>
+              </div>
+              <div class="botanical-story__panel" data-story-panel>
+                <p class="eyebrow">{{ page.about.simple.eyebrow }}</p>
+                <h2>{{ page.about.simple.heading }}</h2>
+                <p>{{ page.about.simple.text }}</p>
+              </div>
+            </div>
+            <nav class="botanical-story__nav" aria-label="Company story">
+              <button type="button" data-story-target="0" aria-label="Our purpose" aria-current="step">01</button>
+              <button type="button" data-story-target="1" aria-label="Our products">02</button>
+              <button type="button" data-story-target="2" aria-label="Our commitment">03</button>
+              <button type="button" data-story-target="3" aria-label="Why customers love Wasay">04</button>
+              <span class="botanical-story__hint">Scroll to explore</span>
+            </nav>
+          </div>
+          {{> botanical-scene}}
+        </div>
+      </div>
+    </section>
+
     <!-- PRODUCT RING: the pastes drift past in front of a big arch, tilting as they move. Cutouts are rendered ahead of time
          by scripts/render-cutouts.mjs, so nothing has to be built in the browser. -->
     <section class="wz-ring" aria-labelledby="wz-ring-title">
@@ -61,92 +114,6 @@
     </section>
 
 {{> product-view}}
-
-    <!-- WHO WE ARE: one scene that holds its place while the page scrolls. The droplet forms on the leaf, falls into the bottle and
-         lands, and each of the three texts rises in from the bottom as it does. -->
-{{> botanical-defs}}
-    <section class="botanical-story" data-botanical-story aria-label="{{ page.about.eyebrow }}">
-      <div class="botanical-story__stage">
-        <div class="container botanical-about__inner">
-          <div class="botanical-about__copy">
-            <p class="eyebrow">{{ page.about.eyebrow }}</p>
-            <div class="botanical-story__panels">
-              <div class="botanical-story__panel" data-story-panel>
-                <h2>{{ page.about.heading }}</h2>
-                <p>{{ page.about.text }}</p>
-              </div>
-              <div class="botanical-story__panel" data-story-panel>
-                <h2>{{ page.about.points.0 }}</h2>
-                <p>{{ page.about.points.1 }}</p>
-              </div>
-              <div class="botanical-story__panel" data-story-panel>
-                <h2>{{ page.about.points.2 }}</h2>
-                <p class="wz-action"><a class="btn btn--accent" href="{{ page.about.button_href }}">{{ page.about.button_label }}</a></p>
-              </div>
-            </div>
-            <nav class="botanical-story__nav" aria-label="Company story">
-              <button type="button" data-story-target="0" aria-label="Our purpose" aria-current="step">01</button>
-              <button type="button" data-story-target="1" aria-label="Our products">02</button>
-              <button type="button" data-story-target="2" aria-label="Our commitment">03</button>
-              <span class="botanical-story__hint">Scroll to explore</span>
-            </nav>
-          </div>
-          {{> botanical-scene}}
-        </div>
-      </div>
-    </section>
-
-    <div class="marquee" aria-hidden="true">
-      <div class="marquee__track">
-        {{#each page.marquee}}<span>{{ . }}</span><span>•</span>{{/each}}
-        {{#each page.marquee}}<span>{{ . }}</span><span>•</span>{{/each}}
-      </div>
-    </div>
-
-    <!-- I'M LOOKING FOR -->
-    <section class="section wz-looking" aria-labelledby="wz-looking-title">
-      <div class="container">
-        <div class="section-head">
-          <p class="eyebrow">{{ page.looking_for.eyebrow }}</p>
-          <h2 id="wz-looking-title">{{ page.looking_for.heading }}</h2>
-        </div>
-        <ul class="wz-looking__grid">
-          {{#each page.looking_for.items}}<li><a class="wz-tile card" href="{{ href }}" target="_blank" rel="noopener"><img class="wz-tile__icon" src="{{ icon }}" alt="" width="500" height="500" loading="lazy" decoding="async" /><span class="wz-tile__title">{{ title }}</span></a></li>
-          {{/each}}
-        </ul>
-      </div>
-    </section>
-
-    <!-- FEATURED CATEGORIES -->
-    <section class="section section-alt wz-featured" aria-labelledby="wz-featured-title">
-      <div class="container">
-        <div class="section-head">
-          <p class="eyebrow">{{ page.featured.eyebrow }}</p>
-          <h2 id="wz-featured-title">{{ page.featured.heading }}</h2>
-          <p class="lead">{{ page.featured.lead }}</p>
-        </div>
-        <ul class="wz-featured__grid">
-          {{#each page.featured.items}}<li><a class="card wz-featured__card" href="{{ href }}" target="_blank" rel="noopener">
-            {{#if image}}<span class="wz-featured__photo"><img src="{{ image }}" alt="{{ alt }}" loading="lazy" decoding="async" /></span>{{/if}}
-            <h3>{{ title }}</h3>
-            <span class="wz-link">{{ page.featured.card_label }} &rarr;</span>
-          </a></li>
-          {{/each}}
-        </ul>
-      </div>
-    </section>
-
-    <!-- WHY CUSTOMERS LOVE WASAY -->
-    <section class="wz-love" aria-labelledby="wz-love-title">
-      <div class="container wz-love__inner">
-        <figure class="wz-love__photo"><img src="{{ page.love.media.image }}" alt="{{ page.love.media.alt }}" width="826" height="747" loading="lazy" decoding="async" /></figure>
-        <div class="wz-love__copy">
-          <p class="eyebrow">{{ page.love.eyebrow }}</p>
-          <h2 id="wz-love-title">{{ page.love.heading }}</h2>
-          <p class="lead">{{ page.love.text }}</p>
-        </div>
-      </div>
-    </section>
 
     <!-- WHY CHOOSE WASAY -->
     <section class="section wz-why" aria-labelledby="wz-why-title">
@@ -172,6 +139,7 @@
   <script src="/wasay-detail.js"></script>
   <script src="/wasay-ring.js"></script>
   <script src="/wellness-banner.js"></script>
+  <script src="/wasay-tale.js"></script>
   <script src="/botanical-motion.js"></script>
 </body>
 </html>

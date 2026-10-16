@@ -1,0 +1,9 @@
+/* Scroll film on the home page: a 3D scene (a person leaps onto a mossy trunk, the trunk gives, a droplet falls) plays as the page scrolls
+   while the stage holds its place (a section of the page-turn stack, wasay-stack.css). Under reduced motion it is one still moment. */
+.wz-tale { --dwell: 300svh; min-height: calc(100svh + var(--dwell)); background: var(--paper); }
+.wz-tale__stage { position: sticky; top: 0; height: 100svh; overflow: hidden; background: #d9e4ee; }
+.wz-tale__canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+@media (prefers-reduced-motion: reduce) {
+  .wz-tale { min-height: 0; }
+  .wz-tale__stage { position: relative; height: min(80svh, 720px); }
+}
