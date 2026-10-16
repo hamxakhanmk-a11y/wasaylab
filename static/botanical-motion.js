@@ -1,10 +1,11 @@
-// Who we are: one scene that holds its place while the page scrolls past. The droplet forms on the leaf, falls into the bottle and
-// lands (progress 0 to 1); the three texts rise in from the bottom one after another as it happens. Scrolling up reverses it.
+// Who we are: one full-screen 3D scene that holds its place while the page scrolls past (progress 0 to 1). A droplet grows under a
+// mossy trunk while the camera moves, falls into the bottle, and the four texts rise in one after another, each in its own place on
+// the screen. Scrolling up reverses it. The scene itself is in botanical-three.js.
 (() => {
   const story = document.querySelector('[data-botanical-story]');
   if (!story) return;
-  const scene = story.querySelector('[data-botanical-scene]');
   const stage = story.querySelector('.botanical-story__stage');
+  const canvas = story.querySelector('canvas');
   const panels = [...story.querySelectorAll('[data-story-panel]')];
   const controls = [...story.querySelectorAll('[data-story-target]')];
   const main = story.parentElement;
@@ -27,11 +28,8 @@
   }
 
   // the text on show: 0, 1 and 2 are the three Who we are texts while the droplet grows and mixes colour, 3 (It's simple) once it has
-  // fallen into the bottle. The droplet's own moments (growing to .62, falling .64 to .86, landing after) are in botanical-three.js.
-  function step(p) { return ease((p - .16) / .1) + ease((p - .4) / .1) + ease((p - .8) / .12); }
-  const hex = (c) => '#' + [c[0], c[1], c[2]].map((v) => Math.round(v).toString(16).padStart(2, '0')).join('');
-  const GREEN = [121, 184, 58], GOLD = [232, 182, 40], AMBER = [212, 128, 15];
-  const mixRGB = (k) => { k = clamp(k); const a = k < .5 ? GREEN : GOLD, b = k < .5 ? GOLD : AMBER, u = ease(k < .5 ? k / .5 : (k - .5) / .5); return a.map((v, i) => v + (b[i] - v) * u); };
+  // fallen into the bottle. The droplet's own moments (growing to .6, falling .62 to .82, landing after) are in botanical-three.js.
+  function step(p) { return ease((p - .15) / .1) + ease((p - .38) / .1) + ease((p - .66) / .12); }
 
   function paint(p) {
     const s = reduced.matches ? 0 : step(p), current = Math.round(s);
@@ -42,19 +40,7 @@
       else { el.setAttribute('aria-hidden', String(i !== current)); el.inert = i !== current; }
     });
     controls.forEach((el, i) => { el.setAttribute('aria-current', i === current ? 'step' : 'false'); });
-    scene.dataset.progress = p.toFixed(3);
-    if (three) three.draw(scene, reduced.matches ? .12 : p, reduced.matches ? { x: 0, y: 0 } : pointer);
-    // the drawn fallback art, used until (or unless) WebGL is ready
-    if (!three || !scene.classList.contains('is-three-ready')) {
-      const grow = clamp(p / .62), fall = clamp((p - .64) / .22);
-      const drop = scene.querySelector('.botanical-scene__drop'), ripple = scene.querySelector('.botanical-scene__ripple');
-      drop.style.transform = `translateY(${fall * fall * 90}px) scale(${.25 + grow * .75},${.25 + grow * .75})`;
-      drop.style.opacity = p < .875 ? '1' : '0';
-      ripple.style.opacity = p > .86 && p < .98 ? String(1 - (p - .86) / .12) : '0';
-      ripple.style.transform = `scale(${clamp((p - .86) / .12)})`;
-      const root = document.documentElement.style;
-      root.setProperty('--drop-a', hex(mixRGB(grow - .15))); root.setProperty('--drop-b', hex(mixRGB(grow))); root.setProperty('--drop-c', hex(mixRGB(grow + .2)));
-    }
+    if (three) three.draw(reduced.matches ? .5 : p, reduced.matches ? { x: 0, y: 0 } : pointer);
     dirty = false;
   }
 
@@ -63,7 +49,7 @@
     const dt = last ? Math.min(.05, (time - last) / 1000) : 1 / 60; last = time;
     if (document.hidden || !visible) { last = 0; return; }
     target = reduced.matches ? 0 : clamp((scrollY - top) / dwell);
-    progress = reduced.matches ? 0 : progress + (target - progress) * (1 - Math.exp(-dt * 14));
+    progress = reduced.matches ? 0 : progress + (target - progress) * (1 - Math.exp(-dt * 12));
     if (Math.abs(target - progress) < .0002) progress = target;
     paint(progress);
     if (progress !== target) frame = requestAnimationFrame(tick); else last = 0;
@@ -74,14 +60,14 @@
     if (loading || three) return;
     loading = true;
     try {
-      const { createBotanicalScene } = await import('./botanical-three.js');
-      three = createBotanicalScene({ onChange: () => { dirty = true; wake(); } });
-      three.canvas.addEventListener('webglcontextlost', (e) => { e.preventDefault(); scene.classList.remove('is-three-ready'); });
-      three.canvas.addEventListener('webglcontextrestored', () => { dirty = true; wake(); });
+      const { createStoryScene } = await import('./botanical-three.js');
+      three = createStoryScene(canvas, { onChange: () => { dirty = true; wake(); } });
+      canvas.addEventListener('webglcontextlost', (e) => { e.preventDefault(); stage.classList.remove('is-three-ready'); });
+      canvas.addEventListener('webglcontextrestored', () => { dirty = true; wake(); });
       paint(progress);
     } catch (error) {
-      scene.dataset.renderer = 'fallback';
-      console.warn('Botanical 3D unavailable; using the drawn scene.', error);
+      stage.dataset.renderer = 'fallback';   // the sky gradient stays behind the texts
+      console.warn('Story scene unavailable; showing the sky and the texts only.', error);
     }
   }
 
@@ -95,22 +81,22 @@
     visible = entry.isIntersecting;
     if (visible) { load(); last = 0; wake(); }
   }, { rootMargin: '200px' }).observe(story);
-  scene.addEventListener('pointermove', (e) => {
+  stage.addEventListener('pointermove', (e) => {
     if (reduced.matches || e.pointerType !== 'mouse') return;
-    const r = scene.getBoundingClientRect();
-    pointer = { x: clamp((e.clientX - r.left) / r.width) * 2 - 1, y: clamp((e.clientY - r.top) / r.height) * 2 - 1 };
-    wake();
+    const r = stage.getBoundingClientRect();
+    pointer = { x: ((e.clientX - r.left) / r.width) * 2 - 1 || 1e-4, y: ((e.clientY - r.top) / r.height) * 2 - 1 || 1e-4 };
+    dirty = true; wake();
   });
-  scene.addEventListener('pointerleave', () => { pointer = { x: 0, y: 0 }; wake(); });
+  stage.addEventListener('pointerleave', () => { pointer = { x: 0, y: 0 }; dirty = true; wake(); });
 
-  // 01 / 02 / 03 jump to where that text is on show
+  // 01 to 04 jump to where that text is on show
   controls.forEach((button, i) => button.addEventListener('click', () => {
     measure();
-    const stops = [.04, .28, .55, .97];
+    const stops = [.05, .3, .56, .93];
     scrollTo({ top: top + dwell * stops[i], behavior: reduced.matches ? 'instant' : 'smooth' });
   }));
 
   measure();
   paint(0);
-  window.WasayStory = { measure, get top() { return top; }, get dwell() { return dwell; }, get progress() { return progress; } };
+  window.WasayStory = { measure, get top() { return top; }, get dwell() { return dwell; }, get progress() { return progress; }, get ready() { return !!three; } };
 })();

@@ -8,86 +8,75 @@
   <link rel="stylesheet" href="/wellness-banner.css" />
   <link rel="stylesheet" href="/botanical-motion.css" />
   <link rel="stylesheet" href="/wasay-detail.css" />
-  <link rel="stylesheet" href="/wasay-tale.css" />
 </head>
 <body>
 {{> loader}}
 {{> header}}
 
   <main>
-    <!-- Landscape banner: real walking footage, with live text and a paper navigation panel. -->
+    <!-- Opening banner (after the Zenith reference): real footage fills the screen, a big centred headline and button sit at the top, and a
+         frosted card with the brand and the main links lies over the lower left. -->
     <section class="wellness-banner" data-wellness-banner aria-labelledby="wellness-title">
       <div class="wellness-banner__scene">
-        <div class="wellness-banner__film">
         <video class="wellness-banner__landscape" data-src="{{ page.hero.video }}" poster="{{ page.hero.landscape }}" muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1" width="1600" height="900"></video>
         <div class="wellness-banner__copy">
           <h1 id="wellness-title">{{ page.hero.heading }}</h1>
           <p>{{ page.hero.lead }}</p>
-          <a class="btn btn--accent" href="{{ page.hero.primary_href }}" target="_blank" rel="noopener">{{ page.hero.primary_label }} <span aria-hidden="true">↗</span></a>
+          <a class="btn btn--dark" href="{{ page.hero.primary_href }}" target="_blank" rel="noopener"><span aria-hidden="true">↗</span> {{ page.hero.primary_label }}</a>
         </div>
         <button class="wellness-banner__motion" type="button" data-banner-motion hidden aria-pressed="false">Play video</button>
-        </div>
-        <div class="wellness-banner__panel">
-          <div class="wellness-banner__identity">
-            <img src="{{ site.logo }}" alt="{{ site.name }}" width="58" height="58" />
-            <div><p>{{ page.hero.panel_heading }}</p><a href="{{ page.hero.secondary_href }}">{{ page.hero.secondary_label }} <span aria-hidden="true">↗</span></a></div>
+        <div class="wellness-banner__card">
+          <div class="wellness-banner__brand">
+            <div class="wellness-banner__title"><img src="{{ site.logo }}" alt="" width="46" height="46" /><p>{{ page.hero.panel_heading }}</p></div>
+            <div class="wellness-banner__actions">
+              <a class="btn btn--dark" href="{{ page.hero.secondary_href }}">{{ page.hero.secondary_label }}</a>
+              <a class="wellness-banner__more" href="{{ page.hero.about_href }}">{{ page.hero.about_label }}</a>
+            </div>
+            <p class="wellness-banner__legal">{{ site.footer.copyright }}</p>
           </div>
-          <nav class="wellness-banner__ranges" aria-label="Explore Wasay products">
-            {{#each page.hero.ranges}}<a href="{{ href }}">{{ label }} <span aria-hidden="true">↗</span></a>{{/each}}
+          <nav class="wellness-banner__cols" aria-label="Wasay links">
+            <div><h2>{{ page.hero.ranges_heading }}</h2>{{#each page.hero.ranges}}<a href="{{ href }}">{{ label }}</a>{{/each}}</div>
+            <div><h2>{{ site.footer.shop_heading }}</h2>{{#each site.footer.shop_links}}<a href="{{ href }}" target="_blank" rel="noopener">{{ label }}</a>{{/each}}</div>
           </nav>
         </div>
       </div>
     </section>
 
-    <!-- SCROLL FILM: a person leaps onto a mossy trunk, the trunk gives under the landing and a droplet falls out of it. Drawn in 3D by
-         static/wasay-tale-three.js as the page scrolls; switched on with tale.enabled in content/index.json. -->
-{{#if page.tale.enabled}}
-    <section class="wz-tale" data-tale aria-label="{{ page.tale.label }}" style="--dwell: {{ page.tale.dwell }}svh">
-      <div class="wz-tale__stage">
-        <canvas class="wz-tale__canvas" aria-hidden="true"></canvas>
-      </div>
-    </section>
-{{/if}}
-
-    <!-- WHO WE ARE: one scene that holds its place while the page scrolls. A droplet grows on the leaf and mixes colour at each of the
-         three stages, then falls into the bottle and the last text (It's simple) rises. Each text comes up from below as its stage arrives. -->
-{{> botanical-defs}}
+    <!-- WHO WE ARE: a full-screen 3D scene that holds its place while the page scrolls. A huge mossy trunk crosses the sky and a droplet
+         grows under it (green, gold, amber) while the camera moves, then falls into the bottle. Four texts, each in its own place, rise in
+         one after another; the last (It's simple) arrives as the droplet lands. Drawn by static/botanical-three.js. -->
     <section class="botanical-story" data-botanical-story aria-label="{{ page.about.eyebrow }}">
       <div class="botanical-story__stage">
-        <div class="container botanical-about__inner">
-          <div class="botanical-about__copy">
-            <div class="botanical-story__panels">
-              <div class="botanical-story__panel" data-story-panel>
-                <p class="eyebrow">{{ page.about.eyebrow }}</p>
-                <h2>{{ page.about.heading }}</h2>
-                <p>{{ page.about.text }}</p>
-              </div>
-              <div class="botanical-story__panel" data-story-panel>
-                <p class="eyebrow">{{ page.about.eyebrow }}</p>
-                <h2>{{ page.about.points.0 }}</h2>
-                <p>{{ page.about.points.1 }}</p>
-              </div>
-              <div class="botanical-story__panel" data-story-panel>
-                <p class="eyebrow">{{ page.about.eyebrow }}</p>
-                <h2>{{ page.about.points.2 }}</h2>
-                <p class="wz-action"><a class="btn btn--accent" href="{{ page.about.button_href }}">{{ page.about.button_label }}</a></p>
-              </div>
-              <div class="botanical-story__panel" data-story-panel>
-                <p class="eyebrow">{{ page.about.simple.eyebrow }}</p>
-                <h2>{{ page.about.simple.heading }}</h2>
-                <p>{{ page.about.simple.text }}</p>
-              </div>
-            </div>
-            <nav class="botanical-story__nav" aria-label="Company story">
-              <button type="button" data-story-target="0" aria-label="Our purpose" aria-current="step">01</button>
-              <button type="button" data-story-target="1" aria-label="Our products">02</button>
-              <button type="button" data-story-target="2" aria-label="Our commitment">03</button>
-              <button type="button" data-story-target="3" aria-label="Why customers love Wasay">04</button>
-              <span class="botanical-story__hint">Scroll to explore</span>
-            </nav>
+        <canvas class="botanical-story__canvas" aria-hidden="true"></canvas>
+        <div class="botanical-story__panels">
+          <div class="botanical-story__panel" data-story-panel data-pos="bl">
+            <p class="eyebrow">{{ page.about.eyebrow }}</p>
+            <h2>{{ page.about.heading }}</h2>
+            <p>{{ page.about.text }}</p>
           </div>
-          {{> botanical-scene}}
+          <div class="botanical-story__panel" data-story-panel data-pos="tl">
+            <p class="eyebrow">{{ page.about.eyebrow }}</p>
+            <h2>{{ page.about.points.0 }}</h2>
+            <p>{{ page.about.points.1 }}</p>
+          </div>
+          <div class="botanical-story__panel" data-story-panel data-pos="br">
+            <p class="eyebrow">{{ page.about.eyebrow }}</p>
+            <h2>{{ page.about.points.2 }}</h2>
+            <p class="wz-action"><a class="btn btn--accent" href="{{ page.about.button_href }}">{{ page.about.button_label }}</a></p>
+          </div>
+          <div class="botanical-story__panel" data-story-panel data-pos="ml">
+            <p class="eyebrow">{{ page.about.simple.eyebrow }}</p>
+            <h2>{{ page.about.simple.heading }}</h2>
+            <p>{{ page.about.simple.text }}</p>
+          </div>
         </div>
+        <nav class="botanical-story__nav" aria-label="Company story">
+          <button type="button" data-story-target="0" aria-label="Our purpose" aria-current="step">01</button>
+          <button type="button" data-story-target="1" aria-label="Our products">02</button>
+          <button type="button" data-story-target="2" aria-label="Our commitment">03</button>
+          <button type="button" data-story-target="3" aria-label="Why customers love Wasay">04</button>
+          <span class="botanical-story__hint">Scroll to explore</span>
+        </nav>
       </div>
     </section>
 
@@ -139,7 +128,6 @@
   <script src="/wasay-detail.js"></script>
   <script src="/wasay-ring.js"></script>
   <script src="/wellness-banner.js"></script>
-  <script src="/wasay-tale.js"></script>
   <script src="/botanical-motion.js"></script>
 </body>
 </html>

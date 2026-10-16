@@ -35,12 +35,10 @@
         "href": "pastes.html"
       }
     ],
-    "video": "/videos/wellness-hillside.mp4"
-  },
-  "tale": {
-    "enabled": true,
-    "label": "A short film that plays as you scroll: a person leaps from a cliff onto a mossy tree trunk, the trunk gives under their landing, and a droplet falls out of it.",
-    "dwell": 480
+    "video": "/videos/wellness-hillside.mp4",
+    "ranges_heading": "Products",
+    "about_label": "About us",
+    "about_href": "about.html"
   },
   "about": {
     "eyebrow": "Who we are",

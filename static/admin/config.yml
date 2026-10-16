@@ -135,7 +135,10 @@ collections:
             fields:
               - { name: video, label: Banner video (MP4), widget: file }
               - { name: landscape, label: Banner poster / still fallback, widget: image }
-              - { name: panel_heading, label: Brand panel heading, widget: string }
+              - { name: panel_heading, label: Brand card heading, widget: string }
+              - { name: ranges_heading, label: Heading of the product links in the card, widget: string }
+              - { name: about_label, label: Card link text (next to the button), widget: string }
+              - { name: about_href, label: Card link goes to, widget: string }
               - name: ranges
                 label: Product range links
                 widget: list
@@ -162,14 +165,6 @@ collections:
               - { name: arch_text, label: Words curved along the arch, widget: string }
               - { name: link_label, label: Button text, widget: string }
               - { name: link_href, label: Button links to, widget: string }
-          - name: tale
-            label: 'Section: Scroll film (after the opening banner)'
-            widget: object
-            hint: 'A 3D film drawn as the page scrolls: a person leaps onto a mossy trunk, the trunk gives, a droplet falls into the next section.'
-            fields:
-              - { name: enabled, label: Show the scroll film, widget: boolean }
-              - { name: label, label: Description for screen readers, widget: text }
-              - { name: dwell, label: Scrolling length (100 is one screen of scrolling; 480 is nearly five), widget: number }
           - name: about
             label: 'Section: Who we are'
             widget: object
