@@ -248,7 +248,7 @@ and set the photo beside the text. On phones they stack.
 - Don't use blue anywhere.
 - Don't crop, zoom, tilt or "cover" a product photo.
 - Don't animate cards in one by one, fade sections up on scroll, or add parallax.
-- Don't set body text in Space Grotesk, or add a second display face.
+- Don't set body text in the serif, or add a fourth typeface.
 - Don't use neutral grey shadows.
 - Don't state health claims, prices or certifications that are not on the live site.
 
@@ -268,7 +268,7 @@ Buttons are 48px tall minimum. The loupe, hover lift and button expansion are of
 When adding a page or section:
 
 1. Start on `{colors.paper}` or white. Put the photo in whole.
-2. Eyebrow in green, headline in Space Grotesk, copy in Inter at 46 to 62ch.
+2. Eyebrow in green, headline in Newsreader, copy in Source Sans 3 at 46 to 62ch.
 3. Reuse `.btn.btn--accent` or `.btn.btn--ghost`, and `.card` for anything tile-shaped.
 4. Check that nothing new is blue, black, grey, cropped or staggered.
 
