@@ -1,0 +1,17 @@
+<!-- Gradients and filters shared by every botanical scene frame (the no-WebGL fallback art). -->
+<svg class="botanical-defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="botanical-paper" cx="38%" cy="30%" r="80%"><stop stop-color="#fffef7"/><stop offset=".6" stop-color="#eef1e5"/><stop offset="1" stop-color="#e3e8d8"/></radialGradient>
+      <linearGradient id="botanical-leaf" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c3d58b"/><stop offset=".25" stop-color="#6d9b3d"/><stop offset=".58" stop-color="#3b751e"/><stop offset=".78" stop-color="#83a950"/><stop offset="1" stop-color="#254f25"/></linearGradient>
+      <linearGradient id="botanical-leaf-shade"><stop stop-color="#184d2a" stop-opacity=".7"/><stop offset=".5" stop-color="#3d742f" stop-opacity="0"/><stop offset="1" stop-color="#e8efbb" stop-opacity=".5"/></linearGradient>
+      <linearGradient id="botanical-glass"><stop stop-color="#56331c"/><stop offset=".07" stop-color="#9d652c"/><stop offset=".15" stop-color="#f3c77a" stop-opacity=".82"/><stop offset=".23" stop-color="#7a451c"/><stop offset=".5" stop-color="#ab6e28"/><stop offset=".75" stop-color="#633619"/><stop offset=".9" stop-color="#b78342"/><stop offset="1" stop-color="#4e2f1d"/></linearGradient>
+      <linearGradient id="botanical-reflection"><stop stop-color="#fffaf0" stop-opacity="0"/><stop offset=".5" stop-color="#fffaf0" stop-opacity=".75"/><stop offset="1" stop-color="#fffaf0" stop-opacity="0"/></linearGradient>
+      <linearGradient id="botanical-liquid" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#c59b4f" stop-opacity=".08"/><stop offset=".15" stop-color="#a87320" stop-opacity=".45"/><stop offset="1" stop-color="#47321d" stop-opacity=".72"/></linearGradient>
+      <radialGradient id="botanical-mouth"><stop stop-color="#3d2f20"/><stop offset=".65" stop-color="#52391e"/><stop offset=".85" stop-color="#be975b"/><stop offset="1" stop-color="#5e4429"/></radialGradient>
+      <radialGradient id="botanical-water" cx="30%" cy="26%"><stop stop-color="#ffffff" stop-opacity=".95"/><stop offset=".24" stop-color="#e5efc5" stop-opacity=".65"/><stop offset=".68" stop-color="#c8d6a5" stop-opacity=".3"/><stop offset=".9" stop-color="#749255" stop-opacity=".8"/><stop offset="1" stop-color="#fcfff0" stop-opacity=".95"/></radialGradient>
+      <filter id="botanical-blur"><feGaussianBlur stdDeviation="22"/></filter>
+      <filter id="botanical-shadow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="10"/></filter>
+      <filter id="botanical-grain"><feTurbulence type="fractalNoise" baseFrequency=".6" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope=".055"/></feComponentTransfer><feBlend in="SourceGraphic" mode="multiply"/></filter>
+      <clipPath id="botanical-leaf-clip"><path d="M104 70C268 36 460 116 392 330C367 285 279 280 212 235C129 181 105 122 104 70Z"/></clipPath>
+    </defs>
+</svg>

@@ -1,8 +1,9 @@
 import * as T from './vendor/three/three.module.min.js';
 
-// One local, demand-rendered scene. Nothing advances unless the story progress or pointer changes.
-export function createBotanicalScene(host) {
-  const canvas = host.querySelector('canvas');
+// One local, demand-rendered scene. Nothing advances unless the story progress or pointer changes. It is drawn on an off-screen
+// canvas and copied into the 2D canvas of whichever story page asks, so every page can show the scene at its own moment.
+export function createBotanicalScene({ onChange = () => {} } = {}) {
+  const canvas = document.createElement('canvas');
   const renderer = new T.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: 'low-power' });
   renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
   renderer.outputColorSpace = T.SRGBColorSpace;
@@ -46,6 +47,24 @@ export function createBotanicalScene(host) {
     [.70,-.38],[.76,-.55],[.76,-1.75],[.69,-1.87],[0,-1.87]];
   const body = new T.Mesh(new T.LatheGeometry(profile.map(([x,y]) => new T.Vector2(x,y)), 96), glass);
   bottle.add(body);
+  // Paper label with the real logo (the logo already carries the name Wasay Laboratories), wrapped round the front of the body.
+  const labelMap = texture(1536, 512, (ctx, c) => {
+    ctx.fillStyle = '#f6f1e3'; ctx.fillRect(0, 0, c.width, c.height);
+    ctx.strokeStyle = '#0b5c33'; ctx.lineWidth = 5; ctx.strokeRect(764 - 330, 26, 660, 460);
+    ctx.fillStyle = '#a3cf3c'; ctx.fillRect(764 - 330, 26, 660, 7);
+  });
+  labelMap.colorSpace = T.SRGBColorSpace; labelMap.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+  const logo = new Image();
+  logo.onload = () => {
+    const ctx = labelMap.image.getContext('2d'), height = 400, width = height * logo.naturalWidth / logo.naturalHeight;
+    ctx.drawImage(logo, 768 - width / 2, 56, width, height);
+    labelMap.needsUpdate = true; onChange();
+  };
+  logo.src = '/logo.png';
+  const arc = Math.PI * 1.1;
+  const label = new T.Mesh(new T.CylinderGeometry(.858, .858, .95, 72, 1, true, -arc / 2, arc),
+    new T.MeshStandardMaterial({ map: labelMap, roughness: .62, metalness: 0, envMapIntensity: .55 }));
+  label.position.y = -1.16; bottle.add(label);
   for (const y of [.12,.23,.34]) {
     const thread = new T.Mesh(new T.TorusGeometry(.405,.018,10,80), glass);
     thread.rotation.x = Math.PI / 2; thread.position.y = y; bottle.add(thread);
@@ -118,7 +137,7 @@ export function createBotanicalScene(host) {
   floor.rotation.x=-Math.PI/2;floor.position.y=-2.025;scene.add(floor);
   let width=0,height=0;
   const clamp=(n,a=0,b=1)=>Math.max(a,Math.min(b,n));
-  function draw(progress, pointer={x:0,y:0}) {
+  function draw(host, progress, pointer={x:0,y:0}) {
     const w=host.clientWidth,h=host.clientHeight;
     if(!w||!h)return;
     if(w!==width||h!==height){width=w;height=h;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
@@ -132,10 +151,11 @@ export function createBotanicalScene(host) {
     camera.position.set(.65+orbit+pointer.x*.16,.9+pointer.y*.08,8.1-(Math.sin(p*Math.PI)*.2));
     camera.lookAt(-.45,.57,0);
     renderer.render(scene,camera);
+    const out=host.querySelector('canvas');
+    if(out.width!==canvas.width||out.height!==canvas.height){out.width=canvas.width;out.height=canvas.height;}
+    out.getContext('2d').drawImage(canvas,0,0);
     host.dataset.renderProgress=p.toFixed(3);
     host.classList.add('is-three-ready');
   }
-  canvas.addEventListener('webglcontextlost',(e)=>{e.preventDefault();host.classList.remove('is-three-ready');});
-  canvas.addEventListener('webglcontextrestored',()=>draw(0));
-  return { draw };
+  return { draw, canvas };
 }

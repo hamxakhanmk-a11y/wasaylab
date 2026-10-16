@@ -1,20 +1,5 @@
-<div class="botanical-scene" data-botanical-scene>
-  <svg class="botanical-scene__art" viewBox="0 0 720 800" role="img" aria-labelledby="botanical-scene-title">
-    <title id="botanical-scene-title">A droplet forms on a green leaf and falls into an amber glass bottle.</title>
-    <defs>
-      <radialGradient id="botanical-paper" cx="38%" cy="30%" r="80%"><stop stop-color="#fffef7"/><stop offset=".6" stop-color="#eef1e5"/><stop offset="1" stop-color="#e3e8d8"/></radialGradient>
-      <linearGradient id="botanical-leaf" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c3d58b"/><stop offset=".25" stop-color="#6d9b3d"/><stop offset=".58" stop-color="#3b751e"/><stop offset=".78" stop-color="#83a950"/><stop offset="1" stop-color="#254f25"/></linearGradient>
-      <linearGradient id="botanical-leaf-shade"><stop stop-color="#184d2a" stop-opacity=".7"/><stop offset=".5" stop-color="#3d742f" stop-opacity="0"/><stop offset="1" stop-color="#e8efbb" stop-opacity=".5"/></linearGradient>
-      <linearGradient id="botanical-glass"><stop stop-color="#56331c"/><stop offset=".07" stop-color="#9d652c"/><stop offset=".15" stop-color="#f3c77a" stop-opacity=".82"/><stop offset=".23" stop-color="#7a451c"/><stop offset=".5" stop-color="#ab6e28"/><stop offset=".75" stop-color="#633619"/><stop offset=".9" stop-color="#b78342"/><stop offset="1" stop-color="#4e2f1d"/></linearGradient>
-      <linearGradient id="botanical-reflection"><stop stop-color="#fffaf0" stop-opacity="0"/><stop offset=".5" stop-color="#fffaf0" stop-opacity=".75"/><stop offset="1" stop-color="#fffaf0" stop-opacity="0"/></linearGradient>
-      <linearGradient id="botanical-liquid" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#c59b4f" stop-opacity=".08"/><stop offset=".15" stop-color="#a87320" stop-opacity=".45"/><stop offset="1" stop-color="#47321d" stop-opacity=".72"/></linearGradient>
-      <radialGradient id="botanical-mouth"><stop stop-color="#3d2f20"/><stop offset=".65" stop-color="#52391e"/><stop offset=".85" stop-color="#be975b"/><stop offset="1" stop-color="#5e4429"/></radialGradient>
-      <radialGradient id="botanical-water" cx="30%" cy="26%"><stop stop-color="#ffffff" stop-opacity=".95"/><stop offset=".24" stop-color="#e5efc5" stop-opacity=".65"/><stop offset=".68" stop-color="#c8d6a5" stop-opacity=".3"/><stop offset=".9" stop-color="#749255" stop-opacity=".8"/><stop offset="1" stop-color="#fcfff0" stop-opacity=".95"/></radialGradient>
-      <filter id="botanical-blur"><feGaussianBlur stdDeviation="22"/></filter>
-      <filter id="botanical-shadow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="10"/></filter>
-      <filter id="botanical-grain"><feTurbulence type="fractalNoise" baseFrequency=".6" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope=".055"/></feComponentTransfer><feBlend in="SourceGraphic" mode="multiply"/></filter>
-      <clipPath id="botanical-leaf-clip"><path d="M104 70C268 36 460 116 392 330C367 285 279 280 212 235C129 181 105 122 104 70Z"/></clipPath>
-    </defs>
+<div class="botanical-scene" data-botanical-scene aria-hidden="true">
+  <svg class="botanical-scene__art" viewBox="0 0 720 800" focusable="false">
     <rect width="720" height="800" fill="url(#botanical-paper)"/>
     <g opacity=".36" filter="url(#botanical-blur)">
       <path d="M-80 390Q100 4 242 18Q249 278-80 390" fill="#6c9c4c"/>
@@ -29,6 +14,10 @@
       <path d="M329 433L329 478C329 491 316 497 295 510C271 525 263 545 263 566L263 703Q263 735 295 738L491 738Q523 735 523 703L523 566C523 545 515 525 491 510C470 497 457 491 457 478L457 433Z" fill="url(#botanical-glass)" stroke="#75512e" stroke-width="2"/>
       <path d="M273 585Q392 602 513 585L513 701Q513 726 489 728L297 728Q273 726 273 701Z" fill="url(#botanical-liquid)"/>
       <ellipse cx="393" cy="585" rx="120" ry="13" fill="#c7a65d" opacity=".22"/>
+      <g class="botanical-scene__label">
+        <path d="M265 590Q394 607 521 590L521 693Q394 710 265 693Z" fill="#f6f1e3" stroke="#d9cfb4" stroke-width="1.5"/>
+        <image href="/logo.png" x="344" y="598" width="100" height="100" preserveAspectRatio="xMidYMid meet"/>
+      </g>
       <path d="M303 522Q283 539 283 571L283 692Q283 716 295 718L308 718L308 557Q309 536 325 524Z" fill="url(#botanical-reflection)" opacity=".8"/>
       <path d="M482 533Q503 542 503 570V699" fill="none" stroke="#f5e4bb" stroke-opacity=".34" stroke-width="6" stroke-linecap="round"/>
       <path d="M299 727Q392 739 486 726" fill="none" stroke="#e0b870" stroke-opacity=".5" stroke-width="3"/>
