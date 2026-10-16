@@ -1,0 +1,34 @@
+{
+  "name": "Gulbeen",
+  "slug": "syrup-gulbeen",
+  "tab": "syrups",
+  "kind": "carton",
+  "order": 160,
+  "detail": "250 ml",
+  "image": "/images/wasay/syrups/syrup-gulbeen-front.jpg",
+  "about": "A food-supplement syrup made from selected herbs, fruits and flowers.",
+  "uses": [
+    "Appetite, digestion and general strength.",
+    "Brain and nerve support."
+  ],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "unreadable",
+  "composition_note": "The pack describes herbs, fruits and flowers, but the individual ingredient names on the Urdu panel are not all clear enough to transcribe.",
+  "uses_note": "",
+  "evidence": "Right English description: prepared from selected herbs, fruits and flowers; appetite, digestion, strength, brain and nerves.",
+  "sources": [
+    {
+      "path": "/images/wasay/syrups/syrup-gulbeen-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/syrups/syrup-gulbeen-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/syrups/syrup-gulbeen-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

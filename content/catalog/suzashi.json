@@ -1,0 +1,34 @@
+{
+  "name": "Suzashi",
+  "slug": "suzashi",
+  "tab": "tablets",
+  "kind": "carton",
+  "order": 70,
+  "detail": "16 tablets",
+  "image": "/images/wasay/tablets/suzashi-front.jpg",
+  "about": "A tablet preparation for urinary tract and bladder complaints.",
+  "uses": [
+    "Urinary tract and bladder irritation.",
+    "Associated inflammation, pain and discharge."
+  ],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "not-visible",
+  "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+  "uses_note": "",
+  "evidence": "Front: Relieves irritability and inflammation of urinary track and bladdar; discharge of Blood, Pus & pain.",
+  "sources": [
+    {
+      "path": "/images/wasay/tablets/suzashi-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tablets/suzashi-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tablets/suzashi-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

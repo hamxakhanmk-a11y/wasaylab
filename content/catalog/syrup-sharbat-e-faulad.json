@@ -1,0 +1,34 @@
+{
+  "name": "Sharbat-e-Faulad",
+  "slug": "syrup-sharbat-e-faulad",
+  "tab": "syrups",
+  "kind": "carton",
+  "order": 130,
+  "detail": "250 ml",
+  "image": "/images/wasay/syrups/syrup-sharbat-e-faulad-front.jpg",
+  "about": "A general herbal tonic for nutritional support.",
+  "uses": [
+    "Anaemia and nervous debility.",
+    "Poor food absorption and malnutrition."
+  ],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "unreadable",
+  "composition_note": "A composition panel is present, but the ingredient names and amounts are not clear enough to transcribe reliably.",
+  "uses_note": "",
+  "evidence": "Left English indications. Bottom right Urdu formula is blurred; no iron amount inferred from the name.",
+  "sources": [
+    {
+      "path": "/images/wasay/syrups/syrup-sharbat-e-faulad-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/syrups/syrup-sharbat-e-faulad-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/syrups/syrup-sharbat-e-faulad-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

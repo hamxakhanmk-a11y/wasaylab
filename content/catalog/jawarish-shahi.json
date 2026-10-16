@@ -1,0 +1,33 @@
+{
+  "name": "Jawarish Shahi",
+  "slug": "jawarish-shahi",
+  "tab": "pastes",
+  "kind": "jar",
+  "order": 60,
+  "detail": "100 gm",
+  "image": "/images/wasay/pastes/jawarish-shahi-front.jpg",
+  "about": "A traditional Jawarish preparation for the heart and brain.",
+  "uses": [
+    "Heart and brain support."
+  ],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "not-visible",
+  "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+  "uses_note": "",
+  "evidence": "Left Urdu: دل و دماغ کو تقویت ...",
+  "sources": [
+    {
+      "path": "/images/wasay/pastes/jawarish-shahi-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/pastes/jawarish-shahi-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/pastes/jawarish-shahi-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

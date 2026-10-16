@@ -1,0 +1,31 @@
+{
+  "name": "Itrifal Kishneezi",
+  "slug": "itrifal-kishneezi",
+  "tab": "pastes",
+  "kind": "jar",
+  "order": 40,
+  "detail": "100 gm",
+  "image": "/images/wasay/pastes/itrifal-kishneezi-front.jpg",
+  "about": "Wasay’s traditional Itrifal Kishneezi preparation in a 100 gm jar.",
+  "uses": [],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "not-visible",
+  "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+  "uses_note": "The photographed indication is incomplete; approved wording is required.",
+  "evidence": "Left Urdu fragment: دماغ اور معدے کو ... No broader use inferred.",
+  "sources": [
+    {
+      "path": "/images/wasay/pastes/itrifal-kishneezi-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/pastes/itrifal-kishneezi-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/pastes/itrifal-kishneezi-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "name": "Slim Food",
+  "slug": "slim-food",
+  "tab": "pastes",
+  "kind": "jar",
+  "order": 20,
+  "detail": "150 gm",
+  "image": "/images/wasay/pastes/slim-food-front.jpg",
+  "about": "A fibre-based powder with natural vitamins and minerals for weight management.",
+  "uses": [
+    "Weight management."
+  ],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "not-visible",
+  "composition_note": "The label describes fibre with natural vitamins and minerals, but does not show a complete readable ingredient list or nutrient amounts.",
+  "uses_note": "",
+  "evidence": "Front: Special Diet for Losing Weight; Prepared from fiber ... natural vitamins and minerals. Left says SLIM FOOD Powder.",
+  "sources": [
+    {
+      "path": "/images/wasay/pastes/slim-food-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/pastes/slim-food-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/pastes/slim-food-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

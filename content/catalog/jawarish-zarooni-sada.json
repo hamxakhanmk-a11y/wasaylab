@@ -1,0 +1,33 @@
+{
+  "name": "Jawarish Zarooni Sada",
+  "slug": "jawarish-zarooni-sada",
+  "tab": "tonics",
+  "kind": "carton",
+  "order": 20,
+  "detail": "100 gm",
+  "image": "/images/wasay/tonics/jawarish-zarooni-sada-front.jpg",
+  "about": "A traditional Jawarish preparation for kidney and bladder health.",
+  "uses": [
+    "Kidney and bladder support."
+  ],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "unreadable",
+  "composition_note": "A composition panel is present, but the ingredient names and amounts are not clear enough to transcribe reliably.",
+  "uses_note": "",
+  "evidence": "Front Urdu: گردہ اور مثانہ کیلئے مفید. Side composition is blurred.",
+  "sources": [
+    {
+      "path": "/images/wasay/tonics/jawarish-zarooni-sada-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tonics/jawarish-zarooni-sada-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tonics/jawarish-zarooni-sada-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

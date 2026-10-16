@@ -1,0 +1,33 @@
+{
+  "name": "Ushba",
+  "slug": "ushba",
+  "tab": "tablets",
+  "kind": "carton",
+  "order": 40,
+  "detail": "40 tablets",
+  "image": "/images/wasay/tablets/ushba-front.jpg",
+  "about": "A herbal tablet preparation for skin care.",
+  "uses": [
+    "Boils and skin complaints."
+  ],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "not-visible",
+  "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+  "uses_note": "",
+  "evidence": "Front: Blood Purifier A Cure for Boils & Skin Diseases.",
+  "sources": [
+    {
+      "path": "/images/wasay/tablets/ushba-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tablets/ushba-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tablets/ushba-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

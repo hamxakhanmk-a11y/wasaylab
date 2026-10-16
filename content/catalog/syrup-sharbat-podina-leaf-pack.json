@@ -1,0 +1,46 @@
+{
+  "name": "Sharbat Podina — Leaf Pack",
+  "slug": "syrup-sharbat-podina-leaf-pack",
+  "tab": "syrups",
+  "kind": "carton",
+  "order": 150,
+  "detail": "240 ml",
+  "image": "/images/wasay/syrups/syrup-sharbat-podina-leaf-pack-front.jpg",
+  "about": "A mint-based digestive syrup in the leaf-design pack.",
+  "uses": [
+    "Indigestion, gas and stomach discomfort."
+  ],
+  "ingredients": [
+    "Podina",
+    "Ajwain Desi",
+    "Kachor",
+    "Darchini",
+    "Gul Surkh Irani",
+    "Ilaichi Kalan",
+    "Tez Paat",
+    "Sundh",
+    "Soey",
+    "Mirch Siah",
+    "Zeera Sufaid",
+    "Menthol"
+  ],
+  "partial_composition": false,
+  "composition_status": "listed",
+  "composition_note": "Ingredient names transcribed from the photographed label. Ingredient amounts are not reproduced here.",
+  "uses_note": "",
+  "evidence": "Left English INGREDIENTS panel; opposite Urdu uses panel.",
+  "sources": [
+    {
+      "path": "/images/wasay/syrups/syrup-sharbat-podina-leaf-pack-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/syrups/syrup-sharbat-podina-leaf-pack-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/syrups/syrup-sharbat-podina-leaf-pack-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

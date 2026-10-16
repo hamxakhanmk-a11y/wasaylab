@@ -1,0 +1,42 @@
+{
+  "name": "Gastir",
+  "slug": "syrup-gastir",
+  "tab": "syrups",
+  "kind": "carton",
+  "order": 60,
+  "detail": "120 ml",
+  "image": "/images/wasay/syrups/syrup-gastir-front.jpg",
+  "about": "A digestive syrup for gastric discomfort and acidity.",
+  "uses": [
+    "Gastric pain, hyperacidity and heartburn.",
+    "Indigestion and flatulence."
+  ],
+  "ingredients": [
+    "Zingiber officinale extract",
+    "Cinnamomum tamala",
+    "Trachyspermum ammi",
+    "Foeniculum vulgare",
+    "Acorus calamus",
+    "Illicium verum",
+    "Mentha piperita"
+  ],
+  "partial_composition": false,
+  "composition_status": "listed",
+  "composition_note": "Ingredient names transcribed from the photographed label. Ingredient amounts are not reproduced here.",
+  "uses_note": "",
+  "evidence": "Front and right English indications/composition.",
+  "sources": [
+    {
+      "path": "/images/wasay/syrups/syrup-gastir-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/syrups/syrup-gastir-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/syrups/syrup-gastir-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

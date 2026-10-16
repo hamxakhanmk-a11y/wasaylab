@@ -1,0 +1,47 @@
+{
+  "name": "Uromax",
+  "slug": "syrup-uromax",
+  "tab": "syrups",
+  "kind": "carton",
+  "order": 70,
+  "detail": "120 ml",
+  "image": "/images/wasay/syrups/syrup-uromax-front.jpg",
+  "about": "A diuretic and kidney syrup for urinary health.",
+  "uses": [
+    "Urinary complaints including cystitis and painful urination.",
+    "Renal colic and retention of urine."
+  ],
+  "ingredients": [
+    "Berberis Vulg",
+    "Sarsaparilla",
+    "Sabal Ser",
+    "Epigea Repen",
+    "Stigmata",
+    "Cantharis",
+    "Equisetum",
+    "Pereira Brava",
+    "Hydrangea",
+    "Solanum nigrum leaves",
+    "Solanum nigrum berries",
+    "Barley salt"
+  ],
+  "partial_composition": true,
+  "composition_status": "partial",
+  "composition_note": "Only the clearly readable ingredients are listed here. The complete formula and ingredient amounts still need confirmation.",
+  "uses_note": "",
+  "evidence": "Front: Diuretic & Kidney Syrup. Left composition and indication list; one ingredient name is unclear.",
+  "sources": [
+    {
+      "path": "/images/wasay/syrups/syrup-uromax-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/syrups/syrup-uromax-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/syrups/syrup-uromax-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

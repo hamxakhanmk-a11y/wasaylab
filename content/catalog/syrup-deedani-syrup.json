@@ -1,0 +1,35 @@
+{
+  "name": "Deedani Syrup",
+  "slug": "syrup-deedani-syrup",
+  "tab": "syrups",
+  "kind": "carton",
+  "order": 20,
+  "detail": "60 ml",
+  "image": "/images/wasay/syrups/syrup-deedani-syrup-front.jpg",
+  "about": "A sweetened and flavoured anthelmintic syrup.",
+  "uses": [
+    "Roundworms."
+  ],
+  "ingredients": [
+    "Mallotus philippinensis"
+  ],
+  "partial_composition": true,
+  "composition_status": "partial",
+  "composition_note": "The label identifies Mallotus philippinensis. A complete formula, including the syrup base and ingredient amounts, is not shown.",
+  "uses_note": "",
+  "evidence": "Front: ANTHELMINTIC SYRUP. Right: A preparation of Mallotus Philippinensis for complete eradication of round worms.",
+  "sources": [
+    {
+      "path": "/images/wasay/syrups/syrup-deedani-syrup-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/syrups/syrup-deedani-syrup-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/syrups/syrup-deedani-syrup-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

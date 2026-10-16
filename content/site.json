@@ -49,14 +49,14 @@
         "href": "about.html",
         "slug": "about",
         "dropdown": []
+      },
+      {
+        "label": "Contact",
+        "href": "contact.html",
+        "slug": "contact",
+        "dropdown": []
       }
-    ],
-    "cta": {
-      "label": "Order online",
-      "href": "https://wasaylabs.com/shop/",
-      "external": true,
-      "desktop_only": true
-    }
+    ]
   },
   "footer": {
     "blurb": "A modern facility that manufactures and markets well-known brands, focused on healthy living.",
@@ -73,21 +73,10 @@
       {
         "label": "About us",
         "href": "about.html"
-      }
-    ],
-    "shop_heading": "Shop online",
-    "shop_links": [
-      {
-        "label": "All products",
-        "href": "https://wasaylabs.com/shop/"
       },
       {
-        "label": "Best sellers",
-        "href": "https://wasaylabs.com/product-category/best-sellers/"
-      },
-      {
-        "label": "Visit wasaylabs.com",
-        "href": "https://wasaylabs.com/"
+        "label": "Contact",
+        "href": "contact.html"
       }
     ],
     "copyright": "Wasay Laboratories (Pvt.) Ltd. All rights reserved.",

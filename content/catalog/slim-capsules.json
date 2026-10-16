@@ -1,0 +1,33 @@
+{
+  "name": "Slim Capsules",
+  "slug": "slim-capsules",
+  "tab": "tonics",
+  "kind": "carton",
+  "order": 120,
+  "detail": "60 capsules",
+  "image": "/images/wasay/tonics/slim-capsules-front.jpg",
+  "about": "Wasay’s Slim preparation in capsule form for weight management.",
+  "uses": [
+    "Weight management and excess body fat."
+  ],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "unreadable",
+  "composition_note": "A composition panel is present, but the ingredient names and amounts are not clear enough to transcribe reliably.",
+  "uses_note": "",
+  "evidence": "Front: remove extra fats of the body and keep the body slim and smart.",
+  "sources": [
+    {
+      "path": "/images/wasay/tonics/slim-capsules-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tonics/slim-capsules-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tonics/slim-capsules-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

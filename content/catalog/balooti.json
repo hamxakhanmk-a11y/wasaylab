@@ -1,0 +1,33 @@
+{
+  "name": "Balooti",
+  "slug": "balooti",
+  "tab": "tablets",
+  "kind": "carton",
+  "order": 10,
+  "detail": "40 tablets",
+  "image": "/images/wasay/tablets/balooti-front.jpg",
+  "about": "Herbal tablets for urinary health.",
+  "uses": [
+    "Excessive urination and urinary bladder support."
+  ],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "not-visible",
+  "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+  "uses_note": "",
+  "evidence": "Front: For Control of Excessive Urination and Tonic For Urinary Bladder.",
+  "sources": [
+    {
+      "path": "/images/wasay/tablets/balooti-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tablets/balooti-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tablets/balooti-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

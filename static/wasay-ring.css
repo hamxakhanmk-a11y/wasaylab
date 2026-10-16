@@ -33,3 +33,6 @@
 @media (prefers-reduced-motion: reduce) {
   .wz-ring__item { will-change: auto; }
 }
+
+/* any product can be chosen for the home ring: a carton is wider than a jar, so it is held inside the jar's height and width */
+.wz-ring__item--carton img { height: auto; max-height: var(--jar-h); max-width: calc(var(--jar-h) * .95); object-fit: contain; }

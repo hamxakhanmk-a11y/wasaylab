@@ -1,0 +1,33 @@
+{
+  "name": "Hasnat",
+  "slug": "hasnat",
+  "tab": "pastes",
+  "kind": "jar",
+  "order": 10,
+  "detail": "250 gm",
+  "image": "/images/wasay/pastes/hasnat-front.jpg",
+  "about": "Wasay’s Hasnat preparation for cardiovascular health.",
+  "uses": [
+    "Cardiovascular support and high blood pressure."
+  ],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "unreadable",
+  "composition_note": "The available photograph shows ingredient amounts, but the corresponding names wrap out of view. The formula cannot be reliably transcribed.",
+  "uses_note": "",
+  "evidence": "Right Urdu panel explicitly prints High Blood Pressure in English; ingredient names wrap out of view on the left.",
+  "sources": [
+    {
+      "path": "/images/wasay/pastes/hasnat-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/pastes/hasnat-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/pastes/hasnat-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

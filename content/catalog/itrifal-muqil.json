@@ -1,0 +1,33 @@
+{
+  "name": "Itrifal Muqil",
+  "slug": "itrifal-muqil",
+  "tab": "pastes",
+  "kind": "jar",
+  "order": 50,
+  "detail": "100 gm",
+  "image": "/images/wasay/pastes/itrifal-muqil-front.jpg",
+  "about": "A traditional preparation for piles and digestive complaints.",
+  "uses": [
+    "Piles and constipation."
+  ],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "not-visible",
+  "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+  "uses_note": "",
+  "evidence": "Left Urdu visible fragments: خونی بواسیر ... قبض دور ...",
+  "sources": [
+    {
+      "path": "/images/wasay/pastes/itrifal-muqil-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/pastes/itrifal-muqil-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/pastes/itrifal-muqil-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

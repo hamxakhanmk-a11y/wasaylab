@@ -1,0 +1,33 @@
+{
+  "name": "Jawarish Kamooni",
+  "slug": "jawarish-kamooni",
+  "tab": "tonics",
+  "kind": "carton",
+  "order": 60,
+  "detail": "100 gm",
+  "image": "/images/wasay/tonics/jawarish-kamooni-front.jpg",
+  "about": "A traditional Jawarish preparation for digestive health.",
+  "uses": [
+    "Indigestion and stomach weakness."
+  ],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "unreadable",
+  "composition_note": "A composition panel is present, but the ingredient names and amounts are not clear enough to transcribe reliably.",
+  "uses_note": "",
+  "evidence": "Left Urdu panel: ہضم کی خرابی ... معدہ ... ضعف ...",
+  "sources": [
+    {
+      "path": "/images/wasay/tonics/jawarish-kamooni-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tonics/jawarish-kamooni-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tonics/jawarish-kamooni-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

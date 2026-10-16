@@ -1,0 +1,31 @@
+{
+  "name": "Qurs Mulayyan",
+  "slug": "qurs-mulayyan",
+  "tab": "tablets",
+  "kind": "carton",
+  "order": 90,
+  "detail": "16 tablets",
+  "image": "/images/wasay/tablets/qurs-mulayyan-front.jpg",
+  "about": "Wasay’s Qurs Mulayyan tablet preparation. Supplied in a pack of 16 tablets.",
+  "uses": [],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "not-visible",
+  "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+  "uses_note": "The available photographs do not show a complete, clearly readable indication. Please confirm the intended use with Wasay Laboratories.",
+  "evidence": "Front confirms name and tablet count. Top-panel indication is too oblique to transcribe confidently.",
+  "sources": [
+    {
+      "path": "/images/wasay/tablets/qurs-mulayyan-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tablets/qurs-mulayyan-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tablets/qurs-mulayyan-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

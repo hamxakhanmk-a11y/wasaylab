@@ -1,0 +1,33 @@
+{
+  "name": "Majon Aqreen",
+  "slug": "majon-aqreen",
+  "tab": "tonics",
+  "kind": "carton",
+  "order": 70,
+  "detail": "100 gm",
+  "image": "/images/wasay/tonics/majon-aqreen-front.jpg",
+  "about": "A traditional Majon tonic for men’s health.",
+  "uses": [
+    "Men’s health support."
+  ],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "unreadable",
+  "composition_note": "A composition panel is present, but the ingredient names and amounts are not clear enough to transcribe reliably.",
+  "uses_note": "",
+  "evidence": "Front: MEN’S HEALTH TONIC.",
+  "sources": [
+    {
+      "path": "/images/wasay/tonics/majon-aqreen-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tonics/majon-aqreen-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tonics/majon-aqreen-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

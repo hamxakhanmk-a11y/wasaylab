@@ -1,0 +1,31 @@
+{
+  "name": "Itrifal Ustukhuddus",
+  "slug": "itrifal-ustukhuddus",
+  "tab": "tablets",
+  "kind": "carton",
+  "order": 120,
+  "detail": "40 tablets",
+  "image": "/images/wasay/tablets/itrifal-ustukhuddus-front.jpg",
+  "about": "Wasay’s Itrifal Ustukhuddus in tablet form. Supplied in a pack of 40 tablets.",
+  "uses": [],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "not-visible",
+  "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+  "uses_note": "The available photographs do not show a complete, clearly readable indication. Please confirm the intended use with Wasay Laboratories.",
+  "evidence": "Front identifies tablet form and name. No fully readable use statement or composition panel in the supplied angles.",
+  "sources": [
+    {
+      "path": "/images/wasay/tablets/itrifal-ustukhuddus-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tablets/itrifal-ustukhuddus-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tablets/itrifal-ustukhuddus-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

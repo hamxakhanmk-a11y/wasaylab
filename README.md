@@ -1,26 +1,28 @@
 # Wasay Laboratories — Website
 
 Static site for Wasay Laboratories (Pvt.) Ltd., built from the Supreme Art site
-design and filled with the content of https://wasaylabs.com/. The online shop
-(cart, checkout, accounts) stays on wasaylabs.com; this site links to it with
-"Order online" buttons.
+design and filled with the content of https://wasaylabs.com/. There is no online
+ordering on this site: people reach Wasay through the Contact page.
 
 ## Pages
 
 | Page | Template | Content |
 | --- | --- | --- |
 | Home | `templates/index.html` | `content/index.json` |
-| Products | `templates/products.html` | `content/products.json` |
+| Products, and one page per tab (Tablets, Multi Tonics, Syrups, Ointments, Pastes) | `templates/products.html`, `tablets.html`, ... | `content/products.json`, `tablets.json`, ... (the page's words only) |
 | About us | `templates/about.html` | `content/about.json` |
+| Contact | `templates/contact.html` | `content/contact.json` |
 
-`content/site.json` holds what appears on every page: company name, logo, menu,
-"Order online" button and footer. The five best sellers are written once, in
-`content/products.json`, and shown on both the Products page and the home page.
+`content/site.json` holds what appears on every page: company name, logo, menu and
+footer. The products themselves are not in the page files: see "The product
+catalogue" below.
 
 ## Structure
 
 ```
 content/            the words on the site, as JSON — what the CMS edits
+  catalog/            one file per product (name, tab, text); see "The product catalogue"
+  home_products.json  which products go round on the home page
 templates/          page templates with {{ placeholders }}
   partials/           header, footer, banner, call to action
 static/             files copied to the site as-is
@@ -66,6 +68,18 @@ Inside `#each`, `{{ . }}` is the item itself, `{{ @n }}` its 1-based position an
 Each `templates/<name>.html` is rendered against `content/<name>.json` (available
 as `page`) plus `content/site.json` (available as `site`).
 
+## The product catalogue
+
+Every product is one file in `content/catalog/<slug>.json`. The file says which tab shows it (`tab`: tablets, tonics, syrups, ointments or pastes), where it sits in that tab (`order`, smaller first), its name and size line (`detail`), and the words shown in its product view (`about`, `uses`, `ingredients`). The build (`build.js`, "The product catalogue") turns these into one list per tab, so **moving a product to another tab is changing its `tab`**; nothing else needs touching. A product can sit in any tab: a carton in the Pastes tab, a jar in Tablets, and so on. `kind` (`carton` or `jar`) says how it is drawn and is not changed.
+
+`content/home_products.json` lists, in order, the products on the home page ring (at least 3). Any product can be chosen, jar or carton.
+
+Both are edited in the editor (see below): **Products** has one entry per product with a tab dropdown, and **Home page, which products show** picks the ring. `node scripts/check-product-details.mjs` (after `node build.js`) checks that every product has its text, 3D data and pictures.
+
+### Adding a product
+
+The editor can change and move products but not create them, because a new product also needs its photos, its 3D data and its pictures made. To add one: add its photos under `static/images/wasay/<tab>/`; add it to `static/tablets-data.json` (a carton) or `static/pastes-data.json` (a jar, see below); add `content/catalog/<slug>.json` (copy a similar product's file and change it); run `node scripts/render-cutouts.mjs <slug>` for its pictures and fit; then `node build.js`.
+
 ## Adding a paste jar
 
 Jars live in `static/pastes-data.json` (the jar and its measurements) and `content/pastes.json` (the name, detail line and fallback photo). `static/pastes.js` builds each jar in WebGL from photographs, so a new jar needs measuring once:
@@ -83,12 +97,13 @@ Jars live in `static/pastes-data.json` (the jar and its measurements) and `conte
 
 ### The home page ring
 
-The ring under the home hero shows every jar in `content/pastes.json` as a transparent front-view image from `static/images/wasay/ring/<slug>.webp`, and the product view shows every product from a larger picture. These are rendered from the 3D models the product pages build, so after adding a product or changing its photos or measurements run:
+The ring under the home hero shows the products chosen in `content/home_products.json` as transparent front-view pictures (a jar from `static/images/wasay/ring/<slug>.webp`, a carton from `static/images/wasay/products/<slug>.webp`), and the product view shows every product from a larger picture. These are rendered from the 3D models the product pages build, so after adding a product or changing its photos or measurements run:
 
 ```sh
 node scripts/render-cutouts.mjs            # every jar and carton
 node scripts/render-cutouts.mjs jars       # the paste jars only
 node scripts/render-cutouts.mjs cartons    # the carton products only
+node scripts/render-cutouts.mjs stills     # only the 640px ring picture of each carton
 node scripts/render-cutouts.mjs hasnat     # one product, by its slug
 ```
 
@@ -112,5 +127,9 @@ Not yet set up. When the site has an address:
 | `ALLOWED_DOMAINS` | The site's hostname (comma-separated; controls which origins may receive a sign-in token) |
 
 The editor is then at `https://<site address>/admin` and commits changes to `main`.
+
+Until that is set up, the editor still works on a computer: open `/admin` in Chrome or Edge, choose **Work with Local Repository** and pick the project folder; changes are written to the files in that folder (then commit and push them as usual).
+
+What the editor holds: **Products** (every product: name, size line, text, which tab, position), **Website content** with the shared menu and footer, the Home page, **Home page, which products show**, the **Contact page**, the Products page text and the About us page. A detail left empty on the Contact page is not shown on the site, so enter the phone number, email and so on there when they are confirmed.
 
 No analytics are installed. Add a tracking snippet to `templates/partials/head.html` when Wasay has an account.

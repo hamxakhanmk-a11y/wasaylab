@@ -46,10 +46,10 @@
     ]
   },
   "cta": {
-    "heading": "Why wait any longer?",
-    "text": "Start browsing and shopping for the Wasay solutions that are right for you.",
-    "primary_label": "Start shopping",
-    "primary_href": "https://wasaylabs.com/shop/",
+    "heading": "Questions about our products?",
+    "text": "Get in touch with Wasay Laboratories and we will help you find the right one.",
+    "primary_label": "Contact us",
+    "primary_href": "contact.html",
     "secondary_label": "Our products",
     "secondary_href": "products.html"
   }

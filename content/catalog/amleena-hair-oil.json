@@ -1,0 +1,35 @@
+{
+  "name": "Amleena",
+  "slug": "amleena-hair-oil",
+  "tab": "ointments",
+  "kind": "carton",
+  "order": 20,
+  "detail": "120 ml aloe vera hair oil",
+  "image": "/images/wasay/ointments/amleena-hair-oil-front.jpg",
+  "about": "An aloe vera hair oil for everyday hair care.",
+  "uses": [
+    "Healthy, shiny hair."
+  ],
+  "ingredients": [
+    "Aloe vera"
+  ],
+  "partial_composition": true,
+  "composition_status": "partial",
+  "composition_note": "Aloe vera is identified on the front label. The complete oil blend and ingredient amounts are not visible.",
+  "uses_note": "",
+  "evidence": "Front: Aloevera Hair Oil; For Healthy And Shinny Hairs Of All The Family.",
+  "sources": [
+    {
+      "path": "/images/wasay/ointments/amleena-hair-oil-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/ointments/amleena-hair-oil-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/ointments/amleena-hair-oil-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

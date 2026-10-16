@@ -1,0 +1,33 @@
+{
+  "name": "Khameera Gaozuban Sada",
+  "slug": "khameera-gaozuban-sada",
+  "tab": "tonics",
+  "kind": "carton",
+  "order": 40,
+  "detail": "100 gm",
+  "image": "/images/wasay/tonics/khameera-gaozuban-sada-front.jpg",
+  "about": "A traditional Khameera preparation for brain and intestinal health.",
+  "uses": [
+    "Brain and intestinal support."
+  ],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "unreadable",
+  "composition_note": "A composition panel is present, but the ingredient names and amounts are not clear enough to transcribe reliably.",
+  "uses_note": "",
+  "evidence": "Front: TONIC FOR BRAIN & INTESTINE.",
+  "sources": [
+    {
+      "path": "/images/wasay/tonics/khameera-gaozuban-sada-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tonics/khameera-gaozuban-sada-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tonics/khameera-gaozuban-sada-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

@@ -45,18 +45,63 @@ const DIST = join(root, 'dist');
 
 /* ---------------- content ---------------- */
 
+function readJson(path, shown) {
+  try {
+    return JSON.parse(readFileSync(path, 'utf8'));
+  } catch (err) {
+    throw new Error(`${shown} is not valid JSON: ${err.message}`);
+  }
+}
+
 function loadContent() {
   const content = {};
-  for (const file of readdirSync(CONTENT)) {
-    if (extname(file) !== '.json') continue;
-    const raw = readFileSync(join(CONTENT, file), 'utf8');
-    try {
-      content[basename(file, '.json')] = JSON.parse(raw);
-    } catch (err) {
-      throw new Error(`content/${file} is not valid JSON: ${err.message}`);
+  for (const entry of readdirSync(CONTENT, { withFileTypes: true })) {
+    if (entry.isDirectory()) {
+      // A folder of JSON files becomes a list: content/catalog/*.json is content.catalog (one file per product).
+      content[entry.name] = readdirSync(join(CONTENT, entry.name)).filter((f) => extname(f) === '.json').sort()
+        .map((f) => readJson(join(CONTENT, entry.name, f), `content/${entry.name}/${f}`));
+      continue;
     }
+    if (extname(entry.name) !== '.json') continue;
+    content[basename(entry.name, '.json')] = readJson(join(CONTENT, entry.name), `content/${entry.name}`);
   }
+  deriveCatalog(content);
   return content;
+}
+
+/* The product catalogue. Each product is its own file in content/catalog/ and says which tab it belongs to (tab), so moving a product
+   between tabs is changing one field. content/home_products.json lists, in order, the products the home page ring shows. From these
+   the build replaces content.catalog (the list of files) with:
+     content.catalog.all       all products, sorted by order then name, each with a few computed fields (jar, large, ring_image, turn, photos_json)
+     content.catalog.<tab>     the products of one tab (tablets, tonics, syrups, ointments, pastes), in order
+     content.home_ring         the products chosen for the home page, in the chosen order */
+const TABS = ['tablets', 'tonics', 'syrups', 'ointments', 'pastes'];
+function deriveCatalog(content) {
+  const products = (content.catalog || []).slice();
+  const seen = new Set();
+  for (const p of products) {
+    const where = `content/catalog (${p.slug || p.name || 'unnamed'})`;
+    if (!p.slug || !p.name) throw new Error(`${where}: every product needs a name and a slug`);
+    if (seen.has(p.slug)) throw new Error(`${where}: two products share the slug "${p.slug}"`);
+    seen.add(p.slug);
+    if (!TABS.includes(p.tab)) throw new Error(`${where}: tab must be one of ${TABS.join(', ')}, not "${p.tab}"`);
+    if (p.kind !== 'jar' && p.kind !== 'carton') throw new Error(`${where}: kind must be jar or carton`);
+    p.jar = p.kind === 'jar';
+    // pictures made by scripts/render-cutouts.mjs, and the data file that lists the product's photographs
+    p.large = p.jar ? `/images/wasay/ring/${p.slug}-large.webp` : `/images/wasay/products/${p.slug}-large.webp`;
+    p.ring_image = p.jar ? `/images/wasay/ring/${p.slug}.webp` : `/images/wasay/products/${p.slug}.webp`;
+    p.turn = p.jar ? `/images/wasay/ring/${p.slug}-turn.webp` : '';
+    p.photos_json = p.jar ? '/pastes-data.json' : '/tablets-data.json';
+  }
+  products.sort((a, b) => (Number(a.order) || 1e6) - (Number(b.order) || 1e6) || a.name.localeCompare(b.name));
+  content.catalog = { all: products, ...Object.fromEntries(TABS.map((t) => [t, products.filter((p) => p.tab === t)])) };
+  const chosen = (content.home_products && content.home_products.products) || [];
+  content.home_ring = chosen.map((slug) => {
+    const p = products.find((x) => x.slug === slug);
+    if (!p) throw new Error(`content/home_products.json: no product with the slug "${slug}"`);
+    return p;
+  });
+  if (content.home_ring.length < 3) throw new Error('content/home_products.json: choose at least 3 products for the home page');
 }
 
 /* ---------------- parser ---------------- */
@@ -248,7 +293,6 @@ for (const file of pages) {
   // Mark the nav entry for the page being rendered, so the header partial can
   // highlight it without the template needing an equality test.
   const nav = site.nav.links.map((link) => ({ ...link, current: link.slug === slug }));
-  nav.push({ ...site.nav.cta, current: site.nav.cta.href === file });
 
   const where = `templates/${file}`;
   const tree = parse(readFileSync(join(TEMPLATES, file), 'utf8'), where);

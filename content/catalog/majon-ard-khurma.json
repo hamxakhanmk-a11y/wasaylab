@@ -1,0 +1,33 @@
+{
+  "name": "Majon Ard Khurma",
+  "slug": "majon-ard-khurma",
+  "tab": "tonics",
+  "kind": "carton",
+  "order": 110,
+  "detail": "100 gm",
+  "image": "/images/wasay/tonics/majon-ard-khurma-front.jpg",
+  "about": "A traditional Majon preparation for reproductive and bladder health.",
+  "uses": [
+    "Seminal fluid complaints and bladder weakness."
+  ],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "unreadable",
+  "composition_note": "A composition panel is present, but the ingredient names and amounts are not clear enough to transcribe reliably.",
+  "uses_note": "",
+  "evidence": "Left Urdu properties: رقت منی ... مثانہ کی کمزوری ...",
+  "sources": [
+    {
+      "path": "/images/wasay/tonics/majon-ard-khurma-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tonics/majon-ard-khurma-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tonics/majon-ard-khurma-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

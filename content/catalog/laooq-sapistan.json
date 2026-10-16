@@ -1,0 +1,33 @@
+{
+  "name": "Laooq Sapistan",
+  "slug": "laooq-sapistan",
+  "tab": "pastes",
+  "kind": "jar",
+  "order": 30,
+  "detail": "100 gm",
+  "image": "/images/wasay/pastes/laooq-sapistan-front.jpg",
+  "about": "A traditional preparation for chest and respiratory care.",
+  "uses": [
+    "Helps clear phlegm from the chest."
+  ],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "not-visible",
+  "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+  "uses_note": "",
+  "evidence": "Left Urdu: سینے کو بلغم سے صاف ...",
+  "sources": [
+    {
+      "path": "/images/wasay/pastes/laooq-sapistan-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/pastes/laooq-sapistan-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/pastes/laooq-sapistan-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

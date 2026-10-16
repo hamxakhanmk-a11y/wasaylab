@@ -1,0 +1,39 @@
+{
+  "name": "Gaster Drops",
+  "slug": "syrup-gaster-drops",
+  "tab": "syrups",
+  "kind": "carton",
+  "order": 10,
+  "detail": "30 ml drops",
+  "image": "/images/wasay/syrups/syrup-gaster-drops-front.jpg",
+  "about": "Gaster digestive drops in a 30 ml pack.",
+  "uses": [
+    "Nausea, vomiting and indigestion.",
+    "Flatulence and heartburn."
+  ],
+  "ingredients": [
+    "Ginger (Zanjabeel)",
+    "Ajwain Khurasani",
+    "Badiyan",
+    "Dill (Soya)"
+  ],
+  "partial_composition": true,
+  "composition_status": "partial",
+  "composition_note": "Only the clearly readable ingredients are listed here. The complete formula and ingredient amounts still need confirmation.",
+  "uses_note": "",
+  "evidence": "Front stomach graphic: Nausea Vomiting Dyspepsia Flatulence heartburn. Urdu side ingredients include ginger, ajwain khurasani, badiyan and soya.",
+  "sources": [
+    {
+      "path": "/images/wasay/syrups/syrup-gaster-drops-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/syrups/syrup-gaster-drops-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/syrups/syrup-gaster-drops-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

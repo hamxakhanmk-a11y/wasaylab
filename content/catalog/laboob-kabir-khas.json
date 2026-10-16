@@ -1,0 +1,34 @@
+{
+  "name": "Laboob Kabir Khas",
+  "slug": "laboob-kabir-khas",
+  "tab": "tonics",
+  "kind": "carton",
+  "order": 80,
+  "detail": "100 gm",
+  "image": "/images/wasay/tonics/laboob-kabir-khas-front.jpg",
+  "about": "A traditional tonic preparation, also known as Majon Zarmina.",
+  "uses": [
+    "Physical weakness.",
+    "Men’s reproductive health support."
+  ],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "unreadable",
+  "composition_note": "A composition panel is present, but the ingredient names and amounts are not clear enough to transcribe reliably.",
+  "uses_note": "",
+  "evidence": "Front: Majon Zarmina. Left Urdu properties mention physical weakness and reproductive support.",
+  "sources": [
+    {
+      "path": "/images/wasay/tonics/laboob-kabir-khas-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tonics/laboob-kabir-khas-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tonics/laboob-kabir-khas-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

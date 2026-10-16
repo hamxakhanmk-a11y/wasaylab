@@ -1,0 +1,34 @@
+{
+  "name": "Unnabi",
+  "slug": "syrup-unnabi",
+  "tab": "syrups",
+  "kind": "carton",
+  "order": 40,
+  "detail": "120 ml",
+  "image": "/images/wasay/syrups/syrup-unnabi-front.jpg",
+  "about": "A herbal syrup for skin and digestive health.",
+  "uses": [
+    "Constipation and digestive complaints.",
+    "Boils, pimples and skin eruptions."
+  ],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "not-visible",
+  "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+  "uses_note": "",
+  "evidence": "Left English panel: digestive system, constipation, boils, pimples and skin eruption.",
+  "sources": [
+    {
+      "path": "/images/wasay/syrups/syrup-unnabi-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/syrups/syrup-unnabi-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/syrups/syrup-unnabi-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

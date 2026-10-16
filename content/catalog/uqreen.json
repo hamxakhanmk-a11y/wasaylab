@@ -1,0 +1,33 @@
+{
+  "name": "Uqreen",
+  "slug": "uqreen",
+  "tab": "tablets",
+  "kind": "carton",
+  "order": 80,
+  "detail": "40 tablets",
+  "image": "/images/wasay/tablets/uqreen-front.jpg",
+  "about": "Herbal tablets for men’s reproductive health.",
+  "uses": [
+    "Azoospermia and male infertility."
+  ],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "not-visible",
+  "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+  "uses_note": "",
+  "evidence": "Front: BEST FOR AZOSPERMIA AND INFERTILITY IN MEN.",
+  "sources": [
+    {
+      "path": "/images/wasay/tablets/uqreen-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tablets/uqreen-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tablets/uqreen-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

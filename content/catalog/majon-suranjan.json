@@ -1,0 +1,33 @@
+{
+  "name": "Majon Suranjan",
+  "slug": "majon-suranjan",
+  "tab": "tonics",
+  "kind": "carton",
+  "order": 50,
+  "detail": "100 gm",
+  "image": "/images/wasay/tonics/majon-suranjan-front.jpg",
+  "about": "A traditional Majon preparation for joint health.",
+  "uses": [
+    "Arthritis and joint complaints."
+  ],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "unreadable",
+  "composition_note": "A composition panel is present, but the ingredient names and amounts are not clear enough to transcribe reliably.",
+  "uses_note": "",
+  "evidence": "Front: TONIC FOR ARTHRITIS.",
+  "sources": [
+    {
+      "path": "/images/wasay/tonics/majon-suranjan-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tonics/majon-suranjan-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tonics/majon-suranjan-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

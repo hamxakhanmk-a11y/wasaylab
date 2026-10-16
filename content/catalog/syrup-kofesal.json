@@ -1,0 +1,47 @@
+{
+  "name": "Kofesal",
+  "slug": "syrup-kofesal",
+  "tab": "syrups",
+  "kind": "carton",
+  "order": 170,
+  "detail": "120 ml",
+  "image": "/images/wasay/syrups/syrup-kofesal-front.jpg",
+  "about": "A cough syrup and dietary supplement.",
+  "uses": [
+    "Cough and chest congestion.",
+    "Blocked nose and throat irritation."
+  ],
+  "ingredients": [
+    "Adhatoda vasica extract",
+    "Glycyrrhiza glabra extract",
+    "Piper longum extract",
+    "Viola odorata extract",
+    "Hyssopus officinalis extract",
+    "Alpinia galanga extract",
+    "Cordia latifolia extract",
+    "Althaea officinalis",
+    "Zingiber extract",
+    "Onosma bracteatum extract",
+    "Foeniculum vulgare",
+    "Rosa damascena"
+  ],
+  "partial_composition": true,
+  "composition_status": "partial",
+  "composition_note": "The readable ingredient names are listed. The full botanical name of one ingredient and the printed amounts need a clearer label photograph.",
+  "uses_note": "",
+  "evidence": "Front cough symptoms; right English composition panel.",
+  "sources": [
+    {
+      "path": "/images/wasay/syrups/syrup-kofesal-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/syrups/syrup-kofesal-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/syrups/syrup-kofesal-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

@@ -21,6 +21,61 @@ media_folder: static/images
 public_folder: /images
 
 collections:
+  # ---------------------------------------------------------------- every product
+  # One entry per product (content/catalog/<slug>.json). Change "Which tab shows this product" to move a product to another tab; the
+  # home page products are chosen in "Home page, which products show". Products cannot be added or deleted here because each one also
+  # needs its 3D model and pictures made (see README, "Adding a product").
+  - name: catalog
+    label: Products
+    label_singular: Product
+    description: Every product on the site. Edit its name, text and tab here.
+    folder: content/catalog
+    extension: json
+    format: json
+    create: false
+    delete: false
+    identifier_field: name
+    slug: '{{slug}}'
+    summary: '{{name}} ({{tab}})'
+    sortable_fields: [name, tab, order]
+    view_groups:
+      - { label: Tab, field: tab }
+    view_filters:
+      - { label: Tablets, field: tab, pattern: tablets }
+      - { label: Multi Tonics, field: tab, pattern: tonics }
+      - { label: Syrups, field: tab, pattern: syrups }
+      - { label: Ointments, field: tab, pattern: ointments }
+      - { label: Pastes, field: tab, pattern: pastes }
+    editor:
+      preview: false
+    fields:
+      - { name: name, label: Product name, widget: string }
+      - name: tab
+        label: Which tab shows this product
+        widget: select
+        options:
+          - { label: Tablets, value: tablets }
+          - { label: Multi Tonics, value: tonics }
+          - { label: Syrups, value: syrups }
+          - { label: Ointments, value: ointments }
+          - { label: Pastes, value: pastes }
+        hint: Switch this to move the product to another tab. It appears at the position set below.
+      - { name: order, label: Position in its tab (smaller numbers come first), widget: number, value_type: int, min: 0, hint: 'Products are spaced 10 apart (10, 20, 30...). Use 15 to put one between the first two.' }
+      - { name: detail, label: Size or pack line (shown under the name), widget: string, hint: 'e.g. 40 tablets, 120 ml' }
+      - { name: about, label: About the product, widget: text }
+      - { name: uses, label: Uses, widget: list, required: false, hint: 'One use per line. Leave empty if the label does not say.' }
+      - { name: ingredients, label: Ingredients, widget: list, required: false, hint: 'Only what is readable on the pack.' }
+      - { name: partial_composition, label: Only some of the ingredients are listed (shows the heading Key ingredients), widget: boolean, required: false }
+      - { name: composition_note, label: Note on the ingredient list (not shown on the site), widget: text, required: false }
+      - { name: uses_note, label: Note on the uses (not shown on the site), widget: text, required: false }
+      - { name: evidence, label: Where the text comes from (not shown on the site), widget: text, required: false }
+      - { name: slug, label: Address name, widget: hidden }
+      - { name: kind, label: Kind of pack, widget: hidden }
+      - { name: image, label: Photo, widget: hidden }
+      - { name: motion, label: Special view, widget: hidden, required: false }
+      - { name: composition_status, label: Composition evidence, widget: hidden, required: false }
+      - { name: sources, label: Source photographs, widget: hidden, required: false }
+
   - name: content
     label: Website content
     editor:
@@ -28,7 +83,7 @@ collections:
     files:
       # ---------------------------------------------------------------- shared
       - name: site
-        label: Shared: menu and footer
+        label: 'Shared: menu and footer'
         file: content/site.json
         description: Used on every page. Change it once and it updates site-wide.
         fields:
@@ -55,16 +110,8 @@ collections:
                   - name: slug
                     label: Page it belongs to
                     widget: select
-                    options: [index, products, about]
+                    options: [index, tablets, tonics, syrups, ointments, pastes, products, about, contact]
                     hint: Used to highlight this item when you are on that page.
-              - name: cta
-                label: Menu button
-                widget: object
-                fields:
-                  - { name: label, label: Text, widget: string }
-                  - { name: href, label: Links to, widget: string }
-                  - { name: external, label: Opens in a new tab, widget: boolean, default: true }
-                  - { name: desktop_only, label: Only on desktop, widget: boolean, default: true }
           - name: footer
             label: Footer
             widget: object
@@ -73,14 +120,6 @@ collections:
               - { name: company_heading, label: First column heading, widget: string }
               - name: company_links
                 label: First column links
-                widget: list
-                summary: '{{fields.label}}'
-                fields:
-                  - { name: label, label: Text, widget: string }
-                  - { name: href, label: Links to, widget: string }
-              - { name: shop_heading, label: Second column heading, widget: string }
-              - name: shop_links
-                label: Second column links
                 widget: list
                 summary: '{{fields.label}}'
                 fields:
@@ -219,9 +258,82 @@ collections:
               - { name: secondary_label, label: Second button text, widget: string }
               - { name: secondary_href, label: Second button links to, widget: string }
 
+      # ----------------------------------------------- products on the home page
+      - name: home_products
+        label: Home page, which products show
+        file: content/home_products.json
+        description: Pick the products that go round on the home page, in the order you want them (at least 3). Any product from any tab can be chosen.
+        fields:
+          - name: products
+            label: Products shown on the home page
+            widget: relation
+            collection: catalog
+            value_field: slug
+            search_fields: [name, tab]
+            display_fields: [name]
+            multiple: true
+            min: 3
+            hint: Type a name to find a product. They appear on the home page in this order.
+
+      # ------------------------------------------------------------ contact page
+      - name: contact
+        label: Contact page
+        file: content/contact.json
+        description: Fill in a detail and it appears on the Contact page; leave it empty and it is not shown. Only enter details that are correct.
+        fields:
+          - { name: title, label: Browser tab / search result title, widget: string }
+          - { name: description, label: Search engine description, widget: text, hint: 'Aim for 150–160 characters.' }
+          - name: banner
+            label: Page banner
+            widget: object
+            fields:
+              - { name: crumb, label: Breadcrumb text, widget: string }
+              - { name: heading, label: Heading, widget: string }
+          - name: intro
+            label: Introduction
+            widget: object
+            fields:
+              - { name: eyebrow, label: Small label above heading, widget: string }
+              - { name: heading, label: Heading, widget: string }
+              - { name: text, label: Paragraph, widget: text }
+          - { name: address, label: Address, widget: text, required: false, hint: 'Press Enter for a new line.' }
+          - { name: phone, label: Phone number, widget: string, required: false, hint: 'e.g. +92 91 1234567. Becomes a tap-to-call link.' }
+          - { name: email, label: Email address, widget: string, required: false }
+          - { name: hours, label: Opening hours, widget: text, required: false }
+          - { name: map_url, label: Link to the address on a map (optional), widget: string, required: false }
+          - { name: map_label, label: Map link text, widget: string }
+          - name: links
+            label: Find us online (WhatsApp, Facebook, Instagram, website...)
+            widget: list
+            required: false
+            summary: '{{fields.label}}'
+            fields:
+              - { name: label, label: Text, widget: string }
+              - { name: url, label: Full web address, widget: string, hint: 'Starts with https://' }
+          - name: extra
+            label: Other details (for example a second phone or a branch)
+            widget: list
+            required: false
+            summary: '{{fields.label}}'
+            fields:
+              - { name: label, label: Title, widget: string }
+              - { name: value, label: Text, widget: text }
+          - { name: note, label: A note under the details, widget: text, required: false }
+          - name: labels
+            label: Card titles (change only to rename or translate)
+            widget: object
+            collapsed: true
+            fields:
+              - { name: company, label: Company card, widget: string }
+              - { name: address, label: Address card, widget: string }
+              - { name: phone, label: Phone card, widget: string }
+              - { name: email, label: Email card, widget: string }
+              - { name: hours, label: Opening hours card, widget: string }
+              - { name: links, label: Online links title, widget: string }
+
       # ---------------------------------------------------------- products page
       - name: products
-        label: Products page (also feeds the home page best sellers)
+        label: Products page text
         file: content/products.json
         fields:
           - { name: title, label: Browser tab / search result title, widget: string }
@@ -239,31 +351,6 @@ collections:
               - { name: eyebrow, label: Small label above heading, widget: string }
               - { name: heading, label: Heading, widget: string }
               - { name: text, label: Paragraph, widget: text }
-          - { name: order_label, label: Order link text, widget: string }
-          - name: items
-            label: Products (the first three show large, the rest side by side)
-            widget: list
-            summary: '{{fields.name}}'
-            fields:
-              - { name: name, label: Name, widget: string }
-              - { name: image, label: Photo, widget: image }
-              - { name: alt, label: Photo description, widget: string }
-              - { name: detail, label: Short detail line, widget: string, hint: 'e.g. 120 ml syrup' }
-              - { name: description, label: Longer description (optional), widget: text, required: false }
-              - { name: href, label: Order link, widget: string }
-          - name: categories
-            label: Shop by category
-            widget: object
-            fields:
-              - { name: eyebrow, label: Small label above heading, widget: string }
-              - { name: heading, label: Heading, widget: string }
-              - name: items
-                label: Categories
-                widget: list
-                summary: '{{fields.label}}'
-                fields:
-                  - { name: label, label: Name, widget: string }
-                  - { name: href, label: Links to, widget: string }
           - name: cta
             label: Closing call to action
             widget: object
@@ -335,32 +422,3 @@ collections:
               - { name: secondary_label, label: Second button text, widget: string }
               - { name: secondary_href, label: Second button links to, widget: string }
 
-      - name: product_details
-        label: Product descriptions and composition
-        file: content/product_details.json
-        description: Shared by Home and all product tabs. Use approved Wasay labels only; record source photos and incomplete formulas.
-        fields:
-          - { name: reviewed_on, label: Review date, widget: string }
-          - { name: basis, label: Editorial source policy, widget: text }
-          - name: products
-            label: Products
-            widget: list
-            summary: '{{fields.name}}'
-            fields:
-              - { name: slug, label: Product ID (must match the gallery), widget: string }
-              - { name: name, label: Product name, widget: string }
-              - { name: category, label: Category, widget: select, options: [tablets, tonics, syrups, ointments, pastes] }
-              - { name: about, label: About the product, widget: text }
-              - { name: uses, label: Labelled uses, widget: list }
-              - { name: uses_note, label: Missing-use explanation, widget: text, required: false }
-              - { name: ingredients, label: Readable ingredient names, widget: list }
-              - { name: composition_status, label: Composition evidence, widget: select, options: [listed, partial, unreadable, not-visible] }
-              - { name: partial_composition, label: Show as key ingredients (incomplete formula), widget: boolean, default: false }
-              - { name: composition_note, label: Composition note, widget: text }
-              - name: sources
-                label: Source photographs
-                widget: list
-                fields:
-                  - { name: path, label: Original label photograph, widget: image }
-                  - { name: type, label: Source type, widget: string }
-              - { name: evidence, label: Transcription and verification notes, widget: text }

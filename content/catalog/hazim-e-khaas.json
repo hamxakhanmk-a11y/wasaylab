@@ -1,0 +1,43 @@
+{
+  "name": "Hazim E Khaas",
+  "slug": "hazim-e-khaas",
+  "tab": "tonics",
+  "kind": "carton",
+  "order": 130,
+  "detail": "50 gm",
+  "image": "/images/wasay/tonics/hazim-e-khaas-front.jpg",
+  "about": "A traditional digestive preparation in a 50 gm pack.",
+  "uses": [
+    "Digestive support.",
+    "Gas-related discomfort."
+  ],
+  "ingredients": [
+    "Tabasheer",
+    "Cinnamon (Darchini)",
+    "Large cardamom (Ilaichi Kalan)",
+    "White cumin (Zeera Sufaid)",
+    "Small cardamom (Ilaichi Khurd)",
+    "Black pepper (Filfil Siyah)",
+    "Fennel (Saunf)",
+    "Long pepper (Filfil Daraz)"
+  ],
+  "partial_composition": false,
+  "composition_status": "listed",
+  "composition_note": "Ingredient names transcribed from the photographed label. Ingredient amounts are not reproduced here.",
+  "uses_note": "",
+  "evidence": "Right Urdu properties refer to improving digestion and gas. Left Urdu ingredients list is readable.",
+  "sources": [
+    {
+      "path": "/images/wasay/tonics/hazim-e-khaas-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tonics/hazim-e-khaas-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tonics/hazim-e-khaas-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

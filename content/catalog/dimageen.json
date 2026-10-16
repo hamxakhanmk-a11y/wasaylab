@@ -1,0 +1,33 @@
+{
+  "name": "Dimageen",
+  "slug": "dimageen",
+  "tab": "tablets",
+  "kind": "carton",
+  "order": 30,
+  "detail": "40 tablets",
+  "image": "/images/wasay/tablets/dimageen-front.jpg",
+  "about": "Herbal tablets for nervous tension and stress.",
+  "uses": [
+    "Nervous tension, stress and related complaints."
+  ],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "not-visible",
+  "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+  "uses_note": "",
+  "evidence": "Front: FOR NERVOUS TENSION STRESS & RELATED PROBLEMS.",
+  "sources": [
+    {
+      "path": "/images/wasay/tablets/dimageen-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tablets/dimageen-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tablets/dimageen-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

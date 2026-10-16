@@ -22,7 +22,7 @@
         <div class="wellness-banner__copy">
           <h1 id="wellness-title">{{ page.hero.heading }}</h1>
           <p>{{ page.hero.lead }}</p>
-          <a class="btn btn--accent" href="{{ page.hero.primary_href }}" target="_blank" rel="noopener">{{ page.hero.primary_label }} <span aria-hidden="true">↗</span></a>
+          <a class="btn btn--accent" href="{{ page.hero.primary_href }}">{{ page.hero.primary_label }} <span aria-hidden="true">→</span></a>
         </div>
         <button class="wellness-banner__motion" type="button" data-banner-motion hidden aria-pressed="false">Play video</button>
         </div>
@@ -52,7 +52,7 @@
           <text class="wz-ring__text"><textPath href="#wz-arch-text" startOffset="50%" text-anchor="middle">{{ page.ring.arch_text }} &middot; {{ page.ring.arch_text }}</textPath></text>
         </svg>
         <ul class="wz-ring__items">
-          {{#each content.pastes.pastes}}<li class="wz-ring__item" data-ring-item data-pv-item data-slug="{{ slug }}" data-name="{{ name }}" data-detail="{{ detail }}" data-kind="pastes" data-img="/images/wasay/ring/{{ slug }}-large.webp" data-photos="/pastes-data.json" data-turn="/images/wasay/ring/{{ slug }}-turn.webp"><a href="pastes.html" aria-label="{{ name }}, {{ detail }}" draggable="false"><img src="/images/wasay/ring/{{ slug }}.webp" alt="" height="640" decoding="async" draggable="false" /></a></li>
+          {{#each content.home_ring}}<li class="wz-ring__item{{#if jar}}{{else}} wz-ring__item--carton{{/if}}" data-ring-item data-pv-item data-slug="{{ slug }}" data-name="{{ name }}" data-detail="{{ detail }}" data-kind="{{ tab }}" data-img="{{ large }}" data-photos="{{ photos_json }}"{{#if turn}} data-turn="{{ turn }}"{{/if}}><a href="{{ tab }}.html#product-{{ slug }}" aria-label="{{ name }}, {{ detail }}" draggable="false"><img src="{{ ring_image }}" alt="" height="640" decoding="async" draggable="false" /></a></li>
           {{/each}}
         </ul>
       </div>

@@ -1,0 +1,33 @@
+{
+  "name": "Lekoden",
+  "slug": "lekoden",
+  "tab": "tablets",
+  "kind": "carton",
+  "order": 50,
+  "detail": "40 tablets",
+  "image": "/images/wasay/tablets/lekoden-front.jpg",
+  "about": "A herbal tablet tonic for weakness associated with calcium deficiency.",
+  "uses": [
+    "Weakness associated with a lack of calcium."
+  ],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "not-visible",
+  "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+  "uses_note": "",
+  "evidence": "Front: TONIC FOR WEAKNESS DUE TO LACK OF CALCIUM.",
+  "sources": [
+    {
+      "path": "/images/wasay/tablets/lekoden-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tablets/lekoden-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tablets/lekoden-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

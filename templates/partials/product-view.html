@@ -2,7 +2,7 @@
      product, which tilts as the page is scrolled; static/wasay-detail.js fills it in from the clicked product's data attributes. -->
 {{#each site.product_view.kinds}}<template data-pv-kind="{{ key }}" data-range="{{ range }}" data-pack="{{ pack }}" data-noun="{{ noun }}" data-all-label="{{ all_label }}" data-all-href="{{ all_href }}"></template>
 {{/each}}
-{{#each content.product_details.products}}
+{{#each content.catalog.all}}
 <template data-pv-copy="{{ slug }}">
   <section class="wz-detail__section">
     <h3>{{ site.product_view.about_heading }}</h3>

@@ -1,0 +1,33 @@
+{
+  "name": "Bukharol",
+  "slug": "syrup-bukharol",
+  "tab": "syrups",
+  "kind": "carton",
+  "order": 90,
+  "detail": "120 ml",
+  "image": "/images/wasay/syrups/syrup-bukharol-front.jpg",
+  "about": "Bukharol syrup for fever-related complaints.",
+  "uses": [
+    "Seasonal fever and fever associated with cold and cough."
+  ],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "unreadable",
+  "composition_note": "A composition panel is present, but the ingredient names and amounts are not clear enough to transcribe reliably.",
+  "uses_note": "",
+  "evidence": "Left English: Seasonal Fever ... Fever due to Cold and Cough. Strong malaria claim deliberately not reproduced as a treatment recommendation.",
+  "sources": [
+    {
+      "path": "/images/wasay/syrups/syrup-bukharol-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/syrups/syrup-bukharol-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/syrups/syrup-bukharol-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

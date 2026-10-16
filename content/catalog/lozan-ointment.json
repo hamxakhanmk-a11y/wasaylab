@@ -1,0 +1,33 @@
+{
+  "name": "Lozan",
+  "slug": "lozan-ointment",
+  "tab": "ointments",
+  "kind": "carton",
+  "order": 10,
+  "detail": "20 gm ointment",
+  "image": "/images/wasay/ointments/lozan-ointment-front.jpg",
+  "about": "Lozan skin ointment in a 20 gm pack.",
+  "uses": [
+    "Eczema."
+  ],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "not-visible",
+  "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+  "uses_note": "",
+  "evidence": "Front: ECZEMA OINTMENT.",
+  "sources": [
+    {
+      "path": "/images/wasay/ointments/lozan-ointment-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/ointments/lozan-ointment-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/ointments/lozan-ointment-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

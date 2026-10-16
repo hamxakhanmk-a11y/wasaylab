@@ -215,7 +215,7 @@ and set the photo beside the text. On phones they stack.
 ## Components
 
 - **top-nav**: 68px sticky bar. Logo left, links in muted turning ink, a green pill marking the current page. The last
-  item ("Order online") opens the shop on wasaylabs.com in a new tab.
+  item ("Contact") is an ordinary tab like the others. The site has no online ordering; every call to action leads to the Contact page.
 - **Buttons**: every `.btn` is a glass pill, 48px tall. Accent is green glass with a white rim; ghost is clear glass with a
   warm-brown border. On hover or focus they expand their side padding. They never bounce and never darken to black.
 - **hero** (`.wz-hero`): the live site's green banner photo, shown whole at its own proportions in a 10px frame on a paper
@@ -320,3 +320,9 @@ Who we are is one scene that holds its place while the page scrolls past it (`.b
 ## Product tiles on the tabs
 
 A product stands near the bottom of its tile and its name sits right under it (about 10px of gap, no more). The 3D canvas has empty space round the model, so each tile is trimmed to the product: `--trim` shortens the tile and `--drop` moves the canvas, and rows are bottom-aligned so the names stay on one line. The two numbers are measured ahead of time for every product by `node scripts/render-cutouts.mjs fit` and stored as `fit` in `static/tablets-data.json` and `static/pastes-data.json`, so a tile has its final height before its 3D model is built and nothing jumps when models finish. Run it again after adding a product or changing its model (a normal run of the script does it too). A product without a stored fit is measured live as a fallback.
+
+## Contact page and the product catalogue
+
+The menu is Home, the five product tabs, About us and Contact; there is no "Order online" button, shop catalogue, shop-category chips or shop column in the footer, and every closing band and the banner button lead to Contact. The Contact page (`templates/contact.html`, `content/contact.json`) is a banner, a short introduction and one card per detail: the company name always, then whichever of address, phone, email, opening hours and extra details are filled in, then optional links. A detail left empty is simply not drawn, so nothing is invented while a detail is unconfirmed; only the address printed on the packs is filled in.
+
+Products are data, not templates: one file each in `content/catalog/` with a `tab`, so a product can be moved between tabs, and `content/home_products.json` picks the home ring from any of them. A jar is drawn as a jar and a carton as a carton wherever it sits. On the ring a carton is held inside the jar's height and width (`.wz-ring__item--carton`) so it never dwarfs a jar, and it does not turn with the mouse (there is no turn strip for cartons).

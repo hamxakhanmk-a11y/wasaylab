@@ -1,0 +1,38 @@
+{
+  "name": "Mother Tonic",
+  "slug": "mother-tonic",
+  "tab": "pastes",
+  "kind": "jar",
+  "order": 90,
+  "detail": "50 gm",
+  "image": "/images/wasay/pastes/mother-tonic-front.jpg",
+  "about": "A traditional preparation for breastfeeding mothers.",
+  "uses": [
+    "Supports breast milk production."
+  ],
+  "ingredients": [
+    "Cheiranthus cheiri",
+    "Zingiber officinalis",
+    "Mathiola incana",
+    "Sugar"
+  ],
+  "partial_composition": false,
+  "composition_status": "listed",
+  "composition_note": "Ingredient names transcribed from the photographed label. Ingredient amounts are not reproduced here.",
+  "uses_note": "",
+  "evidence": "Right English: Used as galactagogue. Composition lists Cheiranthus cheiri, Zingiber officinalis, Mathiola incana, Sugar.",
+  "sources": [
+    {
+      "path": "/images/wasay/pastes/mother-tonic-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/pastes/mother-tonic-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/pastes/mother-tonic-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

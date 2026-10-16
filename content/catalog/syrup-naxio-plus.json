@@ -1,0 +1,40 @@
+{
+  "name": "Naxio Plus",
+  "slug": "syrup-naxio-plus",
+  "tab": "syrups",
+  "kind": "carton",
+  "order": 180,
+  "detail": "240 ml suspension",
+  "image": "/images/wasay/syrups/syrup-naxio-plus-front.jpg",
+  "about": "A mint oral suspension for acid-related digestive discomfort.",
+  "uses": [
+    "Gastritis, indigestion and heartburn.",
+    "Hyperacidity, acid reflux and nausea."
+  ],
+  "ingredients": [
+    "Ginger",
+    "Cucumber",
+    "Cocos oil",
+    "Menthol",
+    "Cinnamon oil"
+  ],
+  "partial_composition": true,
+  "composition_status": "partial",
+  "composition_note": "Only the clearly readable ingredients are listed here. The complete formula and ingredient amounts still need confirmation.",
+  "uses_note": "",
+  "evidence": "Front indications and right composition. Several composition entries remain ambiguous.",
+  "sources": [
+    {
+      "path": "/images/wasay/syrups/syrup-naxio-plus-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/syrups/syrup-naxio-plus-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/syrups/syrup-naxio-plus-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "name": "Zaheeri",
+  "slug": "zaheeri",
+  "tab": "tablets",
+  "kind": "carton",
+  "order": 60,
+  "detail": "16 tablets",
+  "image": "/images/wasay/tablets/zaheeri-front.jpg",
+  "about": "A tablet preparation for digestive complaints.",
+  "uses": [
+    "Diarrhoea and dysentery."
+  ],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "not-visible",
+  "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+  "uses_note": "",
+  "evidence": "Front: indicated in all types of specific and non specific diarrhoea and dysentry.",
+  "sources": [
+    {
+      "path": "/images/wasay/tablets/zaheeri-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tablets/zaheeri-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tablets/zaheeri-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

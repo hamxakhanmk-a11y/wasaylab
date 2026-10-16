@@ -1,0 +1,30 @@
+{
+  "title": "Contact — Wasay Laboratories",
+  "description": "How to reach Wasay Laboratories (Pvt.) Ltd., a natural products manufacturer in Peshawar, Pakistan.",
+  "banner": {
+    "crumb": "Contact",
+    "heading": "Contact us"
+  },
+  "intro": {
+    "eyebrow": "Get in touch",
+    "heading": "We would be glad to hear from you.",
+    "text": "Questions about a product, or about Wasay Laboratories? Reach us using the details below."
+  },
+  "labels": {
+    "company": "Company",
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email",
+    "hours": "Opening hours",
+    "links": "Find us online"
+  },
+  "address": "148-Industrial Estate, Jamrud Road, Peshawar, Pakistan",
+  "phone": "",
+  "email": "",
+  "hours": "",
+  "map_url": "",
+  "map_label": "Open in maps",
+  "links": [],
+  "extra": [],
+  "note": ""
+}

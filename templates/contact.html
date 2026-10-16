@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{{> head}}
+</head>
+<body>
+{{> loader}}
+{{> header}}
+
+  <main>
+{{> banner}}
+
+    <!-- CONTACT: every detail is edited in the CMS (Contact page). A detail left empty there is not shown here. -->
+    <section class="section wz-contact" aria-labelledby="wz-contact-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">{{ page.intro.eyebrow }}</p>
+          <h2 id="wz-contact-title">{{ page.intro.heading }}</h2>
+          <p class="lead">{{ page.intro.text }}</p>
+        </div>
+        <ul class="wz-contact__cards">
+          <li class="card"><h3>{{ page.labels.company }}</h3><p>{{ site.name }}</p></li>
+          {{#if page.address}}<li class="card"><h3>{{ page.labels.address }}</h3><p>{{& page.address }}</p>{{#if page.map_url}}<a class="wz-link" href="{{ page.map_url }}" target="_blank" rel="noopener">{{ page.map_label }} &rarr;</a>{{/if}}</li>{{/if}}
+          {{#if page.phone}}<li class="card"><h3>{{ page.labels.phone }}</h3><p><a href="tel:{{ page.phone }}">{{ page.phone }}</a></p></li>{{/if}}
+          {{#if page.email}}<li class="card"><h3>{{ page.labels.email }}</h3><p><a href="mailto:{{ page.email }}">{{ page.email }}</a></p></li>{{/if}}
+          {{#if page.hours}}<li class="card"><h3>{{ page.labels.hours }}</h3><p>{{& page.hours }}</p></li>{{/if}}
+          {{#each page.extra}}<li class="card"><h3>{{ label }}</h3><p>{{& value }}</p></li>
+          {{/each}}
+        </ul>
+        {{#if page.links}}<div class="wz-contact__links">
+          <h3>{{ page.labels.links }}</h3>
+          <ul class="wz-chips">
+            {{#each page.links}}<li><a class="wz-chip" href="{{ url }}" target="_blank" rel="noopener">{{ label }}</a></li>
+            {{/each}}
+          </ul>
+        </div>{{/if}}
+        {{#if page.note}}<p class="wz-contact__note">{{& page.note }}</p>{{/if}}
+      </div>
+    </section>
+  </main>
+
+{{> footer}}
+
+  <script src="/script.js"></script>
+</body>
+</html>

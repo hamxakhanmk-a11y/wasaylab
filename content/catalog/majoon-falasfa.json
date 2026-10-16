@@ -1,0 +1,33 @@
+{
+  "name": "Majoon Falasfa",
+  "slug": "majoon-falasfa",
+  "tab": "pastes",
+  "kind": "jar",
+  "order": 80,
+  "detail": "100 gm",
+  "image": "/images/wasay/pastes/majoon-falasfa-front.jpg",
+  "about": "Wasay’s traditional Majoon Falasfa preparation in a 100 gm jar.",
+  "uses": [
+    "Phlegmatic and urinary complaints."
+  ],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "not-visible",
+  "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+  "uses_note": "",
+  "evidence": "Left Urdu: بلغمی مادوں ... پیشاب ... Remaining text wraps out of view.",
+  "sources": [
+    {
+      "path": "/images/wasay/pastes/majoon-falasfa-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/pastes/majoon-falasfa-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/pastes/majoon-falasfa-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

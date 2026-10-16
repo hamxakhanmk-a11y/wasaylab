@@ -71,7 +71,7 @@ Two products still need a readable use statement: Qurs Mulayyan and Itrifal Ustu
 | Majoon Falasfa (pastes) | Label text available | not-visible |
 | Mother Tonic (pastes) | Label text available | listed |
 
-Full per-product evidence notes and original photo paths are in content/product_details.json. “listed” means the printed ingredient-name list could be read; it does not certify efficacy or completeness of excipients.
+Full per-product evidence notes and original photo paths are in each product's file in content/catalog/. “listed” means the printed ingredient-name list could be read; it does not certify efficacy or completeness of excipients.
 
 ## Customer-facing copy revision
 

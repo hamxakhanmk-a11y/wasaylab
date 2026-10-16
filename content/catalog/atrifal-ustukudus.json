@@ -1,0 +1,33 @@
+{
+  "name": "Atrifal Ustukudus",
+  "slug": "atrifal-ustukudus",
+  "tab": "tonics",
+  "kind": "carton",
+  "order": 100,
+  "detail": "100 gm",
+  "image": "/images/wasay/tonics/atrifal-ustukudus-front.jpg",
+  "about": "A traditional Atrifal preparation for brain and intestinal health.",
+  "uses": [
+    "Brain and intestinal support."
+  ],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "unreadable",
+  "composition_note": "A composition panel is present, but the ingredient names and amounts are not clear enough to transcribe reliably.",
+  "uses_note": "",
+  "evidence": "Front: TONIC FOR BRAIN & INTESTINE.",
+  "sources": [
+    {
+      "path": "/images/wasay/tonics/atrifal-ustukudus-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tonics/atrifal-ustukudus-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tonics/atrifal-ustukudus-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

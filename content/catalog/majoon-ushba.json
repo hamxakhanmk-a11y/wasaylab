@@ -1,0 +1,33 @@
+{
+  "name": "Majoon Ushba",
+  "slug": "majoon-ushba",
+  "tab": "pastes",
+  "kind": "jar",
+  "order": 70,
+  "detail": "100 gm",
+  "image": "/images/wasay/pastes/majoon-ushba-front.jpg",
+  "about": "A traditional Majoon preparation for skin complaints.",
+  "uses": [
+    "Itching and skin complaints."
+  ],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "not-visible",
+  "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+  "uses_note": "",
+  "evidence": "Left Urdu: خارش ... جلد ... No further hidden wording inferred.",
+  "sources": [
+    {
+      "path": "/images/wasay/pastes/majoon-ushba-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/pastes/majoon-ushba-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/pastes/majoon-ushba-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

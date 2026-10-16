@@ -1,0 +1,34 @@
+{
+  "name": "Ulcereen",
+  "slug": "ulcereen",
+  "tab": "tonics",
+  "kind": "carton",
+  "order": 10,
+  "detail": "10 sachets",
+  "image": "/images/wasay/tonics/ulcereen-front.jpg",
+  "about": "A digestive preparation supplied in sachets.",
+  "uses": [
+    "Peptic ulcer and gastritis.",
+    "Flatulence, dysentery and constipation."
+  ],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "unreadable",
+  "composition_note": "A composition panel is present, but the ingredient names and amounts are not clear enough to transcribe reliably.",
+  "uses_note": "",
+  "evidence": "Front: Peptic Ulcer Gastritis Flatulence Dysentery ... remove Constipation.",
+  "sources": [
+    {
+      "path": "/images/wasay/tonics/ulcereen-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tonics/ulcereen-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tonics/ulcereen-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

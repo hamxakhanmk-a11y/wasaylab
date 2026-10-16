@@ -1,0 +1,39 @@
+{
+  "name": "Mah-Naz",
+  "slug": "syrup-mah-naz",
+  "tab": "syrups",
+  "kind": "carton",
+  "order": 30,
+  "detail": "120 ml",
+  "image": "/images/wasay/syrups/syrup-mah-naz-front.jpg",
+  "about": "A herbal syrup for women’s pelvic and menstrual health.",
+  "uses": [
+    "Pelvic complaints and muscle spasms.",
+    "Menstrual irregularities and premenstrual symptoms."
+  ],
+  "ingredients": [
+    "Morus nigra extract",
+    "Glycyrrhiza glabra extract",
+    "Cydonia oblonga",
+    "Curcuma longa extract"
+  ],
+  "partial_composition": false,
+  "composition_status": "listed",
+  "composition_note": "Ingredient names transcribed from the photographed label. Ingredient amounts are not reproduced here.",
+  "uses_note": "",
+  "evidence": "Right English composition and indications panel.",
+  "sources": [
+    {
+      "path": "/images/wasay/syrups/syrup-mah-naz-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/syrups/syrup-mah-naz-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/syrups/syrup-mah-naz-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

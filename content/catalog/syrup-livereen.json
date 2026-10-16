@@ -1,0 +1,38 @@
+{
+  "name": "Livereen",
+  "slug": "syrup-livereen",
+  "tab": "syrups",
+  "kind": "carton",
+  "order": 120,
+  "detail": "240 ml",
+  "image": "/images/wasay/syrups/syrup-livereen-front.jpg",
+  "about": "Livereen Akseer Jigar, a syrup for liver and digestive support.",
+  "uses": [
+    "Liver and antioxidant support.",
+    "Indigestion, flatulence and heartburn."
+  ],
+  "ingredients": [
+    "Silybum marianum extract",
+    "Artichoke leaf extract",
+    "Turmeric extract"
+  ],
+  "partial_composition": false,
+  "composition_status": "listed",
+  "composition_note": "Ingredient names transcribed from the photographed label. Ingredient amounts are not reproduced here.",
+  "uses_note": "",
+  "evidence": "Front Hepato Protector / De Toxifier / Anti Oxidant. Right composition and indications. Hepatitis cure claim not reproduced.",
+  "sources": [
+    {
+      "path": "/images/wasay/syrups/syrup-livereen-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/syrups/syrup-livereen-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/syrups/syrup-livereen-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

@@ -4,8 +4,8 @@
   "hero": {
     "heading": "Rediscover the Power of Natural Healing",
     "lead": "Curing naturally, caring globally.",
-    "primary_label": "Order online",
-    "primary_href": "https://wasaylabs.com/shop/",
+    "primary_label": "Contact us",
+    "primary_href": "contact.html",
     "secondary_label": "Our products",
     "secondary_href": "products.html",
     "image": "/images/wasay/Wasay-banner.webp",
@@ -39,11 +39,11 @@
   },
   "ring": {
     "eyebrow": "Our products",
-    "heading": "Explore our pastes.",
-    "label": "Wasay paste jars. Drag, scroll or use the left and right arrow keys to turn the ring, and press Enter or click to open a jar.",
+    "heading": "Explore our products.",
+    "label": "Wasay products. Drag, scroll or use the left and right arrow keys to turn the ring, and press Enter or click to open a product.",
     "arch_text": "Power of Natural Healing",
-    "link_label": "See all pastes",
-    "link_href": "pastes.html"
+    "link_label": "See all products",
+    "link_href": "products.html"
   },
   "about": {
     "eyebrow": "Who we are",
@@ -127,10 +127,10 @@
     ]
   },
   "cta": {
-    "heading": "Why wait any longer?",
-    "text": "Start browsing and shopping for the Wasay solutions that are right for you.",
-    "primary_label": "Start shopping",
-    "primary_href": "https://wasaylabs.com/shop/",
+    "heading": "Questions about our products?",
+    "text": "Get in touch with Wasay Laboratories and we will help you find the right one.",
+    "primary_label": "Contact us",
+    "primary_href": "contact.html",
     "secondary_label": "Our products",
     "secondary_href": "products.html"
   }

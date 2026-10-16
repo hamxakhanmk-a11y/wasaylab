@@ -1,0 +1,39 @@
+{
+  "name": "Lozatain",
+  "slug": "syrup-lozatain",
+  "tab": "syrups",
+  "kind": "carton",
+  "order": 50,
+  "detail": "120 ml",
+  "image": "/images/wasay/syrups/syrup-lozatain-front.jpg",
+  "about": "Toot Siyah and Mulathi syrup for cough and throat care.",
+  "uses": [
+    "Cough, hoarseness and throat irritation.",
+    "Pharyngitis and tonsillitis."
+  ],
+  "ingredients": [
+    "Morus nigra extract",
+    "Glycyrrhiza glabra extract",
+    "Cydonia oblonga",
+    "Curcuma longa extract"
+  ],
+  "partial_composition": false,
+  "composition_status": "listed",
+  "composition_note": "Ingredient names transcribed from the photographed label. Ingredient amounts are not reproduced here.",
+  "uses_note": "",
+  "evidence": "Front: Toot Siyah + Mulathi. Right English composition and indications.",
+  "sources": [
+    {
+      "path": "/images/wasay/syrups/syrup-lozatain-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/syrups/syrup-lozatain-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/syrups/syrup-lozatain-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

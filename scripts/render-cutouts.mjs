@@ -6,12 +6,14 @@
  *   node scripts/render-cutouts.mjs cartons      (the carton products only)
  *   node scripts/render-cutouts.mjs hasnat       (one product, by its slug)
  *   node scripts/render-cutouts.mjs fit          (only measure each product's fit in its tile, no pictures)
+ *   node scripts/render-cutouts.mjs stills       (only the 640px ring picture of each carton)
  *
  * It builds the site, serves dist/, opens each product page in a headless Chrome or Edge (software WebGL), waits for each 3D model
  * to be built by static/pastes.js or static/tablets.js, draws it again at high resolution, crops it to its outline and writes:
  *   static/images/wasay/ring/<slug>.webp            jar, front view, for the ring
  *   static/images/wasay/ring/<slug>-large.webp      jar, front view, for the product view
  *   static/images/wasay/ring/<slug>-turn.webp       jar, 21 frames turning left to right in one strip, which the ring plays as the mouse moves
+ *   static/images/wasay/products/<slug>.webp        carton, front view, for the home ring (any product can be chosen for it)
  *   static/images/wasay/products/<slug>-large.webp  carton, front view, for the product view
  * Every run also measures where each model sits in its tile and stores the result as "fit" ([trim, drop] in px) in
  * static/tablets-data.json and static/pastes-data.json, so the tabs know each tile's height before its 3D model is built.
@@ -28,12 +30,12 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const RING = join(root, 'static', 'images', 'wasay', 'ring'), PRODUCTS = join(root, 'static', 'images', 'wasay', 'products');
 const PORT = 4619, DEBUG = 9339;
 const SIZES = [['', 640, 0.92], ['-large', 1000, 0.9]];   // jars: file suffix, height in px, WebP quality
-const CARTON = [['-large', 900, 0.88]];
+const CARTON = [['', 640, 0.9], ['-large', 900, 0.88]];   // a carton gets a ring picture as well, because any product can be shown on the home ring
 const TURN = { frames: 21, swing: 0.82, height: 480, quality: 0.8 };   // the same swing as the jars on the Pastes page
 const only = process.argv.slice(2);
-const KEYWORDS = ['jars', 'cartons', 'fit'], fitOnly = only.includes('fit');
+const KEYWORDS = ['jars', 'cartons', 'fit', 'stills'], fitOnly = only.includes('fit'), stillsOnly = only.includes('stills');
 const kindArg = only.filter((a) => a === 'jars' || a === 'cartons'), slugArg = only.filter((a) => !KEYWORDS.includes(a));
-const doJars = !kindArg.length || kindArg.includes('jars'), doCartons = !kindArg.length || kindArg.includes('cartons');
+const doJars = !stillsOnly && (!kindArg.length || kindArg.includes('jars')), doCartons = stillsOnly || !kindArg.length || kindArg.includes('cartons');
 
 const candidates = [process.env.CHROME,
   'C:/Program Files/Google/Chrome/Application/chrome.exe', 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe',
@@ -141,10 +143,11 @@ try {
       const slugs = (await pageSlugs(page, '[data-tablet]', 'tablet')).filter((s) => !slugArg.length || slugArg.includes(s));
       for (const slug of slugs) {
         await build('[data-tablet]', 'tablet', slug);
-        await measure('[data-tablet]', 'tablet', slug, 'cartons', 8);
+        if (!stillsOnly) await measure('[data-tablet]', 'tablet', slug, 'cartons', 8);
         if (!fitOnly) {
-          const shot = await renderModel('[data-tablet]', 'tablet', slug, [0], CARTON, false);
-          for (const [suffix] of CARTON) report(slug, suffix, shot[suffix], save(PRODUCTS, slug + suffix + '.webp', shot[suffix].url));
+          const sizes = stillsOnly ? CARTON.slice(0, 1) : CARTON;
+          const shot = await renderModel('[data-tablet]', 'tablet', slug, [0], sizes, false);
+          for (const [suffix] of sizes) report(slug, suffix, shot[suffix], save(PRODUCTS, slug + suffix + '.webp', shot[suffix].url));
         }
         found++;
       }

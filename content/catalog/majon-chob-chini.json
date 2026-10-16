@@ -1,0 +1,33 @@
+{
+  "name": "Majon Chob Chini",
+  "slug": "majon-chob-chini",
+  "tab": "tonics",
+  "kind": "carton",
+  "order": 90,
+  "detail": "100 gm",
+  "image": "/images/wasay/tonics/majon-chob-chini-front.jpg",
+  "about": "A traditional Majon preparation for joint complaints.",
+  "uses": [
+    "Joint pain."
+  ],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "unreadable",
+  "composition_note": "A composition panel is present, but the ingredient names and amounts are not clear enough to transcribe reliably.",
+  "uses_note": "",
+  "evidence": "Front: BLOOD PURIFIER & TONIC FOR JOINTS PAIN.",
+  "sources": [
+    {
+      "path": "/images/wasay/tonics/majon-chob-chini-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tonics/majon-chob-chini-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tonics/majon-chob-chini-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

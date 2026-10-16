@@ -1,0 +1,33 @@
+{
+  "name": "Deedani",
+  "slug": "deedani",
+  "tab": "tablets",
+  "kind": "carton",
+  "order": 100,
+  "detail": "16 tablets",
+  "image": "/images/wasay/tablets/deedani-front.jpg",
+  "about": "Deedani tablets for intestinal worm complaints.",
+  "uses": [
+    "Intestinal worms."
+  ],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "not-visible",
+  "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+  "uses_note": "",
+  "evidence": "Left photo, Urdu top panel: medicine for stomach/intestinal worms. No ingredients visible.",
+  "sources": [
+    {
+      "path": "/images/wasay/tablets/deedani-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tablets/deedani-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tablets/deedani-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

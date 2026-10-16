@@ -103,3 +103,13 @@
 @media(min-width:901px){.site-header .nav-links{gap:3px}.site-header .nav-links>a{font-size:.85rem;padding-inline:10px}.site-header .brand__logo{max-width:150px}}
 
 @media(min-width:901px){body .site-header.nav-condensed .nav-links>a:not(.current){max-width:180px!important;opacity:1!important;padding:10px!important;pointer-events:auto!important}body .site-header .nav-links{gap:2px!important}body .site-header .nav-links>a{white-space:nowrap}}
+
+/* Contact page: one card per detail; a detail left empty in the editor is not rendered */
+.wz-contact__cards { list-style: none; margin: 28px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+.wz-contact__cards .card { display: flex; flex-direction: column; gap: 8px; }
+.wz-contact__cards h3 { margin: 0; font-size: 1.15rem; }
+.wz-contact__cards p { margin: 0; color: var(--muted); }
+.wz-contact__cards a:not(.wz-link) { color: var(--accent); font-weight: 600; text-underline-offset: 4px; }
+.wz-contact__links { margin-top: 36px; }
+.wz-contact__links h3 { margin: 0 0 4px; }
+.wz-contact__note { margin: 28px 0 0; max-width: 62ch; color: var(--muted); }

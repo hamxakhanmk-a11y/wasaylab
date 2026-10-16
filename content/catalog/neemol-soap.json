@@ -1,0 +1,37 @@
+{
+  "name": "Neemol",
+  "slug": "neemol-soap",
+  "tab": "ointments",
+  "kind": "carton",
+  "order": 30,
+  "detail": "Herbal antiseptic soap",
+  "image": "/images/wasay/ointments/neemol-soap-front.jpg",
+  "about": "A herbal antiseptic soap with neem, rose and lemon extracts.",
+  "uses": [
+    "Antiseptic skin cleansing."
+  ],
+  "ingredients": [
+    "Neem extract",
+    "Rose extract",
+    "Lemon extract"
+  ],
+  "partial_composition": true,
+  "composition_status": "partial",
+  "composition_note": "These extracts are named on the front label. The complete soap-base formula and ingredient amounts are not visible.",
+  "uses_note": "",
+  "evidence": "Front: Herbal Antiseptic; Prepared from extract of Neem, Roses and Lemon.",
+  "sources": [
+    {
+      "path": "/images/wasay/ointments/neemol-soap-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/ointments/neemol-soap-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/ointments/neemol-soap-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

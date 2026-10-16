@@ -1,0 +1,33 @@
+{
+  "name": "Bawaseeri",
+  "slug": "bawaseeri",
+  "tab": "tablets",
+  "kind": "carton",
+  "order": 110,
+  "detail": "40 tablets",
+  "image": "/images/wasay/tablets/bawaseeri-front.jpg",
+  "about": "A herbal tablet preparation for haemorrhoids.",
+  "uses": [
+    "Piles (haemorrhoids)."
+  ],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "not-visible",
+  "composition_note": "The full ingredient list is not visible in the available pack photographs.",
+  "uses_note": "",
+  "evidence": "Front: EFFECTIVE REMEDY FOR PILES.",
+  "sources": [
+    {
+      "path": "/images/wasay/tablets/bawaseeri-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tablets/bawaseeri-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/tablets/bawaseeri-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "name": "Ejazi",
+  "slug": "syrup-ejazi",
+  "tab": "syrups",
+  "kind": "carton",
+  "order": 80,
+  "detail": "120 ml",
+  "image": "/images/wasay/syrups/syrup-ejazi-front.jpg",
+  "about": "A syrup for cough, cold and respiratory discomfort.",
+  "uses": [
+    "Cough, cold and bronchitis.",
+    "Throat irritation and nasal congestion."
+  ],
+  "ingredients": [],
+  "partial_composition": false,
+  "composition_status": "unreadable",
+  "composition_note": "A composition panel is present, but the ingredient names and amounts are not clear enough to transcribe reliably.",
+  "uses_note": "",
+  "evidence": "Left English: For Cough, Cold, Bronchitis, Irritation of throat & Nasal congestion.",
+  "sources": [
+    {
+      "path": "/images/wasay/syrups/syrup-ejazi-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/syrups/syrup-ejazi-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/syrups/syrup-ejazi-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}

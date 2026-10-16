@@ -1,0 +1,45 @@
+{
+  "name": "Ishaleen",
+  "slug": "syrup-ishaleen",
+  "tab": "syrups",
+  "kind": "carton",
+  "order": 100,
+  "detail": "120 ml",
+  "image": "/images/wasay/syrups/syrup-ishaleen-front.jpg",
+  "about": "An anti-diarrhoeal syrup for digestive complaints.",
+  "uses": [
+    "Diarrhoea and dysentery.",
+    "Associated abdominal cramps."
+  ],
+  "ingredients": [
+    "Mentha arvensis",
+    "Illicium verum",
+    "Myrtus communis",
+    "Polygonum bistorta",
+    "Papaver somniferum",
+    "Punica granatum",
+    "Aegle marmelos",
+    "Rheum rhabarbarum",
+    "Cinnamomum verum",
+    "Pure honey"
+  ],
+  "partial_composition": false,
+  "composition_status": "listed",
+  "composition_note": "Ingredient names transcribed from the photographed label. Ingredient amounts are not reproduced here.",
+  "uses_note": "",
+  "evidence": "Front and right English composition/indications.",
+  "sources": [
+    {
+      "path": "/images/wasay/syrups/syrup-ishaleen-front.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/syrups/syrup-ishaleen-left.jpg",
+      "type": "pack-photo"
+    },
+    {
+      "path": "/images/wasay/syrups/syrup-ishaleen-right.jpg",
+      "type": "pack-photo"
+    }
+  ]
+}
