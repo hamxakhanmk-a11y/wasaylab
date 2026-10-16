@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="/wasay-ring.css" />
   <link rel="stylesheet" href="/wellness-banner.css" />
   <link rel="stylesheet" href="/botanical-motion.css" />
+  <noscript><style>.press-loader{display:none}.botanical-story{min-height:0}.botanical-story__stage{position:relative;height:auto;padding-top:50vh}.botanical-story__still{top:0;height:50vh}.botanical-story__panels{position:static;padding:32px 6vw}.botanical-story__panel[data-pos]{position:static;width:100%;opacity:1;transform:none;margin-bottom:40px}.botanical-story__nav,.botanical-story__canvas{display:none}</style></noscript>
   <link rel="stylesheet" href="/wasay-detail.css" />
 </head>
 <body>
@@ -42,11 +43,10 @@
       </div>
     </section>
 
-    <!-- WHO WE ARE: a full-screen 3D scene that holds its place while the page scrolls. A huge mossy trunk crosses the sky and a droplet
-         grows under it (green, gold, amber) while the camera moves, then falls into the bottle. Four texts, each in its own place, rise in
-         one after another; the last (It's simple) arrives as the droplet lands. Drawn by static/botanical-three.js. -->
-    <section class="botanical-story" data-botanical-story aria-label="{{ page.about.eyebrow }}">
+    <!-- Four camera compositions across photographic botanical relief, with a 3D droplet falling into a conceptual brand bottle. -->
+    <section class="botanical-story" data-botanical-story data-stack-skip aria-label="{{ page.about.eyebrow }}">
       <div class="botanical-story__stage">
+        <img class="botanical-story__still" src="/images/botanical/trunk.png" alt="" loading="lazy" aria-hidden="true" />
         <canvas class="botanical-story__canvas" aria-hidden="true"></canvas>
         <div class="botanical-story__panels">
           <div class="botanical-story__panel" data-story-panel data-pos="bl">
@@ -75,7 +75,6 @@
           <button type="button" data-story-target="1" aria-label="Our products">02</button>
           <button type="button" data-story-target="2" aria-label="Our commitment">03</button>
           <button type="button" data-story-target="3" aria-label="Why customers love Wasay">04</button>
-          <span class="botanical-story__hint">Scroll to explore</span>
         </nav>
       </div>
     </section>

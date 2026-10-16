@@ -1,4 +1,4 @@
-// Who we are: one full-screen 3D scene that holds its place while the page scrolls past (progress 0 to 1). A droplet grows under a
+// Who we are: one full-screen photographic relief scene that holds its place while the page scrolls past (progress 0 to 1). A droplet grows under a
 // mossy trunk while the camera moves, falls into the bottle, and the four texts rise in one after another, each in its own place on
 // the screen. Scrolling up reverses it. The scene itself is in botanical-three.js.
 (() => {
@@ -29,18 +29,18 @@
 
   // the text on show: 0, 1 and 2 are the three Who we are texts while the droplet grows and mixes colour, 3 (It's simple) once it has
   // fallen into the bottle. The droplet's own moments (growing to .6, falling .62 to .82, landing after) are in botanical-three.js.
-  function step(p) { return ease((p - .15) / .1) + ease((p - .38) / .1) + ease((p - .66) / .12); }
+  function step(p) { return ease((p - .15) / .1) + ease((p - .38) / .1) + ease((p - .76) / .1); }
 
   function paint(p) {
-    const s = reduced.matches ? 0 : step(p), current = Math.round(s);
+    const s = (reduced.matches || story.classList.contains('is-fallback')) ? 0 : step(p), current = Math.round(s);
     panels.forEach((el, i) => {
       el.style.setProperty('--o', reduced.matches ? '0' : (i - s).toFixed(3));
       el.classList.toggle('is-current', i === current);
-      if (reduced.matches) { el.removeAttribute('aria-hidden'); el.inert = false; }
+      if (reduced.matches || story.classList.contains('is-fallback')) { el.removeAttribute('aria-hidden'); el.inert = false; }
       else { el.setAttribute('aria-hidden', String(i !== current)); el.inert = i !== current; }
     });
     controls.forEach((el, i) => { el.setAttribute('aria-current', i === current ? 'step' : 'false'); });
-    if (three) three.draw(reduced.matches ? .5 : p, reduced.matches ? { x: 0, y: 0 } : pointer);
+    if (three) three.draw(reduced.matches ? .08 : p, reduced.matches ? { x: 0, y: 0 } : pointer);
     dirty = false;
   }
 
@@ -61,13 +61,13 @@
     loading = true;
     try {
       const { createStoryScene } = await import('./botanical-three.js');
-      three = createStoryScene(canvas, { onChange: () => { dirty = true; wake(); } });
+      three = await createStoryScene(canvas, { onChange: () => { dirty = true; wake(); } });
       canvas.addEventListener('webglcontextlost', (e) => { e.preventDefault(); stage.classList.remove('is-three-ready'); });
       canvas.addEventListener('webglcontextrestored', () => { dirty = true; wake(); });
       paint(progress);
     } catch (error) {
-      stage.dataset.renderer = 'fallback';   // the sky gradient stays behind the texts
-      console.warn('Story scene unavailable; showing the sky and the texts only.', error);
+      stage.dataset.renderer = 'fallback'; story.classList.add('is-fallback'); measure();   // preserve the still and expose every chapter
+      console.warn('Story scene unavailable; showing the botanical still and all text.', error);
     }
   }
 

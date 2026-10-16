@@ -35,3 +35,17 @@
   .wellness-banner__legal { display: none; }
   .wellness-banner__motion { top: 76px; right: 14px; }
 }
+
+/* Give the footage and lower information panel the proportions of the reference. */
+@media (min-width: 1000px) {
+ .wellness-banner__card { width: auto; right: clamp(14px, 2.6vw, 34px); grid-template-columns: 1fr auto; padding: 26px 36px; }
+ .wellness-banner__cols { gap: 0 56px; }
+ .wellness-banner__copy { inset-block-start: clamp(100px, 14svh, 145px); }
+}
+@media (max-width: 760px) {
+ .wellness-banner__motion { top: 76px; min-height: 44px; }
+ .wellness-banner__copy { inset-block-start: 136px; }
+ .wellness-banner__scene { min-height: 820px; }
+}
+
+@media (min-width: 761px) { .wellness-banner__scene { height: calc(100svh - 96px); } }
