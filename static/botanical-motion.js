@@ -1,11 +1,10 @@
-// Who we are: one full-screen photographic relief scene that holds its place while the page scrolls past (progress 0 to 1). A droplet grows under a
-// mossy trunk while the camera moves, falls into the bottle, and the four texts rise in one after another, each in its own place on
-// the screen. Scrolling up reverses it. The scene itself is in botanical-three.js.
+// Who we are: one scene that holds its place while the page scrolls past. The droplet forms on the leaf, falls into the bottle and
+// lands (progress 0 to 1); the three texts rise in from the bottom one after another as it happens. Scrolling up reverses it.
 (() => {
   const story = document.querySelector('[data-botanical-story]');
   if (!story) return;
+  const scene = story.querySelector('[data-botanical-scene]');
   const stage = story.querySelector('.botanical-story__stage');
-  const canvas = story.querySelector('canvas');
   const panels = [...story.querySelectorAll('[data-story-panel]')];
   const controls = [...story.querySelectorAll('[data-story-target]')];
   const main = story.parentElement;
@@ -27,20 +26,29 @@
     dirty = true;
   }
 
-  // the text on show: 0, 1 and 2 are the three Who we are texts while the droplet grows and mixes colour, 3 (It's simple) once it has
-  // fallen into the bottle. The droplet's own moments (growing to .6, falling .62 to .82, landing after) are in botanical-three.js.
-  function step(p) { return ease((p - .15) / .1) + ease((p - .38) / .1) + ease((p - .76) / .1); }
+  // the text on show: 0 at the start, 1 once the droplet is falling, 2 once it has landed
+  function step(p) { return ease((p - .3) / .12) + ease((p - .72) / .12); }
 
   function paint(p) {
-    const s = (reduced.matches || story.classList.contains('is-fallback')) ? 0 : step(p), current = Math.round(s);
+    const s = reduced.matches ? 0 : step(p), current = Math.round(s);
     panels.forEach((el, i) => {
       el.style.setProperty('--o', reduced.matches ? '0' : (i - s).toFixed(3));
       el.classList.toggle('is-current', i === current);
-      if (reduced.matches || story.classList.contains('is-fallback')) { el.removeAttribute('aria-hidden'); el.inert = false; }
+      if (reduced.matches) { el.removeAttribute('aria-hidden'); el.inert = false; }
       else { el.setAttribute('aria-hidden', String(i !== current)); el.inert = i !== current; }
     });
     controls.forEach((el, i) => { el.setAttribute('aria-current', i === current ? 'step' : 'false'); });
-    if (three) three.draw(reduced.matches ? .08 : p, reduced.matches ? { x: 0, y: 0 } : pointer);
+    scene.dataset.progress = p.toFixed(3);
+    if (three) three.draw(scene, reduced.matches ? .12 : p, reduced.matches ? { x: 0, y: 0 } : pointer);
+    // the drawn fallback art, used until (or unless) WebGL is ready
+    if (!three || !scene.classList.contains('is-three-ready')) {
+      const grow = clamp(p / .34), fall = clamp((p - .34) / .44);
+      const drop = scene.querySelector('.botanical-scene__drop'), ripple = scene.querySelector('.botanical-scene__ripple');
+      drop.style.transform = `translateY(${fall * fall * 90}px) scale(${.25 + grow * .75},${.25 + grow * .75})`;
+      drop.style.opacity = p < .79 ? '1' : '0';
+      ripple.style.opacity = p > .78 && p < .98 ? String(1 - (p - .78) / .2) : '0';
+      ripple.style.transform = `scale(${clamp((p - .78) / .2)})`;
+    }
     dirty = false;
   }
 
@@ -49,7 +57,7 @@
     const dt = last ? Math.min(.05, (time - last) / 1000) : 1 / 60; last = time;
     if (document.hidden || !visible) { last = 0; return; }
     target = reduced.matches ? 0 : clamp((scrollY - top) / dwell);
-    progress = reduced.matches ? 0 : progress + (target - progress) * (1 - Math.exp(-dt * 12));
+    progress = reduced.matches ? 0 : progress + (target - progress) * (1 - Math.exp(-dt * 14));
     if (Math.abs(target - progress) < .0002) progress = target;
     paint(progress);
     if (progress !== target) frame = requestAnimationFrame(tick); else last = 0;
@@ -60,14 +68,14 @@
     if (loading || three) return;
     loading = true;
     try {
-      const { createStoryScene } = await import('./botanical-three.js');
-      three = await createStoryScene(canvas, { onChange: () => { dirty = true; wake(); } });
-      canvas.addEventListener('webglcontextlost', (e) => { e.preventDefault(); stage.classList.remove('is-three-ready'); });
-      canvas.addEventListener('webglcontextrestored', () => { dirty = true; wake(); });
+      const { createBotanicalScene } = await import('./botanical-three.js');
+      three = createBotanicalScene({ onChange: () => { dirty = true; wake(); } });
+      three.canvas.addEventListener('webglcontextlost', (e) => { e.preventDefault(); scene.classList.remove('is-three-ready'); });
+      three.canvas.addEventListener('webglcontextrestored', () => { dirty = true; wake(); });
       paint(progress);
     } catch (error) {
-      stage.dataset.renderer = 'fallback'; story.classList.add('is-fallback'); measure();   // preserve the still and expose every chapter
-      console.warn('Story scene unavailable; showing the botanical still and all text.', error);
+      scene.dataset.renderer = 'fallback';
+      console.warn('Botanical 3D unavailable; using the drawn scene.', error);
     }
   }
 
@@ -81,22 +89,22 @@
     visible = entry.isIntersecting;
     if (visible) { load(); last = 0; wake(); }
   }, { rootMargin: '200px' }).observe(story);
-  stage.addEventListener('pointermove', (e) => {
+  scene.addEventListener('pointermove', (e) => {
     if (reduced.matches || e.pointerType !== 'mouse') return;
-    const r = stage.getBoundingClientRect();
-    pointer = { x: ((e.clientX - r.left) / r.width) * 2 - 1 || 1e-4, y: ((e.clientY - r.top) / r.height) * 2 - 1 || 1e-4 };
-    dirty = true; wake();
+    const r = scene.getBoundingClientRect();
+    pointer = { x: clamp((e.clientX - r.left) / r.width) * 2 - 1, y: clamp((e.clientY - r.top) / r.height) * 2 - 1 };
+    wake();
   });
-  stage.addEventListener('pointerleave', () => { pointer = { x: 0, y: 0 }; dirty = true; wake(); });
+  scene.addEventListener('pointerleave', () => { pointer = { x: 0, y: 0 }; wake(); });
 
-  // 01 to 04 jump to where that text is on show
+  // 01 / 02 / 03 jump to where that text is on show
   controls.forEach((button, i) => button.addEventListener('click', () => {
     measure();
-    const stops = [.05, .3, .56, .93];
+    const stops = [.04, .55, .93];
     scrollTo({ top: top + dwell * stops[i], behavior: reduced.matches ? 'instant' : 'smooth' });
   }));
 
   measure();
   paint(0);
-  window.WasayStory = { measure, get top() { return top; }, get dwell() { return dwell; }, get progress() { return progress; }, get ready() { return !!three; } };
+  window.WasayStory = { measure, get top() { return top; }, get dwell() { return dwell; }, get progress() { return progress; } };
 })();

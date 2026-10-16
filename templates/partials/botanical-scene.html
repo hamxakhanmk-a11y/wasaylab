@@ -1,0 +1,54 @@
+<div class="botanical-scene" data-botanical-scene aria-hidden="true">
+  <svg class="botanical-scene__art" viewBox="0 0 720 800" focusable="false">
+    <rect width="720" height="800" fill="url(#botanical-paper)"/>
+    <g opacity=".36" filter="url(#botanical-blur)">
+      <path d="M-80 390Q100 4 242 18Q249 278-80 390" fill="#6c9c4c"/>
+      <path d="M650-60Q410 82 557 350Q682 257 650-60" fill="#91ac6d"/>
+      <path d="M750 220Q468 359 604 539Q754 445 750 220" fill="#b6c798"/>
+      <circle cx="595" cy="130" r="62" fill="#ffffe6"/>
+      <circle cx="107" cy="570" r="90" fill="#fffef5"/>
+    </g>
+    <ellipse cx="393" cy="745" rx="150" ry="19" fill="#6c5836" opacity=".17" filter="url(#botanical-shadow)"/>
+    <!-- Rounded amber shoulders and body; the open mouth sits directly below the leaf tip. -->
+    <g class="botanical-scene__bottle">
+      <path d="M329 433L329 478C329 491 316 497 295 510C271 525 263 545 263 566L263 703Q263 735 295 738L491 738Q523 735 523 703L523 566C523 545 515 525 491 510C470 497 457 491 457 478L457 433Z" fill="url(#botanical-glass)" stroke="#75512e" stroke-width="2"/>
+      <path d="M273 585Q392 602 513 585L513 701Q513 726 489 728L297 728Q273 726 273 701Z" fill="url(#botanical-liquid)"/>
+      <ellipse cx="393" cy="585" rx="120" ry="13" fill="#c7a65d" opacity=".22"/>
+      <g class="botanical-scene__label">
+        <path d="M265 590Q394 607 521 590L521 693Q394 710 265 693Z" fill="#f6f1e3" stroke="#d9cfb4" stroke-width="1.5"/>
+        <image href="/logo.png" x="344" y="598" width="100" height="100" preserveAspectRatio="xMidYMid meet"/>
+      </g>
+      <path d="M303 522Q283 539 283 571L283 692Q283 716 295 718L308 718L308 557Q309 536 325 524Z" fill="url(#botanical-reflection)" opacity=".8"/>
+      <path d="M482 533Q503 542 503 570V699" fill="none" stroke="#f5e4bb" stroke-opacity=".34" stroke-width="6" stroke-linecap="round"/>
+      <path d="M299 727Q392 739 486 726" fill="none" stroke="#e0b870" stroke-opacity=".5" stroke-width="3"/>
+      <path d="M334 445V478Q334 493 321 502" fill="none" stroke="#edd5a1" stroke-opacity=".4" stroke-width="5"/>
+      <rect x="323" y="447" width="140" height="9" rx="4" fill="#5a391e" opacity=".55"/>
+      <rect x="324" y="462" width="138" height="8" rx="4" fill="#edc583" opacity=".28"/>
+      <ellipse cx="393" cy="433" rx="70" ry="20" fill="url(#botanical-mouth)"/>
+      <ellipse cx="393" cy="431" rx="53" ry="11" fill="#352c20"/>
+      <ellipse cx="393" cy="429" rx="64" ry="15" fill="none" stroke="#ead8a2" stroke-opacity=".55" stroke-width="3"/>
+      <g transform="translate(393 431)"><ellipse class="botanical-scene__ripple" rx="43" ry="8" fill="none" stroke="#f2c458" stroke-width="2"/></g>
+    </g>
+    <g class="botanical-scene__leaf">
+      <path d="M104 70C268 36 460 116 392 330C367 285 279 280 212 235C129 181 105 122 104 70Z" fill="url(#botanical-leaf)" stroke="#6f9146" stroke-width="1.5"/>
+      <g clip-path="url(#botanical-leaf-clip)" filter="url(#botanical-grain)">
+        <path d="M104 70C268 36 460 116 392 330C367 285 279 280 212 235C129 181 105 122 104 70Z" fill="url(#botanical-leaf-shade)"/>
+        <g fill="none" stroke="#d1e3a0" stroke-opacity=".46" stroke-width="1.4">
+          <path d="M117 78Q293 138 392 330" stroke-width="3"/>
+          <path d="M163 95Q196 75 223 61M198 112Q234 94 268 67M232 132Q279 113 309 78M264 158Q316 143 353 105M296 186Q350 182 388 144M325 217Q367 219 407 187M350 250Q383 257 409 230M371 284Q389 291 405 274"/>
+          <path d="M163 95Q155 135 146 151M198 112Q189 163 178 193M232 132Q224 190 215 231M264 158Q253 218 252 259M296 186Q291 239 293 281M325 217Q324 259 330 298M350 250Q351 284 361 310"/>
+        </g>
+        <path d="M105 72Q240 66 319 140" fill="none" stroke="#f1f5cc" stroke-opacity=".36" stroke-width="7"/>
+      </g>
+      <ellipse cx="266" cy="155" rx="9" ry="12" fill="url(#botanical-water)" transform="rotate(-24 266 155)"/>
+      <ellipse cx="324" cy="209" rx="5" ry="7" fill="url(#botanical-water)"/>
+    </g>
+    <g transform="translate(392 327)">
+      <g class="botanical-scene__drop">
+        <path d="M0-4C-2 4-14 13-14 24A14 14 0 0 0 14 24C14 13 2 4 0-4Z" fill="url(#botanical-medicine)" stroke="#f2c458" stroke-opacity=".8"/>
+        <path d="M-4 11Q-11 20-7 26" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+      </g>
+    </g>
+  </svg>
+  <canvas aria-hidden="true"></canvas>
+</div>
