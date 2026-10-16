@@ -25,55 +25,55 @@ colors:
 
 typography:
   display-xl:
-    fontFamily: "Space Grotesk, Inter, sans-serif"
+    fontFamily: "Newsreader, Georgia, serif"
     fontSize: clamp(2.6rem, 4.8vw, 4.4rem)
     fontWeight: 700
     lineHeight: 1
     letterSpacing: -0.01em
   display-md:
-    fontFamily: "Space Grotesk, Inter, sans-serif"
+    fontFamily: "Newsreader, Georgia, serif"
     fontSize: clamp(1.9rem, 3.6vw, 2.8rem)
     fontWeight: 700
     lineHeight: 1.1
     letterSpacing: 0
   title-md:
-    fontFamily: "Space Grotesk, Inter, sans-serif"
+    fontFamily: "Newsreader, Georgia, serif"
     fontSize: 1.35rem
     fontWeight: 600
     lineHeight: 1.2
     letterSpacing: 0
   title-sm:
-    fontFamily: "Space Grotesk, Inter, sans-serif"
+    fontFamily: "Newsreader, Georgia, serif"
     fontSize: 1.15rem
     fontWeight: 600
     lineHeight: 1.3
     letterSpacing: 0
   lead:
-    fontFamily: "Inter, sans-serif"
+    fontFamily: "Source Sans 3, sans-serif"
     fontSize: 1.12rem
     fontWeight: 400
     lineHeight: 1.7
     letterSpacing: 0
   body-md:
-    fontFamily: "Inter, sans-serif"
+    fontFamily: "Source Sans 3, sans-serif"
     fontSize: 1rem
     fontWeight: 400
     lineHeight: 1.7
     letterSpacing: 0
   body-sm:
-    fontFamily: "Inter, sans-serif"
+    fontFamily: "Source Sans 3, sans-serif"
     fontSize: 0.93rem
     fontWeight: 400
     lineHeight: 1.55
     letterSpacing: 0
   eyebrow:
-    fontFamily: "Inter, sans-serif"
+    fontFamily: "Source Sans 3, sans-serif"
     fontSize: 0.72rem
     fontWeight: 600
     lineHeight: 1.4
     letterSpacing: 0.22em
   button:
-    fontFamily: "Inter, sans-serif"
+    fontFamily: "Source Sans 3, sans-serif"
     fontSize: 1rem
     fontWeight: 600
     lineHeight: 1
