@@ -3,6 +3,8 @@ import * as T from './vendor/three/three.module.min.js';
 // The home banner's living hill: a soft grassy mound on the off-white page, a seedling on its top that grows and opens its two
 // leaves, and wildflowers that bloom across the slope from the bottom right upwards. It loops: grow, hold in full bloom, a quick
 // reset, again. Thousands of grass blades and flowers are drawn in one go each (instancing) and sway in the shader, so it stays light.
+// It is also Who we are: as the page scrolls (story, 0 to 1) the camera comes in close to the seedling, a bottle rises out of the
+// grass under its right leaf, a drop of medicine forms on that leaf's tip, and it falls into the bottle.
 const clamp = (n, a = 0, b = 1) => Math.max(a, Math.min(b, n));
 const smooth = (n) => { n = clamp(n); return n * n * (3 - 2 * n); };
 const easeOutBack = (n) => { n = clamp(n); const c = 1.7; return 1 + (c + 1) * Math.pow(n - 1, 3) + c * Math.pow(n - 1, 2); };
@@ -28,7 +30,7 @@ export function createGrowScene(canvas, { bg = '#f7f9f2', density = 1 } = {}) {
   let seed = 4021;
   const random = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
   const texture = (w, h, paint) => { const c = document.createElement('canvas'); c.width = w; c.height = h; paint(c.getContext('2d'), c); const t = new T.CanvasTexture(c); return t; };
-  const time = { value: 0 }, wind = { value: .085 }, fogColor = { value: bgColor.clone() }, fogNear = { value: 14 }, fogFar = { value: 30 };
+  const time = { value: 0 }, wind = { value: .085 }, clear = { value: new T.Vector4(0, 0, .5, 0) }, fogColor = { value: bgColor.clone() }, fogNear = { value: 14 }, fogFar = { value: 30 };
 
   scene.add(new T.HemisphereLight('#fbfff2', '#4d7a2c', 1.5));
   const key = new T.DirectionalLight('#fff8e6', 2.4); key.position.set(-4, 8, 6); scene.add(key);
@@ -78,14 +80,15 @@ export function createGrowScene(canvas, { bg = '#f7f9f2', density = 1 } = {}) {
   grass.instanceCount = BLADES;
   const grassMat = new T.ShaderMaterial({
     side: T.DoubleSide,
-    uniforms: { uTime: time, uWind: wind, uBase: { value: new T.Color('#1d4a15') }, uTip: { value: new T.Color('#86c23d') }, uFogColor: fogColor, uFogNear: fogNear, uFogFar: fogFar },
+    uniforms: { uTime: time, uWind: wind, uClear: clear, uBase: { value: new T.Color('#1d4a15') }, uTip: { value: new T.Color('#86c23d') }, uFogColor: fogColor, uFogNear: fogNear, uFogFar: fogFar },
     vertexShader: `
       attribute float aT; attribute vec3 iOffset; attribute float iYaw; attribute vec2 iScale; attribute float iTone; attribute float iBend;
-      uniform float uTime; uniform float uWind;
+      uniform float uTime; uniform float uWind; uniform vec4 uClear;
       varying float vT; varying float vTone; varying float vDepth;
       void main() {
         vec3 p = position; float t = aT;
-        p.x *= iScale.x; p.y *= iScale.y;
+        float cut = 1.0 - uClear.w * .82 * (1.0 - smoothstep(uClear.z * .45, uClear.z, distance(iOffset.xz, uClear.xy)));
+        p.x *= iScale.x; p.y *= iScale.y * cut;
         p.z = iBend * t * t * iScale.y;
         float c = cos(iYaw), s = sin(iYaw);
         vec3 r = vec3(c * p.x - s * p.z, p.y, s * p.x + c * p.z);
@@ -219,25 +222,92 @@ export function createGrowScene(canvas, { bg = '#f7f9f2', density = 1 } = {}) {
   });
   const flowers = new T.Mesh(fGeo, flowerMat); flowers.frustumCulled = false; scene.add(flowers);
 
-  // ---- camera framing: the hill on the right with the left side free for the words; on a tall screen it sits lower and smaller
-  let width = 0, height = 0, clearX = .45, laid = '';
+  // ---- the seedling's pose: how far it has grown, its sway, and how far the right leaf bends under the drop
+  const right = leaves.find((l) => l.s > 0), tipLocal = new T.Vector3(0, 1.12, -1.12 * .12 + Math.sin(1.12 * 2.6) * .05), tip = new T.Vector3();
+  function setSprout(g, sway = 0, droop = 0, lean = 0) {
+    const stemG = .55 + .45 * smooth(g / .55), leafG = .5 + .5 * smooth((g - .08) / .55), openG = smooth((g - .12) / .55);
+    stem.scale.set(1, stemG, 1); leafPivot.position.y = stemG;
+    leafPivot.scale.setScalar(leafG);
+    // each leaf faces the viewer and leans out to its side as it opens (from nearly upright to about 70 degrees), cupped a little forward
+    leaves.forEach(({ g: grp, s }) => { grp.rotation.set(.28, s * .32, -s * (.12 + 1.08 * openG) + sway * s - (s > 0 ? droop : 0)); });
+    sprout.rotation.z = lean;
+  }
+  const tipAt = () => { sprout.updateMatrixWorld(true); return tip.copy(tipLocal).applyMatrix4(right.m.matrixWorld); };
+
+  // ---- the bottle, standing in the grass right under the leaf tip with the drop on it (the leaf bent fully)
+  const DROOP = .3, DROP = .5;
+  setSprout(1, 0, DROOP);
+  const release = tipAt().clone(), groundY = hill(release.x, release.z - 2) + .02;
+  const S = clamp((release.y - .42 - groundY) / 2.43, .16, .4);                   // the bottle model is 2.43 tall
+  const mouth = new T.Vector3(release.x, groundY + 2.43 * S, release.z);
+  const reflections = (() => {
+    const t = texture(512, 256, (ctx) => {
+      const g = ctx.createLinearGradient(0, 0, 0, 256); g.addColorStop(0, '#f7faef'); g.addColorStop(.5, '#fbfbf3'); g.addColorStop(1, '#5f8f38');
+      ctx.fillStyle = g; ctx.fillRect(0, 0, 512, 256);
+      ctx.fillStyle = '#ffffff'; ctx.fillRect(56, 40, 92, 116); ctx.fillRect(330, 56, 40, 104);
+    });
+    t.colorSpace = T.SRGBColorSpace; t.mapping = T.EquirectangularReflectionMapping;
+    const pm = new T.PMREMGenerator(renderer), map = pm.fromEquirectangular(t).texture; t.dispose(); pm.dispose(); return map;
+  })();
+  const bottle = new T.Group(); bottle.position.set(release.x, groundY, release.z); bottle.visible = false; scene.add(bottle);
+  const glass = new T.MeshPhysicalMaterial({ color: '#6b3007', roughness: .1, metalness: 0, clearcoat: 1, clearcoatRoughness: .04, envMap: reflections, envMapIntensity: 1.1 });
+  // an amber medicine bottle (outer wall, lip, then the inner wall back down), its base at 0
+  const profile = [[0, 0], [.67, 0], [.78, .02], [.84, .11], [.85, .26], [.85, 1.44], [.83, 1.59], [.76, 1.72], [.59, 1.85], [.45, 1.96], [.40, 2.07], [.40, 2.31],
+    [.43, 2.35], [.43, 2.4], [.40, 2.43], [.33, 2.43], [.32, 2.38], [.32, 2.1], [.37, 1.92], [.54, 1.77], [.70, 1.62], [.76, 1.45], [.76, .25], [.69, .13], [0, .13]];
+  bottle.add(new T.Mesh(new T.LatheGeometry(profile.map(([x, y]) => new T.Vector2(x, y)), 64), glass));
+  for (const y of [2.12, 2.23]) { const ring = new T.Mesh(new T.TorusGeometry(.405, .018, 8, 48), glass); ring.rotation.x = Math.PI / 2; ring.position.y = y; bottle.add(ring); }
+  // a paper label with the real logo (it already carries the name Wasay Laboratories) round the front
+  const labelMap = texture(1024, 384, (ctx, c) => {
+    ctx.fillStyle = '#f6f3e6'; ctx.fillRect(0, 0, c.width, c.height);
+    ctx.strokeStyle = '#0b5c33'; ctx.lineWidth = 5; ctx.strokeRect(512 - 236, 22, 472, 340);
+    ctx.fillStyle = '#a3cf3c'; ctx.fillRect(512 - 236, 22, 472, 7);
+  });
+  labelMap.colorSpace = T.SRGBColorSpace;
+  const logo = new Image();
+  logo.onload = () => { const ctx = labelMap.image.getContext('2d'), h = 290, w = h * logo.naturalWidth / logo.naturalHeight; ctx.drawImage(logo, 512 - w / 2, 48, w, h); labelMap.needsUpdate = true; };
+  logo.src = '/logo.png';
+  const arc = Math.PI * 1.1;
+  const label = new T.Mesh(new T.CylinderGeometry(.858, .858, .95, 48, 1, true, -arc / 2, arc), new T.MeshStandardMaterial({ map: labelMap, roughness: .62 }));
+  label.position.y = .84; bottle.add(label);
+  // a soft shadow on the grass under it
+  const shade = new T.Mesh(new T.PlaneGeometry(2.6, 2.6), new T.MeshBasicMaterial({ transparent: true, depthWrite: false, opacity: 0,
+    map: texture(128, 128, (ctx) => { const g = ctx.createRadialGradient(64, 64, 4, 64, 64, 63); g.addColorStop(0, 'rgba(20,45,12,.55)'); g.addColorStop(1, 'rgba(20,45,12,0)'); ctx.fillStyle = g; ctx.fillRect(0, 0, 128, 128); }) }));
+  shade.rotation.x = -Math.PI / 2; shade.position.set(release.x, groundY + .06, release.z); shade.scale.setScalar(S); scene.add(shade);
+  // the drop: the medicine, amber like the bottle's contents, not clear water
+  const dropShape = [[0, .22], [.025, .14], [.08, .065], [.125, -.015], [.12, -.085], [.075, -.14], [0, -.16]];
+  const drop = new T.Mesh(new T.LatheGeometry(dropShape.map(([x, y]) => new T.Vector2(x, y)), 32), new T.MeshPhysicalMaterial({ color: '#e9a41f', roughness: .05,
+    clearcoat: 1, clearcoatRoughness: .03, emissive: new T.Color('#8a4a05'), emissiveIntensity: .5, envMap: reflections, envMapIntensity: 1.7 }));
+  drop.visible = false; scene.add(drop);
+  const ripple = new T.Mesh(new T.TorusGeometry(.4, .025, 8, 48), new T.MeshBasicMaterial({ color: '#f4c04e', transparent: true, opacity: 0, depthWrite: false }));
+  ripple.rotation.x = Math.PI / 2; ripple.position.copy(mouth); ripple.visible = false; scene.add(ripple);
+  clear.value.set(release.x, release.z + .25, 1.25, 0);
+  setSprout(0);
+
+  // ---- camera: the banner shows the whole hill, the hilltop to the right of the words; the story comes in close on the seedling and
+  // the bottle, still on the right on a wide screen and low in the frame on a tall one, under the words
+  let width = 0, height = 0, clearX = .45, storyX = .45;
   function frame() {
     const w = canvas.clientWidth, h = canvas.clientHeight;
     if (!w || !h) return false;
-    if (w !== width || h !== height) { width = w; height = h; renderer.setSize(w, h, false); }
-    if (laid !== `${w}x${h}:${clearX}`) {
-      laid = `${w}x${h}:${clearX}`; camera.aspect = w / h; camera.clearViewOffset();
-      const portrait = camera.aspect < 1;
-      camera.fov = portrait ? 38 : 30; camera.updateProjectionMatrix();
-      if (portrait) { camera.position.set(3.2, 2.6, 16.5); camera.lookAt(3.4, 4.3, 0); }
-      else {
-        camera.position.set(-.3, 2.0, 13.4); camera.lookAt(1.7, 2.35, 0); camera.updateMatrixWorld();
-        // clearX is where the words end (a fraction of the width); the hilltop goes well to the right of it
-        const at = (top.clone().project(camera).x + 1) / 2, want = clamp(clearX + .25, .64, .8);
-        camera.setViewOffset(w, h, -(want - at) * w, 0, w, h);
-      }
-    }
+    if (w !== width || h !== height) { width = w; height = h; renderer.setSize(w, h, false); camera.aspect = w / h; camera.fov = camera.aspect < 1 ? 38 : 30; }
     return true;
+  }
+  const subject = new T.Vector3((top.x - .62 + release.x + .85 * S) / 2, top.y + .62, 2);
+  const shots = {
+    wide: { pos: new T.Vector3(-.3, 2.0, 13.4), look: new T.Vector3(1.7, 2.35, 0), near: new T.Vector3(-.75, .42, 4.6) },
+    tall: { pos: new T.Vector3(3.2, 2.6, 16.5), look: new T.Vector3(3.4, 4.3, 0), near: new T.Vector3(-.45, .55, 6.4) },
+  };
+  const pos = new T.Vector3(), look = new T.Vector3(), focus = new T.Vector3(), seen = new T.Vector3();
+  function aim(zoom) {
+    const tall = camera.aspect < 1, shot = tall ? shots.tall : shots.wide;
+    pos.copy(subject).add(shot.near).sub(shot.pos).multiplyScalar(zoom).add(shot.pos);
+    look.lerpVectors(shot.look, subject, zoom);
+    camera.clearViewOffset(); camera.position.copy(pos); camera.lookAt(look); camera.updateMatrixWorld();
+    // slide the picture so what it is about sits where it should: the hilltop right of the banner words, then the seedling and bottle
+    focus.lerpVectors(top, subject, zoom); seen.copy(focus).project(camera);
+    const fx = (seen.x + 1) / 2, fy = (1 - seen.y) / 2;
+    const fromX = tall ? fx : clamp(clearX + .25, .64, .8), toX = tall ? .5 : clamp(storyX + .22, .62, .78), toY = tall ? .73 : .56;
+    camera.setViewOffset(width, height, -(fromX + (toX - fromX) * zoom - fx) * width, -zoom * (toY - fy) * height, width, height);
   }
 
   // the moment in the loop: the seedling and the flowers' growth (0 to 1)
@@ -249,23 +319,39 @@ export function createGrowScene(canvas, { bg = '#f7f9f2', density = 1 } = {}) {
     else g = 1 - clamp((t - RESET_AT) / RESET_LEN);
     return { g, t };
   }
-  function draw(seconds, { still = false } = {}) {
+  // story: 0 is the banner; by .3 the camera is close; the bottle rises from .36, the drop forms from .44 and falls from .7 to .84
+  function draw(seconds, { still = false, story = 0 } = {}) {
     if (!frame()) return;
-    const { g } = still ? { g: 1 } : state(seconds);
+    const p = clamp(story), zoom = smooth(p / .3);
+    const g = Math.max(still ? 1 : state(seconds).g, smooth(p / .08));                // once the story starts, everything is grown
     time.value = still ? 0 : seconds;
     growth.value = g;
-    // seedling: the stem rises and the leaves grow and open; at the reset it shrinks back to a small shoot
-    const stemG = .55 + .45 * smooth(g / .55), leafG = .5 + .5 * smooth((g - .08) / .55), openG = smooth((g - .12) / .55);
-    stem.scale.set(1, stemG, 1); leafPivot.position.y = stemG;
-    leafPivot.scale.setScalar(leafG);
-    const sway = still ? 0 : Math.sin(seconds * 1.3) * .04;
-    // each leaf faces the viewer and leans out to its side as it opens (from nearly upright to about 70 degrees), cupped a little forward
-    leaves.forEach(({ g: grp, s }) => { grp.rotation.set(.28, s * .32, -s * (.12 + 1.08 * openG) + sway * s); });
-    sprout.rotation.z = still ? 0 : Math.sin(seconds * .9) * .025;
+    const appear = clamp((p - .36) / .14), form = smooth((p - .44) / .2), fall = clamp((p - .7) / .14), impact = clamp((p - .84) / .13);
+    // the leaf bends under the drop and springs back once it lets go
+    const droop = DROOP * (p < .7 ? form : Math.exp(-fall * 4) * Math.cos(fall * 14));
+    const calm = 1 - zoom * .7;
+    setSprout(g, still ? 0 : Math.sin(seconds * 1.3) * .04 * calm, droop, still ? 0 : Math.sin(seconds * .9) * .025 * calm);
+
+    bottle.visible = appear > 0;
+    const rise = appear > 0 ? Math.max(.001, easeOutBack(appear)) : .001, squash = Math.sin(impact * Math.PI) * (1 - impact) * .14;
+    bottle.scale.set(S * rise * (1 + squash * .5), S * rise * (1 - squash), S * rise * (1 + squash * .5));
+    bottle.position.y = groundY - .25 * (1 - smooth(appear));
+    shade.material.opacity = smooth(appear) * .6;
+    clear.value.w = smooth(appear);
+
+    drop.visible = p > .44 && p < .84;
+    const size = .2 + .8 * form, stretch = Math.sin(fall * Math.PI), hang = .22 * DROP * size;
+    drop.scale.set(DROP * size * (1 - .15 * stretch), DROP * size * (1 + .35 * stretch), DROP * size * (1 - .15 * stretch));
+    if (fall <= 0) { tipAt(); drop.position.set(tip.x, tip.y - hang, tip.z); }
+    else drop.position.set(release.x, release.y - hang - fall * fall * (release.y - hang - mouth.y + .04), release.z);
+    ripple.visible = impact > 0 && impact < 1;
+    ripple.scale.setScalar(S * (.6 + impact * 1.9)); ripple.material.opacity = (1 - impact) * .75;
+
+    aim(zoom);
     renderer.render(scene, camera);
   }
   canvas.addEventListener('webglcontextlost', (e) => e.preventDefault());
-  // the page tells the scene where its words end, so the hill keeps clear of them
-  const setClear = (fraction) => { clearX = Math.round(clamp(fraction) * 100) / 100; };
+  // the page tells the scene where its words end (fractions of the width), so the hill and the bottle keep clear of them
+  const setClear = (banner, story) => { clearX = Math.round(clamp(banner) * 100) / 100; storyX = Math.round(clamp(story) * 100) / 100; };
   return { draw, setClear, flowers: fN, blades: BLADES };
 }

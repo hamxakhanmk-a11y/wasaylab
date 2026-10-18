@@ -1,23 +1,35 @@
-/* Home banner: the living hill (static/hero-grow-three.js) fills the screen on the off-white page; the words sit at the top left,
-   clear of the hill, which rises on the right. The site header lies over it, clear, so the logo, the menu and the hill read as one
-   opening; it takes its frosted bar back once the next section slides up under it (hero-grow.js sets is-over-hero). */
+/* Home banner and Who we are, as one scene (static/hero-grow-three.js, run by hero-grow.js). The section is a screen tall plus a hold
+   (--dwell); its stage stays in place while the page scrolls through the hold: the banner words on the hill first, then the camera
+   comes in close to the seedling and the three Who we are texts rise in from below in turn (the script sets --o, each text's
+   distance from the one on show). The site header lies over it, clear, so the logo, the menu and the hill read as one opening; it
+   takes its frosted bar back once the next section slides up under it (hero-grow.js sets is-over-hero). */
 body:has(.wz-grow) .site-header { margin-bottom: -69px; transition: background-color .45s ease, border-color .45s ease, -webkit-backdrop-filter .45s ease, backdrop-filter .45s ease; }
 body:has(.wz-grow) .site-header.is-over-hero:not(.nav-open) { background-color: transparent; border-bottom-color: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; }
-.wz-grow { position: relative; height: 100svh; min-height: 640px; max-height: 1040px; overflow: hidden; background: var(--bg, #f7f9f2); }
+.wz-grow { --dwell: 300svh; --stage: max(100svh, 640px); position: relative; min-height: calc(var(--stage) + var(--dwell)); background: var(--bg, #f7f9f2); }
+.wz-grow__stage { position: sticky; top: 0; height: var(--stage); overflow: hidden; background: var(--bg, #f7f9f2); }
 .wz-grow__canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; opacity: 0; transition: opacity .9s ease; }
 .wz-grow.is-ready .wz-grow__canvas { opacity: 1; }
-.wz-grow.is-fallback { background: radial-gradient(70% 62% at 78% 112%, #4f9a2c 0 58%, rgba(79, 154, 44, 0) 58.4%), var(--bg, #f7f9f2); }
+.wz-grow.is-fallback .wz-grow__stage { background: radial-gradient(70% 62% at 78% 112%, #4f9a2c 0 58%, rgba(79, 154, 44, 0) 58.4%), var(--bg, #f7f9f2); }
 .wz-grow__copy { position: relative; z-index: 1; padding-top: calc(68px + clamp(28px, 7svh, 96px)); pointer-events: none; }
-.wz-grow__copy > * { pointer-events: auto; }
+.wz-grow__texts { display: grid; }
+.wz-grow__text { --o: 1; grid-area: 1 / 1; align-self: start; opacity: calc(1 - var(--o) * var(--o) * 6); transform: translateY(calc(var(--o) * 18svh)); will-change: transform, opacity; pointer-events: none; }
+.wz-grow__intro { --o: 0; }
+.wz-grow__text.is-current { pointer-events: auto; }
 .wz-grow h1 { margin: 0; max-width: 12ch; font-size: clamp(2.8rem, 5.4vw, 5.4rem); line-height: .98; letter-spacing: -.02em; font-weight: 500; color: var(--accent); text-wrap: balance; }
 .wz-grow__lead { margin: 22px 0 0; max-width: 40ch; font-size: clamp(1rem, 1.3vw, 1.15rem); line-height: 1.65; color: var(--muted); }
 .wz-grow__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 30px; }
+.wz-grow__story .eyebrow { margin: 0 0 16px; color: var(--accent); }
+.wz-grow__story h2 { margin: 0; max-width: 19ch; font-size: clamp(2rem, 3.6vw, 3.2rem); line-height: 1.08; text-wrap: balance; }
+.wz-grow__story > p:not(.eyebrow) { margin: 20px 0 0; max-width: 46ch; color: var(--muted); line-height: 1.75; }
+.wz-grow__story .wz-action { margin-top: 30px; }
 .wz-grow__pause { position: absolute; z-index: 2; right: clamp(16px, 3vw, 36px); bottom: clamp(16px, 3vw, 32px); min-height: 40px; padding: 8px 16px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, .7); background: rgba(247, 249, 242, .82); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); color: var(--forest, #0b3b23); font: 600 .8rem var(--font); cursor: pointer; }
 .wz-grow a:focus-visible, .wz-grow button:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 @media (max-width: 760px) {
-  .wz-grow { min-height: 680px; }
+  .wz-grow { --stage: max(100svh, 680px); }
   .wz-grow__copy { padding-top: calc(68px + 28px); }
   .wz-grow h1 { font-size: clamp(2.4rem, 11vw, 3.4rem); }
   .wz-grow__lead { font-size: .98rem; }
+  .wz-grow__story h2 { font-size: clamp(1.7rem, 7.4vw, 2.2rem); }
+  .wz-grow__story > p:not(.eyebrow) { margin-top: 14px; font-size: .95rem; line-height: 1.65; }
 }
-@media (prefers-reduced-motion: reduce) { .wz-grow__canvas, body:has(.wz-grow) .site-header { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .wz-grow__canvas, body:has(.wz-grow) .site-header { transition: none; } .wz-grow__text { will-change: auto; } }
