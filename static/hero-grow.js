@@ -34,12 +34,15 @@
 
   function tick(now) {
     frame = 0;
-    if (!visible || document.hidden || (next && next.getBoundingClientRect().top <= 0)) { last = 0; return; }
+    const nextTop = next ? next.getBoundingClientRect().top : Infinity;
+    if (!visible || document.hidden || nextTop <= 0) { last = 0; return; }
     const dt = last ? Math.min(.1, (now - last) / 1000) : 0, still = reduced.matches;
+    const target = held ?? aim();
+    // while the next page slides up over the finished story, the scene holds its last picture instead of drawing underneath
+    if (held === null && nextTop < innerHeight - 2 && story === target) { last = 0; return; }
     last = now;
     if (!still && !paused) clock += dt;
-    const target = held ?? aim();
-    story = still || held !== null ? target : story + (target - story) * (1 - Math.exp(-dt * 9));
+    story = still || held !== null ? target : story + (target - story) * (1 - Math.exp(-dt * 13));
     if (Math.abs(target - story) < .0005) story = target;
     words(story);
     if (scene) scene.draw(clock, { still, story });

@@ -9,7 +9,9 @@
 
   function tick(now) {
     frame = 0;
-    if (!scene || !visible || document.hidden || (next && next.getBoundingClientRect().top <= 0)) { last = 0; return; }
+    const box = section.getBoundingClientRect();
+    // draw only while the page is really on screen and not yet covered by the next one
+    if (!scene || !visible || document.hidden || box.top >= innerHeight || (next && next.getBoundingClientRect().top <= 0)) { last = 0; return; }
     const still = reduced.matches;
     clock += last ? Math.min(.1, (now - last) / 1000) : 0;
     last = now;

@@ -1,4 +1,5 @@
 import * as T from './vendor/three/three.module.min.js';
+import { autoQuality } from './gl-quality.js';
 
 // The home banner's living hill: a soft grassy mound on the off-white page, a seedling on its top that grows and opens its two
 // leaves, and wildflowers that bloom across the slope from the bottom right upwards. It loops: grow, hold in full bloom, a quick
@@ -17,10 +18,22 @@ const PEAK_X = 3.5;
 // the meadow's footprint: 0 under the hill, rising past 1 at its edges, where the grass thins out and the ground fades into the page
 const field = (x, z) => ((x - .5) / 9.5) ** 4 + ((z - 1.75) / 4.75) ** 4;
 const hill = (x, z) => { const dx = x - PEAK_X, sx = dx < 0 ? 3.1 : 3.8; return 2.3 * Math.exp(-((dx / sx) ** 2 + (z / 2.7) ** 2)) + .3 * Math.exp(-(((x - 2.5) / 6) ** 2 + ((z - .5) / 4) ** 2)); };
+// folds: shallow ridges and hollows running down the slopes from the top (none on the top itself, where the seedling stands)
+const folds = (x, z) => {
+  const dx = x - PEAK_X, r = Math.hypot(dx, z * 1.2), a = Math.atan2(z * 1.2, dx);
+  return (.085 * Math.sin(a * 7 + Math.sin(r * 1.1) * 1.1) + .035 * Math.sin(x * 2.3 + z * 1.7) * Math.cos(z * 2.9 - x * .7)) * smooth((r - .45) / 1.3) * Math.exp(-r * .2);
+};
+const land = (x, z) => { const h = hill(x, z); return h + folds(x, z) * Math.min(1, h / .5); };
+// sunlight on the land: from the upper left and in front, so the crest and the left-facing folds glow and the hollows sit in shade
+const SUN = (() => { const v = [-.55, .78, .42], l = Math.hypot(...v); return v.map((c) => c / l); })();
+const light = (x, z) => {
+  const e = .05, nx = land(x - e, z) - land(x + e, z), nz = land(x, z - e) - land(x, z + e), ny = 2 * e, l = Math.hypot(nx, ny, nz);
+  const lit = Math.max(0, (nx * SUN[0] + ny * SUN[1] + nz * SUN[2]) / l);
+  return clamp((.24 + .92 * lit) * (1 + folds(x, z) * 3.2), .18, 1.28);
+};
 
 export function createGrowScene(canvas, { bg = '#f7f9f2', density = 1 } = {}) {
   const renderer = new T.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: 'high-performance' });
-  renderer.setPixelRatio(Math.min(devicePixelRatio, 1.6));
   renderer.outputColorSpace = T.SRGBColorSpace;
   renderer.toneMapping = T.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
   const scene = new T.Scene();
@@ -34,78 +47,75 @@ export function createGrowScene(canvas, { bg = '#f7f9f2', density = 1 } = {}) {
 
   scene.add(new T.HemisphereLight('#fbfff2', '#4d7a2c', 1.5));
   const key = new T.DirectionalLight('#fff8e6', 2.4); key.position.set(-4, 8, 6); scene.add(key);
+  const quality = autoQuality(renderer);
 
-  // ---- the ground under the grass, so no gaps show between blades
-  const groundGeo = new T.PlaneGeometry(40, 26, 200, 130); groundGeo.rotateX(-Math.PI / 2);
-  { const p = groundGeo.attributes.position, fade = new Float32Array(p.count * 4);
+  // ---- colours of the turf: deep green in the roots, yellow-green tips, warmer where the sun catches them
+  const ROOT = new T.Color('#11360b'), TIP = new T.Color('#73b034'), SUNLIT = new T.Color('#c9df66'), SOIL = new T.Color('#2a5c19');
+
+  // ---- the ground under the grass, painted with the same light, so the turf reads as dense velvet between the blades
+  const groundGeo = new T.PlaneGeometry(40, 26, 220, 140); groundGeo.rotateX(-Math.PI / 2);
+  { const p = groundGeo.attributes.position, col = new Float32Array(p.count * 4), c = new T.Color();
     for (let i = 0; i < p.count; i++) {
-      const x = p.getX(i), z = p.getZ(i); p.setY(i, hill(x, z) - .02);
-      fade.set([1, 1, 1, 1 - smooth((field(x, z) - .5) / .4)], i * 4);
+      const x = p.getX(i), z = p.getZ(i); p.setY(i, land(x, z) - .02);
+      c.copy(SOIL).multiplyScalar(light(x, z) * .95);
+      col.set([c.r, c.g, c.b, 1 - smooth((field(x, z) - .5) / .4)], i * 4);
     }
-    groundGeo.setAttribute('color', new T.Float32BufferAttribute(fade, 4)); groundGeo.computeVertexNormals(); }
-  const ground = new T.Mesh(groundGeo, new T.MeshStandardMaterial({ color: '#2f6b1f', roughness: 1, vertexColors: true, transparent: true }));
+    groundGeo.setAttribute('color', new T.Float32BufferAttribute(col, 4)); }
+  const ground = new T.Mesh(groundGeo, new T.MeshBasicMaterial({ vertexColors: true, transparent: true, toneMapped: false }));
   ground.position.z = 2; scene.add(ground);
 
-  // ---- grass: one tapered, curved blade, drawn many thousands of times with a position, turn, size and tone each
-  const SEG = 4, blade = new T.BufferGeometry();
-  { const pos = [], t = [];
-    for (let i = 0; i <= SEG; i++) {
-      const v = i / SEG, w = .5 * (1 - v * .92);
-      pos.push(-w, v, 0, w, v, 0); t.push(v, v);
-    }
-    const idx = [];
+  // ---- grass: short, fine blades packed tight (one blade drawn many thousands of times), each lit by the sun where it stands
+  const SEG = 3, blade = new T.BufferGeometry();
+  { const pos = [], t = [], idx = [];
+    for (let i = 0; i <= SEG; i++) { const v = i / SEG, w = .5 * (1 - v * .94); pos.push(-w, v, 0, w, v, 0); t.push(v, v); }
     for (let i = 0; i < SEG; i++) { const a = i * 2; idx.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); }
-    blade.setAttribute('position', new T.Float32BufferAttribute(pos, 3)); blade.setAttribute('aT', new T.Float32BufferAttribute(t, 1)); blade.setIndex(idx);
-  }
-  const BLADES = Math.round(95000 * density);
-  const grass = new T.InstancedBufferGeometry(); grass.index = blade.index;
-  grass.setAttribute('position', blade.attributes.position); grass.setAttribute('aT', blade.attributes.aT);
-  const gOff = new Float32Array(BLADES * 3), gYaw = new Float32Array(BLADES), gScale = new Float32Array(BLADES * 2), gTone = new Float32Array(BLADES), gBend = new Float32Array(BLADES);
-  for (let i = 0, n = 0; n < BLADES && i < BLADES * 6; i++) {
+    blade.setAttribute('position', new T.Float32BufferAttribute(pos, 3)); blade.setAttribute('aT', new T.Float32BufferAttribute(t, 1)); blade.setIndex(idx); }
+  const WANT = Math.round(125000 * density);
+  const gOff = new Float32Array(WANT * 3), gShape = new Float32Array(WANT * 4), gLight = new Float32Array(WANT);
+  let BLADES = 0;
+  for (let i = 0; BLADES < WANT && i < WANT * 6; i++) {
     const x = -9 + random() * 19, z = -3 + random() * 9.5;
     // denser where it is seen up close, sparse far behind the hill, thinning out at the meadow's edge
-    const keep = (z > -.8 ? 1 : .35) * (1 - smooth((field(x, z) - .6) / .45)); if (random() > keep) continue;
-    gOff.set([x, hill(x, z) + 2 * 0, z + 2], n * 3);
-    gYaw[n] = random() * Math.PI * 2;
-    const tall = .26 + random() * .24 + (hill(x, z) > 1.6 ? .04 : 0);
-    gScale.set([.045 + random() * .03, tall], n * 2);
-    gTone[n] = random(); gBend[n] = .15 + random() * .35;
-    n++;
+    const keep = (z > -.8 ? 1 : .3) * (1 - smooth((field(x, z) - .6) / .45)); if (random() > keep) continue;
+    const n = BLADES++;
+    gOff.set([x, land(x, z), z + 2], n * 3);                                          // the land mesh sits 2 forward
+    // yaw, width, length (a little longer on the top), and how far it leans (with a tone packed in as the whole part)
+    gShape.set([random() * Math.PI * 2, .026 + random() * .02, .13 + random() * .11 + (hill(x, z) > 1.7 ? .03 : 0), Math.floor(random() * 100) + .2 + random() * .55], n * 4);
+    gLight[n] = light(x, z);
   }
-  // the hill mesh sits 2 forward (ground.position.z = 2): blades use the same offset
-  for (let n = 0; n < BLADES; n++) gOff[n * 3 + 1] = hill(gOff[n * 3], gOff[n * 3 + 2] - 2);
-  grass.setAttribute('iOffset', new T.InstancedBufferAttribute(gOff, 3)); grass.setAttribute('iYaw', new T.InstancedBufferAttribute(gYaw, 1));
-  grass.setAttribute('iScale', new T.InstancedBufferAttribute(gScale, 2)); grass.setAttribute('iTone', new T.InstancedBufferAttribute(gTone, 1));
-  grass.setAttribute('iBend', new T.InstancedBufferAttribute(gBend, 1));
+  const grass = new T.InstancedBufferGeometry(); grass.index = blade.index;
+  grass.setAttribute('position', blade.attributes.position); grass.setAttribute('aT', blade.attributes.aT);
+  grass.setAttribute('iOffset', new T.InstancedBufferAttribute(gOff, 3)); grass.setAttribute('iShape', new T.InstancedBufferAttribute(gShape, 4));
+  grass.setAttribute('iLight', new T.InstancedBufferAttribute(gLight, 1));
   grass.instanceCount = BLADES;
   const grassMat = new T.ShaderMaterial({
     side: T.DoubleSide,
-    uniforms: { uTime: time, uWind: wind, uClear: clear, uBase: { value: new T.Color('#1d4a15') }, uTip: { value: new T.Color('#86c23d') }, uFogColor: fogColor, uFogNear: fogNear, uFogFar: fogFar },
+    uniforms: { uTime: time, uWind: wind, uClear: clear, uRoot: { value: ROOT }, uTip: { value: TIP }, uSun: { value: SUNLIT }, uFogColor: fogColor, uFogNear: fogNear, uFogFar: fogFar },
     vertexShader: `
-      attribute float aT; attribute vec3 iOffset; attribute float iYaw; attribute vec2 iScale; attribute float iTone; attribute float iBend;
+      attribute float aT; attribute vec3 iOffset; attribute vec4 iShape; attribute float iLight;
       uniform float uTime; uniform float uWind; uniform vec4 uClear;
-      varying float vT; varying float vTone; varying float vDepth;
+      varying float vT; varying float vTone; varying float vDepth; varying float vLight;
       void main() {
-        vec3 p = position; float t = aT;
+        float t = aT, yaw = iShape.x, bend = fract(iShape.w);
         float cut = 1.0 - uClear.w * .82 * (1.0 - smoothstep(uClear.z * .45, uClear.z, distance(iOffset.xz, uClear.xy)));
-        p.x *= iScale.x; p.y *= iScale.y * cut;
-        p.z = iBend * t * t * iScale.y;
-        float c = cos(iYaw), s = sin(iYaw);
+        float h = iShape.z * cut;
+        vec3 p = vec3(position.x * iShape.y, position.y * h, bend * t * t * h);
+        float c = cos(yaw), s = sin(yaw);
         vec3 r = vec3(c * p.x - s * p.z, p.y, s * p.x + c * p.z);
         float w = sin(uTime * 1.6 + iOffset.x * .8 + iOffset.z * .6) * .6 + sin(uTime * 2.7 + iOffset.x * 2.3 - iOffset.z) * .3;
-        r.x += w * uWind * t * t * iScale.y * 6.0;
-        r.z += w * uWind * .5 * t * t * iScale.y * 6.0;
+        r.x += w * uWind * t * t * h * 6.0;
+        r.z += w * uWind * .5 * t * t * h * 6.0;
         vec4 mv = viewMatrix * modelMatrix * vec4(r + iOffset, 1.0);
         gl_Position = projectionMatrix * mv;
-        vT = t; vTone = iTone; vDepth = -mv.z;
+        vT = t; vTone = floor(iShape.w) / 100.0; vDepth = -mv.z; vLight = iLight;
       }`,
     fragmentShader: `
-      uniform vec3 uBase; uniform vec3 uTip; uniform vec3 uFogColor; uniform float uFogNear; uniform float uFogFar;
-      varying float vT; varying float vTone; varying float vDepth;
+      uniform vec3 uRoot; uniform vec3 uTip; uniform vec3 uSun; uniform vec3 uFogColor; uniform float uFogNear; uniform float uFogFar;
+      varying float vT; varying float vTone; varying float vDepth; varying float vLight;
       void main() {
-        vec3 col = mix(uBase, uTip, smoothstep(0.0, 1.0, vT));
-        col *= .8 + vTone * .38;
-        col *= mix(.5, 1.0, smoothstep(0.0, .55, vT));
+        vec3 tip = mix(uTip, uSun, smoothstep(.9, 1.25, vLight) * .8);
+        vec3 col = mix(uRoot, tip, smoothstep(0.0, 1.0, vT)) * vLight;
+        col *= .84 + vTone * .3;
         gl_FragColor = vec4(mix(col, uFogColor, smoothstep(uFogNear, uFogFar, vDepth)), 1.0);
         #include <colorspace_fragment>
       }`,
@@ -113,7 +123,7 @@ export function createGrowScene(canvas, { bg = '#f7f9f2', density = 1 } = {}) {
   const grassMesh = new T.Mesh(grass, grassMat); grassMesh.frustumCulled = false; scene.add(grassMesh);
 
   // ---- the seedling on the hilltop: a stem that grows and two leaves that open
-  const top = new T.Vector3(PEAK_X, hill(PEAK_X, 0), 2);
+  const top = new T.Vector3(PEAK_X, land(PEAK_X, 0), 2);
   const sprout = new T.Group(); sprout.position.copy(top).add(new T.Vector3(0, -.05, 0)); scene.add(sprout);
   const stemCurve = new T.CatmullRomCurve3([new T.Vector3(0, 0, 0), new T.Vector3(.03, .35, .01), new T.Vector3(-.02, .7, 0), new T.Vector3(.02, 1, 0)]);
   const stemMat = new T.MeshStandardMaterial({ color: '#86c94a', roughness: .45 });
@@ -151,32 +161,32 @@ export function createGrowScene(canvas, { bg = '#f7f9f2', density = 1 } = {}) {
     daisy(128); cornflower(384);
     ctx.filter = 'blur(9px)'; daisy(640); cornflower(896); ctx.filter = 'none';
   });
-  const FLOWERS = Math.round(1150 * Math.max(.6, density)), FAR = 5;
+  const FLOWERS = Math.round(170 * Math.max(.6, density)), FAR = 5;
   const fGeo = new T.InstancedBufferGeometry(); const plane = new T.PlaneGeometry(1, 1);
   fGeo.index = plane.index; fGeo.setAttribute('position', plane.attributes.position); fGeo.setAttribute('uv', plane.attributes.uv);
   const fOff = [], fPetal = [], fCenter = [], fSize = [], fBloom = [], fType = [], fTilt = [];
   const petals = ['#5a7fe6', '#6f8ff2', '#4b6bd8', '#9a6ad8', '#7f57c9', '#b58ae6', '#f6f6ef', '#f4f2e8', '#f3cf36', '#f08bb0', '#e86f9c', '#c9a0f0'];
   const centres = { daisy: ['#f2c12e', '#e8a91c'], corn: ['#3b2a72', '#2e2160'] };
   const place = (x, z, size, type, bloom) => {
-    const y = hill(x, z - 2);
+    const y = land(x, z - 2);
     const col = new T.Color(petals[Math.floor(random() * petals.length)]);
     const isCorn = type % 2 === 1;
     if (isCorn && random() < .7) col.set(random() < .6 ? '#5a7fe6' : '#8a5fd4');
     const cen = new T.Color((isCorn ? centres.corn : centres.daisy)[Math.floor(random() * 2)]);
-    fOff.push(x, y + .2 + random() * .14, z); fPetal.push(col.r, col.g, col.b); fCenter.push(cen.r, cen.g, cen.b);
+    fOff.push(x, y + .17 + random() * .1, z); fPetal.push(col.r, col.g, col.b); fCenter.push(cen.r, cen.g, cen.b);
     fSize.push(size); fBloom.push(bloom); fType.push(type); fTilt.push(.75 + random() * .5, random() * Math.PI * 2);
   };
   for (let i = 0, n = 0; n < FLOWERS && i < FLOWERS * 30; i++) {
     const x = -1.4 + random() * 10.5, z = 2.2 + random() * 4.4;
-    const h = hill(x, z - 2);
+    const h = land(x, z - 2);
     if (h < .25 || (Math.abs(x - PEAK_X) < 1.1 && z < 3.4)) continue;          // only on the slope, and the top stays grass
     const fromCorner = Math.hypot((x - 8.5) / 9, (z - 6.6) / 5);                  // the bottom right blooms first
-    if (random() > .35 + .65 * (1 - fromCorner * .7)) continue;
-    place(x, z, .36 + random() * .26, random() < .55 ? 0 : 1, clamp(.18 + fromCorner * .62 + (random() - .5) * .12, .1, .95));
+    if (random() > .3 + .7 * (1 - fromCorner * .7)) continue;
+    place(x, z, .11 + random() * .07, random() < .55 ? 0 : 1, clamp(.18 + fromCorner * .62 + (random() - .5) * .12, .1, .95));
     n++;
   }
   // a few large, soft flowers right in front of the camera
-  for (let i = 0; i < FAR; i++) place(3.6 + i * 1.4 + random() * .6, 7.2 + random() * .6, 1.25 + random() * .5, 2 + (i % 2), .3 + i * .05);
+  for (let i = 0; i < FAR; i++) place(3.6 + i * 1.4 + random() * .6, 7.2 + random() * .6, .8 + random() * .4, 2 + (i % 2), .3 + i * .05);
   const fN = fSize.length;
   fGeo.setAttribute('iOffset', new T.InstancedBufferAttribute(new Float32Array(fOff), 3)); fGeo.setAttribute('iPetal', new T.InstancedBufferAttribute(new Float32Array(fPetal), 3));
   fGeo.setAttribute('iCenter', new T.InstancedBufferAttribute(new Float32Array(fCenter), 3)); fGeo.setAttribute('iSize', new T.InstancedBufferAttribute(new Float32Array(fSize), 1));
@@ -221,6 +231,30 @@ export function createGrowScene(canvas, { bg = '#f7f9f2', density = 1 } = {}) {
       }`,
   });
   const flowers = new T.Mesh(fGeo, flowerMat); flowers.frustumCulled = false; scene.add(flowers);
+  const sGeo = new T.InstancedBufferGeometry(); sGeo.index = blade.index;
+  sGeo.setAttribute('position', blade.attributes.position); sGeo.setAttribute('aT', blade.attributes.aT);
+  sGeo.setAttribute('iOffset', fGeo.attributes.iOffset); sGeo.setAttribute('iBloom', fGeo.attributes.iBloom); sGeo.setAttribute('iSize', fGeo.attributes.iSize);
+  sGeo.instanceCount = fN - FAR;
+  const stems = new T.Mesh(sGeo, new T.ShaderMaterial({
+    side: T.DoubleSide, uniforms: { uGrow: growth, uTime: time, uWind: wind, uFogColor: fogColor, uFogNear: fogNear, uFogFar: fogFar },
+    vertexShader: `
+      attribute float aT; attribute vec3 iOffset; attribute float iBloom; attribute float iSize;
+      uniform float uGrow; uniform float uTime; uniform float uWind; varying float vT; varying float vDepth;
+      void main() {
+        float up = clamp((uGrow - iBloom) / .14 + .25, 0.0, 1.0), len = .2 * up;
+        float w = sin(uTime * 1.6 + iOffset.x * .8 + iOffset.z * .6) * .6;
+        vec3 p = vec3(position.x * .014, aT * len - .2, 0.0) + iOffset;
+        p.x += w * uWind * .9 * aT; p.z += w * uWind * .45 * aT;
+        vec4 mv = viewMatrix * vec4(p, 1.0); gl_Position = projectionMatrix * mv; vT = aT; vDepth = -mv.z;
+      }`,
+    fragmentShader: `
+      uniform vec3 uFogColor; uniform float uFogNear; uniform float uFogFar; varying float vT; varying float vDepth;
+      void main() { vec3 col = mix(vec3(.09, .24, .05), vec3(.36, .58, .17), vT);
+        gl_FragColor = vec4(mix(col, uFogColor, smoothstep(uFogNear, uFogFar, vDepth)), 1.0);
+        #include <colorspace_fragment>
+      }`,
+  }));
+  stems.frustumCulled = false; scene.add(stems);
 
   // ---- the seedling's pose: how far it has grown, its sway, and how far the right leaf bends under the drop
   const right = leaves.find((l) => l.s > 0), tipLocal = new T.Vector3(0, 1.12, -1.12 * .12 + Math.sin(1.12 * 2.6) * .05), tip = new T.Vector3();
@@ -237,7 +271,7 @@ export function createGrowScene(canvas, { bg = '#f7f9f2', density = 1 } = {}) {
   // ---- the bottle, standing in the grass right under the leaf tip with the drop on it (the leaf bent fully)
   const DROOP = .3, DROP = .5;
   setSprout(1, 0, DROOP);
-  const release = tipAt().clone(), groundY = hill(release.x, release.z - 2) + .02;
+  const release = tipAt().clone(), groundY = land(release.x, release.z - 2) + .02;
   const S = clamp((release.y - .42 - groundY) / 2.43, .16, .4);                   // the bottle model is 2.43 tall
   const mouth = new T.Vector3(release.x, groundY + 2.43 * S, release.z);
   const reflections = (() => {
@@ -250,7 +284,7 @@ export function createGrowScene(canvas, { bg = '#f7f9f2', density = 1 } = {}) {
     const pm = new T.PMREMGenerator(renderer), map = pm.fromEquirectangular(t).texture; t.dispose(); pm.dispose(); return map;
   })();
   const bottle = new T.Group(); bottle.position.set(release.x, groundY, release.z); bottle.visible = false; scene.add(bottle);
-  const glass = new T.MeshPhysicalMaterial({ color: '#6b3007', roughness: .1, metalness: 0, clearcoat: 1, clearcoatRoughness: .04, envMap: reflections, envMapIntensity: 1.1 });
+  const glass = new T.MeshPhysicalMaterial({ color: '#8a3c05', roughness: .1, metalness: 0, clearcoat: 1, clearcoatRoughness: .04, envMap: reflections, envMapIntensity: .55 });
   // an amber medicine bottle (outer wall, lip, then the inner wall back down), its base at 0
   const profile = [[0, 0], [.67, 0], [.78, .02], [.84, .11], [.85, .26], [.85, 1.44], [.83, 1.59], [.76, 1.72], [.59, 1.85], [.45, 1.96], [.40, 2.07], [.40, 2.31],
     [.43, 2.35], [.43, 2.4], [.40, 2.43], [.33, 2.43], [.32, 2.38], [.32, 2.1], [.37, 1.92], [.54, 1.77], [.70, 1.62], [.76, 1.45], [.76, .25], [.69, .13], [0, .13]];
@@ -280,6 +314,8 @@ export function createGrowScene(canvas, { bg = '#f7f9f2', density = 1 } = {}) {
   drop.visible = false; scene.add(drop);
   const ripple = new T.Mesh(new T.TorusGeometry(.4, .025, 8, 48), new T.MeshBasicMaterial({ color: '#f4c04e', transparent: true, opacity: 0, depthWrite: false }));
   ripple.rotation.x = Math.PI / 2; ripple.position.copy(mouth); ripple.visible = false; scene.add(ripple);
+  // a little splash of medicine thrown up from the mouth as the drop lands
+  const splash = Array.from({ length: 7 }, (_, i) => { const m = new T.Mesh(new T.SphereGeometry(1, 10, 8), drop.material); m.visible = false; scene.add(m); return { m, a: i / 7 * Math.PI * 2 + random() * .6, v: .6 + random() * .5 }; });
   clear.value.set(release.x, release.z + .25, 1.25, 0);
   setSprout(0);
 
@@ -346,8 +382,16 @@ export function createGrowScene(canvas, { bg = '#f7f9f2', density = 1 } = {}) {
     else drop.position.set(release.x, release.y - hang - fall * fall * (release.y - hang - mouth.y + .04), release.z);
     ripple.visible = impact > 0 && impact < 1;
     ripple.scale.setScalar(S * (.6 + impact * 1.9)); ripple.material.opacity = (1 - impact) * .75;
+    const burst = impact / .55;
+    splash.forEach(({ m, a, v }) => {
+      m.visible = burst > 0 && burst < 1;
+      if (!m.visible) return;
+      m.position.set(mouth.x + Math.cos(a) * .17 * burst, mouth.y + .02 + burst * .24 * v - burst * burst * .3, mouth.z + Math.sin(a) * .17 * burst);
+      m.scale.setScalar(.02 * (1 - burst * .7));
+    });
 
     aim(zoom);
+    quality();
     renderer.render(scene, camera);
   }
   canvas.addEventListener('webglcontextlost', (e) => e.preventDefault());
