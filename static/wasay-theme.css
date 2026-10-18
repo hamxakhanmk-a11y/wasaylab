@@ -47,7 +47,6 @@ body { background: var(--bg); color: var(--text); }
 
 /* ---- home: the banner's card, the ring section */
 .wellness-banner__panel { background: rgba(247, 249, 242, .96); }
-.wz-ring { background: linear-gradient(180deg, var(--bg) 0%, var(--sage) 100%); }
 
 /* ---- home: our ranges */
 .wz-ranges { background: var(--bg); }

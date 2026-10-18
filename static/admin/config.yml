@@ -243,7 +243,6 @@ collections:
               - { name: eyebrow, label: Small label above heading, widget: string }
               - { name: heading, label: Heading, widget: string }
               - { name: label, label: Description for screen readers, widget: text }
-              - { name: arch_text, label: Words curved along the arch, widget: string }
               - { name: link_label, label: Button text, widget: string }
               - { name: link_href, label: Button links to, widget: string }
           - name: about

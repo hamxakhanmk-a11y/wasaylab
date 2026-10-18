@@ -1,11 +1,14 @@
-/* Wasay at a glance: a screen-tall page on the off-white paper with a living grassy trunk arcing across it (static/glance-three.js,
-   run by glance.js). The title sits large above the arc; the figures and Wasay's own description sit below it. The pointer parts
-   the grass where it rests. */
-.wz-glance { position: relative; box-sizing: border-box; min-height: max(100svh, 640px); display: flex; overflow: hidden; color: var(--forest, #0b3b23);
+/* Wasay at a glance and Our products: one scene that holds its place (a stage a screen tall, sticky) while the page scrolls through
+   --dwell. On the off-white paper a living grassy trunk arcs across it (static/glance-three.js, run by glance.js); the title sits
+   large above the arc, the figures and Wasay's own description below. Scrolling on dives into the trunk until its grass fills the
+   screen, and the products (wasay-ring.css) arrive on it. The pointer parts the grass where it rests. */
+.wz-glance { --stage: max(100svh, 640px); --dwell: calc(160svh + var(--steps, 8) * 34svh); position: relative; min-height: calc(var(--stage) + var(--dwell)); color: var(--forest, #0b3b23);
+  background: var(--bg, #f7f9f2); }
+.wz-glance__stage { position: sticky; top: 0; box-sizing: border-box; height: var(--stage); display: flex; overflow: hidden;
   background: radial-gradient(80% 60% at 50% 100%, var(--surface-alt, #ecf3e4) 0%, rgba(236, 243, 228, 0) 70%), var(--bg, #f7f9f2); }
 .wz-glance__canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; opacity: 0; transition: opacity .9s ease; touch-action: pan-y; }
 .wz-glance.is-ready .wz-glance__canvas { opacity: 1; }
-.wz-glance__inner { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding-block: calc(68px + clamp(20px, 5svh, 64px)) clamp(28px, 6svh, 64px); pointer-events: none; }
+.wz-glance__inner { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding-block: calc(68px + clamp(20px, 5svh, 64px)) clamp(28px, 6svh, 64px); pointer-events: none; will-change: opacity, transform; }
 .wz-glance__inner a { pointer-events: auto; }
 .wz-glance__title { margin: 0 auto; max-width: 14ch; text-align: center; font-family: var(--display); font-weight: 500; font-size: clamp(3rem, 7.4vw, 7rem); line-height: .95; letter-spacing: -.02em; color: var(--accent); text-wrap: balance; }
 .wz-glance__foot { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px 48px; }
@@ -16,10 +19,10 @@
 .wz-glance__note p { margin: 0; font-size: .92rem; line-height: 1.6; color: var(--muted); }
 .wz-glance__note p:first-child { margin-bottom: 6px; font-weight: 600; color: var(--forest, #0b3b23); }
 @media (max-width: 760px) {
-  .wz-glance { min-height: max(100svh, 700px); }
+  .wz-glance { --stage: max(100svh, 700px); }
   .wz-glance__title { font-size: clamp(2.6rem, 13vw, 3.6rem); }
   .wz-glance__facts { gap: 12px 22px; }
   .wz-glance__facts dt { font-size: 1.8rem; }
   .wz-glance__facts dd { font-size: .8rem; }
 }
-@media (prefers-reduced-motion: reduce) { .wz-glance__canvas { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .wz-glance__canvas { transition: none; } .wz-glance__inner { will-change: auto; } }

@@ -1,7 +1,8 @@
 import * as T from './vendor/three/three.module.min.js';
 import { autoQuality } from './gl-quality.js';
 
-// Wasay at a glance: a thick grassy trunk that arcs across the page like a smile, coming nearer in the middle. Tens of thousands of
+// Wasay at a glance: a thick grassy trunk that arcs across the page like a smile, coming nearer in the middle. As the page scrolls on
+// (zoom, 0 to 1) the camera dives into the bottom of the arc until its grass fills the whole screen, the ground the products stand on. Tens of thousands of
 // long blades (one blade drawn many times, instancing) grow out of it all round and sway in the breeze; a few small daisies poke out
 // along its top. Where the pointer rests on it, the grass parts outwards and flattens, leaving a soft dark hollow that follows it.
 const clamp = (n, a = 0, b = 1) => Math.max(a, Math.min(b, n));
@@ -59,13 +60,13 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
   grass.setAttribute('iBase', new T.InstancedBufferAttribute(gBase, 3)); grass.setAttribute('iN', new T.InstancedBufferAttribute(gN, 3));
   grass.setAttribute('iT', new T.InstancedBufferAttribute(gT, 3)); grass.setAttribute('iShape', new T.InstancedBufferAttribute(gShape, 4));
   grass.instanceCount = n;
-  const time = { value: 0 }, wind = { value: .07 }, push = { value: new T.Vector4(0, 0, 0, 0) };
+  const time = { value: 0 }, wind = { value: .07 }, push = { value: new T.Vector4(0, 0, 0, 0) }, pushR = { value: 1.15 };
   const grassMat = new T.ShaderMaterial({
     side: T.DoubleSide,
-    uniforms: { uTime: time, uWind: wind, uPush: push, uBase: { value: new T.Color('#0b2a07') }, uTip: { value: new T.Color('#7fc03a') }, uSun: { value: new T.Color('#cfe46e') } },
+    uniforms: { uTime: time, uWind: wind, uPush: push, uPushR: pushR, uBase: { value: new T.Color('#0b2a07') }, uTip: { value: new T.Color('#7fc03a') }, uSun: { value: new T.Color('#cfe46e') } },
     vertexShader: `
       attribute float aT; attribute vec3 iBase; attribute vec3 iN; attribute vec3 iT; attribute vec4 iShape;
-      uniform float uTime; uniform float uWind; uniform vec4 uPush;
+      uniform float uTime; uniform float uWind; uniform vec4 uPush; uniform float uPushR;
       varying float vT; varying float vTone; varying float vLight; varying float vFlat;
       void main() {
         float t = aT, yaw = iShape.x, tone = floor(iShape.w) / 100.0, bend = fract(iShape.w);
@@ -75,7 +76,7 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
         vec3 comb = normalize(mix(lean, along, .72));
         // the pointer: blades near it lie down outwards, away from it
         vec3 away = iBase - uPush.xyz; away -= dot(away, up) * up;
-        float f = uPush.w * (1.0 - smoothstep(0.0, 1.15, length(iBase - uPush.xyz)));
+        float f = uPush.w * (1.0 - smoothstep(0.0, uPushR, length(iBase - uPush.xyz)));
         float h = iShape.z * (1.0 - .92 * f);
         // grass hangs a little under its own weight, more on the underside
         float droop = max(0.0, -up.y);
@@ -122,13 +123,13 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
   dGeo.setAttribute('iBase', new T.InstancedBufferAttribute(new Float32Array(dBase), 3)); dGeo.setAttribute('iSize', new T.InstancedBufferAttribute(new Float32Array(dSize), 1));
   dGeo.instanceCount = dSize.length;
   const daisies = new T.Mesh(dGeo, new T.ShaderMaterial({
-    uniforms: { uMap: { value: daisyMap }, uTime: time, uWind: wind, uPush: push },
+    uniforms: { uMap: { value: daisyMap }, uTime: time, uWind: wind, uPush: push, uPushR: pushR },
     vertexShader: `
-      attribute vec3 iBase; attribute float iSize; uniform float uTime; uniform float uWind; uniform vec4 uPush;
+      attribute vec3 iBase; attribute float iSize; uniform float uTime; uniform float uWind; uniform vec4 uPush; uniform float uPushR;
       varying vec2 vUv;
       void main() {
         float w = sin(uTime * 1.5 + iBase.x * .7 + iBase.y * .5) * .6;
-        float f = uPush.w * (1.0 - smoothstep(0.0, 1.15, length(iBase - uPush.xyz)));
+        float f = uPush.w * (1.0 - smoothstep(0.0, uPushR, length(iBase - uPush.xyz)));
         vec3 c = iBase + vec3(w * uWind * 3.0, 0.0, 0.0) + normalize(iBase - uPush.xyz + 1e-4) * f * .5 - vec3(0.0, f * .3, 0.0);
         vec4 mv = viewMatrix * vec4(c, 1.0);
         mv.xy += position.xy * iSize * (1.0 - .5 * f);                       // always faces the viewer
@@ -143,7 +144,12 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
   daisies.frustumCulled = false; scene.add(daisies);
 
   // ---- framing: the whole arc across a wide screen; on a tall one the camera stands back so the curve still crosses it
-  let width = 0, height = 0;
+  let width = 0, height = 0, zoom = 0;
+  const wide = { pos: new T.Vector3(), look: new T.Vector3() };
+  // the dive ends close in front of the lowest point of the arc, so its grass runs past every edge of the screen
+  const low = (() => { let best = null; for (let i = 0; i <= 200; i++) { const p = curve.getPointAt(.25 + i / 200 * .5); if (!best || p.y < best.y) best = p; } return best; })();
+  const near = { look: low.clone().add(new T.Vector3(0, .02, R * .55)), pos: low.clone().add(new T.Vector3(0, .1, R + 1.25)) };
+  const look = new T.Vector3(), dir = new T.Vector3(), wideDir = new T.Vector3(), nearDir = new T.Vector3();
   function frame() {
     const w = canvas.clientWidth, h = canvas.clientHeight;
     if (!w || !h) return false;
@@ -152,10 +158,22 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
       const across = camera.aspect < 1 ? 5.2 : 13.6, half = Math.tan(T.MathUtils.degToRad(camera.fov / 2));
       const z = clamp(across / 2 / (half * camera.aspect), 12.5, 30);
       const y = camera.aspect < 1 ? -1 : .35;              // on a tall screen the arc sits higher, between the title and the figures
-      camera.position.set(0, y, z); camera.lookAt(0, y, 0);
-      camera.updateProjectionMatrix(); camera.updateMatrixWorld();
+      wide.pos.set(0, y, z); wide.look.set(0, y, 0);
+      camera.updateProjectionMatrix(); width = w; place(zoom, true);
     }
     return true;
+  }
+  // the camera between the whole arc (0) and the grass filling the screen (1): it closes the distance evenly to the eye, not the ruler
+  function place(z, force = false) {
+    if (!force && z === zoom) return;
+    zoom = z;
+    const e = z * z * (3 - 2 * z);
+    look.lerpVectors(wide.look, near.look, e);
+    wideDir.subVectors(wide.pos, wide.look); nearDir.subVectors(near.pos, near.look);
+    const dist = wideDir.length() * Math.pow(nearDir.length() / wideDir.length(), e);
+    dir.copy(wideDir).normalize().lerp(nearDir.normalize(), e).normalize();
+    camera.position.copy(look).addScaledVector(dir, dist); camera.lookAt(look); camera.updateMatrixWorld();
+    pushR.value = 1.15 + (.32 - 1.15) * e;
   }
 
   // ---- the pointer: where the ray under it passes closest to the trunk, on the trunk's surface
@@ -178,8 +196,9 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
   const leave = () => { onTrunk = false; };
 
   let lastT = 0;
-  function draw(seconds, { still = false } = {}) {
+  function draw(seconds, { still = false, zoom: dive = 0 } = {}) {
     if (!frame()) return;
+    place(clamp(dive));
     const dt = lastT ? Math.min(.1, Math.abs(seconds - lastT)) : 0; lastT = seconds;
     time.value = still ? 0 : seconds;
     // the hollow glides after the pointer and closes softly when the pointer leaves

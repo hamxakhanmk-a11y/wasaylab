@@ -52,23 +52,43 @@
       </div>
     </section>
 
-    <!-- WASAY AT A GLANCE: right after the banner, a living grassy trunk arcs across the page (static/glance-three.js); the pointer
-         parts the grass where it rests. The title sits above the arc; the figures (counted from the catalogue) and Wasay's own
-         description of itself sit below it. -->
-    <section class="wz-glance" data-glance aria-labelledby="wz-glance-title">
-      <canvas class="wz-glance__canvas" aria-hidden="true"></canvas>
-      <div class="container wz-glance__inner">
-        <h2 id="wz-glance-title" class="wz-glance__title">{{ page.stats.eyebrow }}</h2>
-        <div class="wz-glance__foot">
-          <dl class="wz-glance__facts">
-            <div><dt>{{ content.stats.products }}</dt><dd>{{ page.stats.products_label }}</dd></div>
-            <div><dt>{{ content.stats.ranges }}</dt><dd>{{ page.stats.ranges_label }}</dd></div>
-            {{#each page.stats.facts}}<div><dt>{{ value }}</dt><dd>{{ label }}</dd></div>
-            {{/each}}
-          </dl>
-          <div class="wz-glance__note">
-            <p>{{ page.stats.heading }}</p>
-            <p>{{ page.stats.text }}</p>
+    <!-- WASAY AT A GLANCE AND OUR PRODUCTS: one scene that holds its place while the page scrolls through it. A living grassy trunk
+         arcs across the page (static/glance-three.js) under the title and the figures; scrolling on dives into the trunk until its
+         grass fills the screen, then the products sweep in from the right and the scroll carries them across (static/wasay-ring.js).
+         They can also be dragged, swiped, wheeled sideways or stepped with the arrow keys; the pointer parts the grass where it rests.
+         data-zoom and data-appear: how many screens of scrolling the dive and the products' arrival take. -->
+    <section class="wz-glance" data-glance data-zoom="1" data-appear=".6" aria-labelledby="wz-glance-title">
+      <div class="wz-glance__stage">
+        <canvas class="wz-glance__canvas" aria-hidden="true"></canvas>
+        <div class="container wz-glance__inner" data-glance-intro>
+          <h2 id="wz-glance-title" class="wz-glance__title">{{ page.stats.eyebrow }}</h2>
+          <div class="wz-glance__foot">
+            <dl class="wz-glance__facts">
+              <div><dt>{{ content.stats.products }}</dt><dd>{{ page.stats.products_label }}</dd></div>
+              <div><dt>{{ content.stats.ranges }}</dt><dd>{{ page.stats.ranges_label }}</dd></div>
+              {{#each page.stats.facts}}<div><dt>{{ value }}</dt><dd>{{ label }}</dd></div>
+              {{/each}}
+            </dl>
+            <div class="wz-glance__note">
+              <p>{{ page.stats.heading }}</p>
+              <p>{{ page.stats.text }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="wz-glance__shop wz-ring" data-glance-shop role="region" aria-labelledby="wz-ring-title">
+          <div class="container wz-ring__head">
+            <p class="eyebrow">{{ page.ring.eyebrow }}</p>
+            <h2 id="wz-ring-title">{{ page.ring.heading }}</h2>
+          </div>
+          <div class="wz-ring__stage" data-ring tabindex="0" role="group" aria-label="{{ page.ring.label }}">
+            <ul class="wz-ring__items">
+              {{#each content.home_ring}}<li class="wz-ring__item{{#if jar}}{{else}} wz-ring__item--carton{{/if}}" data-ring-item data-pv-item data-slug="{{ slug }}" data-name="{{ name }}" data-detail="{{ detail }}" data-kind="{{ tab }}" data-img="{{ large }}" data-photos="{{ photos_json }}"{{#if turn}} data-turn="{{ turn }}"{{/if}}><a href="{{ tab }}.html#product-{{ slug }}" aria-label="{{ name }}, {{ detail }}" draggable="false"><img src="{{ ring_image }}" alt="" height="640" decoding="async" draggable="false" /></a></li>
+              {{/each}}
+            </ul>
+          </div>
+          <div class="wz-ring__foot">
+            <p class="wz-ring__caption" aria-live="polite" data-ring-caption>&nbsp;</p>
+            <a class="btn btn--ghost" href="{{ page.ring.link_href }}">{{ page.ring.link_label }} &rarr;</a>
           </div>
         </div>
       </div>
@@ -96,28 +116,6 @@
           {{/each}}
         </ul>
       </div>
-    </section>
-
-    <!-- PRODUCT RING: the pastes drift past in front of a big arch, tilting as they move. Cutouts are rendered ahead of time
-         by scripts/render-cutouts.mjs, so nothing has to be built in the browser. -->
-    <section class="wz-ring" aria-labelledby="wz-ring-title">
-      <div class="container wz-ring__head">
-        <p class="eyebrow">{{ page.ring.eyebrow }}</p>
-        <h2 id="wz-ring-title">{{ page.ring.heading }}</h2>
-      </div>
-      <div class="wz-ring__stage" data-ring tabindex="0" role="group" aria-label="{{ page.ring.label }}">
-        <svg class="wz-ring__arch" viewBox="0 0 1000 300" aria-hidden="true" focusable="false">
-          <defs><path id="wz-arch-text" d="M44 296 V186 C44 118 100 66 176 66 H824 C900 66 956 118 956 186 V296" /></defs>
-          <path class="wz-ring__shape" d="M0 300 V176 C0 82 70 28 168 28 H832 C930 28 1000 82 1000 176 V300 Z" />
-          <text class="wz-ring__text"><textPath href="#wz-arch-text" startOffset="50%" text-anchor="middle">{{ page.ring.arch_text }} &middot; {{ page.ring.arch_text }}</textPath></text>
-        </svg>
-        <ul class="wz-ring__items">
-          {{#each content.home_ring}}<li class="wz-ring__item{{#if jar}}{{else}} wz-ring__item--carton{{/if}}" data-ring-item data-pv-item data-slug="{{ slug }}" data-name="{{ name }}" data-detail="{{ detail }}" data-kind="{{ tab }}" data-img="{{ large }}" data-photos="{{ photos_json }}"{{#if turn}} data-turn="{{ turn }}"{{/if}}><a href="{{ tab }}.html#product-{{ slug }}" aria-label="{{ name }}, {{ detail }}" draggable="false"><img src="{{ ring_image }}" alt="" height="640" decoding="async" draggable="false" /></a></li>
-          {{/each}}
-        </ul>
-      </div>
-      <p class="wz-ring__caption" aria-live="polite" data-ring-caption>&nbsp;</p>
-      <p class="wz-ring__more"><a class="btn btn--ghost" href="{{ page.ring.link_href }}">{{ page.ring.link_label }} &rarr;</a></p>
     </section>
 
 {{> product-view}}

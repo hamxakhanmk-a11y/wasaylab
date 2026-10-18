@@ -1,38 +1,38 @@
-/* Home product ring: the pastes drift past in front of a big arch, tilting as they move.
-   wasay-ring.js sets each jar's position, size and tilt; this file holds everything that does not change per frame. */
-.wz-ring { --ring-arch: #0b5c33; --ring-text: #a3cf3c; --jar-h: clamp(196px, 29vw, 380px); position: relative; overflow: hidden; padding: clamp(40px, 6vw, 72px) 0 0; background: var(--bg); }
-.wz-ring__head { text-align: center; }
-.wz-ring__head h2 { margin: 6px 0 0; font-size: clamp(1.9rem, 3.6vw, 2.8rem); line-height: 1.1; }
+/* Home products, standing on the grass at the end of the Wasay at a glance dive (glance.css). The layer covers the stage and stays
+   hidden until the grass fills the screen; wasay-ring.js sets --appear (0 to 1) as the products sweep in, and each product's
+   position, size, lean and fade. This file holds everything that does not change per frame. Each product carries a soft shadow
+   on the grass rather than a filter, so moving them stays cheap. */
+.wz-ring { --jar-h: clamp(190px, min(28vw, 40svh), 380px); --appear: 0; position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; visibility: hidden; }
+.wz-ring.is-on { visibility: visible; }
+.wz-ring__head, .wz-ring__foot { opacity: clamp(0, calc(var(--appear) * 1.8 - .5), 1); transform: translateY(calc((1 - var(--appear)) * 26px)); }
+.wz-ring__head { padding-top: calc(68px + clamp(14px, 4svh, 44px)); text-align: center; }
+.wz-ring__head .eyebrow { margin: 0; color: #f2fbe0; text-shadow: 0 1px 10px rgba(6, 30, 6, .55); }
+.wz-ring__head h2 { margin: 6px 0 0; font-size: clamp(1.9rem, 3.6vw, 2.9rem); line-height: 1.1; color: #fff; text-shadow: 0 2px 22px rgba(6, 30, 6, .6), 0 1px 3px rgba(6, 30, 6, .4); }
 
-.wz-ring__stage { position: relative; height: clamp(380px, 44vw, 560px); margin-top: 8px; touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; outline: none; }
+.wz-ring__stage { position: relative; flex: 1; min-height: 0; touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; outline: none; }
 .wz-ring__stage.is-dragging { cursor: grabbing; }
-.wz-ring__stage:focus-visible { outline: 2px solid var(--accent); outline-offset: -6px; border-radius: 16px; }
+.wz-ring__stage:focus-visible { outline: 2px solid #fff; outline-offset: -8px; border-radius: 18px; }
 
-.wz-ring__arch { position: absolute; left: 50%; bottom: 0; width: min(1060px, 92vw); height: auto; transform: translateX(-50%); display: block; overflow: visible; }
-.wz-ring__shape { fill: var(--ring-arch); }
-.wz-ring__text { fill: var(--ring-text); font-family: var(--poster); font-weight: 700; font-size: 74px; letter-spacing: .1em; text-transform: uppercase; }
-
-/* until the script has laid the ring out, show one jar rather than a pile of nine */
-.wz-ring__stage:not(.is-ready) .wz-ring__item + .wz-ring__item { visibility: hidden; }
+/* until the script has laid the products out, show none rather than a pile */
+.wz-ring__stage:not(.is-ready) .wz-ring__item { visibility: hidden; }
 .wz-ring__items { list-style: none; margin: 0; padding: 0; position: absolute; inset: 0; }
-.wz-ring__item { position: absolute; left: 50%; top: 46%; margin: 0; will-change: transform, opacity; transform-origin: 50% 62%; pointer-events: none; }
-.wz-ring__item a { display: block; pointer-events: auto; border-radius: 12px; }
-.wz-ring__item a { position: relative; }
-.wz-ring__turn { position: absolute; inset: 0; opacity: 0; pointer-events: none; background-repeat: no-repeat; filter: drop-shadow(0 22px 20px rgba(18, 52, 32, .28)); }
-.wz-ring__item img { display: block; height: var(--jar-h); width: auto; max-width: none; -webkit-user-drag: none; filter: drop-shadow(0 22px 20px rgba(18, 52, 32, .28)); }
+.wz-ring__item { position: absolute; left: 50%; top: 52%; margin: 0; will-change: transform, opacity; transform-origin: 50% 70%; pointer-events: none; backface-visibility: hidden; }
+.wz-ring__item a { position: relative; display: block; pointer-events: auto; border-radius: 12px; }
+.wz-ring__item a::after { content: ""; position: absolute; z-index: -1; left: 8%; right: 8%; bottom: -5%; height: 14%; border-radius: 50%; background: radial-gradient(closest-side, rgba(4, 22, 4, .55), rgba(4, 22, 4, 0)); }
+.wz-ring__turn { position: absolute; inset: 0; opacity: 0; pointer-events: none; background-repeat: no-repeat; }
+.wz-ring__item img { display: block; height: var(--jar-h); width: auto; max-width: none; -webkit-user-drag: none; }
+/* any product can be chosen for the home ring: a carton is wider than a jar, so it is held inside the jar's height and width */
+.wz-ring__item--carton img { height: auto; max-height: var(--jar-h); max-width: calc(var(--jar-h) * .95); object-fit: contain; }
 
-.wz-ring__caption { margin: 14px 0 0; text-align: center; color: var(--muted); font-size: .95rem; min-height: 1.6em; }
-.wz-ring__caption b { color: var(--text); font-family: var(--display); font-size: 1.15rem; font-weight: 600; margin-right: 8px; }
-.wz-ring__more { margin: 14px 0 0; text-align: center; padding-bottom: clamp(36px, 5vw, 64px); }
+.wz-ring__foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 14px; padding: 0 16px clamp(22px, 5svh, 48px); }
+.wz-ring__caption { margin: 0; padding: 10px 20px; border-radius: 999px; background: rgba(247, 249, 242, .92); color: var(--muted); font-size: .95rem; min-height: 1.6em; box-shadow: 0 10px 30px -14px rgba(4, 22, 4, .6); }
+.wz-ring__foot .btn.btn--ghost, .wz-ring__foot .btn.glass-action.btn--ghost { background: rgba(247, 249, 242, .92); color: var(--forest, #0b3b23); border-color: rgba(255, 255, 255, .8); box-shadow: 0 10px 30px -14px rgba(4, 22, 4, .6); }
+.wz-ring__caption b { color: var(--text); font-family: var(--display); font-size: 1.12rem; font-weight: 600; margin-right: 8px; }
 
 @media (max-width: 640px) {
-  .wz-ring__stage { height: 360px; }
-  .wz-ring__arch { width: 150vw; }
-  .wz-ring__text { font-size: 80px; }
+  .wz-ring { --jar-h: clamp(180px, 54vw, 260px); }
+  .wz-ring__caption { font-size: .88rem; padding: 8px 16px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .wz-ring__item { will-change: auto; }
 }
-
-/* any product can be chosen for the home ring: a carton is wider than a jar, so it is held inside the jar's height and width */
-.wz-ring__item--carton img { height: auto; max-height: var(--jar-h); max-width: calc(var(--jar-h) * .95); object-fit: contain; }
