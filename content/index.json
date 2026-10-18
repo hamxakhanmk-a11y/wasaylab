@@ -3,39 +3,13 @@
   "description": "Wasay Laboratories (Pvt.) Ltd. is one of the largest natural products manufacturers in Pakistan, offering medicines, supplements, foods and beverages.",
   "hero": {
     "heading": "Rediscover the Power of Natural Healing",
-    "lead": "Curing naturally, caring globally.",
+    "lead": "One of the largest natural products manufacturers in Pakistan, bringing together the best of nature and the best of science.",
     "primary_label": "Contact us",
     "primary_href": "contact.html",
     "secondary_label": "Our products",
     "secondary_href": "products.html",
-    "image": "/images/wasay/Wasay-banner.webp",
-    "image_mobile": "/images/wasay/mob-banner.webp",
-    "alt": "Wasay products on a green background: Ironprove, T-Restris plus Majoon and Dibec",
-    "landscape": "/images/wasay/wellness-video-poster.webp",
-    "panel_heading": "Wasay Laboratories",
-    "ranges": [
-      {
-        "label": "Tablets",
-        "href": "tablets.html"
-      },
-      {
-        "label": "Multi Tonics",
-        "href": "tonics.html"
-      },
-      {
-        "label": "Syrups",
-        "href": "syrups.html"
-      },
-      {
-        "label": "Ointments",
-        "href": "ointments.html"
-      },
-      {
-        "label": "Pastes",
-        "href": "pastes.html"
-      }
-    ],
-    "video": "/videos/wellness-hillside.mp4"
+    "pause_label": "Pause animation",
+    "play_label": "Play animation"
   },
   "ranges": {
     "eyebrow": "Our ranges",

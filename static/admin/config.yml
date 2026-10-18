@@ -181,13 +181,19 @@ collections:
           - { name: title, label: Browser tab / search result title, widget: string }
           - { name: description, label: Search engine description, widget: text, hint: 'Aim for 150–160 characters.' }
           - name: hero
-            label: 'Section: Opening banner'
+            label: 'Section: Opening banner (the growing hill)'
             widget: object
+            hint: The hill, the seedling and the flowers are drawn by the site itself; only the words are edited here.
             fields:
-              - { name: video, label: Banner video (MP4), widget: file }
-              - { name: landscape, label: Banner poster / still fallback, widget: image }
-              - { name: panel_heading, label: Brand panel heading, widget: string }
-              - name: ranges
+              - { name: heading, label: Heading, widget: string }
+              - { name: lead, label: Line under the heading, widget: text }
+              - { name: primary_label, label: Main button text, widget: string }
+              - { name: primary_href, label: Main button links to, widget: string }
+              - { name: secondary_label, label: Second link text, widget: string }
+              - { name: secondary_href, label: Second link goes to, widget: string }
+              - { name: pause_label, label: Pause button text, widget: string }
+              - { name: play_label, label: Play button text, widget: string }
+          - name: ranges
                 label: Product range links
                 widget: list
                 fields:

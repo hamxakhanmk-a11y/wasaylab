@@ -5,7 +5,7 @@
   <link rel="stylesheet" href="/quality-story.css" />
   <link rel="stylesheet" href="/glass-photos.css" />
   <link rel="stylesheet" href="/wasay-ring.css" />
-  <link rel="stylesheet" href="/wellness-banner.css" />
+  <link rel="stylesheet" href="/hero-grow.css" />
   <link rel="stylesheet" href="/botanical-motion.css" />
   <link rel="stylesheet" href="/wasay-detail.css" />
 </head>
@@ -14,28 +14,19 @@
 {{> header}}
 
   <main>
-    <!-- Landscape banner: real walking footage, with live text and a paper navigation panel. -->
-    <section class="wellness-banner" data-wellness-banner aria-labelledby="wellness-title">
-      <div class="wellness-banner__scene">
-        <div class="wellness-banner__film">
-        <video class="wellness-banner__landscape" data-src="{{ page.hero.video }}" poster="{{ page.hero.landscape }}" muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1" width="1600" height="900"></video>
-        <div class="wellness-banner__copy">
-          <h1 id="wellness-title">{{ page.hero.heading }}</h1>
-          <p>{{ page.hero.lead }}</p>
-          <a class="btn btn--accent" href="{{ page.hero.primary_href }}">{{ page.hero.primary_label }} <span aria-hidden="true">→</span></a>
-        </div>
-        <button class="wellness-banner__motion" type="button" data-banner-motion hidden aria-pressed="false">Play video</button>
-        </div>
-        <div class="wellness-banner__panel">
-          <div class="wellness-banner__identity">
-            <img src="{{ site.logo }}" alt="{{ site.name }}" width="58" height="58" />
-            <div><p>{{ page.hero.panel_heading }}</p><a href="{{ page.hero.secondary_href }}">{{ page.hero.secondary_label }} <span aria-hidden="true">↗</span></a></div>
-          </div>
-          <nav class="wellness-banner__ranges" aria-label="Explore Wasay products">
-            {{#each page.hero.ranges}}<a href="{{ href }}">{{ label }} <span aria-hidden="true">↗</span></a>{{/each}}
-          </nav>
+    <!-- BANNER: a living hill drawn in 3D (static/hero-grow-three.js): a grassy mound on the off-white page, a seedling on its top
+         that grows and opens its leaves, and wildflowers that bloom up the slope. It loops; the button pauses it. -->
+    <section class="wz-grow" data-grow aria-labelledby="wz-grow-title">
+      <canvas class="wz-grow__canvas" aria-hidden="true"></canvas>
+      <div class="container wz-grow__copy">
+        <h1 id="wz-grow-title">{{ page.hero.heading }}</h1>
+        <p class="wz-grow__lead">{{ page.hero.lead }}</p>
+        <div class="wz-grow__actions">
+          <a class="wz-grow__btn" href="{{ page.hero.primary_href }}">{{ page.hero.primary_label }} <span aria-hidden="true">&rarr;</span></a>
+          <a class="wz-grow__link" href="{{ page.hero.secondary_href }}">{{ page.hero.secondary_label }}</a>
         </div>
       </div>
+      <button class="wz-grow__pause" type="button" data-grow-pause data-pause="{{ page.hero.pause_label }}" data-play="{{ page.hero.play_label }}" aria-pressed="false" hidden>{{ page.hero.pause_label }}</button>
     </section>
 
     <!-- RANGES: one card per tab, with three of its products, how many there are and their sizes. Built from the catalogue, so a card
@@ -160,7 +151,7 @@
   <script src="/glass-photos.js"></script>
   <script src="/wasay-detail.js"></script>
   <script src="/wasay-ring.js"></script>
-  <script src="/wellness-banner.js"></script>
+  <script src="/hero-grow.js"></script>
   <script src="/botanical-motion.js"></script>
 </body>
 </html>
