@@ -10,8 +10,10 @@ const easeOutBack = (n) => { n = clamp(n); const c = 1.7; return 1 + (c + 1) * M
 // the loop, in seconds: the seedling and flowers grow, hold in bloom, then reset quickly
 const CYCLE = 13, GROW = 5.2, RESET_AT = 11.4, RESET_LEN = .8;
 
-// the hill: a broad mound whose top sits right of centre, falling to a flat field
+// the hill: a broad mound whose top sits right of centre, falling to low meadow
 const PEAK_X = 3.5;
+// the meadow's footprint: 0 under the hill, rising past 1 at its edges, where the grass thins out and the ground fades into the page
+const field = (x, z) => ((x - .5) / 9.5) ** 4 + ((z - 1.75) / 4.75) ** 4;
 const hill = (x, z) => { const dx = x - PEAK_X, sx = dx < 0 ? 3.1 : 3.8; return 2.3 * Math.exp(-((dx / sx) ** 2 + (z / 2.7) ** 2)) + .3 * Math.exp(-(((x - 2.5) / 6) ** 2 + ((z - .5) / 4) ** 2)); };
 
 export function createGrowScene(canvas, { bg = '#f7f9f2', density = 1 } = {}) {
@@ -33,10 +35,14 @@ export function createGrowScene(canvas, { bg = '#f7f9f2', density = 1 } = {}) {
 
   // ---- the ground under the grass, so no gaps show between blades
   const groundGeo = new T.PlaneGeometry(40, 26, 200, 130); groundGeo.rotateX(-Math.PI / 2);
-  { const p = groundGeo.attributes.position; for (let i = 0; i < p.count; i++) p.setY(i, hill(p.getX(i), p.getZ(i)) - .02); groundGeo.computeVertexNormals(); }
-  const ground = new T.Mesh(groundGeo, new T.MeshStandardMaterial({ color: '#2f6b1f', roughness: 1 }));
+  { const p = groundGeo.attributes.position, fade = new Float32Array(p.count * 4);
+    for (let i = 0; i < p.count; i++) {
+      const x = p.getX(i), z = p.getZ(i); p.setY(i, hill(x, z) - .02);
+      fade.set([1, 1, 1, 1 - smooth((field(x, z) - .5) / .4)], i * 4);
+    }
+    groundGeo.setAttribute('color', new T.Float32BufferAttribute(fade, 4)); groundGeo.computeVertexNormals(); }
+  const ground = new T.Mesh(groundGeo, new T.MeshStandardMaterial({ color: '#2f6b1f', roughness: 1, vertexColors: true, transparent: true }));
   ground.position.z = 2; scene.add(ground);
-  groundGeo.translate(0, 0, 0);
 
   // ---- grass: one tapered, curved blade, drawn many thousands of times with a position, turn, size and tone each
   const SEG = 4, blade = new T.BufferGeometry();
@@ -54,9 +60,9 @@ export function createGrowScene(canvas, { bg = '#f7f9f2', density = 1 } = {}) {
   grass.setAttribute('position', blade.attributes.position); grass.setAttribute('aT', blade.attributes.aT);
   const gOff = new Float32Array(BLADES * 3), gYaw = new Float32Array(BLADES), gScale = new Float32Array(BLADES * 2), gTone = new Float32Array(BLADES), gBend = new Float32Array(BLADES);
   for (let i = 0, n = 0; n < BLADES && i < BLADES * 6; i++) {
-    const x = -7 + random() * 17, z = -3 + random() * 9.5;
-    // denser where it is seen up close, sparse far behind the hill
-    const keep = z > -.8 ? 1 : .35; if (random() > keep) continue;
+    const x = -9 + random() * 19, z = -3 + random() * 9.5;
+    // denser where it is seen up close, sparse far behind the hill, thinning out at the meadow's edge
+    const keep = (z > -.8 ? 1 : .35) * (1 - smooth((field(x, z) - .6) / .45)); if (random() > keep) continue;
     gOff.set([x, hill(x, z) + 2 * 0, z + 2], n * 3);
     gYaw[n] = random() * Math.PI * 2;
     const tall = .26 + random() * .24 + (hill(x, z) > 1.6 ? .04 : 0);
@@ -214,16 +220,22 @@ export function createGrowScene(canvas, { bg = '#f7f9f2', density = 1 } = {}) {
   const flowers = new T.Mesh(fGeo, flowerMat); flowers.frustumCulled = false; scene.add(flowers);
 
   // ---- camera framing: the hill on the right with the left side free for the words; on a tall screen it sits lower and smaller
-  let width = 0, height = 0;
+  let width = 0, height = 0, clearX = .45, laid = '';
   function frame() {
     const w = canvas.clientWidth, h = canvas.clientHeight;
     if (!w || !h) return false;
-    if (w !== width || h !== height) {
-      width = w; height = h; renderer.setSize(w, h, false); camera.aspect = w / h;
+    if (w !== width || h !== height) { width = w; height = h; renderer.setSize(w, h, false); }
+    if (laid !== `${w}x${h}:${clearX}`) {
+      laid = `${w}x${h}:${clearX}`; camera.aspect = w / h; camera.clearViewOffset();
       const portrait = camera.aspect < 1;
       camera.fov = portrait ? 38 : 30; camera.updateProjectionMatrix();
       if (portrait) { camera.position.set(3.2, 2.6, 16.5); camera.lookAt(3.4, 4.3, 0); }
-      else { camera.position.set(-.3, 2.0, 13.4); camera.lookAt(1.7, 2.35, 0); }
+      else {
+        camera.position.set(-.3, 2.0, 13.4); camera.lookAt(1.7, 2.35, 0); camera.updateMatrixWorld();
+        // clearX is where the words end (a fraction of the width); the hilltop goes well to the right of it
+        const at = (top.clone().project(camera).x + 1) / 2, want = clamp(clearX + .25, .64, .8);
+        camera.setViewOffset(w, h, -(want - at) * w, 0, w, h);
+      }
     }
     return true;
   }
@@ -253,5 +265,7 @@ export function createGrowScene(canvas, { bg = '#f7f9f2', density = 1 } = {}) {
     renderer.render(scene, camera);
   }
   canvas.addEventListener('webglcontextlost', (e) => e.preventDefault());
-  return { draw, flowers: fN, blades: BLADES };
+  // the page tells the scene where its words end, so the hill keeps clear of them
+  const setClear = (fraction) => { clearX = Math.round(clamp(fraction) * 100) / 100; };
+  return { draw, setClear, flowers: fN, blades: BLADES };
 }

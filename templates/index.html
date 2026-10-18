@@ -14,7 +14,7 @@
 {{> header}}
 
   <main>
-    <!-- BANNER: a living hill drawn in 3D (static/hero-grow-three.js): a grassy mound on the off-white page, a seedling on its top
+    <!-- BANNER: a living hill drawn in 3D (static/hero-grow-three.js), full screen under the clear site header: a grassy mound on the off-white page, a seedling on its top
          that grows and opens its leaves, and wildflowers that bloom up the slope. It loops; the button pauses it. -->
     <section class="wz-grow" data-grow aria-labelledby="wz-grow-title">
       <canvas class="wz-grow__canvas" aria-hidden="true"></canvas>
@@ -22,8 +22,8 @@
         <h1 id="wz-grow-title">{{ page.hero.heading }}</h1>
         <p class="wz-grow__lead">{{ page.hero.lead }}</p>
         <div class="wz-grow__actions">
-          <a class="wz-grow__btn" href="{{ page.hero.primary_href }}">{{ page.hero.primary_label }} <span aria-hidden="true">&rarr;</span></a>
-          <a class="wz-grow__link" href="{{ page.hero.secondary_href }}">{{ page.hero.secondary_label }}</a>
+          <a class="btn btn--accent" href="{{ page.hero.primary_href }}">{{ page.hero.primary_label }}</a>
+          <a class="btn btn--ghost" href="{{ page.hero.secondary_href }}">{{ page.hero.secondary_label }}</a>
         </div>
       </div>
       <button class="wz-grow__pause" type="button" data-grow-pause data-pause="{{ page.hero.pause_label }}" data-play="{{ page.hero.play_label }}" aria-pressed="false" hidden>{{ page.hero.pause_label }}</button>
