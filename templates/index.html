@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="/glass-photos.css" />
   <link rel="stylesheet" href="/wasay-ring.css" />
   <link rel="stylesheet" href="/hero-grow.css" />
+  <link rel="stylesheet" href="/glance.css" />
   <link rel="stylesheet" href="/wasay-detail.css" />
 </head>
 <body>
@@ -48,6 +49,28 @@
           </div>
         </div>
         <button class="wz-grow__pause" type="button" data-grow-pause data-pause="{{ page.hero.pause_label }}" data-play="{{ page.hero.play_label }}" aria-pressed="false" hidden>{{ page.hero.pause_label }}</button>
+      </div>
+    </section>
+
+    <!-- WASAY AT A GLANCE: right after the banner, a living grassy trunk arcs across the page (static/glance-three.js); the pointer
+         parts the grass where it rests. The title sits above the arc; the figures (counted from the catalogue) and Wasay's own
+         description of itself sit below it. -->
+    <section class="wz-glance" data-glance aria-labelledby="wz-glance-title">
+      <canvas class="wz-glance__canvas" aria-hidden="true"></canvas>
+      <div class="container wz-glance__inner">
+        <h2 id="wz-glance-title" class="wz-glance__title">{{ page.stats.eyebrow }}</h2>
+        <div class="wz-glance__foot">
+          <dl class="wz-glance__facts">
+            <div><dt>{{ content.stats.products }}</dt><dd>{{ page.stats.products_label }}</dd></div>
+            <div><dt>{{ content.stats.ranges }}</dt><dd>{{ page.stats.ranges_label }}</dd></div>
+            {{#each page.stats.facts}}<div><dt>{{ value }}</dt><dd>{{ label }}</dd></div>
+            {{/each}}
+          </dl>
+          <div class="wz-glance__note">
+            <p>{{ page.stats.heading }}</p>
+            <p>{{ page.stats.text }}</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -99,23 +122,6 @@
 
 {{> product-view}}
 
-    <!-- AT A GLANCE: a deep green band with figures counted from the catalogue and Wasay's own description of itself. -->
-    <section class="wz-stats" aria-labelledby="wz-stats-title">
-      <div class="container wz-stats__inner">
-        <div class="wz-stats__lead">
-          <p class="eyebrow">{{ page.stats.eyebrow }}</p>
-          <h2 id="wz-stats-title">{{ page.stats.heading }}</h2>
-          <p>{{ page.stats.text }}</p>
-        </div>
-        <dl class="wz-stats__grid">
-          <div><dt>{{ content.stats.products }}</dt><dd>{{ page.stats.products_label }}</dd></div>
-          <div><dt>{{ content.stats.ranges }}</dt><dd>{{ page.stats.ranges_label }}</dd></div>
-          {{#each page.stats.facts}}<div><dt>{{ value }}</dt><dd>{{ label }}</dd></div>
-          {{/each}}
-        </dl>
-      </div>
-    </section>
-
     <!-- WHY CHOOSE WASAY -->
     <section class="section wz-why" aria-labelledby="wz-why-title">
       <div class="container">
@@ -140,5 +146,6 @@
   <script src="/wasay-detail.js"></script>
   <script src="/wasay-ring.js"></script>
   <script src="/hero-grow.js"></script>
+  <script src="/glance.js"></script>
 </body>
 </html>

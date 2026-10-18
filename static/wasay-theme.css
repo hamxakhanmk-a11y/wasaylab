@@ -69,16 +69,6 @@ body { background: var(--bg); color: var(--text); }
 .wz-range__go { margin-top: auto; padding-top: 10px; font-weight: 600; color: var(--accent); }
 
 /* ---- home: Wasay at a glance */
-.wz-stats { padding: clamp(72px, 9vw, 120px) 0; color: #fff; background: radial-gradient(90% 120% at 100% 0%, #1b7a45 0%, rgba(27, 122, 69, 0) 60%), linear-gradient(135deg, var(--forest) 0%, #0e4d2d 100%); box-shadow: inset 0 3px 0 var(--lime); }
-.wz-stats__inner { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
-.wz-stats .eyebrow { color: var(--lime); }
-.wz-stats h2 { margin: 0 0 16px; font-size: clamp(2rem, 3.8vw, 3.2rem); line-height: 1.08; color: #fff; text-wrap: balance; }
-.wz-stats__lead > p:not(.eyebrow) { margin: 0; max-width: 46ch; line-height: 1.7; color: rgba(232, 244, 224, .86); }
-.wz-stats__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 0; }
-.wz-stats__grid div { padding: 22px 22px 20px; border-radius: 18px; border: 1px solid rgba(255, 255, 255, .14); background: rgba(255, 255, 255, .07); }
-.wz-stats__grid dt { font-family: var(--display); font-size: clamp(2.3rem, 4.4vw, 3.5rem); line-height: 1; color: #fff; }
-.wz-stats__grid div:first-child dt { color: var(--lime); }
-.wz-stats__grid dd { margin: 10px 0 0; font-size: .95rem; line-height: 1.45; color: rgba(232, 244, 224, .8); }
 
 /* ---- home: why choose Wasay, numbered */
 .wz-why { background: var(--surface-alt); }
@@ -116,7 +106,6 @@ body { background: var(--bg); color: var(--text); }
 .wz-detail__more a span:last-child { font-size: .88rem; color: var(--muted); }
 
 @media (max-width: 900px) {
-  .wz-stats__inner { grid-template-columns: minmax(0, 1fr); }
   .wz-detail__facts dl, .wz-detail__more ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 560px) {
@@ -127,5 +116,4 @@ body { background: var(--bg); color: var(--text); }
   .wz-range, .wz-detail__more a { transition: none; }
   .wz-range:hover, .wz-detail__more a:hover { transform: none; }
 }
-.wz-stats__grid div:nth-child(odd):last-child { grid-column: 1 / -1; }
 .wz-detail__more .wz-link { display: inline-flex; width: auto; }
