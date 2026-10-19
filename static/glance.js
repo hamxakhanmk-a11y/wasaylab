@@ -8,6 +8,21 @@
   const stage = section.querySelector('.wz-glance__stage'), canvas = section.querySelector('canvas'), next = section.nextElementSibling;
   const foot = section.querySelector('.wz-glance__foot');
   const title = section.querySelector('[data-glance-title]'), handsTitle = section.querySelector('[data-glance-hands-title]');
+  // warm, dappled light behind the hands, as in the owner's reference: a soft glow from the upper left and blurred leaf shadows,
+  // drawn once and faded in as the hands arrive
+  const light = (() => {
+    const c = document.createElement('canvas'); c.width = 1280; c.height = 720;
+    const ctx = c.getContext('2d');
+    const glow = ctx.createRadialGradient(330, 120, 40, 330, 120, 900); glow.addColorStop(0, 'rgba(255, 232, 196, .55)'); glow.addColorStop(1, 'rgba(255, 232, 196, 0)');
+    ctx.fillStyle = glow; ctx.fillRect(0, 0, 1280, 720);
+    ctx.filter = 'blur(22px)'; ctx.fillStyle = 'rgba(96, 84, 52, .11)';
+    let s = 7; const r = () => { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; };
+    for (let i = 0; i < 70; i++) { ctx.save(); ctx.translate(r() * 1280, r() * 720); ctx.rotate(-.7 + r() * .5); ctx.beginPath(); ctx.ellipse(0, 0, 30 + r() * 70, 9 + r() * 18, 0, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
+    const el = document.createElement('div'); el.className = 'wz-glance__light'; el.setAttribute('aria-hidden', 'true');
+    el.style.backgroundImage = `url(${c.toDataURL('image/png')})`;
+    stage.insertBefore(el, canvas);
+    return el;
+  })();
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const clamp = (n) => Math.max(0, Math.min(1, n));
   let scene = null, frame = 0, visible = false, clock = 0, last = 0, loading = false, morph = 0, hands = 0, held = null;
@@ -23,6 +38,7 @@
   }
 
   function words(m, h = 0) {
+    if (light) light.style.opacity = clamp(h * 1.6).toFixed(3);
     // the title gives way to the hands' title as they arrive
     const a = clamp(1 - h * 3.5), b = clamp((h - .22) * 3.5);
     if (title) { title.style.opacity = a.toFixed(3); title.style.transform = a < 1 ? `translateY(${(-(1 - a) * 18).toFixed(1)}px)` : ''; }
