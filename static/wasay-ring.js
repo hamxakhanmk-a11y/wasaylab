@@ -3,8 +3,9 @@
 // so they read as a ring seen from the front. They follow a drag or swipe one to one, a sideways wheel, the page scroll and the
 // arrow keys; hovering, touching or using the keys stops the drift for a while. Letting go of a drag carries them on by the speed
 // of the hand and settles one in the middle in a single spring (no glide and then a separate snap). The products lean the way they
-// travel and bob gently. Moving the mouse over a product turns it, as on the product tabs, by playing a strip of pre-rendered turn
-// frames that loads the first time it is touched.
+// travel and bob gently. Moving the mouse over a product turns it, as on the product tabs: 41 pre-rendered turn frames (rendered
+// from the same 3D jars as the Pastes tab by scripts/render-cutouts.mjs) load the first time it is touched, and each frame blends
+// into the next, so the turn is as smooth as the live jars there.
 // Kept cheap per frame: only transforms change on the products; stacking, visibility, the caption and the arrival value are
 // written only when they change, and nothing is measured in the middle of a frame.
 (() => {
@@ -29,8 +30,10 @@
   let appear = 0, appearText = '', entered = false, hovered = false, focused = false, lastScroll = scrollY;
   let w = 0, h = 0, perJar = 1;
   const looks = items.map(() => ({ z: '', vis: '', tab: null, op: '' }));
-  const FRAMES = 21, SWING = 1;   // frames in a turn strip; the pointer's position across a product runs from -SWING to +SWING
-  const turns = items.map((el) => ({ el, url: el.dataset.turn, state: 'idle', span: null, cur: 0, goal: 0, pointer: 0, frame: -1 }));
+  // the turn frames: a grid of COLS across, read row by row; the pointer's position across a product runs from -SWING to +SWING
+  const FRAMES = 41, COLS = 7, ROWS = Math.ceil(FRAMES / COLS), SWING = 1, TURN = 6.5;   // TURN: the same easing as the jars on the Pastes tab
+  const spot = (f) => `${((f % COLS) / (COLS - 1)) * 100}% ${(Math.floor(f / COLS) / (ROWS - 1)) * 100}%`;
+  const turns = items.map((el) => ({ el, url: el.dataset.turn, state: 'idle', span: null, next: null, cur: 0, goal: 0, pointer: 0, frame: -1, mix: '' }));
 
   const mod = (n) => ((n % N) + N) % N;
   const wrapDiff = (a, b) => { let d = mod(a - b); if (d > N / 2) d -= N; return d; };
@@ -82,12 +85,16 @@
     tn.state = 'loading';
     const img = new Image();
     img.onload = () => {
-      const span = document.createElement('span');
-      span.className = 'wz-ring__turn'; span.setAttribute('aria-hidden', 'true');
-      span.style.backgroundImage = `url("${tn.url}")`;
-      span.style.backgroundSize = `${FRAMES * 100}% 100%`;
-      tn.el.firstElementChild.append(span);
-      tn.span = span; tn.state = 'ready'; wake();
+      // two layers of the same frames: the frame the turn has reached, and over it the next one, faded in by how far it has got
+      const layer = () => {
+        const span = document.createElement('span');
+        span.className = 'wz-ring__turn'; span.setAttribute('aria-hidden', 'true');
+        span.style.backgroundImage = `url("${tn.url}")`;
+        span.style.backgroundSize = `${COLS * 100}% ${ROWS * 100}%`;
+        tn.el.firstElementChild.append(span);
+        return span;
+      };
+      tn.span = layer(); tn.next = layer(); tn.state = 'ready'; wake();
     };
     img.onerror = () => { tn.state = 'failed'; };
     img.src = tn.url;
@@ -100,11 +107,17 @@
       const mouse = hot === tn && !drag;
       const sway = !reduced.matches && still && !mouse && i === front ? Math.sin(t / 2600) * 0.38 : 0;
       tn.goal = mouse ? tn.pointer : sway;
-      tn.cur += (tn.goal - tn.cur) * (reduced.matches ? 1 : 1 - Math.exp(-dt * 9));
+      tn.cur += (tn.goal - tn.cur) * (reduced.matches ? 1 : 1 - Math.exp(-dt * TURN));
       const idle = !mouse && Math.abs(tn.cur) < 0.012 && sway === 0;
-      if (idle) { if (tn.span.style.opacity !== '0') { tn.span.style.opacity = '0'; tn.el.firstElementChild.firstElementChild.style.visibility = ''; tn.frame = -1; } continue; }
-      const f = Math.round(clamp((tn.cur / SWING + 1) / 2, 0, 1) * (FRAMES - 1));
-      if (f !== tn.frame) { tn.frame = f; tn.span.style.backgroundPosition = `${(f / (FRAMES - 1)) * 100}% 0`; }
+      if (idle) {
+        if (tn.span.style.opacity !== '0') { tn.span.style.opacity = '0'; tn.next.style.opacity = '0'; tn.mix = ''; tn.el.firstElementChild.firstElementChild.style.visibility = ''; tn.frame = -1; }
+        continue;
+      }
+      const at = clamp((tn.cur / SWING + 1) / 2, 0, 1) * (FRAMES - 1), f = Math.min(FRAMES - 2, Math.floor(at));
+      if (f !== tn.frame) { tn.frame = f; tn.span.style.backgroundPosition = spot(f); tn.next.style.backgroundPosition = spot(f + 1); }
+      // the blend in sixteenths: smooth to the eye, and the page is touched only when it changes
+      const mix = (Math.round((at - f) * 16) / 16).toFixed(4);
+      if (tn.mix !== mix) { tn.mix = mix; tn.next.style.opacity = mix; }
       if (tn.span.style.opacity !== '1') { tn.span.style.opacity = '1'; tn.el.firstElementChild.firstElementChild.style.visibility = 'hidden'; }
     }
   }
