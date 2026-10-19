@@ -340,8 +340,8 @@ export function createGrowScene(canvas, { bg = '#f2e8db', density = 1 } = {}) {
   // a paper label with the real logo (it already carries the name Wasay Laboratories) round the front
   const labelMap = texture(1024, 384, (ctx, c) => {
     ctx.fillStyle = '#f6f3e6'; ctx.fillRect(0, 0, c.width, c.height);
-    ctx.strokeStyle = '#44691a'; ctx.lineWidth = 5; ctx.strokeRect(512 - 236, 22, 472, 340);
-    ctx.fillStyle = '#85be3c'; ctx.fillRect(512 - 236, 22, 472, 7);
+    ctx.strokeStyle = '#1f6b3a'; ctx.lineWidth = 5; ctx.strokeRect(512 - 236, 22, 472, 340);
+    ctx.fillStyle = '#8fb87a'; ctx.fillRect(512 - 236, 22, 472, 7);
   });
   labelMap.colorSpace = T.SRGBColorSpace;
   const logo = new Image();

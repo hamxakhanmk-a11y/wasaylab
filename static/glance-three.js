@@ -287,7 +287,7 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
   // the word on the glass, where the photograph's pill carries one: the name, Wasay, in Wasay green (white would vanish on the page)
   const font = (getComputedStyle(document.documentElement).getPropertyValue('--display') || 'Georgia, serif').trim();
   const word = texture(512, 192, (ctx) => {
-    ctx.fillStyle = '#44691a'; ctx.font = `500 112px ${font}`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillStyle = '#1f6b3a'; ctx.font = `500 112px ${font}`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     ctx.fillText('Wasay', 256, 100);
   });
   const arc = .95;

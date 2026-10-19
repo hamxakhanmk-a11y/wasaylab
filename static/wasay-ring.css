@@ -17,14 +17,14 @@
 .wz-ring__items { list-style: none; margin: 0; padding: 0; position: absolute; inset: 0; }
 .wz-ring__item { position: absolute; left: 50%; top: 50%; margin: 0; will-change: transform, opacity; transform-origin: 50% 70%; pointer-events: none; backface-visibility: hidden; }
 .wz-ring__item a { position: relative; display: block; pointer-events: auto; border-radius: 12px; }
-.wz-ring__item a::after { content: ""; position: absolute; z-index: -1; left: 10%; right: 10%; bottom: -4%; height: 12%; border-radius: 50%; background: radial-gradient(closest-side, rgba(29, 29, 27, .32), rgba(29, 29, 27, 0)); }
+.wz-ring__item a::after { content: ""; position: absolute; z-index: -1; left: 10%; right: 10%; bottom: -4%; height: 12%; border-radius: 50%; background: radial-gradient(closest-side, rgba(23, 63, 39, .32), rgba(23, 63, 39, 0)); }
 .wz-ring__turn { position: absolute; inset: 0; opacity: 0; pointer-events: none; background-repeat: no-repeat; }
 .wz-ring__item img { display: block; height: var(--jar-h); width: auto; max-width: none; -webkit-user-drag: none; }
 /* any product can be chosen for the home ring: a carton is wider than a jar, so it is held inside the jar's height and width */
 .wz-ring__item--carton img { height: auto; max-height: var(--jar-h); max-width: calc(var(--jar-h) * .95); object-fit: contain; }
 
 .wz-ring__foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 14px; padding: 0 16px clamp(28px, 6svh, 64px); }
-.wz-ring__caption { margin: 0; padding: 10px 20px; border-radius: 999px; border: 1px solid rgba(29, 29, 27, .1); background: rgba(255, 255, 255, .85); color: var(--muted); font-size: .95rem; min-height: 1.6em; }
+.wz-ring__caption { margin: 0; padding: 10px 20px; border-radius: 999px; border: 1px solid rgba(23, 63, 39, .1); background: rgba(255, 255, 255, .85); color: var(--muted); font-size: .95rem; min-height: 1.6em; }
 .wz-ring__caption b { color: var(--text); font-family: var(--display); font-size: 1.12rem; font-weight: 600; margin-right: 8px; }
 
 @media (max-width: 640px) {
