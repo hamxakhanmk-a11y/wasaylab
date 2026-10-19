@@ -15,7 +15,7 @@
   function aim() {
     if (held !== null) return held;
     const run = Math.max(1, section.offsetHeight - stage.offsetHeight);
-    const p = clamp((-section.getBoundingClientRect().top / run - .04) / .74);
+    const p = clamp((-section.getBoundingClientRect().top / run - .04) / .8);
     return reduced.matches ? (p < .5 ? 0 : 1) : p;
   }
 

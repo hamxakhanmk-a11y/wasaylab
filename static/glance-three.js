@@ -4,13 +4,14 @@ import { autoQuality } from './gl-quality.js';
 // Wasay at a glance: a thick grassy trunk arcs across the page like a smile, coming nearer in the middle. Tens of thousands of fine
 // blades (one blade drawn many times, instancing) grow out of it, combed one way like fur, and sway in the breeze; a few small daisies
 // poke out along its top, and where the pointer rests the grass parts, leaving a soft dark hollow. As the page scrolls on (morph, 0 to
-// 1) the grass gathers in from both ends and stands up as a mound of moss, a clear glass capsule closes round it (its two halves
-// sliding together) and tiny white flowers open on top, after a photograph the owner showed: a pill with a little garden inside.
+// 1) the trunk squeezes into a small ball of grass above an open glass capsule, pours in through the top and fills it from the bottom
+// up as a mound of moss; the top of the capsule then comes down and closes, and tiny white flowers open on the moss. After a
+// photograph the owner showed: a clear pill with a little garden inside.
 const clamp = (n, a = 0, b = 1) => Math.max(a, Math.min(b, n));
 const smooth = (n) => { n = clamp(n); return n * n * (3 - 2 * n); };
 
 // the capsule, centred on its own origin: two halves, the top one a touch wider so it slides over the bottom one at the seam
-const CAP = { r: 1, top: 1.04, half: 1, inner: .95 };
+const CAP = { r: 1, top: 1.04, half: 1, inner: .95, lipBottom: .22, lipTop: -.3, wall: .035 };
 // the moss inside it: a mound standing in the lower half, rounded on top
 const MOSS = { r: .8, bottom: -1.86, top: .32 };
 const mossRadius = (y) => {
@@ -20,6 +21,8 @@ const mossRadius = (y) => {
   if (y < -CAP.half) r = Math.min(r, Math.sqrt(Math.max(0, CAP.inner * CAP.inner - (y + CAP.half) ** 2)) - .1);
   return Math.max(0, r);
 };
+// the moments of the change (morph): squeezed by SQUEEZE; poured from POUR over POUR_LEN (the lowest moss first); closed by CLOSE
+const SQUEEZE = .3, POUR = .38, POUR_LEN = .42, CLOSE = [.85, .96];
 
 export function createGlanceScene(canvas, { density = 1 } = {}) {
   const renderer = new T.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
@@ -51,8 +54,9 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
     return P.addScaledVector(N, R * .9);
   }
 
-  // ---- where the capsule stands (set with the framing) and how far the change has gone
-  const center = { value: new T.Vector3() }, morph = { value: 0 }, spin = { value: 0 };
+  // ---- where the capsule stands and how big it is (set with the framing), the ball of grass above it, and how far the change has gone
+  const center = { value: new T.Vector3() }, ball = { value: new T.Vector3() }, ballR = { value: .5 }, size = { value: 1 };
+  const morph = { value: 0 }, spin = { value: 0 };
   const mossShape = { value: new T.Vector4(MOSS.r, MOSS.bottom, MOSS.top, CAP.inner) };
 
   // ---- grass: tapered, curved blades all round the side that faces the viewer and over the top
@@ -62,14 +66,16 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
     for (let i = 0; i < SEG; i++) { const a = i * 2; idx.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); }
     blade.setAttribute('position', new T.Float32BufferAttribute(pos, 3)); blade.setAttribute('aT', new T.Float32BufferAttribute(t, 1)); blade.setIndex(idx); }
   const BLADES = Math.round(130000 * density);
-  const gBase = new Float32Array(BLADES * 3), gN = new Float32Array(BLADES * 3), gT = new Float32Array(BLADES * 3), gShape = new Float32Array(BLADES * 4), gU = new Float32Array(BLADES);
+  const gBase = new Float32Array(BLADES * 3), gN = new Float32Array(BLADES * 3), gT = new Float32Array(BLADES * 3), gShape = new Float32Array(BLADES * 4), gU = new Float32Array(BLADES * 3);
   const view = new T.Vector3(0, .35, 1).normalize();
   let n = 0;
   for (let tries = 0; n < BLADES && tries < BLADES * 4; tries++) {
     const u = random(), angle = random() * Math.PI * 2;
     const p = surface(u, angle);
     if (N.dot(view) < -.3) continue;                                       // the far side is never seen
-    gBase.set([p.x, p.y, p.z], n * 3); gN.set([N.x, N.y, N.z], n * 3); gT.set([tangent.x, tangent.y, tangent.z], n * 3); gU[n] = u;
+    gBase.set([p.x, p.y, p.z], n * 3); gN.set([N.x, N.y, N.z], n * 3); gT.set([tangent.x, tangent.y, tangent.z], n * 3);
+    // along the trunk, then two free numbers: where it sits in the ball and round the moss
+    gU.set([u, random(), random()], n * 3);
     // yaw round the normal, width, length, tone (and how far it bends, packed into the tone's fraction)
     gShape.set([random() * Math.PI * 2, .018 + random() * .014, .17 + random() * .1, Math.floor(random() * 100) + .2 + random() * .5], n * 4);
     n++;
@@ -78,63 +84,76 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
   grass.setAttribute('position', blade.attributes.position); grass.setAttribute('aT', blade.attributes.aT);
   grass.setAttribute('iBase', new T.InstancedBufferAttribute(gBase, 3)); grass.setAttribute('iN', new T.InstancedBufferAttribute(gN, 3));
   grass.setAttribute('iT', new T.InstancedBufferAttribute(gT, 3)); grass.setAttribute('iShape', new T.InstancedBufferAttribute(gShape, 4));
-  grass.setAttribute('iU', new T.InstancedBufferAttribute(gU, 1));
+  grass.setAttribute('iU', new T.InstancedBufferAttribute(gU, 3));
   grass.instanceCount = n;
   const time = { value: 0 }, wind = { value: .07 }, push = { value: new T.Vector4(0, 0, 0, 0) }, pushR = { value: 1.15 };
   const SPIN = `vec3 spinY(vec3 v, float a) { float c = cos(a), s = sin(a); return vec3(c * v.x + s * v.z, v.y, -s * v.x + c * v.z); }`;
   const grassMat = new T.ShaderMaterial({
     side: T.DoubleSide,
-    uniforms: { uTime: time, uWind: wind, uPush: push, uPushR: pushR, uMorph: morph, uSpin: spin, uCenter: center, uMoss: mossShape,
-      uBase: { value: new T.Color('#0b2a07') }, uTip: { value: new T.Color('#7fc03a') }, uSun: { value: new T.Color('#cfe46e') } },
+    uniforms: { uTime: time, uWind: wind, uPush: push, uPushR: pushR, uMorph: morph, uSpin: spin, uCenter: center, uMoss: mossShape, uScale: size,
+      uBall: ball, uBallR: ballR, uBase: { value: new T.Color('#0b2a07') }, uTip: { value: new T.Color('#7fc03a') }, uSun: { value: new T.Color('#cfe46e') },
+      uMossTip: { value: new T.Color('#5d9a2a') } },
     vertexShader: `
-      attribute float aT; attribute vec3 iBase; attribute vec3 iN; attribute vec3 iT; attribute vec4 iShape; attribute float iU;
+      attribute float aT; attribute vec3 iBase; attribute vec3 iN; attribute vec3 iT; attribute vec4 iShape; attribute vec3 iU;
       uniform float uTime; uniform float uWind; uniform vec4 uPush; uniform float uPushR; uniform float uMorph; uniform float uSpin;
-      uniform vec3 uCenter; uniform vec4 uMoss;
-      varying float vT; varying float vTone; varying float vLight; varying float vFlat;
+      uniform vec3 uCenter; uniform vec4 uMoss; uniform float uScale; uniform vec3 uBall; uniform float uBallR;
+      varying float vT; varying float vTone; varying float vLight; varying float vFlat; varying float vMoss;
       ${SPIN}
+      float ease(float x) { x = clamp(x, 0.0, 1.0); return x * x * (3.0 - 2.0 * x); }
       void main() {
-        float t = aT, yaw = iShape.x, tone = floor(iShape.w) / 100.0, bend = fract(iShape.w);
-        // this blade's own moment in the change: the middle of the trunk gathers first, its ends sweep in after
-        float m = clamp(uMorph * 1.55 - abs(iU - .5) * 1.1, 0.0, 1.0); m = m * m * (3.0 - 2.0 * m);
-        // its place in the moss: up the mound with u, round the front and sides with its yaw, rounded on top and in the capsule's base
-        float y = mix(uMoss.y, uMoss.z, iU), phi = (yaw / 3.14159 - 1.0) * 1.8;
+        float t = aT, u = iU.x, yaw = iShape.x, tone = floor(iShape.w) / 100.0, bend = fract(iShape.w);
+        // 1. the trunk squeezes into a small ball of grass above the open capsule, its ends swinging forward on the way
+        float sq = ease((uMorph - abs(u - .5) * .1) / ${SQUEEZE});
+        float a = iU.y * 6.28318, b = iU.z * 2.0 - 1.0;
+        vec3 nQ = normalize(vec3(sqrt(1.0 - b * b) * cos(a), b, sqrt(1.0 - b * b) * sin(a)) + vec3(0.0, 0.0, .3));
+        vec3 pQ = uBall + nQ * uBallR;
+        // 2. its place in the moss: up the mound with u (so the lowest moss pours in first), round the front and sides, rounded on top
+        float y = mix(uMoss.y, uMoss.z, u), phi = (fract(iU.y * 3.7 + iU.z * 1.3) * 2.0 - 1.0) * 1.85;
         float dome = uMoss.z - uMoss.x * .8, r = uMoss.x, ny = 0.0;
         if (y > dome) { float k = (y - dome) / (uMoss.x * .8); r *= sqrt(max(0.0, 1.0 - k * k)); ny = k; }
         if (y < -1.0) r = min(r, sqrt(max(0.0, uMoss.w * uMoss.w - (y + 1.0) * (y + 1.0))) - .1);
-        vec3 baseB = uCenter + spinY(vec3(sin(phi) * r, y, cos(phi) * r), uSpin);
+        vec3 local = vec3(sin(phi) * r, y, cos(phi) * r);
+        vec3 pB = uCenter + spinY(local, uSpin) * uScale;
         vec3 nB = spinY(normalize(vec3(sin(phi), ny * 1.6 + .15, cos(phi))), uSpin);
-        vec3 base = mix(iBase, baseB, m);
-        base.z += sin(m * 3.14159) * abs(iU - .5) * 2.2;                      // the ends swing forward on their way in
-        vec3 up = normalize(mix(iN, nB, m)), tt = normalize(mix(iT, vec3(0.0, 1.0, 0.0), m));
+        // it pours down from the ball through the open top of the capsule, then out to its place
+        float fill = ease((uMorph - ${POUR} - u * ${POUR_LEN * .8}) / ${POUR_LEN * .3});
+        vec3 mouth = uCenter + vec3(local.x * .3, ${CAP.lipBottom + .1}, local.z * .3) * uScale;
+        vec3 pF = mix(mix(pQ, mouth, fill), mix(mouth, pB, fill), fill);
+        vec3 base = mix(iBase, pQ, sq);
+        base.z += sin(sq * 3.14159) * abs(u - .5) * 1.6;
+        if (fill > 0.0) base = pF;
+        vec3 up = normalize(mix(mix(iN, nQ, sq), nB, fill));
+        float settled = max(sq, fill);
+        vec3 tt = normalize(mix(iT, vec3(0.0, 1.0, 0.0), settled));
         vec3 along = normalize(tt - dot(tt, up) * up + vec3(1e-3, 0.0, 1e-3)), across = cross(up, along);
         vec3 side = cos(yaw) * along + sin(yaw) * across, lean = cross(side, up);
-        // combed: the blades lean mostly the same way along the trunk, like brushed fur
-        vec3 comb = normalize(mix(lean, along, .72));
+        // combed: on the trunk the blades lean mostly the same way along it, like brushed fur; in the ball and the moss, upwards
+        vec3 comb = normalize(mix(normalize(mix(lean, along, .72)), along, settled * .85));
         // the pointer: blades near it lie down outwards, away from it
         vec3 away = base - uPush.xyz; away -= dot(away, up) * up;
         float f = uPush.w * (1.0 - smoothstep(0.0, uPushR, length(base - uPush.xyz)));
-        // the small mound needs only some of the blades: the rest shrink away as they arrive
-        float keep = tone < .38 ? 1.0 : 1.0 - m;
-        float h = iShape.z * keep * (1.0 - .92 * f) * (1.0 - .12 * m);
-        // grass hangs a little under its own weight, more on the underside; inside the glass there is no breeze
-        float droop = max(0.0, -up.y) * (1.0 - m);
-        float w = (sin(uTime * 1.5 + base.x * .7 + base.y * .5) * .6 + sin(uTime * 2.6 + base.x * 2.1 - base.z) * .3) * (1.0 - m);
+        // the ball and the moss need only some of the blades: the rest shrink away as the trunk squeezes
+        float keep = tone < .38 ? 1.0 : 1.0 - sq;
+        float h = iShape.z * keep * (1.0 - .92 * f) * mix(1.0, .6, sq * (1.0 - fill)) * mix(1.0, uScale * (.95 + .7 * iU.z), fill);
+        // grass hangs a little under its own weight, more on the underside; once squeezed there is no breeze
+        float droop = max(0.0, -up.y) * (1.0 - sq);
+        float w = (sin(uTime * 1.5 + base.x * .7 + base.y * .5) * .6 + sin(uTime * 2.6 + base.x * 2.1 - base.z) * .3) * (1.0 - sq);
         vec3 p = base + side * position.x * iShape.y + up * position.y * h;
         p += comb * bend * t * t * h + vec3(0.0, -1.0, 0.0) * droop * t * t * h * .45;
         p += (along * w * uWind * 6.0 + vec3(0.0, 0.0, 1.0) * w * uWind * 2.0) * t * t * h;
         p += normalize(away + 1e-4) * f * t * t * h * 1.6;
         gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(p, 1.0);
-        vT = t; vTone = tone; vFlat = f;
-        vLight = .36 + .86 * max(0.0, up.y) - .34 * droop + .08 * up.z + m * .34 * max(0.0, up.z);
+        vT = t; vTone = tone; vFlat = f; vMoss = settled;
+        vLight = mix(.36 + .86 * max(0.0, up.y) - .34 * droop + .08 * up.z, .5 + .42 * max(0.0, up.y) + .16 * max(0.0, up.z), settled);
       }`,
     fragmentShader: `
-      uniform vec3 uBase; uniform vec3 uTip; uniform vec3 uSun;
-      varying float vT; varying float vTone; varying float vLight; varying float vFlat;
+      uniform vec3 uBase; uniform vec3 uTip; uniform vec3 uSun; uniform vec3 uMossTip;
+      varying float vT; varying float vTone; varying float vLight; varying float vFlat; varying float vMoss;
       void main() {
-        // tips catch the sun on top of the trunk; the parted grass shows its dark roots
-        vec3 tip = mix(uTip, uSun, smoothstep(.85, 1.2, vLight) * .75);
+        // tips catch the sun on top of the trunk; moss is a deeper, more even green; the parted grass shows its dark roots
+        vec3 tip = mix(mix(uTip, uSun, smoothstep(.85, 1.2, vLight) * .75), uMossTip, vMoss * .6);
         vec3 col = mix(uBase, tip, smoothstep(0.0, 1.0, vT));
-        col *= (.82 + vTone * .32) * vLight;
+        col *= (.78 + vTone * .4) * vLight;
         col *= mix(.4, 1.0, smoothstep(0.0, .6, vT));
         col *= 1.0 - .9 * vFlat;
         gl_FragColor = vec4(col, 1.0);
@@ -143,11 +162,14 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
   });
   const grassMesh = new T.Mesh(grass, grassMat); grassMesh.frustumCulled = false; scene.add(grassMesh);
 
-  // ---- the dark heart of the moss, seen between the blades once they have gathered
+  // ---- the dark heart of the moss, seen between the blades; it rises with the moss as the capsule fills
   const heartProfile = [];
-  for (let i = 0; i <= 40; i++) { const y = MOSS.bottom + (MOSS.top - MOSS.bottom) * i / 40; heartProfile.push(new T.Vector2(mossRadius(y) * .92, y)); }
+  for (let i = 0; i <= 40; i++) { const y = MOSS.bottom + (MOSS.top - MOSS.bottom) * i / 40; heartProfile.push(new T.Vector2(mossRadius(y) * .92, y - MOSS.bottom)); }
   const heart = new T.Mesh(new T.LatheGeometry(heartProfile, 40), new T.MeshBasicMaterial({ color: '#13340c' }));
   heart.visible = false; scene.add(heart);
+  // and the ball's, while the grass is squeezed
+  const ballHeart = new T.Mesh(new T.SphereGeometry(1, 24, 16), new T.MeshBasicMaterial({ color: '#13340c' }));
+  ballHeart.visible = false; scene.add(ballHeart);
 
   // ---- flowers: a daisy drawn once, shown as small faces that always turn to the viewer
   const daisyMap = texture(128, 128, (ctx) => {
@@ -155,7 +177,7 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
     for (let i = 0; i < 12; i++) { ctx.save(); ctx.translate(64, 64); ctx.rotate(i / 12 * Math.PI * 2); ctx.beginPath(); ctx.ellipse(0, -34, 9, 28, 0, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
     ctx.fillStyle = '#f2c12e'; ctx.beginPath(); ctx.arc(64, 64, 14, 0, Math.PI * 2); ctx.fill();
   });
-  // a few on the trunk's top; many tiny ones on the moss's top, like a spray of baby's breath (relative to the capsule)
+  // a few on the trunk's top; many small ones on the moss's top once the capsule has closed, like a spray of baby's breath
   const trunkFlowers = [], mossFlowers = [];
   for (let i = 0, tries = 0; i < Math.round(70 * Math.max(.6, density)) && tries < 4000; tries++) {
     const p = surface(random(), random() * Math.PI * 2);
@@ -164,30 +186,30 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
   }
   const dome = MOSS.top - MOSS.r * .8;
   for (let i = 0; i < Math.round(240 * Math.max(.6, density)); i++) {
-    const phi = (random() * 2 - 1) * 1.9, y = dome + Math.pow(random(), .7) * (MOSS.top - dome) + .08 + random() * .3, r = mossRadius(Math.min(y, MOSS.top)) + .05 + random() * .12;
-    mossFlowers.push([Math.sin(phi) * r, Math.min(y, MOSS.top + .42), Math.cos(phi) * r, .03 + random() * .03, .55 + random() * .25]);
+    const phi = (random() * 2 - 1) * 1.9, y = dome + Math.pow(random(), .7) * (MOSS.top - dome) + .1 + random() * .3, r = mossRadius(Math.min(y, MOSS.top)) + .05 + random() * .12;
+    mossFlowers.push([Math.sin(phi) * r, Math.min(y, MOSS.top + .44), Math.cos(phi) * r, .07 + random() * .06, CLOSE[0] + random() * .1]);
   }
   function flowerMesh(list, inCapsule) {
     const g = new T.InstancedBufferGeometry(), quad = new T.PlaneGeometry(1, 1);
     g.index = quad.index; g.setAttribute('position', quad.attributes.position); g.setAttribute('uv', quad.attributes.uv);
     // position, then the size (fraction) and the moment it opens (hundredths) packed into one number
-    const flat = list.map((f) => [f[0], f[1], f[2], f[3] + Math.floor(f[4] * 100)]);
-    g.setAttribute('iFlower', new T.InstancedBufferAttribute(new Float32Array(flat.flat()), 4)); g.instanceCount = list.length;
+    g.setAttribute('iFlower', new T.InstancedBufferAttribute(new Float32Array(list.flatMap((f) => [f[0], f[1], f[2], f[3] + Math.floor(f[4] * 100)])), 4));
+    g.instanceCount = list.length;
     const mesh = new T.Mesh(g, new T.ShaderMaterial({
-      uniforms: { uMap: { value: daisyMap }, uTime: time, uWind: wind, uPush: push, uPushR: pushR, uMorph: morph, uSpin: spin, uCenter: center },
+      uniforms: { uMap: { value: daisyMap }, uTime: time, uWind: wind, uPush: push, uPushR: pushR, uMorph: morph, uSpin: spin, uCenter: center, uScale: size },
       defines: inCapsule ? { IN_CAPSULE: 1 } : {},
       vertexShader: `
-        attribute vec4 iFlower; uniform float uTime; uniform float uWind; uniform vec4 uPush; uniform float uPushR; uniform float uMorph; uniform float uSpin; uniform vec3 uCenter;
+        attribute vec4 iFlower; uniform float uTime; uniform float uWind; uniform vec4 uPush; uniform float uPushR; uniform float uMorph; uniform float uSpin; uniform vec3 uCenter; uniform float uScale;
         varying vec2 vUv;
         ${SPIN}
         void main() {
           float size = fract(iFlower.w), at = floor(iFlower.w) / 100.0;
           #ifdef IN_CAPSULE
-            // they open once the moss has settled, each in its own moment
-            float open = clamp((uMorph - at) / .2, 0.0, 1.0); open = open * open * (3.0 - 2.0 * open);
-            vec3 c = uCenter + spinY(iFlower.xyz, uSpin);
+            // they open once the moss is in, each in its own moment
+            float open = clamp((uMorph - at) / .1, 0.0, 1.0); open = open * open * (3.0 - 2.0 * open);
+            vec3 c = uCenter + spinY(iFlower.xyz, uSpin) * uScale; size *= uScale;
           #else
-            float open = 1.0 - clamp(uMorph / .3, 0.0, 1.0);
+            float open = 1.0 - clamp(uMorph / .15, 0.0, 1.0);
             float w = sin(uTime * 1.5 + iFlower.x * .7 + iFlower.y * .5) * .6;
             float f = uPush.w * (1.0 - smoothstep(0.0, uPushR, length(iFlower.xyz - uPush.xyz)));
             vec3 c = iFlower.xyz + vec3(w * uWind * 3.0, 0.0, 0.0) + normalize(iFlower.xyz - uPush.xyz + 1e-4) * f * .5 - vec3(0.0, f * .3, 0.0);
@@ -209,62 +231,86 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
   flowerMesh(trunkFlowers, false);
   flowerMesh(mossFlowers, true);
 
-  // ---- the capsule: clear glass, bright along its edges with long window reflections down its sides, as on the photograph
-  const glass = new T.ShaderMaterial({
-    transparent: true, depthWrite: false, side: T.DoubleSide, uniforms: { uOpacity: { value: 0 } },
+  // ---- the capsule: clear glass with a wall of real thickness. It reflects a studio round it (a tall soft light to the left, a
+  // narrow one to the right, a light overhead), so the highlights wrap round its curves; it brightens where it is seen edge-on
+  // (Fresnel) and shows grey-green edges, which is how glass reads on a pale page
+  const glassMaterial = (strength) => new T.ShaderMaterial({
+    transparent: true, depthWrite: false, side: T.DoubleSide, uniforms: { uOpacity: { value: 0 }, uStrength: { value: strength } },
     vertexShader: `
       varying vec3 vN; varying vec3 vV;
       void main() { vec4 mv = modelViewMatrix * vec4(position, 1.0); vN = normalize(normalMatrix * normal); vV = normalize(-mv.xyz); gl_Position = projectionMatrix * mv; }`,
     fragmentShader: `
-      uniform float uOpacity; varying vec3 vN; varying vec3 vV;
+      uniform float uOpacity; uniform float uStrength; varying vec3 vN; varying vec3 vV;
       void main() {
-        vec3 n = normalize(vN);
-        float rim = pow(1.0 - abs(dot(n, normalize(vV))), 2.4);
-        float x = gl_FrontFacing ? n.x : -n.x;
-        float streak = smoothstep(-.8, -.68, x) * (1.0 - smoothstep(-.52, -.4, x)) * .6 + smoothstep(.6, .68, x) * (1.0 - smoothstep(.74, .8, x)) * .28;
-        float a = (.03 + .55 * rim + streak) * uOpacity;
-        gl_FragColor = vec4(mix(vec3(.86, .9, .88), vec3(1.0), clamp(streak * 1.6 + rim * .4, 0.0, 1.0)), a);
+        vec3 n = normalize(vN) * (gl_FrontFacing ? 1.0 : -1.0), v = normalize(vV);
+        float ndv = abs(dot(n, v));
+        float fres = .04 + .96 * pow(1.0 - ndv, 5.0);
+        vec3 r = reflect(-v, n);
+        float left = smoothstep(-.92, -.78, r.x) * (1.0 - smoothstep(-.5, -.36, r.x)) * smoothstep(-.7, -.25, r.y) * (1.0 - smoothstep(.7, .92, r.y));
+        float right = smoothstep(.6, .68, r.x) * (1.0 - smoothstep(.76, .84, r.x)) * smoothstep(-.45, -.05, r.y) * (1.0 - smoothstep(.55, .78, r.y));
+        float above = smoothstep(.82, .96, r.y);
+        float spec = clamp(left + right * .65 + above * .8, 0.0, 1.0) * (gl_FrontFacing ? 1.0 : .45);
+        float edge = smoothstep(.55, 1.0, 1.0 - ndv);
+        vec3 col = mix(vec3(.62, .69, .65), vec3(.36, .44, .4), edge);
+        col = mix(col, vec3(1.0), spec);
+        float a = (.035 + fres * .55 + edge * .2 + spec * .8) * uOpacity * uStrength;
+        gl_FragColor = vec4(col, clamp(a, 0.0, 1.0));
       }`,
   });
-  const halfShape = (radius, up) => {
+  const outerGlass = glassMaterial(1), innerGlass = glassMaterial(.5), lipGlass = glassMaterial(1.8);
+  const glasses = [outerGlass, innerGlass, lipGlass];
+  // a half: the round end and the straight wall down to its open lip
+  const halfShape = (radius, up, lip) => {
     const pts = [];
-    for (let i = 0; i <= 24; i++) { const a = i / 24 * Math.PI / 2; pts.push(new T.Vector2(Math.sin(a) * radius, (CAP.half + Math.cos(a) * radius) * (up ? 1 : -1))); }
-    pts.push(new T.Vector2(radius, up ? -.3 : .22));
-    if (!up) pts.reverse();
-    return new T.LatheGeometry(pts, 64);
+    for (let i = 0; i <= 28; i++) { const a = i / 28 * Math.PI / 2; pts.push(new T.Vector2(Math.sin(a) * radius, (CAP.half + Math.cos(a) * radius) * (up ? 1 : -1))); }
+    pts.push(new T.Vector2(radius, lip));
+    return new T.LatheGeometry(pts, 72);
   };
   const capsule = new T.Group(); scene.add(capsule);
   const topHalf = new T.Group(), bottomHalf = new T.Group(); capsule.add(topHalf, bottomHalf);
-  const topGlass = new T.Mesh(halfShape(CAP.top, true), glass), bottomGlass = new T.Mesh(halfShape(CAP.r, false), glass);
-  topGlass.renderOrder = bottomGlass.renderOrder = 10;
-  topHalf.add(topGlass); bottomHalf.add(bottomGlass);
-  // the word on the glass, where the photograph's pill carries one: the name, Wasay
+  for (const [group, radius, up, lip] of [[topHalf, CAP.top, true, CAP.lipTop], [bottomHalf, CAP.r, false, CAP.lipBottom]]) {
+    const outer = new T.Mesh(halfShape(radius, up, lip), outerGlass), inner = new T.Mesh(halfShape(radius - CAP.wall, up, lip), innerGlass);
+    const ring = new T.Mesh(new T.TorusGeometry(radius - CAP.wall / 2, CAP.wall / 2, 8, 72), lipGlass);
+    ring.rotation.x = Math.PI / 2; ring.position.y = lip;
+    outer.renderOrder = 12; inner.renderOrder = 11; ring.renderOrder = 13;
+    group.add(inner, outer, ring);
+  }
+  // the word on the glass, where the photograph's pill carries one: the name, Wasay, in Wasay green (white would vanish on the page)
   const font = (getComputedStyle(document.documentElement).getPropertyValue('--display') || 'Georgia, serif').trim();
   const word = texture(512, 192, (ctx) => {
-    ctx.fillStyle = '#ffffff'; ctx.font = `500 112px ${font}`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.shadowColor = 'rgba(20, 40, 20, .25)'; ctx.shadowBlur = 8; ctx.fillText('Wasay', 256, 100);
+    ctx.fillStyle = '#01652f'; ctx.font = `500 112px ${font}`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText('Wasay', 256, 100);
   });
   const arc = .95;
-  const label = new T.Mesh(new T.CylinderGeometry(CAP.top + .01, CAP.top + .01, .48, 32, 1, true, -arc / 2, arc),
+  const label = new T.Mesh(new T.CylinderGeometry(CAP.top + .006, CAP.top + .006, .48, 32, 1, true, -arc / 2, arc),
     new T.MeshBasicMaterial({ map: word, transparent: true, depthWrite: false, opacity: 0, toneMapped: false }));
-  label.position.y = 1.18; label.renderOrder = 11; topHalf.add(label);
+  label.position.y = 1.18; label.renderOrder = 14; topHalf.add(label);
+  // a soft shadow on the page under it
+  const shadow = new T.Mesh(new T.PlaneGeometry(1, 1), new T.MeshBasicMaterial({ transparent: true, depthWrite: false, opacity: 0, toneMapped: false,
+    map: texture(128, 128, (ctx) => { const g = ctx.createRadialGradient(64, 64, 2, 64, 64, 63); g.addColorStop(0, 'rgba(24,48,28,.55)'); g.addColorStop(1, 'rgba(24,48,28,0)'); ctx.fillStyle = g; ctx.fillRect(0, 0, 128, 128); }) }));
+  shadow.rotation.x = -Math.PI / 2; scene.add(shadow);
   capsule.visible = false;
 
   // ---- framing: the whole arc across a wide screen; on a tall one the camera stands back so the curve still crosses it.
-  // The capsule stands in the middle, a little low, so the title above stays clear
+  // The capsule fills most of the height under the title (larger on a tall screen, where there is more room)
   let width = 0, height = 0;
   function frame() {
     const w = canvas.clientWidth, h = canvas.clientHeight;
     if (!w || !h) return false;
     if (w !== width || h !== height) {
       width = w; height = h; renderer.setSize(w, h, false); camera.aspect = w / h;
-      const across = camera.aspect < 1 ? 5.2 : 13.6, half = Math.tan(T.MathUtils.degToRad(camera.fov / 2));
+      const tall = camera.aspect < 1, across = tall ? 5.2 : 13.6, half = Math.tan(T.MathUtils.degToRad(camera.fov / 2));
       const z = clamp(across / 2 / (half * camera.aspect), 12.5, 30);
-      const y = camera.aspect < 1 ? -1 : .35;              // on a tall screen the arc sits higher, between the title and the figures
+      const y = tall ? -1 : .35;                         // on a tall screen the arc sits higher, between the title and the figures
       camera.position.set(0, y, z); camera.lookAt(0, y, 0);
       camera.updateProjectionMatrix(); camera.updateMatrixWorld();
-      center.value.set(0, y - .3, 0);
-      capsule.position.copy(center.value); heart.position.copy(center.value);
+      size.value = tall ? 1.4 : 1.12;
+      center.value.set(0, y - (tall ? .8 : .85), 0);
+      capsule.position.copy(center.value); capsule.scale.setScalar(size.value);
+      ball.value.copy(center.value).add(new T.Vector3(0, 1.5 * size.value, 0)); ballR.value = .5 * size.value;
+      ballHeart.position.copy(ball.value);
+      shadow.position.set(center.value.x, center.value.y - (CAP.half + CAP.r + .25) * size.value, center.value.z);
+      shadow.scale.set(2.6 * size.value, 1.3 * size.value, 1);
     }
     return true;
   }
@@ -291,23 +337,32 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
   let lastT = 0;
   function draw(seconds, { still = false, morph: change = 0 } = {}) {
     if (!frame()) return;
-    const m = clamp(change);
+    const m = clamp(change), S = size.value;
     const dt = lastT ? Math.min(.1, Math.abs(seconds - lastT)) : 0; lastT = seconds;
     time.value = still ? 0 : seconds;
     morph.value = m;
-    // the trunk's dark core goes as the grass leaves it; the moss's appears as the grass gathers
-    core.visible = m < .2;
-    heart.visible = m > .45; heart.scale.set(1, smooth((m - .45) / .4) * .999 + .001, 1);
-    // the capsule's halves slide together round the moss, the glass clearing into view as they come
-    const close = smooth((m - .35) / .45), seen = smooth((m - .25) / .3);
-    capsule.visible = seen > 0;
-    topHalf.position.y = (1 - close) * 3.4; bottomHalf.position.y = -(1 - close) * 3.4;
-    glass.uniforms.uOpacity.value = seen; label.material.opacity = seen * smooth((m - .7) / .25) * .95;
+    // the trunk's dark core goes as the grass squeezes; the ball's shows while it is squeezed and shrinks as it pours out
+    core.visible = m < SQUEEZE * .6;
+    const poured = clamp((m - POUR) / POUR_LEN);
+    ballHeart.visible = m > SQUEEZE * .7 && poured < .95;
+    ballHeart.scale.setScalar(ballR.value * .85 * smooth((m - SQUEEZE * .7) / (SQUEEZE * .3)) * (1 - smooth(poured * 1.05)) + .001);
+    // the moss's heart rises from the capsule's floor as it fills
+    heart.visible = poured > .02;
+    heart.position.set(center.value.x, center.value.y + MOSS.bottom * S, center.value.z);
+    heart.scale.set(S, S * (smooth(poured) * .999 + .001), S);
+    // the open bottom half is there to catch the grass; the top half comes down and closes once the moss is in
+    const shown = smooth((m - SQUEEZE * .5) / (SQUEEZE * .6)), lid = smooth((m - CLOSE[0] + .04) / .06), close = smooth((m - CLOSE[0]) / (CLOSE[1] - CLOSE[0]));
+    capsule.visible = shown > 0;
+    bottomHalf.position.y = 0; topHalf.position.y = (1 - close) * 3.2;
+    topHalf.visible = lid > 0;
+    for (const g of glasses) g.uniforms.uOpacity.value = shown;
+    label.material.opacity = smooth((m - CLOSE[1] + .02) / .05) * .95;
+    shadow.material.opacity = shown * .5;
     // once closed it turns a little to and fro, so the glass and the garden inside read as round
-    spin.value = still ? 0 : Math.sin(seconds * .35) * .2 * smooth((m - .8) / .2);
+    spin.value = still ? 0 : Math.sin(seconds * .35) * .2 * smooth((m - CLOSE[1]) / .05);
     capsule.rotation.y = spin.value;
-    // the hollow glides after the pointer and closes softly when the pointer leaves (no hollow once the moss is in the glass)
-    const k = 1 - Math.exp(-dt * 10), want = onTrunk && m < .2 ? 1 : 0;
+    // the hollow glides after the pointer and closes softly when the pointer leaves (only while it is a trunk)
+    const k = 1 - Math.exp(-dt * 10), want = onTrunk && m < .05 ? 1 : 0;
     aimAt += (want - aimAt) * (still ? 1 : 1 - Math.exp(-dt * 5));
     push.value.x += (target.x - push.value.x) * (still ? 1 : k); push.value.y += (target.y - push.value.y) * (still ? 1 : k); push.value.z += (target.z - push.value.z) * (still ? 1 : k);
     push.value.w = aimAt;

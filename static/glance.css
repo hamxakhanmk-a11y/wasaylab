@@ -2,7 +2,7 @@
    off-white paper a living grassy trunk arcs across it (static/glance-three.js, run by glance.js); the title sits large above the
    arc, the figures and Wasay's own description below. Scrolling on gathers the grass into a mound of moss inside a clear glass
    capsule, and the figures step aside for it. The pointer parts the grass where it rests. */
-.wz-glance { --stage: max(100svh, 640px); --dwell: 170svh; position: relative; min-height: calc(var(--stage) + var(--dwell)); color: var(--forest, #0b3b23);
+.wz-glance { --stage: max(100svh, 640px); --dwell: 230svh; position: relative; min-height: calc(var(--stage) + var(--dwell)); color: var(--forest, #0b3b23);
   background: var(--bg, #f7f9f2); }
 .wz-glance__stage { position: sticky; top: 0; box-sizing: border-box; height: var(--stage); display: flex; overflow: hidden;
   background: radial-gradient(80% 60% at 50% 100%, var(--surface-alt, #ecf3e4) 0%, rgba(236, 243, 228, 0) 70%), var(--bg, #f7f9f2); }
