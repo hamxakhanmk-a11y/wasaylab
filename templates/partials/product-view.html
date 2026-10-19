@@ -24,10 +24,6 @@
     <h3>{{#if partial_composition}}{{ site.product_view.key_ingredients_heading }}{{else}}{{ site.product_view.composition_heading }}{{/if}}</h3>
     <div><ul class="wz-detail__ingredients">{{#each ingredients}}<li>{{ . }}</li>{{/each}}</ul></div>
   </section>{{/if}}
-  {{#if photos}}<section class="wz-detail__section wz-detail__pack">
-    <h3>{{ site.product_view.photos_heading }}</h3>
-    <div><p class="wz-detail__note">{{ site.product_view.photos_note }}</p><div class="wz-detail__photos">{{#each photos}}<figure><img src="{{ src }}" alt="{{ name }}, {{ label }}" width="1280" height="960" loading="lazy" decoding="async" /><figcaption>{{ label }}</figcaption></figure>{{/each}}</div></div>
-  </section>{{/if}}
   {{#if related}}<section class="wz-detail__more">
     <h3>{{ site.product_view.related_heading }} <span>{{ range }}</span></h3>
     <ul>{{#each related}}<li><a href="{{ tab }}.html#product-{{ slug }}" data-pv-go="{{ slug }}"><span class="wz-detail__more-pic"><img src="{{ ring_image }}" alt="" loading="lazy" decoding="async" /></span><b>{{ name }}</b><span>{{ detail }}</span></a></li>{{/each}}</ul>

@@ -96,13 +96,11 @@ function deriveCatalog(content) {
   products.sort((a, b) => (Number(a.order) || 1e6) - (Number(b.order) || 1e6) || a.name.localeCompare(b.name));
   content.catalog = { all: products, ...Object.fromEntries(TABS.map((t) => [t, products.filter((p) => p.tab === t)])) };
 
-  // What each product view shows besides its own text: its range name, its pack photographs and a few more products from its tab.
+  // What each product view shows besides its own text: its range name and a few more products from its tab.
   const kinds = Object.fromEntries(((content.site && content.site.product_view && content.site.product_view.kinds) || []).map((k) => [k.key, k]));
-  const photoLabels = ['Front', 'Left side', 'Right side', 'From above'];
   for (const p of products) {
     p.range = (kinds[p.tab] && kinds[p.tab].range) || p.tab;
     p.range_href = `${p.tab}.html`;
-    p.photos = (p.sources || []).map((s, i) => ({ src: s.path, label: photoLabels[i] || `Photo ${i + 1}` }));
     const mates = content.catalog[p.tab], at = mates.indexOf(p);
     p.related = mates.length > 1 ? Array.from({ length: Math.min(4, mates.length - 1) }, (_, i) => mates[(at + 1 + i) % mates.length]) : [];
   }

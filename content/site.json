@@ -96,7 +96,6 @@
         "range": "Tablets",
         "pack": "Carton",
         "noun": "carton",
-        "photos_note": "Photographs of the real carton: front, left and right.",
         "all_label": "See all tablets",
         "all_href": "tablets.html"
       },
@@ -105,7 +104,6 @@
         "range": "Multi Tonics",
         "pack": "Carton",
         "noun": "carton",
-        "photos_note": "Photographs of the real carton: front, left and right.",
         "all_label": "See all multi tonics",
         "all_href": "tonics.html"
       },
@@ -114,7 +112,6 @@
         "range": "Syrups",
         "pack": "Carton",
         "noun": "carton",
-        "photos_note": "Photographs of the real carton: front, left and right.",
         "all_label": "See all syrups",
         "all_href": "syrups.html"
       },
@@ -123,7 +120,6 @@
         "range": "Ointments",
         "pack": "Carton",
         "noun": "carton",
-        "photos_note": "Photographs of the real carton: front, left and right.",
         "all_label": "See all ointments",
         "all_href": "ointments.html"
       },
@@ -132,7 +128,6 @@
         "range": "Pastes",
         "pack": "Jar with a screw cap",
         "noun": "jar",
-        "photos_note": "Photographs of the real jar: front, left, right and from above.",
         "all_label": "See all pastes",
         "all_href": "pastes.html"
       }
@@ -149,8 +144,6 @@
     "made_value": "Wasay Laboratories (Pvt.) Ltd., Peshawar, Pakistan",
     "pack_jar": "Jar with a screw cap",
     "pack_carton": "Carton",
-    "photos_heading": "On the pack",
-    "photos_note": "Photographs of the real pack, from the front and both sides.",
     "related_heading": "More from",
     "range_link": "See all"
   }
