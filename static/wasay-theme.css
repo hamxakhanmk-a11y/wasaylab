@@ -141,7 +141,7 @@ ol.wz-objectives { list-style: none; padding: 0; margin: 0; }
 .wz-keys { list-style: none; padding: 0; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; max-width: 900px; }
 .wz-keys li { padding: 12px 22px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface-alt); color: var(--forest); font-weight: 600; }
 /* the footer's contact column: the address, phone and emails from the Contact page */
-.footer-top { grid-template-columns: 1.4fr 1fr 1.2fr 1fr; }
+.footer-top { grid-template-columns: 1.4fr 1fr 1.2fr; }
 .footer-contact li { line-height: 1.55; overflow-wrap: anywhere; }
 @media (max-width: 900px) { .footer-top { grid-template-columns: 1fr 1fr; } }
 /* over a Pastel Black page banner the logo sits on a small pastel pill, keeping its own colours; past the banner the pill melts into the page */

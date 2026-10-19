@@ -125,7 +125,6 @@ collections:
                 fields:
                   - { name: label, label: Text, widget: string }
                   - { name: href, label: Links to, widget: string }
-              - { name: ranges_heading, label: Heading of the ranges column, widget: string }
               - { name: contact_heading, label: Heading of the contact column, widget: string, hint: 'The address, phone and emails under it come from the Contact page.' }
               - { name: copyright, label: Copyright line, widget: string, hint: 'The year and © are added automatically.' }
               - { name: tagline, label: Closing line, widget: string }

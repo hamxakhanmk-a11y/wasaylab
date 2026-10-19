@@ -30,7 +30,12 @@
         }
       }
       const text = value.toFixed(2);
-      if (el.dataset.cover !== text) { el.dataset.cover = text; el.style.setProperty('--cover', text); }
+      if (el.dataset.cover !== text) {
+        el.dataset.cover = text; el.style.setProperty('--cover', text);
+        // the dimming layer exists only while the section is being covered: at 0 it shows nothing and at 1 nothing shows of the
+        // section, and a page-tall layer kept for nothing makes every frame of everything else on the page dearer
+        el.classList.toggle('is-covering', value > 0 && value < 1);
+      }
     }
   }
   const queue = () => { if (!ticking) { ticking = true; requestAnimationFrame(cover); } };

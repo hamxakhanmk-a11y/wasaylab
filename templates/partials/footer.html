@@ -21,13 +21,6 @@
             {{#if content.contact.email_other}}<li><a href="mailto:{{ content.contact.email_other }}">{{ content.contact.email_other }}</a></li>{{/if}}
           </ul>
         </div>
-        <div class="footer-col">
-          <h4>{{ site.footer.ranges_heading }}</h4>
-          <ul>
-            {{#each content.home_ranges}}<li><a href="{{ href }}">{{ label }}</a></li>
-            {{/each}}
-          </ul>
-        </div>
       </div>
       <div class="footer-bottom">
         <p>&copy; <span id="year"></span> {{ site.footer.copyright }}</p>
