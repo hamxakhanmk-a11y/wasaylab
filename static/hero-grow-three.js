@@ -33,7 +33,7 @@ const light = (x, z) => {
   return clamp((.24 + .92 * lit) * (1 + folds(x, z) * 3.2), .18, 1.28);
 };
 
-export function createGrowScene(canvas, { bg = '#f7f9f2', density = 1 } = {}) {
+export function createGrowScene(canvas, { bg = '#f2e8db', density = 1 } = {}) {
   const renderer = new T.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: 'high-performance' });
   renderer.outputColorSpace = T.SRGBColorSpace;
   renderer.toneMapping = T.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
@@ -340,8 +340,8 @@ export function createGrowScene(canvas, { bg = '#f7f9f2', density = 1 } = {}) {
   // a paper label with the real logo (it already carries the name Wasay Laboratories) round the front
   const labelMap = texture(1024, 384, (ctx, c) => {
     ctx.fillStyle = '#f6f3e6'; ctx.fillRect(0, 0, c.width, c.height);
-    ctx.strokeStyle = '#0b5c33'; ctx.lineWidth = 5; ctx.strokeRect(512 - 236, 22, 472, 340);
-    ctx.fillStyle = '#a3cf3c'; ctx.fillRect(512 - 236, 22, 472, 7);
+    ctx.strokeStyle = '#44691a'; ctx.lineWidth = 5; ctx.strokeRect(512 - 236, 22, 472, 340);
+    ctx.fillStyle = '#85be3c'; ctx.fillRect(512 - 236, 22, 472, 7);
   });
   labelMap.colorSpace = T.SRGBColorSpace;
   const logo = new Image();

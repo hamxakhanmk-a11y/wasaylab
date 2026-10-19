@@ -1,26 +1,29 @@
 ---
 version: alpha
 name: Wasay-Laboratories-design-system
-description: A calm, paper-white editorial system for Wasay Laboratories, a Pakistani manufacturer of natural health products. The canvas is white and warm off-white paper; type is a geometric grotesk display over Inter body; the only strong colour is the logo's forest green, used sparingly as an accent, with the logo's lime as a second quiet note. The product photographs are the brand. They are always shown whole, never cropped or zoomed, and every effect on the site is a quiet "glass" treatment: frosted menu, glass buttons, a loupe over photos, ice-white glows.
+description: A calm, paper-white editorial system for Wasay Laboratories, a Pakistani manufacturer of natural health products. The canvas is Tender Pastel paper with Pastel Black type; Wild Lime is the brand colour, with Pink Love, Beautiful Orange and Twilight Sparkle as soft notes (the owner's palette). The product photographs are the brand. They are always shown whole, never cropped or zoomed, and every effect on the site is a quiet "glass" treatment: frosted menu, glass buttons, a loupe over photos, ice-white glows.
 
 colors:
-  canvas: "#ffffff"
-  surface: "#ffffff"
-  surface-alt: "#f6f5f2"
-  paper: "#faf8f4"
-  paper-deep: "#f3efe7"
-  kraft: "#f1e9dd"
-  ink: "#1b1c1f"
-  muted: "#616369"
-  accent: "#01652f"
-  accent-dark: "#014a22"
-  accent-soft: "rgba(1, 101, 47, .12)"
-  lime: "#a3cf3c"
-  border: "#e7e5e0"
-  line: "#e7e1d6"
-  on-accent: "#ffffff"
+  canvas: "#f2e8db"
+  surface: "#fbf7f1"
+  surface-alt: "#eaddcb"
+  paper: "#f6efe5"
+  paper-deep: "#eadfcf"
+  kraft: "#efe3d2"
+  ink: "#1d1d1b"
+  muted: "#5e5952"
+  accent: "#44691a"
+  accent-dark: "#33501a"
+  accent-soft: "rgba(68, 105, 26, .12)"
+  lime: "#85be3c"
+  pink: "#ffb4ce"
+  orange: "#f4a846"
+  violet: "#c68fd4"
+  border: "#e0d3c1"
+  line: "#e0d3c1"
+  on-accent: "#1d1d1b"
   glow-ice: "rgba(242, 248, 255, .5)"
-  shadow-warm: "rgba(60, 45, 30, .5)"
+  shadow-warm: "rgba(29, 29, 27, .5)"
   glass-rim: "rgba(255, 255, 255, .75)"
 
 typography:
@@ -100,7 +103,7 @@ components:
     height: 68px
     blur: 10px
   button-accent:
-    backgroundColor: "linear-gradient(115deg, rgba(2, 124, 58, .93), rgba(1, 82, 38, .88))"
+    backgroundColor: "linear-gradient(115deg, rgba(141, 198, 66, .97), rgba(122, 178, 52, .93))"
     textColor: "{colors.on-accent}"
     typography: "{typography.button}"
     rounded: "{rounded.pill}"
@@ -142,16 +145,15 @@ components:
 ## Overview
 
 Wasay Laboratories makes natural health products in Pakistan. The site has to feel like what it sells: clean, honest and
-natural. So the whole system is paper. White and warm off-white surfaces, dark ink, a hairline here and there, and one
-strong colour, the forest green of the logo wordmark, used the way a printer uses a spot colour: rarely, and only where
-it means something. The lime from the logo's leaf is an even quieter second note, and only ever a small rule or dash.
+natural. So the whole system is paper: Tender Pastel surfaces, Pastel Black ink, a hairline here and there, Wild Lime as the
+brand colour, and pink, orange and violet as soft notes (see Colors).
 
 Three things carry the brand:
 
 1. **The product photographs.** The carton and bottle of each syrup, and the lifestyle photograph. They are shown whole, at
    their natural proportions, never cropped to a shape and never zoomed as decoration. The layout fits itself to the photo.
-2. **The green accent.** `{colors.accent}` (#01652f) on eyebrows, the nav pill, the primary button, a focus ring, a link.
-   Never a background band. Never a tint over a photo.
+2. **Wild Lime.** `{colors.lime}` fills the primary button and the closing band; deepened (`{colors.accent}`) it sets the
+   big titles, eyebrows, links and focus rings. Never a tint over a photo.
 3. **Glass.** Every interactive effect is a piece of clear glass: the frosted menu bar, the pill buttons that expand with a
    white rim and ice-white glow, the round loupe over a photo, the lift-and-glow of a card. Nothing bounces, nothing slides
    in one by one, nothing fades up on scroll.
@@ -160,27 +162,27 @@ The tone is calm and plain. Copy is short and factual. Headlines are a geometric
 
 ## Colors
 
-Green and off-white (the owner's choice, October 2026). The values live in `static/wasay-theme.css`, loaded after the other stylesheets.
+The owner's palette (October 2026, from a palette card the owner sent): Wild Lime #85BE3C, Pastel Black #1D1D1B, Tender Pastel #F2E8DB, Pink Love #FFB4CE, Beautiful Orange #F4A846 and Twilight Sparkle #C68FD4. The values live in `static/wasay-theme.css`, loaded after the other stylesheets.
 
 | Token | Value | Use |
 |---|---|---|
-| `--bg` | #f7f9f2 | Page background: an off-white with a breath of green |
-| `--surface` | #ffffff | Cards |
-| `--surface-alt` | #ecf3e4 | Alternate section band (sage) |
-| `--paper` / `--paper-deep` | #f5f8ee / #e6efdb | Story panels, product view, gradients |
-| `--sage` | #e3edd7 | Tinted cards: the range cards, the product facts, the range line on each tab |
-| `--mint` | #cfe4bf | The closing band (with `--kraft` #dcebd0) |
-| `--forest` / `--forest-2` | #0b3b23 / #12603a | Strong bands: page banners, the "at a glance" band on the home page, the footer |
-| `--text` | #13241a | Headlines and body (a green-black) |
-| `--muted` | #536459 | Card copy, captions |
-| `--accent` / `--accent-dark` | #01652f / #014a22 | Wasay green: eyebrows, links, the accent button, focus rings |
-| `--lime` | #a3cf3c | Small accents only: the line along a band's edge, numbers on dark green, the first figure. Never body text. |
+| `--bg` | #f2e8db | Page background: Tender Pastel. It also matches the wall in the hands photo |
+| `--surface` | #fbf7f1 | Cards |
+| `--surface-alt` | #eaddcb | Alternate section band (a deeper pastel) |
+| `--paper` / `--paper-deep` | #f6efe5 / #eadfcf | Story panels, product view, gradients |
+| `--sage` | #e6ebd3 | Tinted chips and facts: a breath of Wild Lime on the pastel |
+| `--text` / `--ink` | #1d1d1b | Pastel Black: headlines and body |
+| `--forest` | #1d1d1b | Pastel Black for the strong bands (each page's banner, the footer) and headings that used the old forest green |
+| `--muted` | #5e5952 | Card copy, captions |
+| `--accent` / `--accent-dark` | #44691a / #33501a | Wild Lime deepened so text in it reads on the pastel: the big titles, eyebrows, links, focus rings |
+| `--lime` | #85be3c | Wild Lime itself, as a fill with Pastel Black type: the accent buttons, the closing band, the line along a banner's edge, the first numbered circle. Never as text on the pastel (too light to read) |
+| `--pink` / `--orange` / `--violet` | #ffb4ce / #f4a846 / #c68fd4 | Soft accents only: the tints at the top of the range cards (Tablets lime, Multi Tonics orange, Syrups pink, Ointments violet, Pastes peach) and the numbered circles, in turn |
 
-Every page has colour, but it is always green: off-white pages, sage and mint for alternate sections and cards, and deep forest green for a few strong bands (each page's banner, one band on the home page, the footer), with white text on them. Drop shadows are green-tinted (rgba 18, 52, 32), never grey or black. Photographs keep their own colours.
+Pages are Tender Pastel with Pastel Black type. Each inner page opens on a Pastel Black banner with pastel type and a Wild Lime edge, where the logo sits on a small pastel pill so it keeps its colours; the footer is Pastel Black too. The closing band is Wild Lime with Pastel Black type and a Pastel Black button. Drop shadows are a warm black (rgba 29, 29, 27), never green or grey. Photographs and the 3D scenes keep their own natural colours (the grass, the flowers, the hands photo).
 
 ### Never
 
-Blue is not in the palette: not as an accent, a link colour or a tint (the banner's sky and the product packs are photographs, not interface). No brown, beige or kraft surfaces any more; no black bands.
+Blue is not in the palette: not as an accent, a link colour or a tint (the hollow under the pointer on the grass trunk and the shirt cuff in the hands photo are the owner's own requests; the product packs are photographs). No colours outside the six above and their tints. Wild Lime is never small text on the pastel.
 
 ## Typography
 

@@ -1,65 +1,81 @@
-/* Green and off-white: the site's palette, loaded after the other stylesheets so its variables win.
-   Off-white pages, sage and mint tints for alternate sections and cards, deep forest green for the strong bands (page banners,
-   the "at a glance" band, the footer), Wasay green for links and buttons, lime only as a small accent. Shadows are green-tinted. */
+/* The owner's palette (October 2026), loaded after the other stylesheets so its variables win: Tender Pastel pages, Pastel Black
+   type and strong bands (page banners, the footer), Wild Lime for buttons and the closing band, with a deeper lime for text links
+   (Wild Lime itself is too light to read on the pastel), and Pink Love, Beautiful Orange and Twilight Sparkle as soft tints for
+   the range cards and the numbered cards. Shadows are a warm black. */
 :root {
-  --bg: #f7f9f2;
-  --surface: #ffffff;
-  --surface-alt: #ecf3e4;
-  --text: #13241a;
-  --ink: #13241a;
-  --muted: #536459;
-  --accent: #01652f;
-  --accent-dark: #014a22;
-  --accent-soft: rgba(1, 101, 47, .12);
-  --border: #d8e4cf;
-  --line: #d8e4cf;
-  --paper: #f5f8ee;
-  --paper-deep: #e6efdb;
-  --kraft: #dcebd0;
-  --lime: #a3cf3c;
-  --forest: #0b3b23;
-  --forest-2: #12603a;
-  --sage: #e3edd7;
-  --mint: #cfe4bf;
+  --bg: #f2e8db;            /* Tender Pastel */
+  --surface: #fbf7f1;
+  --surface-alt: #eaddcb;
+  --text: #1d1d1b;          /* Pastel Black */
+  --ink: #1d1d1b;
+  --muted: #5e5952;
+  --accent: #44691a;        /* Wild Lime, deepened so text in it reads on the pastel */
+  --accent-dark: #33501a;
+  --accent-soft: rgba(68, 105, 26, .12);
+  --border: #e0d3c1;
+  --line: #e0d3c1;
+  --paper: #f6efe5;
+  --paper-deep: #eadfcf;
+  --kraft: #efe3d2;
+  --lime: #85be3c;          /* Wild Lime */
+  --lime-dark: #77ad31;
+  --on-lime: #1d1d1b;
+  --pink: #ffb4ce;          /* Pink Love */
+  --orange: #f4a846;        /* Beautiful Orange */
+  --violet: #c68fd4;        /* Twilight Sparkle */
+  --forest: #1d1d1b;        /* strong bands and headings: Pastel Black */
+  --forest-2: #2b2b28;
+  --sage: #e6ebd3;          /* a breath of Wild Lime on the pastel */
+  --mint: #dcebc4;
 }
+::selection { background: var(--lime); color: var(--on-lime); }
+
+/* ---- buttons: Wild Lime with Pastel Black type */
+.btn--accent, .btn.glass-action.btn--accent { background: var(--lime); color: var(--on-lime); box-shadow: 0 8px 26px rgba(133, 190, 60, .32); }
+.btn--accent:hover, .btn.glass-action.btn--accent:hover { background: var(--lime-dark); color: var(--on-lime); box-shadow: 0 12px 32px rgba(133, 190, 60, .42); }
+.btn--ghost { border-color: rgba(29, 29, 27, .28); }
 body { background: var(--bg); color: var(--text); }
 
-/* ---- page banners (every page but home): deep green with a lime edge */
-.page-banner { color: #fff; background: radial-gradient(110% 150% at 88% -10%, #1e7d47 0%, rgba(30, 125, 71, 0) 58%), linear-gradient(135deg, var(--forest) 0%, var(--forest-2) 100%); box-shadow: inset 0 -3px 0 var(--lime); }
-.page-banner h1 { color: #fff; }
-.page-banner .crumbs, .page-banner .crumbs a { color: rgba(232, 244, 224, .8); }
-.page-banner .crumbs a:hover { color: #fff; }
+/* ---- page banners (every page but home): Pastel Black with a Wild Lime edge and pastel type */
+.page-banner { color: var(--bg); background: radial-gradient(110% 150% at 88% -10%, #3a3a35 0%, rgba(58, 58, 53, 0) 58%), linear-gradient(135deg, var(--forest) 0%, var(--forest-2) 100%); box-shadow: inset 0 -4px 0 var(--lime); }
+.page-banner h1 { color: var(--bg); }
+.page-banner p { color: rgba(242, 232, 219, .82); }
+.page-banner .eyebrow { color: var(--lime); }
+.page-banner .crumbs, .page-banner .crumbs a { color: rgba(242, 232, 219, .75); }
+.page-banner .crumbs a:hover { color: var(--lime); }
 
-/* ---- closing band: soft mint, forest text */
-.cta-band { color: var(--text); background: linear-gradient(135deg, var(--mint) 0%, #e8f2dc 100%); box-shadow: inset 0 3px 0 var(--lime); }
-.cta-band h2 { color: var(--forest); }
-.cta-band p { color: #3f5446; }
-.cta-band .btn--ghost { color: var(--forest); border-color: rgba(11, 59, 35, .3); }
-.cta-band .btn--ghost:hover { border-color: var(--forest); background: rgba(255, 255, 255, .4); }
+/* ---- closing band: Wild Lime, Pastel Black type, a Pastel Black button */
+.cta-band { color: var(--text); background: var(--lime); box-shadow: none; }
+.cta-band h2 { color: var(--ink); }
+.cta-band p { color: rgba(29, 29, 27, .78); }
+.cta-band .btn--accent, .cta-band .btn.glass-action.btn--accent { background: var(--ink); color: var(--bg); box-shadow: 0 10px 26px -10px rgba(29, 29, 27, .5); }
+.cta-band .btn--accent:hover, .cta-band .btn.glass-action.btn--accent:hover { background: #33332f; color: var(--bg); }
+.cta-band .btn--ghost, .cta-band .btn.glass-action.btn--ghost { color: var(--ink); border-color: rgba(29, 29, 27, .4); }
+.cta-band .btn--ghost:hover { border-color: var(--ink); background: rgba(255, 255, 255, .25); }
 
-/* ---- footer: deep forest */
-.site-footer { background: var(--forest); border-top: 0; color: rgba(232, 244, 224, .8); }
-.footer-brand .footer__logo { height: 58px; padding: 8px 12px; border-radius: 14px; background: #fff; }
-.footer-brand p, .footer-col a, .footer-col li, .footer-bottom p { color: rgba(232, 244, 224, .78); }
-.footer-col h4 { color: #fff; }
+/* ---- footer: Pastel Black, pastel type, Wild Lime on hover */
+.site-footer { background: var(--forest); border-top: 0; color: rgba(242, 232, 219, .8); }
+.footer-brand .footer__logo { height: 58px; padding: 8px 12px; border-radius: 14px; background: var(--bg); }
+.footer-brand p, .footer-col a, .footer-col li, .footer-bottom p { color: rgba(242, 232, 219, .76); }
+.footer-col h4 { color: var(--bg); }
 .footer-col a:hover { color: var(--lime); }
-.footer-bottom { border-top-color: rgba(255, 255, 255, .14); }
+.footer-bottom { border-top-color: rgba(242, 232, 219, .14); }
 
 /* ---- home: the banner's card, the ring section */
-.wellness-banner__panel { background: rgba(247, 249, 242, .96); }
+.wellness-banner__panel { background: rgba(242, 232, 219, .96); }
 
 /* ---- home: our ranges */
 .wz-ranges { background: var(--bg); }
 .wz-ranges__grid { list-style: none; margin: 32px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; }
-.wz-range { position: relative; display: flex; flex-direction: column; height: 100%; overflow: hidden; border-radius: 22px; border: 1px solid var(--border); color: var(--text); text-decoration: none; background: linear-gradient(170deg, var(--sage) 0%, #fff 72%); transition: transform .35s cubic-bezier(.22, 1, .36, 1), box-shadow .35s cubic-bezier(.22, 1, .36, 1); }
-.wz-range--tonics { background: linear-gradient(170deg, var(--mint) 0%, #fff 72%); }
-.wz-range--syrups { background: linear-gradient(170deg, #eef5d6 0%, #fff 72%); }
-.wz-range--ointments { background: linear-gradient(170deg, #dceee3 0%, #fff 72%); }
-.wz-range--pastes { background: linear-gradient(170deg, #e7f0d8 0%, #fff 72%); }
-.wz-range:hover, .wz-range:focus-visible { transform: translateY(-4px); box-shadow: 0 24px 40px -26px rgba(18, 52, 32, .5); }
+.wz-range { position: relative; display: flex; flex-direction: column; height: 100%; overflow: hidden; border-radius: 22px; border: 1px solid var(--border); color: var(--text); text-decoration: none; background: linear-gradient(170deg, #dbeac3 0%, var(--surface) 72%); transition: transform .35s cubic-bezier(.22, 1, .36, 1), box-shadow .35s cubic-bezier(.22, 1, .36, 1); }
+.wz-range--tonics { background: linear-gradient(170deg, #fcdcab 0%, var(--surface) 72%); }
+.wz-range--syrups { background: linear-gradient(170deg, #ffd3e2 0%, var(--surface) 72%); }
+.wz-range--ointments { background: linear-gradient(170deg, #ead3f0 0%, var(--surface) 72%); }
+.wz-range--pastes { background: linear-gradient(170deg, #fbd5bd 0%, var(--surface) 72%); }
+.wz-range:hover, .wz-range:focus-visible { transform: translateY(-4px); box-shadow: 0 24px 40px -26px rgba(29, 29, 27, .5); }
 .wz-range:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-.wz-range__pics { display: flex; justify-content: center; align-items: flex-end; height: 178px; padding: 24px 14px 0; background: radial-gradient(75% 65% at 50% 100%, rgba(163, 207, 60, .38), rgba(163, 207, 60, 0) 72%); }
-.wz-range__pics img { position: relative; height: 128px; width: auto; max-width: 44%; margin: 0 -10px; object-fit: contain; filter: drop-shadow(0 12px 12px rgba(18, 52, 32, .28)); }
+.wz-range__pics { display: flex; justify-content: center; align-items: flex-end; height: 178px; padding: 24px 14px 0; background: radial-gradient(75% 65% at 50% 100%, rgba(133, 190, 60, .38), rgba(133, 190, 60, 0) 72%); }
+.wz-range__pics img { position: relative; height: 128px; width: auto; max-width: 44%; margin: 0 -10px; object-fit: contain; filter: drop-shadow(0 12px 12px rgba(29, 29, 27, .28)); }
 .wz-range__pics img:nth-child(2) { z-index: 1; height: 150px; }
 .wz-range__body { display: flex; flex: 1; flex-direction: column; gap: 6px; padding: 18px 20px 20px; }
 .wz-range__count { font: 700 .72rem var(--font); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
@@ -71,8 +87,11 @@ body { background: var(--bg); color: var(--text); }
 
 /* ---- home: why choose Wasay, numbered */
 .wz-why { background: var(--surface-alt); }
-.wz-why__card { position: relative; padding-top: 70px; background: #fff; }
-.wz-why__num { position: absolute; top: 22px; left: 24px; display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; background: var(--forest); color: var(--lime); font: 700 .82rem var(--font); }
+.wz-why__card { position: relative; padding-top: 70px; background: var(--surface); }
+.wz-why__num { position: absolute; top: 22px; left: 24px; display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; background: var(--lime); color: var(--ink); font: 700 .82rem var(--font); }
+.wz-why__card:nth-child(4n + 2) .wz-why__num { background: var(--orange); }
+.wz-why__card:nth-child(4n + 3) .wz-why__num { background: var(--pink); }
+.wz-why__card:nth-child(4n + 4) .wz-why__num { background: var(--violet); }
 .wz-why__card h3 { color: var(--forest); }
 
 /* ---- product tabs: how many products and which sizes, under each range heading */
@@ -91,16 +110,16 @@ body { background: var(--bg); color: var(--text); }
 .wz-detail__note { margin: 0 0 16px; font-size: .93rem; color: var(--muted); }
 .wz-detail__photos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
 .wz-detail__photos figure { margin: 0; }
-.wz-detail__photos img { display: block; width: 100%; height: auto; border-radius: 12px; background: var(--sage); box-shadow: 0 16px 22px -16px rgba(18, 52, 32, .35); }
+.wz-detail__photos img { display: block; width: 100%; height: auto; border-radius: 12px; background: var(--sage); box-shadow: 0 16px 22px -16px rgba(29, 29, 27, .35); }
 .wz-detail__photos figcaption { margin-top: 8px; font-size: .85rem; text-align: center; color: var(--muted); }
 .wz-detail__more { padding: clamp(28px, 4vw, 44px) 0 0; border-top: 1px solid var(--line); }
 .wz-detail__more h3 { margin: 0 0 18px; font-size: clamp(1.35rem, 2.4vw, 1.8rem); line-height: 1.15; }
 .wz-detail__more h3 span { color: var(--accent); }
 .wz-detail__more ul { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 0 0 20px; padding: 0; }
-.wz-detail__more a { display: flex; flex-direction: column; gap: 4px; height: 100%; padding: 14px; border-radius: 16px; border: 1px solid var(--border); background: #fff; color: var(--text); text-decoration: none; transition: transform .3s cubic-bezier(.22, 1, .36, 1), box-shadow .3s; }
-.wz-detail__more a:hover, .wz-detail__more a:focus-visible { transform: translateY(-3px); box-shadow: 0 18px 30px -22px rgba(18, 52, 32, .5); }
-.wz-detail__more-pic { display: grid; place-items: center; height: 118px; margin-bottom: 6px; border-radius: 12px; background: radial-gradient(70% 60% at 50% 92%, rgba(163, 207, 60, .32), rgba(163, 207, 60, 0) 72%), var(--paper); }
-.wz-detail__more-pic img { width: auto; height: auto; max-width: 88%; max-height: 102px; filter: drop-shadow(0 10px 10px rgba(18, 52, 32, .25)); }
+.wz-detail__more a { display: flex; flex-direction: column; gap: 4px; height: 100%; padding: 14px; border-radius: 16px; border: 1px solid var(--border); background: var(--surface); color: var(--text); text-decoration: none; transition: transform .3s cubic-bezier(.22, 1, .36, 1), box-shadow .3s; }
+.wz-detail__more a:hover, .wz-detail__more a:focus-visible { transform: translateY(-3px); box-shadow: 0 18px 30px -22px rgba(29, 29, 27, .5); }
+.wz-detail__more-pic { display: grid; place-items: center; height: 118px; margin-bottom: 6px; border-radius: 12px; background: radial-gradient(70% 60% at 50% 92%, rgba(133, 190, 60, .32), rgba(133, 190, 60, 0) 72%), var(--paper); }
+.wz-detail__more-pic img { width: auto; height: auto; max-width: 88%; max-height: 102px; filter: drop-shadow(0 10px 10px rgba(29, 29, 27, .25)); }
 .wz-detail__more b { font-family: var(--display); font-size: 1.1rem; font-weight: 600; color: var(--forest); }
 .wz-detail__more a span:last-child { font-size: .88rem; color: var(--muted); }
 
@@ -130,3 +149,7 @@ ol.wz-objectives { list-style: none; padding: 0; margin: 0; }
 .footer-top { grid-template-columns: 1.4fr 1fr 1.2fr 1fr; }
 .footer-contact li { line-height: 1.55; overflow-wrap: anywhere; }
 @media (max-width: 900px) { .footer-top { grid-template-columns: 1fr 1fr; } }
+/* over a Pastel Black page banner the logo sits on a small pastel pill, keeping its own colours; past the banner the pill melts into the page */
+body:has(.page-banner) .site-header .brand__logo { box-sizing: content-box; height: 46px; padding: 4px 10px; border-radius: 14px; background: var(--bg); transition: background-color .35s ease; }
+body:has(.page-banner) .site-header.is-past-banner .brand__logo { background-color: transparent; }
+@media (max-width: 900px) { body:has(.page-banner) .site-header .brand__logo { height: 36px; } }

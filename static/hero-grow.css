@@ -5,11 +5,11 @@
    banner and over every section after it, as they do over the inner pages' banners. */
 body:has(.wz-grow) .site-header { margin-bottom: -69px; }
 body:has(.wz-grow) .site-header:not(.nav-open) { background-color: transparent; border-bottom-color: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; }
-.wz-grow { --dwell: 300svh; --stage: max(100svh, 640px); position: relative; min-height: calc(var(--stage) + var(--dwell)); background: var(--bg, #f7f9f2); }
-.wz-grow__stage { position: sticky; top: 0; height: var(--stage); overflow: hidden; background: var(--bg, #f7f9f2); }
+.wz-grow { --dwell: 300svh; --stage: max(100svh, 640px); position: relative; min-height: calc(var(--stage) + var(--dwell)); background: var(--bg, #f2e8db); }
+.wz-grow__stage { position: sticky; top: 0; height: var(--stage); overflow: hidden; background: var(--bg, #f2e8db); }
 .wz-grow__canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; opacity: 0; transition: opacity .9s ease; }
 .wz-grow.is-ready .wz-grow__canvas { opacity: 1; }
-.wz-grow.is-fallback .wz-grow__stage { background: radial-gradient(70% 62% at 78% 112%, #4f9a2c 0 58%, rgba(79, 154, 44, 0) 58.4%), var(--bg, #f7f9f2); }
+.wz-grow.is-fallback .wz-grow__stage { background: radial-gradient(70% 62% at 78% 112%, #4f9a2c 0 58%, rgba(79, 154, 44, 0) 58.4%), var(--bg, #f2e8db); }
 .wz-grow__copy { position: relative; z-index: 1; padding-top: calc(68px + clamp(28px, 7svh, 96px)); pointer-events: none; }
 .wz-grow__texts { display: grid; }
 .wz-grow__text { --o: 1; grid-area: 1 / 1; align-self: start; opacity: calc(1 - var(--o) * var(--o) * 6); transform: translateY(calc(var(--o) * 18svh)); will-change: transform, opacity; pointer-events: none; }
@@ -22,7 +22,7 @@ body:has(.wz-grow) .site-header:not(.nav-open) { background-color: transparent; 
 .wz-grow__story h2 { margin: 0; max-width: 19ch; font-size: clamp(2rem, 3.6vw, 3.2rem); line-height: 1.08; text-wrap: balance; }
 .wz-grow__story > p:not(.eyebrow) { margin: 20px 0 0; max-width: 46ch; color: var(--muted); line-height: 1.75; }
 .wz-grow__story .wz-action { margin-top: 30px; }
-.wz-grow__pause { position: absolute; z-index: 2; right: clamp(16px, 3vw, 36px); bottom: clamp(16px, 3vw, 32px); min-height: 40px; padding: 8px 16px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, .7); background: rgba(247, 249, 242, .94); color: var(--forest, #0b3b23); font: 600 .8rem var(--font); cursor: pointer; }
+.wz-grow__pause { position: absolute; z-index: 2; right: clamp(16px, 3vw, 36px); bottom: clamp(16px, 3vw, 32px); min-height: 40px; padding: 8px 16px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, .7); background: rgba(242, 232, 219, .94); color: var(--forest, #1d1d1b); font: 600 .8rem var(--font); cursor: pointer; }
 .wz-grow a:focus-visible, .wz-grow button:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 @media (max-width: 760px) {
   .wz-grow { --stage: max(100svh, 680px); }

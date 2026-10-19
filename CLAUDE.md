@@ -9,8 +9,8 @@ if the live site does not say it, leave it out and ask.
 ## Design system
 
 Read `DESIGN.md` before adding or changing any UI. It holds the colour, type, spacing, component and motion rules
-for this site (paper-white surfaces, Wasay green as a scarce accent with a little lime, whole uncropped product
-photos, glass effects, no blue, no dark bands, no one-by-one card entrances).
+for this site (the owner's palette: Tender Pastel pages, Pastel Black type and bands, Wild Lime, soft pink, orange and violet; whole uncropped product
+photos, glass effects, no blue, no one-by-one card entrances).
 
 ## Git
 
