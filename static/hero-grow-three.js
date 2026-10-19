@@ -1,6 +1,5 @@
 import * as T from './vendor/three/three.module.min.js';
 import { autoQuality } from './gl-quality.js';
-import { createKids } from './hero-kids.js';
 
 // The home banner's living hill: a soft grassy mound on the off-white page, a seedling on its top that grows and opens its two
 // leaves, and wildflowers that bloom across the slope from the bottom right upwards. It loops: grow, hold in full bloom, a quick
@@ -257,9 +256,6 @@ export function createGrowScene(canvas, { bg = '#f7f9f2', density = 1 } = {}) {
   }));
   stems.frustumCulled = false; scene.add(stems);
 
-  // ---- two children who run up the slope, leap off near the top and vanish into the sky, once each loop (hero-kids.js)
-  const kids = createKids(scene, { land, cycle: CYCLE });
-
   // ---- the seedling's pose: how far it has grown, its sway, and how far the right leaf bends under the drop
   const right = leaves.find((l) => l.s > 0), tipLocal = new T.Vector3(0, 1.12, -1.12 * .12 + Math.sin(1.12 * 2.6) * .05), tip = new T.Vector3();
   function setSprout(g, sway = 0, droop = 0, lean = 0) {
@@ -394,7 +390,6 @@ export function createGrowScene(canvas, { bg = '#f7f9f2', density = 1 } = {}) {
       m.scale.setScalar(.02 * (1 - burst * .7));
     });
 
-    kids.update(seconds, { hidden: still || p > .01 });
     aim(zoom);
     quality();
     renderer.render(scene, camera);
