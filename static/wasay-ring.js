@@ -1,8 +1,8 @@
-// Home products, standing on the grass at the end of the Wasay at a glance dive (glance.js). Once the grass fills the screen the
-// products sweep in from the right, the far-left one first, and the page scroll then carries them across, right to left: the one in
-// the middle is large and the ones to the sides smaller and lower, so they read as a ring seen from the front. They can also be
-// dragged or swiped (with a glide after a flick), wheeled sideways and stepped with the arrow keys. Everything moves on a spring, the
-// products lean the way they travel, bob gently while still, and settle with one centred. Moving the mouse over a product turns it,
+// Home products: a page of its own after Wasay at a glance. As the page arrives the products sweep in from the right, the far-left
+// one first; then they drift past slowly on their own: the one in the middle is large and the ones to the sides smaller and higher,
+// so they read as a ring seen from the front. They follow a drag or swipe (with a glide after a flick), a sideways wheel, the page
+// scroll and the arrow keys; hovering, touching or using the keys stops the drift for a while. Everything moves on a spring, the
+// products lean the way they travel, bob gently, and whenever they come to rest one settles in the middle. Moving the mouse over a product turns it,
 // as on the product tabs, by playing a strip of pre-rendered turn frames that loads the first time it is touched.
 (() => {
   const stage = document.querySelector('[data-ring]');
@@ -10,15 +10,17 @@
   const items = [...stage.querySelectorAll('[data-ring-item]')];
   const N = items.length;
   if (N < 3) return;
-  const section = stage.closest('[data-glance]'), shop = stage.closest('[data-glance-shop]');
+  const section = stage.closest('.wz-ring') || stage;
   const caption = document.querySelector('[data-ring-caption]');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
   const LEAN = 5;                  // degrees of tilt per product-per-second of travel
-  if (section) section.style.setProperty('--steps', String(N - 1));
+  const DRIFT = .18;               // products per second when left alone
+  const SCROLL = 700;              // page pixels that carry them by one product
 
-  // pos: the product in the middle (fractions between); goal: where it is heading; offset: what drag, wheel and keys add to the scroll
+  // pos: the product in the middle (fractions between) as shown; offset: where drift, drag, wheel, scroll and keys have taken it
   let pos = 0, vel = 0, offset = 0, glide = 0, magnet = 0, quiet = 0, last = 0, frame = 0, visible = false, current = -1, drag = null, moved = 0;
+  let appear = 0, entered = false, drift = 0, rest = 0, hovered = false, focused = false, lastScroll = scrollY;
   let w = 0, h = 0, perJar = 1, lastGoal = 0;
   const looks = items.map(() => ({ z: '', vis: '' }));
   const FRAMES = 21, SWING = 1;   // frames in a turn strip; the pointer's position across a product runs from -SWING to +SWING
@@ -27,7 +29,6 @@
   const mod = (n) => ((n % N) + N) % N;
   const wrapDiff = (a, b) => { let d = mod(a - b); if (d > N / 2) d -= N; return d; };
   const easeOut = (n) => 1 - Math.pow(1 - clamp(n, 0, 1), 3);
-  const phases = () => (section && window.WasayGlance ? window.WasayGlance.phases() : { appear: 1, travel: 0 });
 
   function measure() {
     w = stage.clientWidth; h = stage.clientHeight;
@@ -110,14 +111,24 @@
     const dt = last ? Math.min(0.05, (t - last) / 1000) : 0.016;
     last = t;
     if (document.documentElement.classList.contains('has-detail')) { last = 0; if (visible && !document.hidden) frame = requestAnimationFrame(tick); return; }
-    const { appear = 1, travel = 0 } = phases();
-    if (shop) { shop.style.setProperty('--appear', appear.toFixed(3)); shop.classList.toggle('is-on', appear > 0); shop.inert = appear < .5; }
-    // a flick keeps gliding and slows down; once nothing moves the products for a moment, the nearest one is drawn to the middle
+    // the page has arrived once half of it is on screen: the products sweep in, once
+    if (!entered && section.getBoundingClientRect().top < innerHeight * .5) entered = true;
+    appear = reduced.matches ? (entered ? 1 : 0) : Math.min(1, appear + (entered ? dt / 1.4 : 0));
+    section.style.setProperty('--appear', appear.toFixed(3));
+    // left alone they drift past slowly; a hover, touch, key, wheel or scroll stops the drift for a while
+    rest = Math.max(0, rest - dt);
+    const drifting = reduced.matches || hovered || focused || drag || glide || rest > 0 || appear < 1 ? 0 : DRIFT;
+    drift += (drifting - drift) * (1 - Math.exp(-dt * 1.4));
+    if (drift < .002 && drifting === 0) drift = 0;
+    offset += drift * dt;
+    // a flick keeps gliding and slows down
     if (!drag && glide) { offset += glide * dt; glide *= Math.exp(-dt * 3.2); if (Math.abs(glide) < .02) glide = 0; }
-    let goal = travel * (N - 1) + offset;
+    // once nothing moves them for a moment, the nearest one is drawn into the middle (and kept there)
+    let goal = offset;
     quiet = goal !== lastGoal || drag || glide ? 0 : quiet + dt;
     lastGoal = goal;
     magnet += ((quiet > .18 ? 1 : 0) - magnet) * (1 - Math.exp(-dt * 6));
+    if (magnet > .995) { offset = Math.round(offset); lastGoal = goal = offset; magnet = 0; quiet = .18; }
     goal += (Math.round(goal) - goal) * magnet;
     if (reduced.matches || drag) { vel = drag ? (goal - pos) / Math.max(dt, .001) * .2 + vel * .8 : 0; pos = goal; }
     else {
@@ -128,18 +139,18 @@
     }
     place(appear, t);
     spin(t, dt);
-    const busy = Math.abs(goal - pos) > .0005 || Math.abs(vel) > .002 || drag || glide || magnet < .999 || turns.some((tn) => tn.state === 'ready');
+    const busy = Math.abs(goal - pos) > .0005 || Math.abs(vel) > .002 || drag || glide || appear < 1 || turns.some((tn) => tn.state === 'ready');
     if (visible && !document.hidden && (busy || !reduced.matches)) frame = requestAnimationFrame(tick);
     else last = 0;
   }
   function wake() { if (!frame && visible && !document.hidden) frame = requestAnimationFrame(tick); }
-  function goTo(index) { offset += index - Math.round(pos); glide = 0; wake(); }
+  function goTo(index) { offset = Math.round(offset) + index - Math.round(pos); glide = 0; rest = 4; wake(); }
 
   // ---- pointer: drag the products (the pointer is captured only once a press turns into a drag, so a click still reaches its link)
   stage.addEventListener('pointerdown', (e) => {
     if (e.pointerType === 'mouse' && e.button !== 0) return;
     drag = { id: e.pointerId, x: e.clientX, off0: offset, lx: e.clientX, lt: e.timeStamp, v: 0, started: false };
-    moved = 0; wake();
+    moved = 0; rest = 4; wake();
   });
   stage.addEventListener('pointermove', (e) => {
     if (!drag || e.pointerId !== drag.id) return;
@@ -161,7 +172,7 @@
   const release = (e) => {
     if (!drag || (e && e.pointerId !== drag.id)) return;
     if (drag.started) glide = reduced.matches || !e || e.type === 'pointercancel' || e.timeStamp - drag.lt > 90 ? 0 : clamp(drag.v, -4, 4);
-    drag = null; stage.classList.remove('is-dragging'); wake();
+    drag = null; rest = 4; stage.classList.remove('is-dragging'); wake();
   };
   stage.addEventListener('pointerup', release);
   stage.addEventListener('pointercancel', release);
@@ -183,7 +194,7 @@
   stage.addEventListener('wheel', (e) => {
     if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
     e.preventDefault();
-    glide = 0; offset += e.deltaX / perJar; wake();
+    glide = 0; rest = 4; offset += e.deltaX / perJar; wake();
   }, { passive: false });
 
   // ---- keyboard
@@ -197,13 +208,22 @@
     }
   });
 
-  addEventListener('scroll', wake, { passive: true });
-  new IntersectionObserver((entries) => { visible = entries[0].isIntersecting; if (visible) { last = 0; wake(); } }, { rootMargin: '80px' }).observe(stage);
-  new ResizeObserver(() => { measure(); place(phases().appear, performance.now()); }).observe(stage);
+  // ---- the page scroll carries them a little while they are on screen
+  addEventListener('scroll', () => {
+    const dy = scrollY - lastScroll; lastScroll = scrollY;
+    if (!visible || reduced.matches || drag || appear < 1) { wake(); return; }
+    offset += dy / SCROLL; rest = 2; wake();
+  }, { passive: true });
+  stage.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') hovered = true; });
+  stage.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') { hovered = false; rest = 1; } });
+  stage.addEventListener('focusin', () => { focused = true; });
+  stage.addEventListener('focusout', (e) => { focused = stage.contains(e.relatedTarget); rest = 1; wake(); });
+  new IntersectionObserver((entries) => { visible = entries[0].isIntersecting; lastScroll = scrollY; if (visible) { last = 0; wake(); } }, { rootMargin: '80px' }).observe(stage);
+  new ResizeObserver(() => { measure(); place(appear, performance.now()); }).observe(stage);
   document.addEventListener('visibilitychange', () => { last = 0; wake(); });
   reduced.addEventListener('change', wake);
 
   measure();
-  place(phases().appear, 0);
+  place(appear, 0);
   stage.classList.add('is-ready');
 })();

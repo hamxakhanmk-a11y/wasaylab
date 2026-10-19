@@ -52,15 +52,13 @@
       </div>
     </section>
 
-    <!-- WASAY AT A GLANCE AND OUR PRODUCTS: one scene that holds its place while the page scrolls through it. A living grassy trunk
-         arcs across the page (static/glance-three.js) under the title and the figures; scrolling on dives into the trunk until its
-         grass fills the screen, then the products sweep in from the right and the scroll carries them across (static/wasay-ring.js).
-         They can also be dragged, swiped, wheeled sideways or stepped with the arrow keys; the pointer parts the grass where it rests.
-         data-zoom and data-appear: how many screens of scrolling the dive and the products' arrival take. -->
-    <section class="wz-glance" data-glance data-zoom="1" data-appear=".6" aria-labelledby="wz-glance-title">
+    <!-- WASAY AT A GLANCE: one scene that holds its place while the page scrolls through it. A living grassy trunk arcs across the
+         page (static/glance-three.js) under the title and the figures, and the pointer parts the grass where it rests; scrolling on
+         gathers the grass into a mound of moss inside a clear glass capsule, after a photograph the owner showed. -->
+    <section class="wz-glance" data-glance aria-labelledby="wz-glance-title">
       <div class="wz-glance__stage">
         <canvas class="wz-glance__canvas" aria-hidden="true"></canvas>
-        <div class="container wz-glance__inner" data-glance-intro>
+        <div class="container wz-glance__inner">
           <h2 id="wz-glance-title" class="wz-glance__title">{{ page.stats.eyebrow }}</h2>
           <div class="wz-glance__foot">
             <dl class="wz-glance__facts">
@@ -75,22 +73,26 @@
             </div>
           </div>
         </div>
-        <div class="wz-glance__shop wz-ring" data-glance-shop role="region" aria-labelledby="wz-ring-title">
-          <div class="container wz-ring__head">
-            <p class="eyebrow">{{ page.ring.eyebrow }}</p>
-            <h2 id="wz-ring-title">{{ page.ring.heading }}</h2>
-          </div>
-          <div class="wz-ring__stage" data-ring tabindex="0" role="group" aria-label="{{ page.ring.label }}">
-            <ul class="wz-ring__items">
-              {{#each content.home_ring}}<li class="wz-ring__item{{#if jar}}{{else}} wz-ring__item--carton{{/if}}" data-ring-item data-pv-item data-slug="{{ slug }}" data-name="{{ name }}" data-detail="{{ detail }}" data-kind="{{ tab }}" data-img="{{ large }}" data-photos="{{ photos_json }}"{{#if turn}} data-turn="{{ turn }}"{{/if}}><a href="{{ tab }}.html#product-{{ slug }}" aria-label="{{ name }}, {{ detail }}" draggable="false"><img src="{{ ring_image }}" alt="" height="640" decoding="async" draggable="false" /></a></li>
-              {{/each}}
-            </ul>
-          </div>
-          <div class="wz-ring__foot">
-            <p class="wz-ring__caption" aria-live="polite" data-ring-caption>&nbsp;</p>
-            <a class="btn btn--ghost" href="{{ page.ring.link_href }}">{{ page.ring.link_label }} &rarr;</a>
-          </div>
-        </div>
+      </div>
+    </section>
+
+    <!-- OUR PRODUCTS: the home products on the page that slides up after Wasay at a glance. They sweep in from the right as the page
+         arrives, then drift past slowly; they follow a drag or swipe (with a glide after a flick), a sideways wheel, the page scroll
+         and the arrow keys, and settle with one in the middle (static/wasay-ring.js). -->
+    <section class="wz-ring" aria-labelledby="wz-ring-title">
+      <div class="container wz-ring__head">
+        <p class="eyebrow">{{ page.ring.eyebrow }}</p>
+        <h2 id="wz-ring-title">{{ page.ring.heading }}</h2>
+      </div>
+      <div class="wz-ring__stage" data-ring tabindex="0" role="group" aria-label="{{ page.ring.label }}">
+        <ul class="wz-ring__items">
+          {{#each content.home_ring}}<li class="wz-ring__item{{#if jar}}{{else}} wz-ring__item--carton{{/if}}" data-ring-item data-pv-item data-slug="{{ slug }}" data-name="{{ name }}" data-detail="{{ detail }}" data-kind="{{ tab }}" data-img="{{ large }}" data-photos="{{ photos_json }}"{{#if turn}} data-turn="{{ turn }}"{{/if}}><a href="{{ tab }}.html#product-{{ slug }}" aria-label="{{ name }}, {{ detail }}" draggable="false"><img src="{{ ring_image }}" alt="" height="640" decoding="async" draggable="false" /></a></li>
+          {{/each}}
+        </ul>
+      </div>
+      <div class="wz-ring__foot">
+        <p class="wz-ring__caption" aria-live="polite" data-ring-caption>&nbsp;</p>
+        <a class="btn btn--ghost" href="{{ page.ring.link_href }}">{{ page.ring.link_label }} &rarr;</a>
       </div>
     </section>
 

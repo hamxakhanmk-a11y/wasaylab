@@ -1,32 +1,30 @@
-/* Home products, standing on the grass at the end of the Wasay at a glance dive (glance.css). The layer covers the stage and stays
-   hidden until the grass fills the screen; wasay-ring.js sets --appear (0 to 1) as the products sweep in, and each product's
-   position, size, lean and fade. This file holds everything that does not change per frame. Each product carries a soft shadow
-   on the grass rather than a filter, so moving them stays cheap. */
-.wz-ring { --jar-h: clamp(190px, min(28vw, 40svh), 380px); --appear: 0; position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; visibility: hidden; }
-.wz-ring.is-on { visibility: visible; }
+/* Home products: a page of its own that slides up after Wasay at a glance, on pale sage. wasay-ring.js sweeps the products in from
+   the right as the page arrives (--appear, 0 to 1, fades the heading and the caption in with them) and sets each product's position,
+   size, lean and fade every frame; this file holds everything that does not change per frame. Each product carries a soft shadow
+   drawn as an ellipse rather than a filter, so moving them stays cheap. */
+.wz-ring { --jar-h: clamp(190px, min(26vw, 38svh), 360px); --appear: 0; position: relative; box-sizing: border-box; min-height: max(100svh, 620px); display: flex; flex-direction: column; overflow: hidden;
+  background: radial-gradient(70% 55% at 50% 62%, #ffffff 0%, rgba(255, 255, 255, 0) 70%), linear-gradient(180deg, var(--bg, #f7f9f2) 0%, var(--surface-alt, #ecf3e4) 55%, var(--sage, #dfe9d3) 100%); }
 .wz-ring__head, .wz-ring__foot { opacity: clamp(0, calc(var(--appear) * 1.8 - .5), 1); transform: translateY(calc((1 - var(--appear)) * 26px)); }
-.wz-ring__head { padding-top: calc(68px + clamp(14px, 4svh, 44px)); text-align: center; }
-.wz-ring__head .eyebrow { margin: 0; color: #f2fbe0; text-shadow: 0 1px 10px rgba(6, 30, 6, .55); }
-.wz-ring__head h2 { margin: 6px 0 0; font-size: clamp(1.9rem, 3.6vw, 2.9rem); line-height: 1.1; color: #fff; text-shadow: 0 2px 22px rgba(6, 30, 6, .6), 0 1px 3px rgba(6, 30, 6, .4); }
+.wz-ring__head { padding-top: calc(68px + clamp(18px, 5svh, 56px)); text-align: center; }
+.wz-ring__head h2 { margin: 6px 0 0; font-size: clamp(1.9rem, 3.6vw, 2.9rem); line-height: 1.1; }
 
-.wz-ring__stage { position: relative; flex: 1; min-height: 0; touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; outline: none; }
+.wz-ring__stage { position: relative; flex: 1; min-height: clamp(320px, 46svh, 560px); touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; outline: none; }
 .wz-ring__stage.is-dragging { cursor: grabbing; }
-.wz-ring__stage:focus-visible { outline: 2px solid #fff; outline-offset: -8px; border-radius: 18px; }
+.wz-ring__stage:focus-visible { outline: 2px solid var(--accent); outline-offset: -8px; border-radius: 18px; }
 
 /* until the script has laid the products out, show none rather than a pile */
 .wz-ring__stage:not(.is-ready) .wz-ring__item { visibility: hidden; }
 .wz-ring__items { list-style: none; margin: 0; padding: 0; position: absolute; inset: 0; }
-.wz-ring__item { position: absolute; left: 50%; top: 52%; margin: 0; will-change: transform, opacity; transform-origin: 50% 70%; pointer-events: none; backface-visibility: hidden; }
+.wz-ring__item { position: absolute; left: 50%; top: 50%; margin: 0; will-change: transform, opacity; transform-origin: 50% 70%; pointer-events: none; backface-visibility: hidden; }
 .wz-ring__item a { position: relative; display: block; pointer-events: auto; border-radius: 12px; }
-.wz-ring__item a::after { content: ""; position: absolute; z-index: -1; left: 8%; right: 8%; bottom: -5%; height: 14%; border-radius: 50%; background: radial-gradient(closest-side, rgba(4, 22, 4, .55), rgba(4, 22, 4, 0)); }
+.wz-ring__item a::after { content: ""; position: absolute; z-index: -1; left: 10%; right: 10%; bottom: -4%; height: 12%; border-radius: 50%; background: radial-gradient(closest-side, rgba(18, 52, 32, .32), rgba(18, 52, 32, 0)); }
 .wz-ring__turn { position: absolute; inset: 0; opacity: 0; pointer-events: none; background-repeat: no-repeat; }
 .wz-ring__item img { display: block; height: var(--jar-h); width: auto; max-width: none; -webkit-user-drag: none; }
 /* any product can be chosen for the home ring: a carton is wider than a jar, so it is held inside the jar's height and width */
 .wz-ring__item--carton img { height: auto; max-height: var(--jar-h); max-width: calc(var(--jar-h) * .95); object-fit: contain; }
 
-.wz-ring__foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 14px; padding: 0 16px clamp(22px, 5svh, 48px); }
-.wz-ring__caption { margin: 0; padding: 10px 20px; border-radius: 999px; background: rgba(247, 249, 242, .92); color: var(--muted); font-size: .95rem; min-height: 1.6em; box-shadow: 0 10px 30px -14px rgba(4, 22, 4, .6); }
-.wz-ring__foot .btn.btn--ghost, .wz-ring__foot .btn.glass-action.btn--ghost { background: rgba(247, 249, 242, .92); color: var(--forest, #0b3b23); border-color: rgba(255, 255, 255, .8); box-shadow: 0 10px 30px -14px rgba(4, 22, 4, .6); }
+.wz-ring__foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 14px; padding: 0 16px clamp(28px, 6svh, 64px); }
+.wz-ring__caption { margin: 0; padding: 10px 20px; border-radius: 999px; border: 1px solid rgba(18, 52, 32, .1); background: rgba(255, 255, 255, .85); color: var(--muted); font-size: .95rem; min-height: 1.6em; }
 .wz-ring__caption b { color: var(--text); font-family: var(--display); font-size: 1.12rem; font-weight: 600; margin-right: 8px; }
 
 @media (max-width: 640px) {
