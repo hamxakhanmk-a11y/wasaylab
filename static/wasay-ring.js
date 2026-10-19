@@ -44,7 +44,7 @@
       const scale = (0.56 + 0.44 * Math.exp(-off * off / 3)) * (.86 + .14 * come);
       const bob = reduced.matches ? 0 : Math.sin(t / 900 + i * 1.7) * 5 * Math.exp(-ao * .6);
       const x = off * perJar + (1 - come) * (w * .62 + perJar * 1.2), y = -Math.min(ao * ao, 5) * h * 0.04 + bob;
-      const roll = lean - clamp(off, -2.5, 2.5) * 6 + (1 - come) * 14;
+      const roll = lean - Math.atan(clamp(off, -2.6, 2.6) * .42) * 26 + (1 - come) * 14;
       const el = items[i];
       el.style.transform = `translate3d(-50%,-50%,0) translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,0) rotate(${roll.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
       el.style.opacity = come < 1 ? come.toFixed(3) : '';
@@ -52,7 +52,8 @@
       const z = String(200 - Math.round(ao * 20)), vis = ao > 3.2 || come <= 0 ? 'hidden' : 'visible';
       if (looks[i].z !== z) { looks[i].z = z; el.style.zIndex = z; }
       if (looks[i].vis !== vis) { looks[i].vis = vis; el.style.visibility = vis; }
-      el.firstElementChild.tabIndex = ao < 0.5 ? 0 : -1;
+      const tab = ao < 0.5 ? 0 : -1;
+      if (looks[i].tab !== tab) { looks[i].tab = tab; el.firstElementChild.tabIndex = tab; }
     }
     const front = mod(Math.round(pos));
     if (front !== current) {
@@ -139,7 +140,7 @@
     }
     place(appear, t);
     spin(t, dt);
-    const busy = Math.abs(goal - pos) > .0005 || Math.abs(vel) > .002 || drag || glide || appear < 1 || turns.some((tn) => tn.state === 'ready');
+    const busy = Math.abs(goal - pos) > .0005 || Math.abs(vel) > .002 || drag || glide || appear < 1 || drift > 0 || magnet > .001 || turns.some((tn) => tn.state === 'ready' && (hot === tn || Math.abs(tn.cur - tn.goal) > .002 || tn.goal !== 0));
     if (visible && !document.hidden && (busy || !reduced.matches)) frame = requestAnimationFrame(tick);
     else last = 0;
   }

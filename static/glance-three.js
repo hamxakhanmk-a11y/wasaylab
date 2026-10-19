@@ -1,5 +1,6 @@
 import * as T from './vendor/three/three.module.min.js';
 import { autoQuality } from './gl-quality.js';
+import { createHands } from './glance-hands.js';
 
 // Wasay at a glance: a thick grassy trunk arcs across the page like a smile, coming nearer in the middle. Tens of thousands of fine
 // blades (one blade drawn many times, instancing) grow out of it, combed one way like fur, and sway in the breeze; a few small daisies
@@ -55,7 +56,7 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
   }
 
   // ---- where the capsule stands and how big it is (set with the framing), the ball of grass above it, and how far the change has gone
-  const center = { value: new T.Vector3() }, ball = { value: new T.Vector3() }, ballR = { value: .5 }, size = { value: 1 };
+  const center = { value: new T.Vector3() }, ball = { value: new T.Vector3() }, ballR = { value: .5 }, size = { value: 1 }, tilt = { value: 0 };
   const morph = { value: 0 }, spin = { value: 0 };
   const mossShape = { value: new T.Vector4(MOSS.r, MOSS.bottom, MOSS.top, CAP.inner) };
 
@@ -86,17 +87,18 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
   grass.setAttribute('iT', new T.InstancedBufferAttribute(gT, 3)); grass.setAttribute('iShape', new T.InstancedBufferAttribute(gShape, 4));
   grass.setAttribute('iU', new T.InstancedBufferAttribute(gU, 3));
   grass.instanceCount = n;
-  const time = { value: 0 }, wind = { value: .07 }, push = { value: new T.Vector4(0, 0, 0, 0) }, pushR = { value: 1.15 };
-  const SPIN = `vec3 spinY(vec3 v, float a) { float c = cos(a), s = sin(a); return vec3(c * v.x + s * v.z, v.y, -s * v.x + c * v.z); }`;
+  const time = { value: 0 }, wind = { value: .055 }, push = { value: new T.Vector4(0, 0, 0, 0) }, pushR = { value: 1.15 };
+  const SPIN = `vec3 spinY(vec3 v, float a) { float c = cos(a), s = sin(a); return vec3(c * v.x + s * v.z, v.y, -s * v.x + c * v.z); }
+  vec3 tiltZ(vec3 v, float a) { float c = cos(a), s = sin(a); return vec3(c * v.x - s * v.y, s * v.x + c * v.y, v.z); }`;
   const grassMat = new T.ShaderMaterial({
     side: T.DoubleSide,
-    uniforms: { uTime: time, uWind: wind, uPush: push, uPushR: pushR, uMorph: morph, uSpin: spin, uCenter: center, uMoss: mossShape, uScale: size,
+    uniforms: { uTime: time, uWind: wind, uPush: push, uPushR: pushR, uMorph: morph, uSpin: spin, uCenter: center, uMoss: mossShape, uScale: size, uTilt: tilt,
       uBall: ball, uBallR: ballR, uBase: { value: new T.Color('#0b2a07') }, uTip: { value: new T.Color('#7fc03a') }, uSun: { value: new T.Color('#cfe46e') },
       uMossTip: { value: new T.Color('#5d9a2a') } },
     vertexShader: `
       attribute float aT; attribute vec3 iBase; attribute vec3 iN; attribute vec3 iT; attribute vec4 iShape; attribute vec3 iU;
       uniform float uTime; uniform float uWind; uniform vec4 uPush; uniform float uPushR; uniform float uMorph; uniform float uSpin;
-      uniform vec3 uCenter; uniform vec4 uMoss; uniform float uScale; uniform vec3 uBall; uniform float uBallR;
+      uniform vec3 uCenter; uniform vec4 uMoss; uniform float uScale; uniform vec3 uBall; uniform float uBallR; uniform float uTilt;
       varying float vT; varying float vTone; varying float vLight; varying float vFlat; varying float vMoss;
       ${SPIN}
       float ease(float x) { x = clamp(x, 0.0, 1.0); return x * x * (3.0 - 2.0 * x); }
@@ -113,8 +115,8 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
         if (y > dome) { float k = (y - dome) / (uMoss.x * .8); r *= sqrt(max(0.0, 1.0 - k * k)); ny = k; }
         if (y < -1.0) r = min(r, sqrt(max(0.0, uMoss.w * uMoss.w - (y + 1.0) * (y + 1.0))) - .1);
         vec3 local = vec3(sin(phi) * r, y, cos(phi) * r);
-        vec3 pB = uCenter + spinY(local, uSpin) * uScale;
-        vec3 nB = spinY(normalize(vec3(sin(phi), ny * 1.6 + .15, cos(phi))), uSpin);
+        vec3 pB = uCenter + tiltZ(spinY(local, uSpin), uTilt) * uScale;
+        vec3 nB = tiltZ(spinY(normalize(vec3(sin(phi), ny * 1.6 + .15, cos(phi))), uSpin), uTilt);
         // it pours down from the ball through the open top of the capsule, then out to its place
         float fill = ease((uMorph - ${POUR} - u * ${POUR_LEN * .8}) / ${POUR_LEN * .3});
         vec3 mouth = uCenter + vec3(local.x * .3, ${CAP.lipBottom + .1}, local.z * .3) * uScale;
@@ -137,7 +139,7 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
         float h = iShape.z * keep * (1.0 - .92 * f) * mix(1.0, .6, sq * (1.0 - fill)) * mix(1.0, uScale * (.7 + .45 * iU.z), fill);
         // grass hangs a little under its own weight, more on the underside; once squeezed there is no breeze
         float droop = max(0.0, -up.y) * (1.0 - sq);
-        float w = (sin(uTime * 1.5 + base.x * .7 + base.y * .5) * .6 + sin(uTime * 2.6 + base.x * 2.1 - base.z) * .3) * (1.0 - sq);
+        float w = (sin(uTime * 1.25 + base.x * .42 + base.y * .3) * .72 + sin(uTime * 2.0 + base.x * .85 - base.z * .5) * .12) * (1.0 - sq);
         vec3 p = base + side * position.x * iShape.y + up * position.y * h;
         p += comb * bend * t * t * h + vec3(0.0, -1.0, 0.0) * droop * t * t * h * .45;
         p += (along * w * uWind * 6.0 + vec3(0.0, 0.0, 1.0) * w * uWind * 2.0) * t * t * h;
@@ -155,7 +157,9 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
         vec3 col = mix(uBase, tip, smoothstep(0.0, 1.0, vT));
         col *= (.78 + vTone * .4) * vLight;
         col *= mix(.4, 1.0, smoothstep(0.0, .6, vT));
-        col *= 1.0 - .9 * vFlat;
+        // where the pointer parts the grass it turns to cool blue tones, deep at the roots and light at the tips
+        vec3 blue = mix(vec3(.04, .14, .32), vec3(.38, .64, .94), smoothstep(0.0, 1.0, vT)) * (.82 + vTone * .3);
+        col = mix(col * (1.0 - .3 * vFlat), blue, smoothstep(.04, .55, vFlat));
         gl_FragColor = vec4(col, 1.0);
         #include <colorspace_fragment>
       }`,
@@ -169,7 +173,7 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
   const fillLine = new T.Plane(new T.Vector3(0, -1, 0), 0);
   renderer.localClippingEnabled = true;
   const heart = new T.Mesh(new T.LatheGeometry(heartProfile, 40), new T.MeshBasicMaterial({ color: '#13340c', clippingPlanes: [fillLine] }));
-  heart.visible = false; scene.add(heart);
+  heart.visible = false; heart.position.y = MOSS.bottom;
   // and the ball's, while the grass is squeezed
   const ballHeart = new T.Mesh(new T.SphereGeometry(1, 24, 16), new T.MeshBasicMaterial({ color: '#13340c' }));
   ballHeart.visible = false; scene.add(ballHeart);
@@ -199,10 +203,10 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
     g.setAttribute('iFlower', new T.InstancedBufferAttribute(new Float32Array(list.flatMap((f) => [f[0], f[1], f[2], f[3] + Math.floor(f[4] * 100)])), 4));
     g.instanceCount = list.length;
     const mesh = new T.Mesh(g, new T.ShaderMaterial({
-      uniforms: { uMap: { value: daisyMap }, uTime: time, uWind: wind, uPush: push, uPushR: pushR, uMorph: morph, uSpin: spin, uCenter: center, uScale: size },
+      uniforms: { uMap: { value: daisyMap }, uTime: time, uWind: wind, uPush: push, uPushR: pushR, uMorph: morph, uSpin: spin, uCenter: center, uScale: size, uTilt: tilt },
       defines: inCapsule ? { IN_CAPSULE: 1 } : {},
       vertexShader: `
-        attribute vec4 iFlower; uniform float uTime; uniform float uWind; uniform vec4 uPush; uniform float uPushR; uniform float uMorph; uniform float uSpin; uniform vec3 uCenter; uniform float uScale;
+        attribute vec4 iFlower; uniform float uTime; uniform float uWind; uniform vec4 uPush; uniform float uPushR; uniform float uMorph; uniform float uSpin; uniform vec3 uCenter; uniform float uScale; uniform float uTilt;
         varying vec2 vUv;
         ${SPIN}
         void main() {
@@ -210,7 +214,7 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
           #ifdef IN_CAPSULE
             // they open once the moss is in, each in its own moment
             float open = clamp((uMorph - at) / .1, 0.0, 1.0); open = open * open * (3.0 - 2.0 * open);
-            vec3 c = uCenter + spinY(iFlower.xyz, uSpin) * uScale; size *= uScale;
+            vec3 c = uCenter + tiltZ(spinY(iFlower.xyz, uSpin), uTilt) * uScale; size *= uScale;
           #else
             float open = 1.0 - clamp(uMorph / .15, 0.0, 1.0);
             float w = sin(uTime * 1.5 + iFlower.x * .7 + iFlower.y * .5) * .6;
@@ -292,7 +296,12 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
   const shadow = new T.Mesh(new T.PlaneGeometry(1, 1), new T.MeshBasicMaterial({ transparent: true, depthWrite: false, opacity: 0, toneMapped: false,
     map: texture(128, 128, (ctx) => { const g = ctx.createRadialGradient(64, 64, 2, 64, 64, 63); g.addColorStop(0, 'rgba(24,48,28,.55)'); g.addColorStop(1, 'rgba(24,48,28,0)'); ctx.fillStyle = g; ctx.fillRect(0, 0, 128, 128); }) }));
   shadow.rotation.x = -Math.PI / 2; scene.add(shadow);
-  capsule.visible = false;
+  capsule.visible = false; capsule.add(heart); capsule.rotation.order = 'ZYX';
+
+  // ---- the two hands that reach in at the end and meet at the capsule (glance-hands.js)
+  const hands = createHands(scene, { density });
+  const base = { center: new T.Vector3(), size: 1 }, meet = new T.Vector3();
+  let smallSize = .27;
 
   // ---- framing: the whole arc across a wide screen; on a tall one the camera stands back so the curve still crosses it.
   // The capsule fills most of the height under the title (larger on a tall screen, where there is more room)
@@ -307,9 +316,12 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
       const y = tall ? -1 : .35;                         // on a tall screen the arc sits higher, between the title and the figures
       camera.position.set(0, y, z); camera.lookAt(0, y, 0);
       camera.updateProjectionMatrix(); camera.updateMatrixWorld();
-      size.value = tall ? 1.4 : 1.12;
-      center.value.set(0, y - (tall ? .8 : .85), 0);
+      size.value = base.size = tall ? 1.4 : 1.12;
+      center.value.set(0, y - (tall ? .8 : .85), 0); base.center.copy(center.value);
       capsule.position.copy(center.value); capsule.scale.setScalar(size.value);
+      // where the hands meet: the middle of the screen, the capsule small and on its side between their fingertips
+      smallSize = tall ? .22 : .34; meet.set(0, y - .15, 0);
+      hands.setLayout(meet, (CAP.half + (CAP.r + CAP.top) / 2) * smallSize, tall ? 1.25 : 2.7);
       ball.value.copy(center.value).add(new T.Vector3(0, 1.5 * size.value, 0)); ballR.value = .5 * size.value;
       ballHeart.position.copy(ball.value);
       shadow.position.set(center.value.x, center.value.y - (CAP.half + CAP.r + .25) * size.value, center.value.z);
@@ -338,9 +350,13 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
   const leave = () => { onTrunk = false; };
 
   let lastT = 0;
-  function draw(seconds, { still = false, morph: change = 0 } = {}) {
+  function draw(seconds, { still = false, morph: change = 0, hands: reach = 0 } = {}) {
     if (!frame()) return;
-    const m = clamp(change), S = size.value;
+    const m = clamp(change), S = size.value, hand = clamp(reach), lie = smooth(hand / .6);
+    // once the hands come, the capsule shrinks, moves to the meeting point and lies on its side between their fingertips
+    size.value = base.size + (smallSize - base.size) * lie; center.value.lerpVectors(base.center, meet, lie); tilt.value = lie * Math.PI / 2;
+    capsule.position.copy(center.value); capsule.scale.setScalar(size.value);
+    hands.update(hand, seconds, still);
     const dt = lastT ? Math.min(.1, Math.abs(seconds - lastT)) : 0; lastT = seconds;
     time.value = still ? 0 : seconds;
     morph.value = m;
@@ -353,9 +369,8 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
     // place once the change reaches POUR + u * POUR_LEN * .8 + POUR_LEN * .3)
     const level = clamp((m - POUR - POUR_LEN * .3) / (POUR_LEN * .8)) - .06;
     heart.visible = level > 0;
-    heart.position.set(center.value.x, center.value.y + MOSS.bottom * S, center.value.z);
-    heart.scale.setScalar(S);
-    fillLine.constant = heart.position.y + level * (MOSS.top - MOSS.bottom) * S;
+    // (once the capsule is full the cut is lifted away, so it never clips the heart while the capsule turns)
+    fillLine.constant = m >= .999 ? 1e4 : center.value.y + (MOSS.bottom + level * (MOSS.top - MOSS.bottom)) * S;
     // the open bottom half is there to catch the grass; the top half comes down and closes once the moss is in
     const shown = smooth((m - SQUEEZE * .5) / (SQUEEZE * .6)), lid = smooth((m - CLOSE[0] + .04) / .06), close = smooth((m - CLOSE[0]) / (CLOSE[1] - CLOSE[0]));
     capsule.visible = shown > 0;
@@ -363,10 +378,10 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
     topHalf.visible = lid > 0;
     for (const g of glasses) g.uniforms.uOpacity.value = shown;
     label.material.opacity = smooth((m - CLOSE[1] + .02) / .05) * .95;
-    shadow.material.opacity = shown * .5;
+    shadow.material.opacity = shown * .5 * (1 - lie);
     // once closed it turns a little to and fro, so the glass and the garden inside read as round
     spin.value = still ? 0 : Math.sin(seconds * .35) * .2 * smooth((m - CLOSE[1]) / .05);
-    capsule.rotation.y = spin.value;
+    capsule.rotation.set(0, spin.value, tilt.value);
     // the hollow glides after the pointer and closes softly when the pointer leaves (only while it is a trunk)
     const k = 1 - Math.exp(-dt * 10), want = onTrunk && m < .05 ? 1 : 0;
     aimAt += (want - aimAt) * (still ? 1 : 1 - Math.exp(-dt * 5));

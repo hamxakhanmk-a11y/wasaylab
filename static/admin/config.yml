@@ -218,11 +218,12 @@ collections:
               - { name: text, label: Paragraph, widget: text }
               - { name: link_label, label: Card link text, widget: string }
           - name: stats
-            label: 'Section: Wasay at a glance (green band)'
+            label: 'Section: Wasay at a glance (the grassy trunk, the capsule and the two hands)'
             widget: object
             hint: The number of products and of ranges are counted automatically.
             fields:
-              - { name: eyebrow, label: Small label above heading, widget: string }
+              - { name: eyebrow, label: Big title over the trunk and the capsule, widget: string }
+              - { name: hands_heading, label: Big title once the two hands meet, widget: string }
               - { name: heading, label: Heading, widget: string }
               - { name: text, label: Paragraph, widget: text }
               - { name: products_label, label: Words under the number of products, widget: string }

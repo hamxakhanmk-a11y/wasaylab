@@ -1,5 +1,6 @@
 import * as T from './vendor/three/three.module.min.js';
 import { autoQuality } from './gl-quality.js';
+import { createHerbs } from './hero-herbs.js';
 
 // The home banner's living hill: a soft grassy mound on the off-white page, a seedling on its top that grows and opens its two
 // leaves, and wildflowers that bloom across the slope from the bottom right upwards. It loops: grow, hold in full bloom, a quick
@@ -10,8 +11,8 @@ const clamp = (n, a = 0, b = 1) => Math.max(a, Math.min(b, n));
 const smooth = (n) => { n = clamp(n); return n * n * (3 - 2 * n); };
 const easeOutBack = (n) => { n = clamp(n); const c = 1.7; return 1 + (c + 1) * Math.pow(n - 1, 3) + c * Math.pow(n - 1, 2); };
 
-// the loop, in seconds: the seedling and flowers grow, hold in bloom, then reset quickly
-const CYCLE = 13, GROW = 5.2, RESET_AT = 11.4, RESET_LEN = .8;
+// the seedling, the herbs and the flowers grow once, over GROW seconds when the page opens, and then stay in bloom
+const GROW = 5.2;
 
 // the hill: a broad mound whose top sits right of centre, falling to low meadow
 const PEAK_X = 3.5;
@@ -122,28 +123,71 @@ export function createGrowScene(canvas, { bg = '#f7f9f2', density = 1 } = {}) {
   });
   const grassMesh = new T.Mesh(grass, grassMat); grassMesh.frustumCulled = false; scene.add(grassMesh);
 
-  // ---- the seedling on the hilltop: a stem that grows and two leaves that open
+  // ---- the seedling on the hilltop: a tapered stem, two seed leaves that open, and two young true leaves unfolding between them
   const top = new T.Vector3(PEAK_X, land(PEAK_X, 0), 2);
   const sprout = new T.Group(); sprout.position.copy(top).add(new T.Vector3(0, -.05, 0)); scene.add(sprout);
   const stemCurve = new T.CatmullRomCurve3([new T.Vector3(0, 0, 0), new T.Vector3(.03, .35, .01), new T.Vector3(-.02, .7, 0), new T.Vector3(.02, 1, 0)]);
-  const stemMat = new T.MeshStandardMaterial({ color: '#86c94a', roughness: .45 });
-  const stem = new T.Mesh(new T.TubeGeometry(stemCurve, 24, .038, 10, false), stemMat); sprout.add(stem);
-  const leafMap = texture(256, 256, (ctx) => {
-    const g = ctx.createLinearGradient(0, 256, 0, 0); g.addColorStop(0, '#4f9a2c'); g.addColorStop(.55, '#6cc33a'); g.addColorStop(1, '#8fd85a');
-    ctx.fillStyle = g; ctx.fillRect(0, 0, 256, 256);
-    ctx.strokeStyle = 'rgba(214,240,170,.55)'; ctx.lineWidth = 5; ctx.beginPath(); ctx.moveTo(128, 256); ctx.quadraticCurveTo(134, 130, 128, 10); ctx.stroke();
-    ctx.lineWidth = 2; ctx.strokeStyle = 'rgba(200,232,150,.35)';
-    for (let i = 0; i < 6; i++) { const y = 210 - i * 32; for (const s of [-1, 1]) { ctx.beginPath(); ctx.moveTo(129, y); ctx.quadraticCurveTo(128 + s * 40, y - 22, 128 + s * 80, y - 50); ctx.stroke(); } }
+  const STEM_SEG = 32, STEM_RAD = 12, stemGeo = new T.TubeGeometry(stemCurve, STEM_SEG, 1, STEM_RAD, false);
+  { // thick at the soil and slender at the top; a woody pink-brown at the base turning to fresh green, as on a real seedling
+    const p = stemGeo.attributes.position, col = new Float32Array(p.count * 3), c = new T.Color(), at = new T.Vector3();
+    const base = new T.Color('#86664a'), mid = new T.Color('#86bd4e'), tip = new T.Color('#b6de78');
+    for (let i = 0; i < p.count; i++) {
+      const u = Math.floor(i / (STEM_RAD + 1)) / STEM_SEG, r = .054 - .022 * u;
+      stemCurve.getPointAt(u, at);
+      p.setXYZ(i, at.x + (p.getX(i) - at.x) * r, at.y + (p.getY(i) - at.y) * r, at.z + (p.getZ(i) - at.z) * r);
+      c.copy(base).lerp(mid, smooth(u / .3)).lerp(tip, smooth((u - .6) / .4));
+      col.set([c.r, c.g, c.b], i * 3);
+    }
+    stemGeo.setAttribute('color', new T.Float32BufferAttribute(col, 3)); stemGeo.computeVertexNormals(); }
+  const stemMat = new T.MeshPhysicalMaterial({ vertexColors: true, roughness: .5, sheen: .4, sheenColor: new T.Color('#e4f7c0'), sheenRoughness: .5 });
+  const stem = new T.Mesh(stemGeo, stemMat); sprout.add(stem);
+  // the leaf surface: deep green at the stalk to bright yellow-green at the tip, darker at the edges, a pale midrib, arching side
+  // veins and a fine net between them, with a little mottling; it doubles as the bump map
+  const leafMap = texture(512, 512, (ctx) => {
+    const g = ctx.createLinearGradient(0, 512, 0, 0); g.addColorStop(0, '#3c7a20'); g.addColorStop(.5, '#5aa82f'); g.addColorStop(1, '#84c948');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, 512, 512);
+    const edge = ctx.createRadialGradient(256, 300, 40, 256, 260, 300); edge.addColorStop(0, 'rgba(250,255,215,.14)'); edge.addColorStop(1, 'rgba(18,48,10,.42)');
+    ctx.fillStyle = edge; ctx.fillRect(0, 0, 512, 512);
+    for (let i = 0; i < 2600; i++) { const a = Math.random() * .07; ctx.fillStyle = Math.random() < .5 ? `rgba(255,255,220,${a})` : `rgba(20,50,10,${a})`; ctx.fillRect(Math.random() * 512, Math.random() * 512, 2 + Math.random() * 3, 2 + Math.random() * 3); }
+    ctx.lineCap = 'round';
+    for (let k = 0; k < 6; k++) { ctx.strokeStyle = `rgba(225,246,178,${.8 - k * .1})`; ctx.lineWidth = 9 - k * 1.3; ctx.beginPath(); ctx.moveTo(256, 512 - k * 80); ctx.quadraticCurveTo(262, 400 - k * 80, 256, Math.max(8, 432 - k * 85)); ctx.stroke(); }
+    for (let i = 0; i < 8; i++) {
+      const y = 470 - i * 54;
+      for (const side of [-1, 1]) {
+        ctx.strokeStyle = 'rgba(206,238,156,.5)'; ctx.lineWidth = 3.2 - i * .25;
+        ctx.beginPath(); ctx.moveTo(256, y); ctx.bezierCurveTo(256 + side * 60, y - 34, 256 + side * 130, y - 90, 256 + side * 200, y - 150); ctx.stroke();
+        ctx.strokeStyle = 'rgba(190,226,140,.22)'; ctx.lineWidth = 1.2;
+        for (let j = 1; j < 5; j++) { const sx = 256 + side * j * 36, sy = y - j * 26; ctx.beginPath(); ctx.moveTo(sx, sy); ctx.quadraticCurveTo(sx + side * 14, sy - 30, sx + side * 4, sy - 54); ctx.stroke(); }
+      }
+    }
   });
   leafMap.colorSpace = T.SRGBColorSpace;
-  const leafShape = new T.Shape(); leafShape.moveTo(0, 0); leafShape.bezierCurveTo(.42, .12, .44, .78, 0, 1.12); leafShape.bezierCurveTo(-.44, .78, -.42, .12, 0, 0);
-  const leafGeo = new T.ShapeGeometry(leafShape, 24);
-  { const p = leafGeo.attributes.position, uv = leafGeo.attributes.uv;
-    for (let i = 0; i < p.count; i++) { const x = p.getX(i), y = p.getY(i); p.setZ(i, x * x * .7 - y * .12 + Math.sin(y * 2.6) * .05); uv.setXY(i, x / .9 + .5, y / 1.12); }
-    leafGeo.computeVertexNormals(); }
-  const leafMat = new T.MeshStandardMaterial({ map: leafMap, roughness: .38, side: T.DoubleSide });
+  // a leaf as a fine grid (so it bends smoothly all over, not just at its outline): length along +y, cupped, curled back a little at
+  // the tip; the true leaves have a toothed edge
+  function leafShapeGeometry(len, width, toothed) {
+    const U = 30, V = 12, pos = [], uv = [], idx = [];
+    for (let i = 0; i <= U; i++) for (let j = 0; j <= V; j++) {
+      const u = i / U, v = j / V * 2 - 1;
+      let w = width * Math.pow(Math.sin(Math.PI * Math.min(1, u * 1.02)), .72) * (1 - .16 * u);
+      if (toothed) w *= 1 + .08 * (Math.abs((u * 9) % 1 - .5) * 2 - .5);
+      const x = v * w, y = u * len;
+      pos.push(x, y, x * x * .7 - y * .12 + Math.sin(y * 2.6) * .05); uv.push(v * .5 + .5, u);
+    }
+    for (let i = 0; i < U; i++) for (let j = 0; j < V; j++) { const a = i * (V + 1) + j, b = a + V + 1; idx.push(a, b, a + 1, b, b + 1, a + 1); }
+    const g = new T.BufferGeometry();
+    g.setAttribute('position', new T.Float32BufferAttribute(pos, 3)); g.setAttribute('uv', new T.Float32BufferAttribute(uv, 2)); g.setIndex(idx);
+    g.computeVertexNormals();
+    return g;
+  }
+  const leafGeo = leafShapeGeometry(1.12, .42, false);
+  const leafMat = new T.MeshPhysicalMaterial({ map: leafMap, bumpMap: leafMap, bumpScale: .9, roughness: .5, clearcoat: .25, clearcoatRoughness: .4,
+    sheen: .45, sheenColor: new T.Color('#d8f59c'), sheenRoughness: .55, side: T.DoubleSide });
   const leafPivot = new T.Group(); leafPivot.position.y = 1; sprout.add(leafPivot);
   const leaves = [-1, 1].map((s) => { const g = new T.Group(); const m = new T.Mesh(leafGeo, leafMat); m.scale.setScalar(.62); g.add(m); leafPivot.add(g); return { g, m, s }; });
+  // the first true leaves: smaller, toothed and a deeper green, rising between the seed leaves later in the growth
+  const trueMat = leafMat.clone(); trueMat.color = new T.Color('#c4dba6');
+  const trueGeo = leafShapeGeometry(1, .34, true);
+  const trueLeaves = [-1, 1].map((s) => { const g = new T.Group(); g.add(new T.Mesh(trueGeo, trueMat)); g.position.set(0, .02, .01); leafPivot.add(g); return { g, s }; });
 
   // ---- wildflowers: a daisy and a cornflower drawn as masks (petals in red, centre in green) and tinted per flower
   const atlas = texture(1024, 256, (ctx) => {
@@ -231,6 +275,7 @@ export function createGrowScene(canvas, { bg = '#f7f9f2', density = 1 } = {}) {
       }`,
   });
   const flowers = new T.Mesh(fGeo, flowerMat); flowers.frustumCulled = false; scene.add(flowers);
+  const herbs = createHerbs(scene, { land, density });
   const sGeo = new T.InstancedBufferGeometry(); sGeo.index = blade.index;
   sGeo.setAttribute('position', blade.attributes.position); sGeo.setAttribute('aT', blade.attributes.aT);
   sGeo.setAttribute('iOffset', fGeo.attributes.iOffset); sGeo.setAttribute('iBloom', fGeo.attributes.iBloom); sGeo.setAttribute('iSize', fGeo.attributes.iSize);
@@ -262,6 +307,8 @@ export function createGrowScene(canvas, { bg = '#f7f9f2', density = 1 } = {}) {
     const stemG = .55 + .45 * smooth(g / .55), leafG = .5 + .5 * smooth((g - .08) / .55), openG = smooth((g - .12) / .55);
     stem.scale.set(1, stemG, 1); leafPivot.position.y = stemG;
     leafPivot.scale.setScalar(leafG);
+    const young = smooth((g - .4) / .5);
+    trueLeaves.forEach(({ g: grp, s }) => { grp.scale.setScalar(.001 + .3 * young); grp.rotation.set(-.12 - .1 * young, s * .2, -s * (.12 + .32 * young)); });
     // each leaf faces the viewer and leans out to its side as it opens (from nearly upright to about 70 degrees), cupped a little forward
     leaves.forEach(({ g: grp, s }) => { grp.rotation.set(.28, s * .32, -s * (.12 + 1.08 * openG) + sway * s - (s > 0 ? droop : 0)); });
     sprout.rotation.z = lean;
@@ -347,14 +394,7 @@ export function createGrowScene(canvas, { bg = '#f7f9f2', density = 1 } = {}) {
   }
 
   // the moment in the loop: the seedling and the flowers' growth (0 to 1)
-  function state(seconds) {
-    const t = seconds % CYCLE;
-    let g;
-    if (t < GROW) g = t / GROW;
-    else if (t < RESET_AT) g = 1;
-    else g = 1 - clamp((t - RESET_AT) / RESET_LEN);
-    return { g, t };
-  }
+  function state(seconds) { return { g: clamp(seconds / GROW), t: seconds }; }
   // story: 0 is the banner; by .3 the camera is close; the bottle rises from .36, the drop forms from .44 and falls from .7 to .84
   function draw(seconds, { still = false, story = 0 } = {}) {
     if (!frame()) return;
@@ -362,6 +402,7 @@ export function createGrowScene(canvas, { bg = '#f7f9f2', density = 1 } = {}) {
     const g = Math.max(still ? 1 : state(seconds).g, smooth(p / .08));                // once the story starts, everything is grown
     time.value = still ? 0 : seconds;
     growth.value = g;
+    herbs.update(g, seconds, still);
     const appear = clamp((p - .36) / .14), form = smooth((p - .44) / .2), fall = clamp((p - .7) / .14), impact = clamp((p - .84) / .13);
     // the leaf bends under the drop and springs back once it lets go
     const droop = DROOP * (p < .7 ? form : Math.exp(-fall * 4) * Math.cos(fall * 14));

@@ -17,9 +17,33 @@ const quads=[
 for(let i=0;i<4;i++){const photo=p.photos[i===3?1:i],texture=await face(photo,p.faces[i],['front','left','right','top'][i]);renderer.add(Wasay3DQuad(...quads[i]),texture,undefined,.16);}
 renderer.add(Wasay3DQuad([[-w/2,-h/2,d/2],[w/2,-h/2,d/2],[w/2,-h/2,-d/2],[-w/2,-h/2,-d/2]],[0,-1,0]),null,[.94,.91,.86]);
 s.renderer=renderer;s.scale=Math.min(.54,1.65/(h+d),1.3/(w+d));s.model.replaceChildren(canvas);renderer.draw(0,.14,s.scale);e.target.classList.add('ready');s.ready=true;if(window.WasayFit&&!p.fit)WasayFit(e.target,canvas,8);}catch(error){console.error('Unable to build carton',s.product.name,error);e.target.classList.add('failed');}}});pump();}}},{rootMargin:'700px'});
-    const visibleObserver=new IntersectionObserver(entries=>{for(const e of entries){e.target.classList.toggle('visible',e.isIntersecting);state.get(e.target).visible=e.isIntersecting}},{threshold:.1});
-    views.forEach((view,i)=>{const product=products.find(p=>p.slug===view.dataset.tablet);if(!product)return;if(product.fit){view.style.setProperty('--trim',product.fit[0]+'px');view.style.setProperty('--drop',product.fit[1]+'px');}view.style.setProperty('--h',product.height+'px');view.style.setProperty('--w',(product.width||260)+'px');view.style.setProperty('--d',(product.depth||46)+'px');view.style.setProperty('--delay',(-i*3)+'s');const s={product,model:view.querySelector('.tablet-model'),angle:0,tilt:-8,currentAngle:0,currentTilt:-8,manual:false,visible:false,ready:false};state.set(view,s);const turn=delta=>{s.angle=Math.max(-40,Math.min(40,(s.manual?s.angle:s.currentAngle)+delta));s.manual=true;};view.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();turn(e.key==='ArrowLeft'?-15:15);}if(e.key==='Home'){s.manual=false;s.angle=0;}});view.addEventListener('pointermove',e=>{if(e.pointerType!=='mouse')return;const r=view.getBoundingClientRect();s.manual=true;s.angle=Math.max(-40,Math.min(40,(e.clientX-r.left-r.width/2)/r.width*80));s.tilt=Math.max(-15,Math.min(-2,(e.clientY-r.top-r.height/2)/r.height*12-8));});view.addEventListener('pointerleave',()=>{s.manual=false;s.tilt=-8;});observer.observe(view);visibleObserver.observe(view);});
-    let frame;function render(t){if(!document.documentElement.classList.contains('has-detail'))for(const s of state.values())if(s.visible&&s.ready){const a=s.manual?s.angle:reduced.matches?0:Math.sin(t/2900)*28;const ease=reduced.matches?1:.12;s.currentAngle+=(a-s.currentAngle)*ease;s.currentTilt+=(s.tilt-s.currentTilt)*ease;s.renderer.draw(s.currentAngle*Math.PI/180,-s.currentTilt*Math.PI/180,s.scale);}frame=requestAnimationFrame(render);}frame=requestAnimationFrame(render);document.addEventListener('visibilitychange',()=>{cancelAnimationFrame(frame);if(!document.hidden)frame=requestAnimationFrame(render);});
+    const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));let frame=0,last=0;
+    const visibleObserver=new IntersectionObserver(entries=>{for(const e of entries){e.target.classList.toggle('visible',e.isIntersecting);state.get(e.target).visible=e.isIntersecting}wake();},{threshold:.1});
+    views.forEach((view,i)=>{const product=products.find(p=>p.slug===view.dataset.tablet);if(!product)return;if(product.fit){view.style.setProperty('--trim',product.fit[0]+'px');view.style.setProperty('--drop',product.fit[1]+'px');}view.style.setProperty('--h',product.height+'px');view.style.setProperty('--w',(product.width||260)+'px');view.style.setProperty('--d',(product.depth||46)+'px');view.style.setProperty('--delay',(-i*3)+'s');const s={product,model:view.querySelector('.tablet-model'),angle:0,tilt:-8,currentAngle:0,currentTilt:-8,manual:false,visible:false,ready:false,phase:i*1.7,drag:null,vel:0,rest:0,hover:false};state.set(view,s);const turn=delta=>{s.angle=clamp((s.manual?s.angle:s.currentAngle)+delta,-75,75);s.manual=true;s.rest=performance.now()+2500;wake();};view.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();turn(e.key==='ArrowLeft'?-15:15);}if(e.key==='Home'){s.manual=false;s.angle=0;wake();}});
+// a press turns into a drag only once it moves (so a click still opens the product); the pointer is captured from then on
+view.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'&&e.button!==0)return;s.drag={id:e.pointerId,x:e.clientX,a:s.currentAngle,lx:e.clientX,lt:e.timeStamp,v:0,on:false};s.vel=0;});
+view.addEventListener('pointermove',e=>{if(s.drag&&e.pointerId===s.drag.id){if(!s.drag.on){if(Math.abs(e.clientX-s.drag.x)<6)return;s.drag.on=true;s.drag.x=e.clientX;s.drag.a=s.currentAngle;s.drag.lx=e.clientX;s.drag.lt=e.timeStamp;try{view.setPointerCapture(e.pointerId)}catch{}view.classList.add('is-dragging');}const step=Math.max(1,e.timeStamp-s.drag.lt);s.drag.v=s.drag.v*.5+((e.clientX-s.drag.lx)*.4/step*1000)*.5;s.drag.lx=e.clientX;s.drag.lt=e.timeStamp;s.manual=true;s.angle=clamp(s.drag.a+(e.clientX-s.drag.x)*.4,-75,75);wake();return;}
+if(e.pointerType!=='mouse'||performance.now()<s.rest)return;const r=view.getBoundingClientRect();s.manual=true;s.vel=0;s.angle=clamp((e.clientX-r.left-r.width/2)/r.width*80,-40,40);s.tilt=clamp((e.clientY-r.top-r.height/2)/r.height*12-8,-15,-2);wake();});
+const end=e=>{if(!s.drag||(e&&e.pointerId!==s.drag.id))return;if(s.drag.on){s.vel=e.type==='pointercancel'||e.timeStamp-s.drag.lt>90?0:clamp(s.drag.v,-500,500);s.rest=performance.now()+1500;view.classList.remove('is-dragging');}s.drag=null;wake();};
+view.addEventListener('pointerup',end);view.addEventListener('pointercancel',end);view.addEventListener('lostpointercapture',end);
+view.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')s.hover=true;});view.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse'){s.hover=false;s.tilt=-8;s.rest=Math.max(s.rest,performance.now()+400);}wake();});
+observer.observe(view);visibleObserver.observe(view);});
+    function render(t){frame=0;const dt=last?Math.min(.05,(t-last)/1000):.016;last=t;
+      // while a product view is open the cartons rest; look again next frame
+      if(document.documentElement.classList.contains('has-detail')){last=0;frame=requestAnimationFrame(render);return;}
+      let shown=0,moving=false;const now=performance.now();
+      for(const s of state.values()){if(!s.visible||!s.ready)continue;shown++;
+        if(!s.drag&&s.vel){s.angle=clamp(s.angle+s.vel*dt,-75,75);s.vel*=Math.exp(-dt*3);if(Math.abs(s.vel)<3)s.vel=0;}
+        // once a turn is left alone (no drag, no glide, no hover) the carton goes back to its own slow sway
+        if(s.manual&&!s.drag&&!s.vel&&!s.hover&&now>s.rest)s.manual=false;
+        const a=s.manual?s.angle:reduced.matches?0:Math.sin(t/2900+s.phase)*28,k=reduced.matches?1:1-Math.exp(-dt*(s.drag?20:7));
+        const da=a-s.currentAngle,dl=s.tilt-s.currentTilt;
+        if(Math.abs(da)<.01&&Math.abs(dl)<.01&&(reduced.matches||s.manual))continue;
+        s.currentAngle+=da*k;s.currentTilt+=dl*k;moving=true;
+        s.renderer.draw(s.currentAngle*Math.PI/180,-s.currentTilt*Math.PI/180,s.scale);}
+      if(shown&&!document.hidden&&(moving||!reduced.matches))frame=requestAnimationFrame(render);else last=0;}
+    function wake(){if(!frame&&!document.hidden)frame=requestAnimationFrame(render);}
+    wake();document.addEventListener('visibilitychange',()=>{last=0;wake();});
   }).catch(console.error);
 
 })();

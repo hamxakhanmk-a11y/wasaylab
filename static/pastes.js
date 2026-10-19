@@ -1,4 +1,5 @@
 (() => {
+if(!document.querySelector('[data-paste]'))return;
 document.documentElement.classList.add('paste-js');const reduced=matchMedia('(prefers-reduced-motion: reduce)'),states=[],clamp=(n,a,b)=>Math.max(a,Math.min(b,n)),SWING=.82,TILT=.16,PHOTO_TILT=.12,silhouette=(h,t)=>h*Math.cos(t)+2*Math.sin(t);
 const load=src=>new Promise((ok,no)=>{const im=new Image();im.onload=()=>ok(im);im.onerror=no;im.src=src;});
 function pixels(image){const c=document.createElement('canvas');c.width=image.width;c.height=image.height;const ctx=c.getContext('2d',{willReadFrequently:true});ctx.drawImage(image,0,0);return {data:ctx.getImageData(0,0,c.width,c.height).data,w:c.width,h:c.height};}
@@ -31,10 +32,10 @@ function disc(radius,y,H){const out=[];for(let i=0;i<128;i++){const vertex=a=>[r
 function showcase(s){const v=s.view;s.vel=0;s.hold=0;s.drag=null;s.hover=false;s.phase=(s.index*1.7)%(Math.PI*2);s.goal=reduced.matches?0:Math.sin(s.phase)*SWING;s.angle=s.goal;s.wasManual=false;v.classList.add('paste-showcase');
 v.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')s.hover=true});
 v.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse'){s.hover=false;s.hold=performance.now()+700}});
-v.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'&&e.button!==0)return;s.drag={x:e.clientX,a:s.goal,lx:e.clientX,lt:e.timeStamp,v:0};s.vel=0;v.setPointerCapture(e.pointerId);v.classList.add('is-dragging')});
-v.addEventListener('pointermove',e=>{if(s.drag){const dt=Math.max(1,e.timeStamp-s.drag.lt);s.drag.v=s.drag.v*.6+((e.clientX-s.drag.lx)*.011/dt)*.4;s.drag.lx=e.clientX;s.drag.lt=e.timeStamp;s.goal=clamp(s.drag.a+(e.clientX-s.drag.x)*.011,-SWING*1.08,SWING*1.08);s.hold=performance.now()+2400}else if(e.pointerType==='mouse'){const r=v.getBoundingClientRect();s.goal=clamp(((e.clientX-r.left)/r.width-.5)*2.1,-SWING,SWING);s.hold=performance.now()+700}});
-const end=()=>{if(s.drag){s.vel=s.drag.v*140;s.hold=performance.now()+2400}s.drag=null;v.classList.remove('is-dragging')};
-v.addEventListener('pointerup',end);v.addEventListener('pointercancel',end);
+v.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'&&e.button!==0)return;s.drag={id:e.pointerId,x:e.clientX,a:s.angle,lx:e.clientX,lt:e.timeStamp,v:0,on:false};s.vel=0});
+v.addEventListener('pointermove',e=>{if(s.drag&&e.pointerId===s.drag.id){if(!s.drag.on){if(Math.abs(e.clientX-s.drag.x)<6)return;s.drag.on=true;s.drag.x=e.clientX;s.drag.a=s.angle;s.drag.lx=e.clientX;s.drag.lt=e.timeStamp;try{v.setPointerCapture(e.pointerId)}catch{}v.classList.add('is-dragging')}const dt=Math.max(1,e.timeStamp-s.drag.lt);s.drag.v=s.drag.v*.6+((e.clientX-s.drag.lx)*.011/dt)*.4;s.drag.lx=e.clientX;s.drag.lt=e.timeStamp;s.goal=clamp(s.drag.a+(e.clientX-s.drag.x)*.011,-SWING*1.08,SWING*1.08);s.hold=performance.now()+2400}else if(e.pointerType==='mouse'&&!s.drag&&performance.now()>(s.dragRest||0)){const r=v.getBoundingClientRect();s.vel=0;s.goal=clamp(((e.clientX-r.left)/r.width-.5)*2.1,-SWING,SWING);s.hold=performance.now()+700}});
+const end=e=>{if(!s.drag||(e&&e.pointerId!==s.drag.id))return;if(s.drag.on){s.vel=e.type==='pointercancel'||e.timeStamp-s.drag.lt>90?0:s.drag.v*140;s.hold=performance.now()+2400;s.dragRest=performance.now()+1500;v.classList.remove('is-dragging')}s.drag=null};
+v.addEventListener('pointerup',end);v.addEventListener('pointercancel',end);v.addEventListener('lostpointercapture',end);
 v.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight','Home'].includes(e.key))return;e.preventDefault();s.goal=e.key==='Home'?0:clamp(s.goal+(e.key==='ArrowLeft'?-.22:.22),-SWING,SWING);s.hold=performance.now()+2600});}
 function stepShowcase(s,t){const dt=s.last?Math.min(48,t-s.last):16;s.last=t;const manual=!!s.drag||s.hover||performance.now()<s.hold;
 if(manual){s.wasManual=true;if(!s.drag&&Math.abs(s.vel)>.0004){s.goal=clamp(s.goal+s.vel*dt/16,-SWING,SWING);s.vel*=Math.exp(-dt/320)}}
@@ -77,15 +78,17 @@ const height=H-.025+Math.max(0,luminance-.58)*.022;
 return [x,height-H/2,z,0,1,0,u,v];};
 for(let j=0;j<40;j++)for(let i=0;i<128;i++){const ra=.852*j/40,rb=.852*(j+1)/40,aa=i/128*Math.PI*2,ab=(i+1)/128*Math.PI*2;for(const [rr,angle] of [[ra,aa],[rb,aa],[rb,ab],[ra,aa],[rb,ab],[ra,ab]])relief.push(...vertex(rr,angle));}
 renderer.add(capMesh(relief),cap,capColor,.25,gloss?.3:0);
-s.renderer=renderer;s.scale=(p.wide?.51:.405)*silhouette(nominal,.22)/silhouette(H,TILT);s.ready=true;renderer.draw(0,TILT,s.scale);s.view.classList.add('ready');if(window.WasayFit&&!s.p.fit)WasayFit(s.view,s.canvas,14);
+s.renderer=renderer;s.scale=(p.wide?.51:.405)*silhouette(nominal,.22)/silhouette(H,TILT);s.ready=true;renderer.draw(0,TILT,s.scale);s.view.classList.add('ready');if(window.WasayFit&&!s.p.fit)WasayFit(s.view,s.canvas,14);if(typeof wake==='function')wake();
 }
 fetch('/pastes-data.json').then(r=>{if(!r.ok)throw Error('Jar data unavailable');return r.json()}).then(data=>{
-const observer=new IntersectionObserver(entries=>entries.forEach(e=>{const s=states.find(s=>s.view===e.target);s.visible=e.isIntersecting}),{rootMargin:'150px'});
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{const s=states.find(s=>s.view===e.target);s.visible=e.isIntersecting});wake()},{rootMargin:'150px'});
 const loader=new IntersectionObserver(entries=>entries.forEach(e=>{const s=states.find(s=>s.view===e.target);if(e.isIntersecting&&!s.started){s.started=true;queue.push(s);pump()}}),{rootMargin:'700px'});
 document.querySelectorAll('[data-paste]').forEach(view=>{const index=data.findIndex(p=>p.slug===view.dataset.paste);if(index<0)return;const canvas=view.querySelector('canvas');canvas.width=640;canvas.height=850;const s={view,canvas,p:data[index],index,angle:0,target:0,manual:false,showcase:data[index].animation==='showcase'};if(s.p.fit){view.style.setProperty('--trim',s.p.fit[0]+'px');view.style.setProperty('--drop',s.p.fit[1]+'px');}states.push(s);observer.observe(view);loader.observe(view);if(s.showcase)showcase(s);
 view.addEventListener('pointermove',e=>{if(s.showcase||e.pointerType!=='mouse')return;const r=view.getBoundingClientRect();s.manual=true;s.target=((e.clientX-r.left)/r.width-.5)*1.1});view.addEventListener('pointerleave',()=>{if(!s.showcase)s.manual=false});
 view.addEventListener('keydown',e=>{if(s.showcase||!['ArrowLeft','ArrowRight','Home'].includes(e.key))return;e.preventDefault();s.manual=e.key!=='Home';s.target=e.key==='Home'?0:Math.max(-.55,Math.min(.55,s.target+(e.key==='ArrowLeft'?-.15:.15)))});
 });
-let frame;function render(t){if(!document.documentElement.classList.contains('has-detail'))for(const s of states)if(s.visible&&s.ready){if(s.showcase){stepShowcase(s,t);continue}const target=s.manual?s.target:reduced.matches?0:Math.sin(t/3400+s.index)*.22;s.angle+=(target-s.angle)*(reduced.matches?1:.1);s.renderer.draw(s.angle,TILT,s.scale);s.canvas.style.transform='translateY('+(reduced.matches?0:Math.sin(t/1100+s.index)*5)+'px)';s.view.dataset.angle=s.angle.toFixed(3);}frame=requestAnimationFrame(render)}frame=requestAnimationFrame(render);document.addEventListener('visibilitychange',()=>{cancelAnimationFrame(frame);if(!document.hidden)frame=requestAnimationFrame(render)});
+let frame=0;function wake(){if(!frame&&!document.hidden)frame=requestAnimationFrame(render)}
+// the loop runs only while a jar is on screen (or still being built); while a product view is open it rests and looks again next frame
+function render(t){frame=0;const open=document.documentElement.classList.contains('has-detail');let shown=0;if(!open)for(const s of states)if(s.visible&&s.ready){shown++;if(s.showcase){stepShowcase(s,t);continue}const target=s.manual?s.target:reduced.matches?0:Math.sin(t/3400+s.index)*.22;s.angle+=(target-s.angle)*(reduced.matches?1:.1);s.renderer.draw(s.angle,TILT,s.scale);s.canvas.style.transform='translateY('+(reduced.matches?0:Math.sin(t/1100+s.index)*5)+'px)';s.view.dataset.angle=s.angle.toFixed(3);}if(!document.hidden&&(open||shown||states.some(s=>s.visible&&!s.ready)))frame=requestAnimationFrame(render)}wake();document.addEventListener('visibilitychange',()=>{for(const s of states)s.last=0;wake()});
 }).catch(console.error);
 })();
