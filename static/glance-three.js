@@ -137,6 +137,9 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
         // the ball and the moss need only some of the blades: the rest shrink away as the trunk squeezes
         float keep = tone < .38 ? 1.0 : 1.0 - ease((sq - .5) / .5);
         float h = iShape.z * keep * (1.0 - .92 * f) * mix(1.0, .6, sq * (1.0 - fill)) * mix(1.0, uScale * (.7 + .45 * iU.z), fill);
+        // inside the glass no blade reaches past the wall: it is only as long as the room between its root and the glass
+        float wall = (y < -1.0 ? sqrt(max(0.0, uMoss.w * uMoss.w - (y + 1.0) * (y + 1.0))) : uMoss.w) - .06;
+        h = mix(h, min(h, max(.012, (wall - r) * .75) * uScale), fill);
         // grass hangs a little under its own weight, more on the underside; once squeezed there is no breeze
         float droop = max(0.0, -up.y) * (1.0 - sq);
         float w = (sin(uTime * 1.25 + base.x * .42 + base.y * .3) * .72 + sin(uTime * 2.0 + base.x * .85 - base.z * .5) * .12) * (1.0 - sq);

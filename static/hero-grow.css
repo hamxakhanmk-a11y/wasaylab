@@ -1,10 +1,10 @@
 /* Home banner and Who we are, as one scene (static/hero-grow-three.js, run by hero-grow.js). The section is a screen tall plus a hold
    (--dwell); its stage stays in place while the page scrolls through the hold: the banner words on the hill first, then the camera
    comes in close to the seedling and the three Who we are texts rise in from below in turn (the script sets --o, each text's
-   distance from the one on show). The site header lies over it, clear, so the logo, the menu and the hill read as one opening; it
-   takes its frosted bar back once the next section slides up under it (hero-grow.js sets is-over-hero). */
-body:has(.wz-grow) .site-header { margin-bottom: -69px; transition: background-color .45s ease, border-color .45s ease, -webkit-backdrop-filter .45s ease, backdrop-filter .45s ease; }
-body:has(.wz-grow) .site-header.is-over-hero:not(.nav-open) { background-color: transparent; border-bottom-color: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; }
+   distance from the one on show). The site header has no bar of its own on the home page: the logo and the menu float over the
+   banner and over every section after it, as they do over the inner pages' banners. */
+body:has(.wz-grow) .site-header { margin-bottom: -69px; }
+body:has(.wz-grow) .site-header:not(.nav-open) { background-color: transparent; border-bottom-color: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; }
 .wz-grow { --dwell: 300svh; --stage: max(100svh, 640px); position: relative; min-height: calc(var(--stage) + var(--dwell)); background: var(--bg, #f7f9f2); }
 .wz-grow__stage { position: sticky; top: 0; height: var(--stage); overflow: hidden; background: var(--bg, #f7f9f2); }
 .wz-grow__canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; opacity: 0; transition: opacity .9s ease; }
@@ -32,4 +32,4 @@ body:has(.wz-grow) .site-header.is-over-hero:not(.nav-open) { background-color: 
   .wz-grow__story h2 { font-size: clamp(1.7rem, 7.4vw, 2.2rem); }
   .wz-grow__story > p:not(.eyebrow) { margin-top: 14px; font-size: .95rem; line-height: 1.65; }
 }
-@media (prefers-reduced-motion: reduce) { .wz-grow__canvas, body:has(.wz-grow) .site-header { transition: none; } .wz-grow__text { will-change: auto; } }
+@media (prefers-reduced-motion: reduce) { .wz-grow__canvas { transition: none; } .wz-grow__text { will-change: auto; } }
