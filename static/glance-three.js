@@ -165,7 +165,10 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
   // ---- the dark heart of the moss, seen between the blades; it rises with the moss as the capsule fills
   const heartProfile = [];
   for (let i = 0; i <= 40; i++) { const y = MOSS.bottom + (MOSS.top - MOSS.bottom) * i / 40; heartProfile.push(new T.Vector2(mossRadius(y) * .92, y - MOSS.bottom)); }
-  const heart = new T.Mesh(new T.LatheGeometry(heartProfile, 40), new T.MeshBasicMaterial({ color: '#13340c' }));
+  // it is cut off at the level the moss has reached (a clipping plane), so it never shows before the grass has landed
+  const fillLine = new T.Plane(new T.Vector3(0, -1, 0), 0);
+  renderer.localClippingEnabled = true;
+  const heart = new T.Mesh(new T.LatheGeometry(heartProfile, 40), new T.MeshBasicMaterial({ color: '#13340c', clippingPlanes: [fillLine] }));
   heart.visible = false; scene.add(heart);
   // and the ball's, while the grass is squeezed
   const ballHeart = new T.Mesh(new T.SphereGeometry(1, 24, 16), new T.MeshBasicMaterial({ color: '#13340c' }));
@@ -346,10 +349,13 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
     const poured = clamp((m - POUR) / POUR_LEN);
     ballHeart.visible = m > SQUEEZE * .7 && poured < .95;
     ballHeart.scale.setScalar(ballR.value * .85 * smooth((m - SQUEEZE * .7) / (SQUEEZE * .3)) * (1 - smooth(poured * 1.05)) + .001);
-    // the moss's heart rises from the capsule's floor as it fills
-    heart.visible = poured > .02;
+    // the moss's heart rises from the capsule's floor as it fills, a little behind the blades that have landed (a blade at u is in
+    // place once the change reaches POUR + u * POUR_LEN * .8 + POUR_LEN * .3)
+    const level = clamp((m - POUR - POUR_LEN * .3) / (POUR_LEN * .8)) - .06;
+    heart.visible = level > 0;
     heart.position.set(center.value.x, center.value.y + MOSS.bottom * S, center.value.z);
-    heart.scale.set(S, S * (smooth(poured) * .999 + .001), S);
+    heart.scale.setScalar(S);
+    fillLine.constant = heart.position.y + level * (MOSS.top - MOSS.bottom) * S;
     // the open bottom half is there to catch the grass; the top half comes down and closes once the moss is in
     const shown = smooth((m - SQUEEZE * .5) / (SQUEEZE * .6)), lid = smooth((m - CLOSE[0] + .04) / .06), close = smooth((m - CLOSE[0]) / (CLOSE[1] - CLOSE[0]));
     capsule.visible = shown > 0;
