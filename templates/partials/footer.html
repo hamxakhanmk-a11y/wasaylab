@@ -12,6 +12,15 @@
             {{/each}}
           </ul>
         </div>
+        <div class="footer-col footer-contact">
+          <h4>{{ site.footer.contact_heading }}</h4>
+          <ul>
+            {{#if content.contact.address}}<li>{{& content.contact.address }}</li>{{/if}}
+            {{#if content.contact.phone}}<li><a href="tel:{{ content.contact.phone }}">{{ content.contact.phone }}</a></li>{{/if}}
+            {{#if content.contact.email}}<li><a href="mailto:{{ content.contact.email }}">{{ content.contact.email }}</a></li>{{/if}}
+            {{#if content.contact.email_other}}<li><a href="mailto:{{ content.contact.email_other }}">{{ content.contact.email_other }}</a></li>{{/if}}
+          </ul>
+        </div>
         <div class="footer-col">
           <h4>{{ site.footer.ranges_heading }}</h4>
           <ul>

@@ -22,7 +22,7 @@
           <li class="card"><h3>{{ page.labels.company }}</h3><p>{{ site.name }}</p></li>
           {{#if page.address}}<li class="card"><h3>{{ page.labels.address }}</h3><p>{{& page.address }}</p>{{#if page.map_url}}<a class="wz-link" href="{{ page.map_url }}" target="_blank" rel="noopener">{{ page.map_label }} &rarr;</a>{{/if}}</li>{{/if}}
           {{#if page.phone}}<li class="card"><h3>{{ page.labels.phone }}</h3><p><a href="tel:{{ page.phone }}">{{ page.phone }}</a></p></li>{{/if}}
-          {{#if page.email}}<li class="card"><h3>{{ page.labels.email }}</h3><p><a href="mailto:{{ page.email }}">{{ page.email }}</a></p></li>{{/if}}
+          {{#if page.email}}<li class="card"><h3>{{ page.labels.email }}</h3><p><a href="mailto:{{ page.email }}">{{ page.email }}</a>{{#if page.email_other}}<br /><a href="mailto:{{ page.email_other }}">{{ page.email_other }}</a>{{/if}}</p></li>{{/if}}
           {{#if page.hours}}<li class="card"><h3>{{ page.labels.hours }}</h3><p>{{& page.hours }}</p></li>{{/if}}
           {{#each page.extra}}<li class="card"><h3>{{ label }}</h3><p>{{& value }}</p></li>
           {{/each}}

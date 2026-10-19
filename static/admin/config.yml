@@ -126,6 +126,7 @@ collections:
                   - { name: label, label: Text, widget: string }
                   - { name: href, label: Links to, widget: string }
               - { name: ranges_heading, label: Heading of the ranges column, widget: string }
+              - { name: contact_heading, label: Heading of the contact column, widget: string, hint: 'The address, phone and emails under it come from the Contact page.' }
               - { name: copyright, label: Copyright line, widget: string, hint: 'The year and © are added automatically.' }
               - { name: tagline, label: Closing line, widget: string }
 
@@ -193,21 +194,6 @@ collections:
               - { name: secondary_href, label: Second link goes to, widget: string }
               - { name: pause_label, label: Pause button text, widget: string }
               - { name: play_label, label: Play button text, widget: string }
-          - name: ranges
-                label: Product range links
-                widget: list
-                fields:
-                  - { name: label, label: Link text, widget: string }
-                  - { name: href, label: Links to, widget: string }
-              - { name: image, label: Banner photo (wide, with an empty left side for the text), widget: image }
-              - { name: image_mobile, label: Banner photo for phones (square, empty top half), widget: image }
-              - { name: alt, label: Photo description, widget: string }
-              - { name: heading, label: Heading, widget: string }
-              - { name: lead, label: Line under the heading, widget: string }
-              - { name: primary_label, label: Main button text, widget: string }
-              - { name: primary_href, label: Main button links to, widget: string }
-              - { name: secondary_label, label: Second button text, widget: string }
-              - { name: secondary_href, label: Second button links to, widget: string }
           - name: ranges
             label: 'Section: Our ranges (cards, one per tab)'
             widget: object
@@ -329,6 +315,7 @@ collections:
           - { name: address, label: Address, widget: text, required: false, hint: 'Press Enter for a new line.' }
           - { name: phone, label: Phone number, widget: string, required: false, hint: 'e.g. +92 91 1234567. Becomes a tap-to-call link.' }
           - { name: email, label: Email address, widget: string, required: false }
+          - { name: email_other, label: Second email address, widget: string, required: false }
           - { name: hours, label: Opening hours, widget: text, required: false }
           - { name: map_url, label: Link to the address on a map (optional), widget: string, required: false }
           - { name: map_label, label: Map link text, widget: string }
@@ -414,6 +401,42 @@ collections:
               - { name: paragraphs, label: Paragraphs, widget: list, hint: 'Each entry becomes its own paragraph.' }
               - { name: image, label: Photo, widget: image }
               - { name: alt, label: Photo description, widget: string }
+          - name: story
+            label: 'Section: Our story (from the company profile)'
+            widget: object
+            fields:
+              - { name: eyebrow, label: Small label above heading, widget: string }
+              - { name: heading, label: Heading, widget: string }
+              - { name: paragraphs, label: Paragraphs, widget: list, hint: 'Each entry becomes its own paragraph.' }
+          - name: mission
+            label: 'Section: Mission and vision'
+            widget: object
+            fields:
+              - { name: eyebrow, label: Small label above heading, widget: string }
+              - { name: heading, label: Heading, widget: string }
+              - { name: motto, label: Motto in Urdu, widget: string, required: false }
+              - name: items
+                label: Cards
+                widget: list
+                summary: '{{fields.title}}'
+                fields:
+                  - { name: title, label: Title, widget: string }
+                  - { name: text, label: Text, widget: text }
+          - name: objectives
+            label: 'Section: Objectives'
+            widget: object
+            fields:
+              - { name: eyebrow, label: Small label above heading, widget: string }
+              - { name: heading, label: Heading, widget: string }
+              - { name: text, label: Paragraph, widget: text }
+              - { name: items, label: Objectives, widget: list, hint: 'One objective per entry; they are numbered.' }
+          - name: keys
+            label: 'Section: Keys to success'
+            widget: object
+            fields:
+              - { name: eyebrow, label: Small label above heading, widget: string }
+              - { name: heading, label: Heading, widget: string }
+              - { name: items, label: Keys, widget: list }
           - name: values
             label: 'Section: Why choose Wasay'
             widget: object

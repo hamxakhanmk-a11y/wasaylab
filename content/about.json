@@ -16,6 +16,52 @@
     "image": "/images/wasay/section.webp",
     "alt": "A smiling man holding a glass cup of tea, with the Urdu line “Aap bhi aadat bana lein”"
   },
+  "story": {
+    "eyebrow": "Our story",
+    "heading": "From a humble dawakhana to a modern herbal medicine maker.",
+    "paragraphs": [
+      "Wasay Laboratories (Pvt.) Ltd. is one of the leading herbal medicine companies in Khyber Pakhtunkhwa, working for 75 years. It has grown from a humble dawakhana into a modern, successful and progressive company.",
+      "Today Wasay Laboratories has a modern set-up in the Industrial Area, Hayatabad, Peshawar, built to meet the growing demand for herbal and nutraceutical medicines, using high-end technology with qualified and trained staff.",
+      "We are committed to serving people with high quality medicine, under ISO 9001:2008 and ISO 14001:2004."
+    ]
+  },
+  "mission": {
+    "eyebrow": "Mission and vision",
+    "heading": "High quality, effective treatment.",
+    "motto": "اعلی معیار، مؤثر علاج",
+    "items": [
+      {
+        "title": "Our mission",
+        "text": "To provide high quality, effective herbal medicines to patients at low cost, and to keep our machinery up to date, adding value to the culture of the herbal medicine industry, which in the end benefits the product and the patient."
+      },
+      {
+        "title": "Our vision",
+        "text": "To provide health care medicine to the masses. We stay focused on the customer and are committed to upgrading our quality regularly, through motivated, empowered and dedicated employees, to serve our customers."
+      }
+    ]
+  },
+  "objectives": {
+    "eyebrow": "Objectives",
+    "heading": "What we work towards.",
+    "text": "Our main objective is to provide health care advice and products for a healthy society. Our other objectives:",
+    "items": [
+      "Exceed customer expectations, and provide quality, effective medicine to people at the lowest possible prices.",
+      "Promote a culture of research in herbal medicine, to bring modernisation to the industry.",
+      "Use and promote local raw materials for effective medicine.",
+      "Develop a nursery of herbs and plants for extraction, to be used locally and exported to other countries as well."
+    ]
+  },
+  "keys": {
+    "eyebrow": "Keys to success",
+    "heading": "What success means to us.",
+    "items": [
+      "Customer satisfaction.",
+      "Low overheads and operating costs.",
+      "Better prices than our competitors.",
+      "Serving society at large.",
+      "A healthier, better-living nation."
+    ]
+  },
   "values": {
     "eyebrow": "Why choose Wasay?",
     "heading": "What you can count on.",
@@ -33,8 +79,12 @@
   "compliance": {
     "eyebrow": "Quality and compliance",
     "heading": "Safe, effective and trustworthy.",
-    "text": "Quality and integrity guide how we work.",
+    "text": "Quality and integrity guide how we work. We serve people with high quality medicine under ISO 9001:2008 and ISO 14001:2004.",
     "items": [
+      {
+        "title": "ISO 9001:2008 and ISO 14001:2004",
+        "text": "Our medicines are made under ISO 9001:2008 and ISO 14001:2004, as set out in our company profile."
+      },
       {
         "title": "Compliance with regulations",
         "text": "We proudly comply with all national and international regulatory bodies to ensure our products are safe, effective and trustworthy."

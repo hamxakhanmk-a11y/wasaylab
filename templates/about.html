@@ -25,6 +25,61 @@
       </div>
     </section>
 
+    <!-- OUR STORY, MISSION AND VISION, OBJECTIVES, KEYS TO SUCCESS: from Wasay Laboratories' own company profile -->
+    <section class="section section-alt" aria-labelledby="wz-story-title">
+      <div class="container wz-story">
+        <div class="section-head">
+          <p class="eyebrow">{{ page.story.eyebrow }}</p>
+          <h2 id="wz-story-title">{{ page.story.heading }}</h2>
+        </div>
+        <div class="wz-story__text">
+          {{#each page.story.paragraphs}}<p>{{ . }}</p>
+          {{/each}}
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="wz-mission-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">{{ page.mission.eyebrow }}</p>
+          <h2 id="wz-mission-title">{{ page.mission.heading }}</h2>
+          <p class="wz-motto" lang="ur" dir="rtl">{{ page.mission.motto }}</p>
+        </div>
+        <div class="grid wz-mission">
+          {{#each page.mission.items}}<article class="card"><h3>{{ title }}</h3><p>{{ text }}</p></article>
+          {{/each}}
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" aria-labelledby="wz-objectives-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">{{ page.objectives.eyebrow }}</p>
+          <h2 id="wz-objectives-title">{{ page.objectives.heading }}</h2>
+          <p class="lead">{{ page.objectives.text }}</p>
+        </div>
+        <ol class="grid wz-objectives">
+          {{#each page.objectives.items}}<li class="card wz-why__card"><span class="wz-why__num" aria-hidden="true">{{ @num }}</span><p>{{ . }}</p></li>
+          {{/each}}
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="wz-keys-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">{{ page.keys.eyebrow }}</p>
+          <h2 id="wz-keys-title">{{ page.keys.heading }}</h2>
+        </div>
+        <ul class="wz-keys">
+          {{#each page.keys.items}}<li>{{ . }}</li>
+          {{/each}}
+        </ul>
+      </div>
+    </section>
+
     <section class="section section-alt" aria-labelledby="wz-values-title">
       <div class="container">
         <div class="section-head">

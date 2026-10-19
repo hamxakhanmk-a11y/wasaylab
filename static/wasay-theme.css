@@ -116,3 +116,17 @@ body { background: var(--bg); color: var(--text); }
   .wz-range:hover, .wz-detail__more a:hover { transform: none; }
 }
 .wz-detail__more .wz-link { display: inline-flex; width: auto; }
+
+/* About: Wasay's own company profile. The story reads in two columns on a wide screen; the Urdu motto sits large under the mission
+   heading, right to left; the objectives are numbered cards and the keys to success a row of pills. */
+.wz-story__text { max-width: 76ch; margin: 0; columns: 2 30ch; column-gap: 48px; }
+.wz-story__text p { margin: 0 0 16px; color: var(--muted); line-height: 1.75; break-inside: avoid; }
+.wz-motto { margin: 14px 0 0; font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', 'Urdu Typesetting', serif; font-size: clamp(1.5rem, 2.6vw, 2.1rem); line-height: 1.9; color: var(--accent); }
+ol.wz-objectives { list-style: none; padding: 0; margin: 0; }
+.wz-objectives .card p { margin: 0; color: var(--text); line-height: 1.6; }
+.wz-keys { list-style: none; padding: 0; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; max-width: 900px; }
+.wz-keys li { padding: 12px 22px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface-alt); color: var(--forest); font-weight: 600; }
+/* the footer's contact column: the address, phone and emails from the Contact page */
+.footer-top { grid-template-columns: 1.4fr 1fr 1.2fr 1fr; }
+.footer-contact li { line-height: 1.55; overflow-wrap: anywhere; }
+@media (max-width: 900px) { .footer-top { grid-template-columns: 1fr 1fr; } }
