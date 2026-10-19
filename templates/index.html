@@ -55,9 +55,15 @@
     <!-- WASAY AT A GLANCE: one scene that holds its place while the page scrolls through it. A living grassy trunk arcs across the
          page (static/glance-three.js) under the title and the figures, and the pointer parts the grass where it rests; scrolling on
          gathers the grass into a mound of moss inside a clear glass capsule, after a photograph the owner showed; then two hands reach in
-         from the sides, a gloved human hand and a hand of grass and roots, and touch the capsule's ends (static/glance-hands.js). -->
+         from the sides, the two halves of the owner's photograph (a human hand from a lab coat, a hand of moss and herbs), and stop
+         with the capsule between their fingertips (laid out by glance.js). -->
     <section class="wz-glance" data-glance aria-labelledby="wz-glance-title">
       <div class="wz-glance__stage">
+        <div class="wz-glance__hands" aria-hidden="true">
+          <div class="wz-glance__plate"></div>
+          <img class="wz-glance__hand" data-glance-hand="human" src="/hands/hands-human.webp" width="797" height="900" alt="" loading="lazy" decoding="async" />
+          <img class="wz-glance__hand" data-glance-hand="nature" src="/hands/hands-nature.webp" width="803" height="900" alt="" loading="lazy" decoding="async" />
+        </div>
         <canvas class="wz-glance__canvas" aria-hidden="true"></canvas>
         <div class="container wz-glance__inner">
           <div class="wz-glance__titles">

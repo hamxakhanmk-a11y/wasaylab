@@ -1,6 +1,5 @@
 import * as T from './vendor/three/three.module.min.js';
 import { autoQuality } from './gl-quality.js';
-import { createHands } from './glance-hands.js';
 
 // Wasay at a glance: a thick grassy trunk arcs across the page like a smile, coming nearer in the middle. Tens of thousands of fine
 // blades (one blade drawn many times, instancing) grow out of it, combed one way like fur, and sway in the breeze; a few small daisies
@@ -301,10 +300,16 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
   shadow.rotation.x = -Math.PI / 2; scene.add(shadow);
   capsule.visible = false; capsule.add(heart); capsule.rotation.order = 'ZYX';
 
-  // ---- the two hands that reach in at the end and meet at the capsule (glance-hands.js)
-  const hands = createHands(scene, { density });
-  const base = { center: new T.Vector3(), size: 1 }, meet = new T.Vector3();
+  // ---- where the hands meet at the end: the photo of the two hands (laid out by glance.js) says where on the screen, as fractions
+  // of the canvas, and how long the capsule should be there; the capsule shrinks to that and lies on its side between the fingertips
+  const base = { center: new T.Vector3(), size: 1 }, meet = new T.Vector3(), meetAt = { x: .5, y: .6, length: .1 };
   let smallSize = .27;
+  function placeMeet() {
+    const high = 2 * camera.position.z * Math.tan(T.MathUtils.degToRad(camera.fov / 2)), wide = high * camera.aspect;
+    meet.set((meetAt.x - .5) * wide, camera.position.y + (.5 - meetAt.y) * high, 0);
+    smallSize = meetAt.length * wide / 2 / (CAP.half + (CAP.r + CAP.top) / 2);
+  }
+  function setMeet(x, y, length) { meetAt.x = x; meetAt.y = y; meetAt.length = length; if (width) placeMeet(); }
 
   // ---- framing: the whole arc across a wide screen; on a tall one the camera stands back so the curve still crosses it.
   // The capsule fills most of the height under the title (larger on a tall screen, where there is more room)
@@ -322,9 +327,7 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
       size.value = base.size = tall ? 1.4 : 1.12;
       center.value.set(0, y - (tall ? .8 : .85), 0); base.center.copy(center.value);
       capsule.position.copy(center.value); capsule.scale.setScalar(size.value);
-      // where the hands meet: the middle of the screen, the capsule small and on its side between their fingertips
-      smallSize = tall ? .22 : .34; meet.set(0, y - .15, 0);
-      hands.setLayout(meet, (CAP.half + (CAP.r + CAP.top) / 2) * smallSize, tall ? 1.25 : 2.7);
+      placeMeet();
       ball.value.copy(center.value).add(new T.Vector3(0, 1.5 * size.value, 0)); ballR.value = .5 * size.value;
       ballHeart.position.copy(ball.value);
       shadow.position.set(center.value.x, center.value.y - (CAP.half + CAP.r + .25) * size.value, center.value.z);
@@ -359,7 +362,6 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
     // once the hands come, the capsule shrinks, moves to the meeting point and lies on its side between their fingertips
     size.value = base.size + (smallSize - base.size) * lie; center.value.lerpVectors(base.center, meet, lie); tilt.value = lie * Math.PI / 2;
     capsule.position.copy(center.value); capsule.scale.setScalar(size.value);
-    hands.update(hand, seconds, still);
     const dt = lastT ? Math.min(.1, Math.abs(seconds - lastT)) : 0; lastT = seconds;
     time.value = still ? 0 : seconds;
     morph.value = m;
@@ -394,5 +396,5 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
     renderer.render(scene, camera);
   }
   canvas.addEventListener('webglcontextlost', (e) => e.preventDefault());
-  return { draw, point, leave, get settled() { return Math.abs(aimAt - (onTrunk ? 1 : 0)) < .002; }, blades: n };
+  return { draw, point, leave, setMeet, get settled() { return Math.abs(aimAt - (onTrunk ? 1 : 0)) < .002; }, blades: n };
 }

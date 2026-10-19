@@ -8,21 +8,32 @@
   const stage = section.querySelector('.wz-glance__stage'), canvas = section.querySelector('canvas'), next = section.nextElementSibling;
   const foot = section.querySelector('.wz-glance__foot');
   const title = section.querySelector('[data-glance-title]'), handsTitle = section.querySelector('[data-glance-hands-title]');
-  // warm, dappled light behind the hands, as in the owner's reference: a soft glow from the upper left and blurred leaf shadows,
-  // drawn once and faded in as the hands arrive
-  const light = (() => {
-    const c = document.createElement('canvas'); c.width = 1280; c.height = 720;
-    const ctx = c.getContext('2d');
-    const glow = ctx.createRadialGradient(330, 120, 40, 330, 120, 900); glow.addColorStop(0, 'rgba(255, 232, 196, .55)'); glow.addColorStop(1, 'rgba(255, 232, 196, 0)');
-    ctx.fillStyle = glow; ctx.fillRect(0, 0, 1280, 720);
-    ctx.filter = 'blur(22px)'; ctx.fillStyle = 'rgba(96, 84, 52, .11)';
-    let s = 7; const r = () => { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; };
-    for (let i = 0; i < 70; i++) { ctx.save(); ctx.translate(r() * 1280, r() * 720); ctx.rotate(-.7 + r() * .5); ctx.beginPath(); ctx.ellipse(0, 0, 30 + r() * 70, 9 + r() * 18, 0, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
-    const el = document.createElement('div'); el.className = 'wz-glance__light'; el.setAttribute('aria-hidden', 'true');
-    el.style.backgroundImage = `url(${c.toDataURL('image/png')})`;
-    stage.insertBefore(el, canvas);
-    return el;
-  })();
+  // ---- the hands: the owner's photograph cut in two at the gap between the fingertips (static/hands). In the photo (1600 x 900) the
+  // human fingertip ends at x 793 and the moss one starts at x 801, both on row 412; the cut is at x 797. The halves cover the stage
+  // like the whole photo would, with the meeting point in the middle, and stand apart just enough to hold the capsule (PHOTO.capsule
+  // photo pixels long). Behind them a plate repeats the photo's background column at the cut, so the gap is the same wall.
+  const PHOTO = { w: 1600, h: 900, cut: 797, humanTip: 793, natureTip: 801, row: 412, capsule: 124, top: 'rgb(238, 223, 204)', bottom: 'rgb(221, 203, 184)' };
+  const handsLayer = section.querySelector('.wz-glance__hands'), plate = section.querySelector('.wz-glance__plate');
+  const human = section.querySelector('[data-glance-hand="human"]'), nature = section.querySelector('[data-glance-hand="nature"]');
+  const fit = { w: 0, h: 0, scale: 1, x: 0, y: 0, tall: false };
+  function layout() {
+    const W = stage.clientWidth, H = stage.clientHeight;
+    if (!handsLayer || !W || !H || (W === fit.w && H === fit.h)) return;
+    const tall = W / H < 1;
+    // on a tall screen the photo is enlarged past the width so the hands stay a good size (their sleeves and the arm run off the sides)
+    const s = tall ? W * 2 / PHOTO.w : Math.max(W / PHOTO.w, H / PHOTO.h);
+    const x = W / 2, y = H * (tall ? .56 : .6), top = y - PHOTO.row * s, half = PHOTO.capsule * s / 2;
+    Object.assign(fit, { w: W, h: H, scale: s, x, y, tall });
+    for (const [img, w, left] of [[human, PHOTO.cut, x - half - PHOTO.humanTip * s], [nature, PHOTO.w - PHOTO.cut, x + half - (PHOTO.natureTip - PHOTO.cut) * s]]) {
+      if (!img) continue;
+      img.style.width = `${(w * s).toFixed(1)}px`; img.style.left = `${left.toFixed(1)}px`; img.style.top = `${top.toFixed(1)}px`;
+    }
+    const ph = PHOTO.h * s;
+    // above and below the photo, the average colours of its top and bottom; the plate and the halves fade into them
+    handsLayer.style.background = `linear-gradient(to bottom, ${PHOTO.top} ${top.toFixed(1)}px, ${PHOTO.bottom} ${(top + ph).toFixed(1)}px)`;
+    if (plate) { plate.style.top = `${top.toFixed(1)}px`; plate.style.height = `${ph.toFixed(1)}px`; }
+    if (scene) scene.setMeet(x / W, y / H, PHOTO.capsule * s / W);
+  }
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const clamp = (n) => Math.max(0, Math.min(1, n));
   let scene = null, frame = 0, visible = false, clock = 0, last = 0, loading = false, morph = 0, hands = 0, held = null;
@@ -38,7 +49,14 @@
   }
 
   function words(m, h = 0) {
-    if (light) light.style.opacity = clamp(h * 1.6).toFixed(3);
+    // the wall of the photo comes up behind as the hands start in from the sides; they glide to the capsule and stop
+    if (handsLayer) {
+      layout();
+      handsLayer.style.opacity = clamp(h * 3).toFixed(3); handsLayer.style.visibility = h > 0 ? 'visible' : 'hidden';
+      const e = clamp(h / .8), away = (1 - e * e * (3 - 2 * e)) * fit.w * .55;
+      if (human) human.style.transform = `translate3d(${(-away).toFixed(1)}px, 0, 0)`;
+      if (nature) nature.style.transform = `translate3d(${away.toFixed(1)}px, 0, 0)`;
+    }
     // the title gives way to the hands' title as they arrive
     const a = clamp(1 - h * 3.5), b = clamp((h - .22) * 3.5);
     if (title) { title.style.opacity = a.toFixed(3); title.style.transform = a < 1 ? `translateY(${(-(1 - a) * 18).toFixed(1)}px)` : ''; }
@@ -78,6 +96,7 @@
     loading = true;
     import('./glance-three.js').then(({ createGlanceScene }) => {
       scene = createGlanceScene(canvas, { density: innerWidth < 760 ? .45 : 1 });
+      fit.w = 0; layout();
       section.classList.add('is-ready');
       kick();
     }).catch((error) => {
