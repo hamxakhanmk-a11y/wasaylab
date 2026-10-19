@@ -56,7 +56,12 @@ export function createHands(scene, { density = 1 } = {}) {
     const skin = new T.MeshPhysicalMaterial({ color: '#c58e6a', roughness: .62, sheen: .35, sheenColor: new T.Color('#ffd8c2'), sheenRoughness: .6, clearcoat: .06, emissive: new T.Color('#3a160c'), emissiveIntensity: .22 });
     human.add(new T.Mesh(gloveGeo, nitrile), new T.Mesh(armGeo, skin));
     // the rolled cuff hugs the oval wrist (wider than it is deep)
-    const cuff = new T.Mesh(new T.TorusGeometry(.145, .019, 12, 56), nitrile); cuff.rotation.y = Math.PI / 2; cuff.scale.set(1, .68, 1); cuff.position.set(WRIST, -.012, .012); human.add(cuff);
+    // measured from the arm itself: its middle and its width and depth where the glove ends
+    let cy = 0, cz = 0, n = 0, ry = 0, rz = 0;
+    for (let i = 0; i < hand.p.length; i += 3) if (Math.abs(hand.p[i] - WRIST) < .02) { cy += hand.p[i + 1]; cz += hand.p[i + 2]; n++; }
+    cy /= n || 1; cz /= n || 1;
+    for (let i = 0; i < hand.p.length; i += 3) if (Math.abs(hand.p[i] - WRIST) < .02) { ry = Math.max(ry, Math.abs(hand.p[i + 1] - cy)); rz = Math.max(rz, Math.abs(hand.p[i + 2] - cz)); }
+    const cuff = new T.Mesh(new T.TorusGeometry(rz + .008, .02, 12, 56), nitrile); cuff.rotation.y = Math.PI / 2; cuff.scale.set(1, (ry + .008) / (rz + .008), 1); cuff.position.set(WRIST, cy, cz); human.add(cuff);
 
     // ---- the hand of nature: the same hand mirrored, dark soil-green under a dense coat of grass
     const natureGeo = geometryOf(hand, true);
