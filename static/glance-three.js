@@ -13,7 +13,7 @@ const smooth = (n) => { n = clamp(n); return n * n * (3 - 2 * n); };
 // the capsule, centred on its own origin: two halves, the top one a touch wider so it slides over the bottom one at the seam
 const CAP = { r: 1, top: 1.04, half: 1, inner: .95, lipBottom: .22, lipTop: -.3, wall: .035 };
 // the moss inside it: a mound standing in the lower half, rounded on top
-const MOSS = { r: .8, bottom: -1.86, top: .32 };
+const MOSS = { r: .7, bottom: -1.86, top: .32 };
 const mossRadius = (y) => {
   let r = MOSS.r;
   const dome = MOSS.top - MOSS.r * .8;
@@ -133,8 +133,8 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
         vec3 away = base - uPush.xyz; away -= dot(away, up) * up;
         float f = uPush.w * (1.0 - smoothstep(0.0, uPushR, length(base - uPush.xyz)));
         // the ball and the moss need only some of the blades: the rest shrink away as the trunk squeezes
-        float keep = tone < .38 ? 1.0 : 1.0 - sq;
-        float h = iShape.z * keep * (1.0 - .92 * f) * mix(1.0, .6, sq * (1.0 - fill)) * mix(1.0, uScale * (.95 + .7 * iU.z), fill);
+        float keep = tone < .38 ? 1.0 : 1.0 - ease((sq - .5) / .5);
+        float h = iShape.z * keep * (1.0 - .92 * f) * mix(1.0, .6, sq * (1.0 - fill)) * mix(1.0, uScale * (.7 + .45 * iU.z), fill);
         // grass hangs a little under its own weight, more on the underside; once squeezed there is no breeze
         float droop = max(0.0, -up.y) * (1.0 - sq);
         float w = (sin(uTime * 1.5 + base.x * .7 + base.y * .5) * .6 + sin(uTime * 2.6 + base.x * 2.1 - base.z) * .3) * (1.0 - sq);
@@ -341,8 +341,8 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
     const dt = lastT ? Math.min(.1, Math.abs(seconds - lastT)) : 0; lastT = seconds;
     time.value = still ? 0 : seconds;
     morph.value = m;
-    // the trunk's dark core goes as the grass squeezes; the ball's shows while it is squeezed and shrinks as it pours out
-    core.visible = m < SQUEEZE * .6;
+    // the trunk's dark core goes the moment the grass starts to lift off it; the ball's shows while it is squeezed and shrinks as it pours out
+    core.visible = m < .01;
     const poured = clamp((m - POUR) / POUR_LEN);
     ballHeart.visible = m > SQUEEZE * .7 && poured < .95;
     ballHeart.scale.setScalar(ballR.value * .85 * smooth((m - SQUEEZE * .7) / (SQUEEZE * .3)) * (1 - smooth(poured * 1.05)) + .001);
