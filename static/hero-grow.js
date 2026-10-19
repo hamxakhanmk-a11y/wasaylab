@@ -77,12 +77,17 @@
     addEventListener('scroll', over, { passive: true }); addEventListener('resize', over); over();
   }
 
+  // the words rise in from below once the hill is showing, or after a moment at the latest (a slow device, no WebGL)
+  const show = () => hero.classList.add('is-shown');
+  const late = setTimeout(show, 1600);
   import('./hero-grow-three.js').then(({ createGrowScene }) => {
     scene = createGrowScene(canvas, { bg: getComputedStyle(stage).backgroundColor, density: innerWidth < 760 ? .45 : 1 });
     measure(); document.fonts.ready.then(() => { measure(); kick(); });
     hero.classList.add('is-ready');
     label(); kick();
+    requestAnimationFrame(() => requestAnimationFrame(() => { clearTimeout(late); show(); }));
   }).catch((error) => {
+    clearTimeout(late); show();
     hero.classList.add('is-fallback');
     console.warn('Banner animation unavailable; showing the drawn hill.', error);
   });

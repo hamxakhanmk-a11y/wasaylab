@@ -98,7 +98,7 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
       attribute float aT; attribute vec3 iBase; attribute vec3 iN; attribute vec3 iT; attribute vec4 iShape; attribute vec3 iU;
       uniform float uTime; uniform float uWind; uniform vec4 uPush; uniform float uPushR; uniform float uMorph; uniform float uSpin;
       uniform vec3 uCenter; uniform vec4 uMoss; uniform float uScale; uniform vec3 uBall; uniform float uBallR; uniform float uTilt;
-      varying float vT; varying float vTone; varying float vLight; varying float vFlat; varying float vMoss;
+      varying float vT; varying float vTone; varying float vLight; varying float vFlat; varying float vMoss; varying float vSky;
       ${SPIN}
       float ease(float x) { x = clamp(x, 0.0, 1.0); return x * x * (3.0 - 2.0 * x); }
       void main() {
@@ -147,12 +147,12 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
         p += (along * w * uWind * 6.0 + vec3(0.0, 0.0, 1.0) * w * uWind * 2.0) * t * t * h;
         p += normalize(away + 1e-4) * f * t * t * h * 1.6;
         gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(p, 1.0);
-        vT = t; vTone = tone; vFlat = f; vMoss = settled;
+        vT = t; vTone = tone; vFlat = f; vMoss = settled; vSky = fill;
         vLight = mix(.36 + .86 * max(0.0, up.y) - .34 * droop + .08 * up.z, .5 + .42 * max(0.0, up.y) + .16 * max(0.0, up.z), settled);
       }`,
     fragmentShader: `
       uniform vec3 uBase; uniform vec3 uTip; uniform vec3 uSun; uniform vec3 uMossTip;
-      varying float vT; varying float vTone; varying float vLight; varying float vFlat; varying float vMoss;
+      varying float vT; varying float vTone; varying float vLight; varying float vFlat; varying float vMoss; varying float vSky;
       void main() {
         // tips catch the sun on top of the trunk; moss is a deeper, more even green; the parted grass shows its dark roots
         vec3 tip = mix(mix(uTip, uSun, smoothstep(.85, 1.2, vLight) * .75), uMossTip, vMoss * .6);
@@ -162,6 +162,10 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
         // where the pointer parts the grass it turns to cool blue tones, deep at the roots and light at the tips
         vec3 blue = mix(vec3(.04, .14, .32), vec3(.38, .64, .94), smoothstep(0.0, 1.0, vT)) * (.82 + vTone * .3);
         col = mix(col * (1.0 - .3 * vFlat), blue, smoothstep(.04, .55, vFlat));
+        // as the grass pours from the ball into the capsule it turns sky blue (the owner's choice): a deeper sky at the roots, the pale
+        // sky near the horizon at the tips, lit like the moss
+        vec3 sky = mix(vec3(.07, .30, .66), vec3(.47, .76, .97), smoothstep(0.0, 1.0, vT)) * (.86 + vTone * .28) * mix(.62, 1.08, clamp(vLight, 0.0, 1.0));
+        col = mix(col, sky, smoothstep(.05, .9, vSky));
         gl_FragColor = vec4(col, 1.0);
         #include <colorspace_fragment>
       }`,
@@ -174,7 +178,7 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
   // it is cut off at the level the moss has reached (a clipping plane), so it never shows before the grass has landed
   const fillLine = new T.Plane(new T.Vector3(0, -1, 0), 0);
   renderer.localClippingEnabled = true;
-  const heart = new T.Mesh(new T.LatheGeometry(heartProfile, 40), new T.MeshBasicMaterial({ color: '#13340c', clippingPlanes: [fillLine] }));
+  const heart = new T.Mesh(new T.LatheGeometry(heartProfile, 40), new T.MeshBasicMaterial({ color: '#0f3566', clippingPlanes: [fillLine] }));
   heart.visible = false; heart.position.y = MOSS.bottom;
   // and the ball's, while the grass is squeezed
   const ballHeart = new T.Mesh(new T.SphereGeometry(1, 24, 16), new T.MeshBasicMaterial({ color: '#13340c' }));
@@ -300,16 +304,6 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
   shadow.rotation.x = -Math.PI / 2; scene.add(shadow);
   capsule.visible = false; capsule.add(heart); capsule.rotation.order = 'ZYX';
 
-  // ---- where the hands meet at the end: the photo of the two hands (laid out by glance.js) says where on the screen, as fractions
-  // of the canvas, and how long the capsule should be there; the capsule shrinks to that and lies on its side between the fingertips
-  const base = { center: new T.Vector3(), size: 1 }, meet = new T.Vector3(), meetAt = { x: .5, y: .6, length: .1 };
-  let smallSize = .27;
-  function placeMeet() {
-    const high = 2 * camera.position.z * Math.tan(T.MathUtils.degToRad(camera.fov / 2)), wide = high * camera.aspect;
-    meet.set((meetAt.x - .5) * wide, camera.position.y + (.5 - meetAt.y) * high, 0);
-    smallSize = meetAt.length * wide / 2 / (CAP.half + (CAP.r + CAP.top) / 2);
-  }
-  function setMeet(x, y, length) { meetAt.x = x; meetAt.y = y; meetAt.length = length; if (width) placeMeet(); }
 
   // ---- framing: the whole arc across a wide screen; on a tall one the camera stands back so the curve still crosses it.
   // The capsule fills most of the height under the title (larger on a tall screen, where there is more room)
@@ -324,10 +318,9 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
       const y = tall ? -1 : .35;                         // on a tall screen the arc sits higher, between the title and the figures
       camera.position.set(0, y, z); camera.lookAt(0, y, 0);
       camera.updateProjectionMatrix(); camera.updateMatrixWorld();
-      size.value = base.size = tall ? 1.4 : 1.12;
-      center.value.set(0, y - (tall ? .8 : .85), 0); base.center.copy(center.value);
+      size.value = tall ? 1.4 : 1.12;
+      center.value.set(0, y - (tall ? .8 : .85), 0);
       capsule.position.copy(center.value); capsule.scale.setScalar(size.value);
-      placeMeet();
       ball.value.copy(center.value).add(new T.Vector3(0, 1.5 * size.value, 0)); ballR.value = .5 * size.value;
       ballHeart.position.copy(ball.value);
       shadow.position.set(center.value.x, center.value.y - (CAP.half + CAP.r + .25) * size.value, center.value.z);
@@ -356,12 +349,9 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
   const leave = () => { onTrunk = false; };
 
   let lastT = 0;
-  function draw(seconds, { still = false, morph: change = 0, hands: reach = 0 } = {}) {
+  function draw(seconds, { still = false, morph: change = 0 } = {}) {
     if (!frame()) return;
-    const m = clamp(change), S = size.value, hand = clamp(reach), lie = smooth(hand / .6);
-    // once the hands come, the capsule shrinks, moves to the meeting point and lies on its side between their fingertips
-    size.value = base.size + (smallSize - base.size) * lie; center.value.lerpVectors(base.center, meet, lie); tilt.value = lie * Math.PI / 2;
-    capsule.position.copy(center.value); capsule.scale.setScalar(size.value);
+    const m = clamp(change), S = size.value;
     const dt = lastT ? Math.min(.1, Math.abs(seconds - lastT)) : 0; lastT = seconds;
     time.value = still ? 0 : seconds;
     morph.value = m;
@@ -383,7 +373,7 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
     topHalf.visible = lid > 0;
     for (const g of glasses) g.uniforms.uOpacity.value = shown;
     label.material.opacity = smooth((m - CLOSE[1] + .02) / .05) * .95;
-    shadow.material.opacity = shown * .5 * (1 - lie);
+    shadow.material.opacity = shown * .5;
     // once closed it turns a little to and fro, so the glass and the garden inside read as round
     spin.value = still ? 0 : Math.sin(seconds * .35) * .2 * smooth((m - CLOSE[1]) / .05);
     capsule.rotation.set(0, spin.value, tilt.value);
@@ -396,5 +386,5 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
     renderer.render(scene, camera);
   }
   canvas.addEventListener('webglcontextlost', (e) => e.preventDefault());
-  return { draw, point, leave, setMeet, get settled() { return Math.abs(aimAt - (onTrunk ? 1 : 0)) < .002; }, blades: n };
+  return { draw, point, leave, get settled() { return Math.abs(aimAt - (onTrunk ? 1 : 0)) < .002; }, blades: n };
 }

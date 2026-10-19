@@ -11,8 +11,8 @@ const clamp = (n, a = 0, b = 1) => Math.max(a, Math.min(b, n));
 const smooth = (n) => { n = clamp(n); return n * n * (3 - 2 * n); };
 const easeOutBack = (n) => { n = clamp(n); const c = 1.7; return 1 + (c + 1) * Math.pow(n - 1, 3) + c * Math.pow(n - 1, 2); };
 
-// the seedling, the herbs and the flowers grow once, over GROW seconds when the page opens, and then stay in bloom
-const GROW = 5.2;
+// the seedling, the herbs and the flowers are in full bloom from the first frame (the owner wants the hill there the moment the page
+// opens, with the words rising in over it), and only sway after that
 
 // the hill: a broad mound whose top sits right of centre, falling to low meadow
 const PEAK_X = 3.5;
@@ -54,16 +54,26 @@ export function createGrowScene(canvas, { bg = '#f2e8db', density = 1 } = {}) {
   const ROOT = new T.Color('#11360b'), TIP = new T.Color('#73b034'), SUNLIT = new T.Color('#c9df66'), SOIL = new T.Color('#2a5c19');
 
   // ---- the ground under the grass, painted with the same light, so the turf reads as dense velvet between the blades
-  const groundGeo = new T.PlaneGeometry(40, 26, 220, 140); groundGeo.rotateX(-Math.PI / 2);
+  const GX = 220, GZ = 140, gridLight = new Float32Array((GX + 1) * (GZ + 1));
+  const groundGeo = new T.PlaneGeometry(40, 26, GX, GZ); groundGeo.rotateX(-Math.PI / 2);
   { const p = groundGeo.attributes.position, col = new Float32Array(p.count * 4), c = new T.Color();
     for (let i = 0; i < p.count; i++) {
-      const x = p.getX(i), z = p.getZ(i); p.setY(i, land(x, z) - .02);
-      c.copy(SOIL).multiplyScalar(light(x, z) * .95);
+      const x = p.getX(i), z = p.getZ(i), lit = light(x, z); p.setY(i, land(x, z) - .02);
+      gridLight[Math.round((z + 13) / 26 * GZ) * (GX + 1) + Math.round((x + 20) / 40 * GX)] = lit;
+      c.copy(SOIL).multiplyScalar(lit * .95);
       col.set([c.r, c.g, c.b, 1 - smooth((field(x, z) - .5) / .4)], i * 4);
     }
     groundGeo.setAttribute('color', new T.Float32BufferAttribute(col, 4)); }
   const ground = new T.Mesh(groundGeo, new T.MeshBasicMaterial({ vertexColors: true, transparent: true, toneMapped: false }));
   ground.position.z = 2; scene.add(ground);
+
+  // the sunlight on the land between the ground's points, for the blades: worked out once on the ground's grid rather than five
+  // times over for every one of the many thousand blades, which made the banner slow to appear
+  const lightAt = (x, z) => {
+    const fx = (x + 20) / 40 * GX, fz = (z + 13) / 26 * GZ, i = Math.min(GX - 1, Math.max(0, Math.floor(fx))), j = Math.min(GZ - 1, Math.max(0, Math.floor(fz)));
+    const u = fx - i, v = fz - j, r = GX + 1, k = j * r + i;
+    return (gridLight[k] * (1 - u) + gridLight[k + 1] * u) * (1 - v) + (gridLight[k + r] * (1 - u) + gridLight[k + r + 1] * u) * v;
+  };
 
   // ---- grass: short, fine blades packed tight (one blade drawn many thousands of times), each lit by the sun where it stands
   const SEG = 3, blade = new T.BufferGeometry();
@@ -82,7 +92,7 @@ export function createGrowScene(canvas, { bg = '#f2e8db', density = 1 } = {}) {
     gOff.set([x, land(x, z), z + 2], n * 3);                                          // the land mesh sits 2 forward
     // yaw, width, length (a little longer on the top), and how far it leans (with a tone packed in as the whole part)
     gShape.set([random() * Math.PI * 2, .026 + random() * .02, .13 + random() * .11 + (hill(x, z) > 1.7 ? .03 : 0), Math.floor(random() * 100) + .2 + random() * .55], n * 4);
-    gLight[n] = light(x, z);
+    gLight[n] = lightAt(x, z);
   }
   const grass = new T.InstancedBufferGeometry(); grass.index = blade.index;
   grass.setAttribute('position', blade.attributes.position); grass.setAttribute('aT', blade.attributes.aT);
@@ -394,7 +404,7 @@ export function createGrowScene(canvas, { bg = '#f2e8db', density = 1 } = {}) {
   }
 
   // the moment in the loop: the seedling and the flowers' growth (0 to 1)
-  function state(seconds) { return { g: clamp(seconds / GROW), t: seconds }; }
+  function state(seconds) { return { g: 1, t: seconds }; }
   // story: 0 is the banner; by .3 the camera is close; the bottle rises from .36, the drop forms from .44 and falls from .7 to .84
   function draw(seconds, { still = false, story = 0 } = {}) {
     if (!frame()) return;

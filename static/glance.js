@@ -7,60 +7,21 @@
   if (!section) return;
   const stage = section.querySelector('.wz-glance__stage'), canvas = section.querySelector('canvas'), next = section.nextElementSibling;
   const foot = section.querySelector('.wz-glance__foot');
-  const title = section.querySelector('[data-glance-title]'), handsTitle = section.querySelector('[data-glance-hands-title]');
-  // ---- the hands: the owner's photograph cut in two at the gap between the fingertips (static/hands). In the photo (1600 x 900) the
-  // human fingertip ends at x 793 and the moss one starts at x 801, both on row 412; the cut is at x 797. The halves cover the stage
-  // like the whole photo would, with the meeting point in the middle, and stand apart just enough to hold the capsule (PHOTO.capsule
-  // photo pixels long). Behind them a plate repeats the photo's background column at the cut, so the gap is the same wall.
-  const PHOTO = { w: 1600, h: 900, cut: 797, humanTip: 793, natureTip: 801, row: 412, capsule: 124, top: 'rgb(238, 223, 204)', bottom: 'rgb(221, 203, 184)' };
-  const handsLayer = section.querySelector('.wz-glance__hands'), plate = section.querySelector('.wz-glance__plate');
-  const human = section.querySelector('[data-glance-hand="human"]'), nature = section.querySelector('[data-glance-hand="nature"]');
-  const fit = { w: 0, h: 0, scale: 1, x: 0, y: 0, tall: false };
-  function layout() {
-    const W = stage.clientWidth, H = stage.clientHeight;
-    if (!handsLayer || !W || !H || (W === fit.w && H === fit.h)) return;
-    const tall = W / H < 1;
-    // on a tall screen the photo is enlarged past the width so the hands stay a good size (their sleeves and the arm run off the sides)
-    const s = tall ? W * 2 / PHOTO.w : Math.max(W / PHOTO.w, H / PHOTO.h);
-    const x = W / 2, y = H * (tall ? .56 : .6), top = y - PHOTO.row * s, half = PHOTO.capsule * s / 2;
-    Object.assign(fit, { w: W, h: H, scale: s, x, y, tall });
-    for (const [img, w, left] of [[human, PHOTO.cut, x - half - PHOTO.humanTip * s], [nature, PHOTO.w - PHOTO.cut, x + half - (PHOTO.natureTip - PHOTO.cut) * s]]) {
-      if (!img) continue;
-      img.style.width = `${(w * s).toFixed(1)}px`; img.style.left = `${left.toFixed(1)}px`; img.style.top = `${top.toFixed(1)}px`;
-    }
-    const ph = PHOTO.h * s;
-    // above and below the photo, the average colours of its top and bottom; the plate and the halves fade into them
-    handsLayer.style.background = `linear-gradient(to bottom, ${PHOTO.top} ${top.toFixed(1)}px, ${PHOTO.bottom} ${(top + ph).toFixed(1)}px)`;
-    if (plate) { plate.style.top = `${top.toFixed(1)}px`; plate.style.height = `${ph.toFixed(1)}px`; }
-    if (scene) scene.setMeet(x / W, y / H, PHOTO.capsule * s / W);
-  }
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const clamp = (n) => Math.max(0, Math.min(1, n));
-  let scene = null, frame = 0, visible = false, clock = 0, last = 0, loading = false, morph = 0, hands = 0, held = null;
+  let scene = null, frame = 0, visible = false, clock = 0, last = 0, loading = false, morph = 0, held = null;
 
-  // how far the page is through the hold: the change into the capsule over its first half, then the hands reaching in
+  // how far the page is through the hold: the change into the capsule over most of it, then a moment with the capsule closed
+  // before the products page slides up over it
   function aim() {
     if (held !== null) return held;
     const run = Math.max(1, section.offsetHeight - stage.offsetHeight);
     const p = clamp(-section.getBoundingClientRect().top / run);
-    const at = { morph: clamp((p - .03) / .5), hands: clamp((p - .58) / .34) };
-    if (reduced.matches) { at.morph = at.morph < .5 ? 0 : 1; at.hands = at.hands < .5 ? 0 : 1; }
-    return at;
+    const m = clamp((p - .03) / .8);
+    return reduced.matches ? (m < .5 ? 0 : 1) : m;
   }
 
-  function words(m, h = 0) {
-    // the wall of the photo comes up behind as the hands start in from the sides; they glide to the capsule and stop
-    if (handsLayer) {
-      layout();
-      handsLayer.style.opacity = clamp(h * 3).toFixed(3); handsLayer.style.visibility = h > 0 ? 'visible' : 'hidden';
-      const e = clamp(h / .8), away = (1 - e * e * (3 - 2 * e)) * fit.w * .55;
-      if (human) human.style.transform = `translate3d(${(-away).toFixed(1)}px, 0, 0)`;
-      if (nature) nature.style.transform = `translate3d(${away.toFixed(1)}px, 0, 0)`;
-    }
-    // the title gives way to the hands' title as they arrive
-    const a = clamp(1 - h * 3.5), b = clamp((h - .22) * 3.5);
-    if (title) { title.style.opacity = a.toFixed(3); title.style.transform = a < 1 ? `translateY(${(-(1 - a) * 18).toFixed(1)}px)` : ''; }
-    if (handsTitle) { handsTitle.style.opacity = b.toFixed(3); handsTitle.style.transform = b < 1 ? `translateY(${((1 - b) * 18).toFixed(1)}px)` : ''; handsTitle.setAttribute('aria-hidden', String(b < .5)); }
+  function words(m) {
     // the figures step aside as the grass starts to gather; the title stays above the capsule
     if (!foot) return;
     const o = clamp(1 - m * 4);
@@ -77,16 +38,15 @@
     const still = reduced.matches, dt = last ? Math.min(.1, (now - last) / 1000) : 0;
     const goal = aim();
     // while the next page slides up over the finished scene, it holds its last picture instead of drawing underneath
-    if (held === null && nextTop < innerHeight - 2 && morph === goal.morph && hands === goal.hands) { last = 0; return; }
+    if (held === null && nextTop < innerHeight - 2 && morph === goal) { last = 0; return; }
     last = now;
     clock += dt;
     const k = still || held !== null ? 1 : 1 - Math.exp(-dt * 10);
-    morph += (goal.morph - morph) * k; hands += (goal.hands - hands) * k;
-    if (Math.abs(goal.morph - morph) < .0005) morph = goal.morph;
-    if (Math.abs(goal.hands - hands) < .0005) hands = goal.hands;
-    words(morph, hands);
-    if (scene) scene.draw(clock, { still, morph, hands });
-    if (!scene || !still || !scene.settled || morph !== goal.morph || hands !== goal.hands) frame = requestAnimationFrame(tick);
+    morph += (goal - morph) * k;
+    if (Math.abs(goal - morph) < .0005) morph = goal;
+    words(morph);
+    if (scene) scene.draw(clock, { still, morph });
+    if (!scene || !still || !scene.settled || morph !== goal) frame = requestAnimationFrame(tick);
     else last = 0;
   }
   const kick = () => { if (!frame) frame = requestAnimationFrame(tick); };
@@ -96,7 +56,6 @@
     loading = true;
     import('./glance-three.js').then(({ createGlanceScene }) => {
       scene = createGlanceScene(canvas, { density: innerWidth < 760 ? .45 : 1 });
-      fit.w = 0; layout();
       section.classList.add('is-ready');
       kick();
     }).catch((error) => {
@@ -124,11 +83,11 @@
   words(0);
   // for checking: hold a moment (the loop time, the pointer as fractions or none, the change 0 to 1); release() hands it back
   window.WasayGlance = {
-    drawAt: (seconds, x, y, m = 0, frames = 2, h = 0) => {
-      held = { morph: m, hands: h }; morph = m; hands = h; words(m, h);
+    drawAt: (seconds, x, y, m = 0, frames = 2) => {
+      held = m; morph = m; words(m);
       if (!scene) return;
       if (x == null) scene.leave(); else scene.point(x, y);
-      for (let i = 0; i < frames; i++) scene.draw(seconds + i / 60, { morph: m, hands: h });
+      for (let i = 0; i < frames; i++) scene.draw(seconds + i / 60, { morph: m });
     },
     release: () => { held = null; kick(); },
   };

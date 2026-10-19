@@ -90,7 +90,8 @@ function deriveCatalog(content) {
     // pictures made by scripts/render-cutouts.mjs, and the data file that lists the product's photographs
     p.large = p.jar ? `/images/wasay/ring/${p.slug}-large.webp` : `/images/wasay/products/${p.slug}-large.webp`;
     p.ring_image = p.jar ? `/images/wasay/ring/${p.slug}.webp` : `/images/wasay/products/${p.slug}.webp`;
-    p.turn = p.jar ? `/images/wasay/ring/${p.slug}-turn.webp` : '';
+    // the version mark makes browsers fetch the turn pictures again when their layout changes (now 41 frames in a 7 x 6 grid)
+    p.turn = p.jar ? `/images/wasay/ring/${p.slug}-turn.webp?v=41` : '';
     p.photos_json = p.jar ? '/pastes-data.json' : '/tablets-data.json';
   }
   products.sort((a, b) => (Number(a.order) || 1e6) - (Number(b.order) || 1e6) || a.name.localeCompare(b.name));
