@@ -1,7 +1,6 @@
 import * as T from './vendor/three/three.module.min.js';
 import { autoQuality } from './gl-quality.js';
 import { createHands } from './glance-hands.js';
-import { createSprigs } from './herb-parts.js';
 
 // Wasay at a glance: a thick grassy trunk arcs across the page like a smile, coming nearer in the middle. Tens of thousands of fine
 // blades (one blade drawn many times, instancing) grow out of it, combed one way like fur, and sway in the breeze; a few small daisies
@@ -302,19 +301,6 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
   shadow.rotation.x = -Math.PI / 2; scene.add(shadow);
   capsule.visible = false; capsule.add(heart); capsule.rotation.order = 'ZYX';
 
-  // ---- herbs filling the capsule, after the owner's reference (a pill full of plant life): mint, chamomile, lavender, thyme and
-  // white flowers growing up through the moss as the lid closes, the lowest first, all kept inside the glass
-  const insideGlass = (p, margin) => { const y = p.y, c = y < -CAP.half ? -CAP.half : y > CAP.half ? CAP.half : y; return Math.hypot(p.x, y - c, p.z) <= CAP.inner - margin; };
-  const capsuleAnchors = [];
-  for (let tries = 0; capsuleAnchors.length < Math.round(120 * Math.max(.5, density)) && tries < 8000; tries++) {
-    const y = random() < .65 ? MOSS.top - .25 + random() * .3 : -.2 + random() * 1.7, a = random() * Math.PI * 2, r = Math.sqrt(random()) * .78;
-    const p = new T.Vector3(Math.cos(a) * r, y, Math.sin(a) * r);
-    const n = new T.Vector3((random() - .5) * 1.4 + p.x * .5, .8, (random() - .5) * 1.4 + p.z * .5).normalize(), size = (y > .6 ? .6 : .8) + random() * .3;
-    if (!insideGlass(p, .08) || !insideGlass(p.clone().addScaledVector(n, .55 * size), .08)) continue;
-    capsuleAnchors.push({ p, n, at: clamp((y + .2) / 1.8) * .6 + random() * .2, size });
-  }
-  const capsuleHerbs = createSprigs(capsule, capsuleAnchors, { seed: 47, size: 1 });
-
   // ---- the two hands that reach in at the end and meet at the capsule (glance-hands.js)
   const hands = createHands(scene, { density });
   const base = { center: new T.Vector3(), size: 1 }, meet = new T.Vector3();
@@ -399,7 +385,6 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
     // once closed it turns a little to and fro, so the glass and the garden inside read as round
     spin.value = still ? 0 : Math.sin(seconds * .35) * .2 * smooth((m - CLOSE[1]) / .05);
     capsule.rotation.set(0, spin.value, tilt.value);
-    capsuleHerbs.update(clamp((m - .8) / .2), still ? 0 : seconds * .5);
     // the hollow glides after the pointer and closes softly when the pointer leaves (only while it is a trunk)
     const k = 1 - Math.exp(-dt * 10), want = onTrunk && m < .05 ? 1 : 0;
     aimAt += (want - aimAt) * (still ? 1 : 1 - Math.exp(-dt * 5));
