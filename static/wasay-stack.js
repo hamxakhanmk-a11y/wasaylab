@@ -12,9 +12,10 @@
   chapters.forEach((el, i) => { el.classList.add('stack-chapter'); el.style.setProperty('--stack-z', String(i + 1)); });
 
   let ticking = false;
-  // the steady screen height: on a phone, innerHeight grows and shrinks as the browser's bar slides away and back while scrolling
+  // the steady screen height, with the browser's bars hidden (the scenes are sized to it too): on a phone, innerHeight grows and
+  // shrinks as the bars slide away and back while scrolling
   const probe = document.createElement('div');
-  probe.style.cssText = 'position:fixed;top:0;left:0;width:0;height:100svh;visibility:hidden;pointer-events:none';
+  probe.style.cssText = 'position:fixed;top:0;left:0;width:0;height:100vh;height:100lvh;visibility:hidden;pointer-events:none';
   document.body.append(probe);
   const screenHeight = () => probe.offsetHeight || innerHeight;
   let fitted = '';

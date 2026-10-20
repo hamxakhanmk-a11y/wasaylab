@@ -5,7 +5,7 @@
    banner and over every section after it, as they do over the inner pages' banners. */
 body:has(.wz-grow) .site-header { margin-bottom: -69px; }
 body:has(.wz-grow) .site-header:not(.nav-open) { background-color: transparent; border-bottom-color: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; }
-.wz-grow { --dwell: 300svh; --stage: max(100svh, 640px); position: relative; min-height: calc(var(--stage) + var(--dwell)); background: var(--bg, #f2e8db); }
+.wz-grow { --dwell: 300svh; --stage: max(100vh, 640px); --stage: max(100lvh, 640px); --bars: 0px; --bars: calc(100lvh - 100svh); position: relative; min-height: calc(var(--stage) + var(--dwell)); background: var(--bg, #f2e8db); }
 .wz-grow__stage { position: sticky; top: 0; height: var(--stage); overflow: hidden; background: var(--bg, #f2e8db); }
 .wz-grow__canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; opacity: 0; transition: opacity .35s ease; }
 .wz-grow.is-ready .wz-grow__canvas { opacity: 1; }
@@ -24,10 +24,14 @@ html.grow-intro .wz-grow:not(.is-shown) .wz-grow__copy { opacity: 0; transform: 
 .wz-grow__story h2 { margin: 0; max-width: 19ch; font-size: clamp(2rem, 3.6vw, 3.2rem); line-height: 1.08; text-wrap: balance; }
 .wz-grow__story > p:not(.eyebrow) { margin: 20px 0 0; max-width: 46ch; color: var(--muted); line-height: 1.75; }
 .wz-grow__story .wz-action { margin-top: 30px; }
-.wz-grow__pause { position: absolute; z-index: 2; right: clamp(16px, 3vw, 36px); bottom: clamp(16px, 3vw, 32px); min-height: 40px; padding: 8px 16px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, .7); background: rgba(242, 232, 219, .94); color: var(--forest, #173f27); font: 600 .8rem var(--font); cursor: pointer; }
+.wz-grow__pause { position: absolute; z-index: 2; right: clamp(16px, 3vw, 36px); bottom: calc(clamp(16px, 3vw, 32px) + var(--bars, 0px)); min-height: 40px; padding: 8px 16px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, .7); background: rgba(242, 232, 219, .94); color: var(--forest, #173f27); font: 600 .8rem var(--font); cursor: pointer; }
 .wz-grow a:focus-visible, .wz-grow button:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 @media (max-width: 760px) {
-  .wz-grow { --stage: max(100svh, 680px); }
+  .wz-grow { --stage: max(100vh, 680px); --stage: max(100lvh, 680px); }
+  /* on a phone the buttons go to the foot of the banner, above the pause button, so the space round the seedling is free for a
+     finger to stir its leaves */
+  .wz-grow__intro { display: flex; flex-direction: column; min-height: calc(var(--stage) - 96px - 84px - var(--bars)); }
+  .wz-grow__actions { margin-top: auto; }
   .wz-grow__copy { padding-top: calc(68px + 28px); }
   .wz-grow h1 { font-size: clamp(2.4rem, 11vw, 3.4rem); }
   .wz-grow__lead { font-size: .98rem; }

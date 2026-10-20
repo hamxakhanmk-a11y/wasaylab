@@ -30,6 +30,9 @@ body {
   color: var(--text);
   line-height: 1.6;
   overflow-x: hidden;
+  /* clip, not hidden, where supported: hidden on the body stops position: sticky in Safari (iPhone), so the pinned scenes
+     scrolled away and left blank screens */
+  overflow-x: clip;
 }
 h1, h2, h3 { font-family: var(--display); font-weight: 600; }
 a { color: inherit; }

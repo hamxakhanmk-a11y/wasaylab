@@ -911,7 +911,11 @@ document.querySelectorAll('.process-intro__facts li, .home-process__facts li').f
     let replay = false;
     button.addEventListener('pointerdown', event => {
       touch = event.pointerType === 'touch' || event.pointerType === 'pen';
+      if (touch) button.classList.add('is-expanding');
     });
+    const settle = () => setTimeout(() => { if (!opening) button.classList.remove('is-expanding'); }, 250);
+    button.addEventListener('pointercancel', settle);
+    button.addEventListener('pointerup', settle);
     button.addEventListener('click', event => {
       if (replay) return;
       const mobile = touch || (event.detail > 0 && matchMedia('(hover: none)').matches);
