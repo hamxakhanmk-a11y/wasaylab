@@ -92,6 +92,11 @@
     console.warn('Banner animation unavailable; showing the drawn hill.', error);
   });
 
+  // the pointer (or a finger dragged over the banner) stirs the flying leaves; the listeners are passive, so scrolling is untouched
+  const pointAt = (e) => { if (!scene || !scene.point) return; const r = stage.getBoundingClientRect(); scene.point((e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height); };
+  stage.addEventListener('pointermove', pointAt, { passive: true });
+  stage.addEventListener('pointerdown', pointAt, { passive: true });
+  for (const type of ['pointerleave', 'pointercancel']) stage.addEventListener(type, () => { if (scene && scene.point) scene.point(null); }, { passive: true });
   new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; last = 0; if (visible) kick(); }).observe(hero);
   addEventListener('scroll', kick, { passive: true });
   document.addEventListener('visibilitychange', () => { last = 0; kick(); });
@@ -102,6 +107,7 @@
   window.WasayGrow = {
     drawAt: (seconds, p = 0) => { held = p; clock = seconds; story = p; words(p); if (scene) scene.draw(seconds, { story: p }); },
     pause: () => { paused = true; label(); },
+    point: (x, y) => { if (scene && scene.point) scene.point(x, y); },
     release: () => { held = null; kick(); },
   };
 })();

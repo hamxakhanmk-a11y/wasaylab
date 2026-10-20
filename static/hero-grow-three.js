@@ -269,9 +269,49 @@ export function createGrowScene(canvas, { bg = '#f2e8db', density = 1 } = {}) {
 
   const from = new T.Matrix4(), sc = new T.Matrix4(), p0 = new T.Vector3(), q0 = new T.Quaternion(), s0 = new T.Vector3(), q1 = new T.Quaternion(), fl = new T.Quaternion(), e0 = new T.Euler();
   const crownAt = new T.Vector3(), go = new T.Vector3(), UP = new T.Vector3(0, 1, 0);
+  // ---- the pointer stirs the leaves (as the mouse stirs the clouds on the owner's portfolio): flying leaves near it are carried
+  // along with it and curl round it, spinning as they go, then slow down softly and drift on with their gust; the small leaves on
+  // the seedling rustle when it passes over them. A finger dragged over the banner does the same. The camera never moves.
+  const pointer = { on: false, x: 0, y: 0, px: 0, py: 0 }, STIR = 1.2;
+  const stirred = flyers.map(() => ({ k: null, off: new T.Vector3(), vel: new T.Vector3(), twirl: 0 }));
+  const ndc = new T.Vector3(), pw = new T.Vector3(), pp = new T.Vector3(), pv = new T.Vector3(), away = new T.Vector3(), curl = new T.Vector3(), gaze = new T.Vector3(), tw = new T.Quaternion();
+  let lastAt = null, rustle = 0;
+  function point(x, y) {
+    if (x == null) { pointer.on = false; return; }
+    const nx = x * 2 - 1, ny = 1 - y * 2;
+    if (!pointer.on) { pointer.px = nx; pointer.py = ny; }
+    pointer.x = nx; pointer.y = ny; pointer.on = true;
+  }
+  // how the pointer pushes a leaf at p this frame: along its own motion, curling round it, and a little outwards
+  function stir(p, st, dt) {
+    if (pointer.on && dt > 0) {
+      ndc.copy(p).project(camera);
+      pw.set(pointer.x, pointer.y, ndc.z).unproject(camera); pp.set(pointer.px, pointer.py, ndc.z).unproject(camera);
+      pv.subVectors(pw, pp).divideScalar(dt);
+      const speed = Math.min(25, pv.length()); if (speed > 25) pv.setLength(25);
+      away.subVectors(p, pw); const dist = away.length();
+      if (dist < STIR && speed > .05) {
+        const f = (1 - dist / STIR) ** 2; away.normalize();
+        camera.getWorldDirection(gaze); curl.crossVectors(gaze, away);
+        if (curl.dot(pv) < 0) curl.negate();
+        st.vel.addScaledVector(pv, 2.4 * f * dt).addScaledVector(curl, speed * 1.5 * f * dt).addScaledVector(away, speed * f * dt);
+      }
+    }
+    st.vel.multiplyScalar(Math.exp(-dt * 1.6));
+    st.off.addScaledVector(st.vel, dt);
+    st.twirl += st.vel.length() * dt * 2.5;
+  }
   // active: 1 on the banner, fading to 0 as the story comes in close (there the leaves just stay on)
   function setCrown(seconds, still, active) {
     sprout.updateMatrixWorld(true);
+    const dt = lastAt === null ? 0 : Math.min(.05, Math.max(0, seconds - lastAt)); lastAt = seconds;
+    // the seedling rustles while the pointer moves over it
+    if (pointer.on && dt > 0) {
+      ndc.copy(top).add(new T.Vector3(0, 1.2, 0)).project(camera);
+      const near = Math.max(0, 1 - Math.hypot(pointer.x - ndc.x, (pointer.y - ndc.y) * .6) / .14), moving = Math.min(1, Math.hypot(pointer.x - pointer.px, pointer.y - pointer.py) / Math.max(dt, .001) / 2);
+      rustle = Math.min(1, rustle + near * moving * dt * 6);
+    }
+    rustle *= Math.exp(-dt * 1.8);
     leafPivot.getWorldPosition(crownAt);
     const now = Math.floor(seconds / GAP);
     // the small leaves on the seedling: each grows again after it is torn off, and trembles just before it goes
@@ -287,7 +327,8 @@ export function createGrowScene(canvas, { bg = '#f2e8db', density = 1 } = {}) {
       }
       grow += (1 - grow) * (1 - active);
       c.on.scale.setScalar(c.size * Math.max(.0001, grow));
-      c.on.rotation.set((1 - grow) * .9 + Math.sin(seconds * 31) * .1 * tremble, 0, Math.sin(seconds * 23 + j) * .14 * tremble);
+      const shake = tremble + (still ? 0 : rustle * 1.6);
+      c.on.rotation.set((1 - grow) * .9 + Math.sin(seconds * 31 + j * 2) * .1 * shake, 0, Math.sin(seconds * 23 + j) * .14 * shake);
     });
     for (const m of flyers) m.visible = false;
     sparkA.fill(0);
@@ -303,8 +344,12 @@ export function createGrowScene(canvas, { bg = '#f2e8db', density = 1 } = {}) {
         flow(type, sp, r1, r2, dir, go);
         const spread = .06 + .75 * sp;
         m.position.set(p0.x + go.x + L.out.x * spread * .6, p0.y + go.y + L.out.y * spread, p0.z + go.z + L.out.z * spread);
+        // pushed and curled by the pointer (each leaf keeps its own push until its place in the pool goes to a new gust)
+        const st = stirred[block * LEAVES + i];
+        if (st.k !== k) { st.k = k; st.off.set(0, 0, 0); st.vel.set(0, 0, 0); st.twirl = 0; }
+        m.position.add(st.off); stir(m.position, st, dt); m.position.add(pw.copy(st.vel).multiplyScalar(dt));
         q1.setFromAxisAngle(L.axis, sp * L.spin); fl.setFromAxisAngle(UP, Math.sin(sp * L.flick + L.turn) * .9 * Math.min(1, sp * 4));
-        m.quaternion.copy(q0).multiply(q1).multiply(fl);
+        m.quaternion.copy(q0).multiply(q1).multiply(fl).multiply(tw.setFromAxisAngle(L.axis, st.twirl));
         m.scale.copy(s0).multiplyScalar((i < 2 ? 1 : smooth(sp / .07)) * (1 - .3 * sp));
         m.material.opacity = (1 - smooth((sp - .7) / .3)) * active;
         m.visible = true;
@@ -323,6 +368,7 @@ export function createGrowScene(canvas, { bg = '#f2e8db', density = 1 } = {}) {
         sparkA[block * SPARKS + p] = (.45 + .55 * Math.sin(seconds * (6 + hash(k, p + 400) * 6) + p)) * smooth(sp / .08) * (1 - smooth((sp - .6) / .4)) * active;
       }
     }
+    pointer.px = pointer.x; pointer.py = pointer.y;
     sparkGeo.attributes.position.needsUpdate = true; sparkGeo.attributes.aAlpha.needsUpdate = true; sparkGeo.attributes.aSize.needsUpdate = true;
     sparkDpr.value = renderer.getPixelRatio();
   }
@@ -578,5 +624,5 @@ export function createGrowScene(canvas, { bg = '#f2e8db', density = 1 } = {}) {
   canvas.addEventListener('webglcontextlost', (e) => e.preventDefault());
   // the page tells the scene where its words end (fractions of the width), so the hill and the bottle keep clear of them
   const setClear = (banner, story) => { clearX = Math.round(clamp(banner) * 100) / 100; storyX = Math.round(clamp(story) * 100) / 100; };
-  return { draw, setClear, flowers: fN, blades: BLADES };
+  return { draw, setClear, point, flowers: fN, blades: BLADES };
 }
