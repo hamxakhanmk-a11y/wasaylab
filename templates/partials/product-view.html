@@ -1,17 +1,9 @@
 <!-- PRODUCT VIEW: opens when a product is clicked, on the home ring and on every product tab. The name rises from behind the
      product, which tilts as the page is scrolled; static/wasay-detail.js fills it in from the clicked product's data attributes. -->
-{{#each site.product_view.kinds}}<template data-pv-kind="{{ key }}" data-range="{{ range }}" data-pack="{{ pack }}" data-noun="{{ noun }}" data-all-label="{{ all_label }}" data-all-href="{{ all_href }}"></template>
+{{#each site.product_view.kinds}}<template data-pv-kind="{{ key }}" data-range="{{ range }}" data-noun="{{ noun }}" data-all-label="{{ all_label }}" data-all-href="{{ all_href }}"></template>
 {{/each}}
 {{#each content.catalog.all}}
 <template data-pv-copy="{{ slug }}">
-  <section class="wz-detail__facts" aria-label="{{ site.product_view.facts_heading }}">
-    <dl>
-      <div><dt>{{ site.product_view.range_label }}</dt><dd>{{ range }}</dd></div>
-      <div><dt>{{ site.product_view.size_label }}</dt><dd>{{ detail }}</dd></div>
-      <div><dt>{{ site.product_view.pack_label }}</dt><dd>{{#if jar}}{{ site.product_view.pack_jar }}{{else}}{{ site.product_view.pack_carton }}{{/if}}</dd></div>
-      <div><dt>{{ site.product_view.made_label }}</dt><dd>{{ site.product_view.made_value }}</dd></div>
-    </dl>
-  </section>
   <section class="wz-detail__section">
     <h3>{{ site.product_view.about_heading }}</h3>
     <div><p>{{ about }}</p></div>

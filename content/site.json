@@ -93,7 +93,6 @@
       {
         "key": "tablets",
         "range": "Tablets",
-        "pack": "Carton",
         "noun": "carton",
         "all_label": "See all tablets",
         "all_href": "tablets.html"
@@ -101,7 +100,6 @@
       {
         "key": "tonics",
         "range": "Multi Tonics",
-        "pack": "Carton",
         "noun": "carton",
         "all_label": "See all multi tonics",
         "all_href": "tonics.html"
@@ -109,7 +107,6 @@
       {
         "key": "syrups",
         "range": "Syrups",
-        "pack": "Carton",
         "noun": "carton",
         "all_label": "See all syrups",
         "all_href": "syrups.html"
@@ -117,7 +114,6 @@
       {
         "key": "ointments",
         "range": "Ointments",
-        "pack": "Carton",
         "noun": "carton",
         "all_label": "See all ointments",
         "all_href": "ointments.html"
@@ -125,7 +121,6 @@
       {
         "key": "pastes",
         "range": "Pastes",
-        "pack": "Jar with a screw cap",
         "noun": "jar",
         "all_label": "See all pastes",
         "all_href": "pastes.html"
@@ -135,14 +130,6 @@
     "uses_heading": "Uses",
     "composition_heading": "Composition",
     "key_ingredients_heading": "Key ingredients",
-    "facts_heading": "At a glance",
-    "range_label": "Range",
-    "size_label": "Size",
-    "pack_label": "Pack",
-    "made_label": "Made by",
-    "made_value": "Wasay Laboratories (Pvt.) Ltd., Peshawar, Pakistan",
-    "pack_jar": "Jar with a screw cap",
-    "pack_carton": "Carton",
     "related_heading": "More from",
     "range_link": "See all"
   }

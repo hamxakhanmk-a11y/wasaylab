@@ -149,14 +149,6 @@ collections:
               - { name: prev_label, label: Previous button text, widget: string }
               - { name: next_label, label: Next button text, widget: string }
               - { name: nav_label, label: Previous / next description for screen readers, widget: string }
-              - { name: facts_heading, label: At a glance (for screen readers), widget: string }
-              - { name: range_label, label: 'At a glance: range', widget: string }
-              - { name: size_label, label: 'At a glance: size', widget: string }
-              - { name: pack_label, label: 'At a glance: pack', widget: string }
-              - { name: made_label, label: 'At a glance: made by', widget: string }
-              - { name: made_value, label: Maker shown on every product, widget: string }
-              - { name: pack_jar, label: Pack of a jar, widget: string }
-              - { name: pack_carton, label: Pack of a carton, widget: string }
               - { name: related_heading, label: Heading before the range name (More from ...), widget: string }
               - { name: range_link, label: Link text before the range name (See all ...), widget: string }
               - name: kinds
@@ -166,7 +158,6 @@ collections:
                 fields:
                   - { name: key, label: Key (do not change), widget: string }
                   - { name: range, label: Range name, widget: string }
-                  - { name: pack, label: Pack type, widget: string }
                   - { name: noun, label: Pack word (jar, carton), widget: string }
                   - { name: all_label, label: Link text to the whole range, widget: string }
                   - { name: all_href, label: Link goes to, widget: string }
