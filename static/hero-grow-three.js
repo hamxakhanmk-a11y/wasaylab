@@ -2,8 +2,8 @@ import * as T from './vendor/three/three.module.min.js';
 import { autoQuality } from './gl-quality.js';
 import { createHerbs } from './hero-herbs.js';
 
-// The home banner's living hill: a soft grassy mound on the off-white page, a seedling on its top that grows and opens its two
-// leaves, and wildflowers that bloom across the slope from the bottom right upwards. It loops: grow, hold in full bloom, a quick
+// The home banner's living hill: a soft grassy mound on the off-white page, a seedling on its top with its two leaves open, small
+// leaves round its top that grow, tear off and fly away in the breeze while new ones grow, and wildflowers across the slope. It loops: grow, hold in full bloom, a quick
 // reset, again. Thousands of grass blades and flowers are drawn in one go each (instancing) and sway in the shader, so it stays light.
 // It is also Who we are: as the page scrolls (story, 0 to 1) the camera comes in close to the seedling, a bottle rises out of the
 // grass under its right leaf, a drop of medicine forms on that leaf's tip, and it falls into the bottle.
@@ -198,6 +198,56 @@ export function createGrowScene(canvas, { bg = '#f2e8db', density = 1 } = {}) {
   const trueMat = leafMat.clone(); trueMat.color = new T.Color('#c4dba6');
   const trueGeo = leafShapeGeometry(1, .34, true);
   const trueLeaves = [-1, 1].map((s) => { const g = new T.Group(); g.add(new T.Mesh(trueGeo, trueMat)); g.position.set(0, .02, .01); leafPivot.add(g); return { g, s }; });
+
+  // ---- leaves that come and go (the owner's request): small leaves round the top and on the upper stem grow, hang on a while,
+  // tremble, tear off in the breeze and fly away to the right over the page, tumbling and fading, while new ones grow in their place.
+  // Each place runs its own cycle, staggered, so one tears off every couple of seconds. The two seed leaves always stay.
+  const CYCLE = 9, HOLD = .78, FLIGHT = .5;            // seconds per leaf's life; when in it the leaf lets go; flight, as part of a cycle
+  const crown = [
+    { at: leafPivot, y: 0, x: 0, rx: .35, ry: .2, rz: -.62, size: .4 },
+    { at: leafPivot, y: 0, x: 0, rx: .3, ry: -.25, rz: .58, size: .38 },
+    { at: leafPivot, y: 0, x: 0, rx: .12, ry: .9, rz: -1.3, size: .36 },
+    { at: leafPivot, y: 0, x: 0, rx: .5, ry: -.8, rz: 1.2, size: .34 },
+    { at: leafPivot, y: 0, x: 0, rx: .2, ry: 0, rz: -.05, size: .32 },
+    { at: sprout, y: .8, x: .005, rx: .3, ry: .3, rz: -1.35, size: .32 },
+    { at: sprout, y: .6, x: -.012, rx: .3, ry: -.3, rz: 1.3, size: .32 },
+  ].map((d, i, all) => {
+    const slot = new T.Group(); slot.position.set(d.x, d.y, 0); slot.rotation.set(d.rx, d.ry, d.rz); d.at.add(slot);
+    const on = new T.Mesh(leafGeo, leafMat); on.scale.setScalar(.0001); slot.add(on);
+    const mat = leafMat.clone(); mat.transparent = true;
+    const off = new T.Mesh(leafGeo, mat); off.visible = false; scene.add(off);
+    // each flight its own way: how far up it lifts, how fast it tumbles and about which axis
+    const axis = new T.Vector3(Math.sin(i * 2.1), 1.2, Math.cos(i * 1.7)).normalize();
+    return { slot, on, off, mat, size: d.size, phase: i / all.length, lift: .55 + (i % 3) * .3, spin: 3.2 + (i % 2) * 2.2, axis };
+  });
+  const from = new T.Matrix4(), p0 = new T.Vector3(), q0 = new T.Quaternion(), s0 = new T.Vector3(), q1 = new T.Quaternion(), fl = new T.Quaternion();
+  const WIND = new T.Vector3(1, .3, .45).normalize();
+  // active: 1 on the banner, fading to 0 as the story comes in close (there the leaves just stay on)
+  function setCrown(seconds, still, active) {
+    sprout.updateMatrixWorld(true);
+    for (const c of crown) {
+      const t = seconds / CYCLE + c.phase, tau = t - Math.floor(t);
+      // the leaf on the plant: it unfurls as it grows, trembles just before it lets go, and is gone until the next one grows
+      let grow = still ? 1 : tau < HOLD ? 1 - Math.pow(1 - smooth(tau / .16), 2) : 0;
+      grow += (1 - grow) * (1 - active);
+      const tremble = still ? 0 : smooth((tau - (HOLD - .05)) / .05) * (tau < HOLD ? 1 : 0) * active;
+      c.on.scale.setScalar(c.size * Math.max(.0001, grow));
+      c.on.rotation.set((1 - grow) * .9 + Math.sin(seconds * 31) * .1 * tremble, 0, Math.sin(seconds * 23 + c.phase * 9) * .14 * tremble);
+      // the one flying: let go at HOLD in this cycle or the last
+      let e = (tau - HOLD) / FLIGHT; if (e < 0) e = (tau + 1 - HOLD) / FLIGHT;
+      const flying = !still && active > 0 && e >= 0 && e < 1;
+      c.off.visible = flying;
+      if (!flying) continue;
+      // it sets off from where its place is, at full size, then drifts away with the breeze, lifting, fluttering and tumbling
+      from.copy(c.slot.matrixWorld).multiply(new T.Matrix4().makeScale(c.size, c.size, c.size)).decompose(p0, q0, s0);
+      const go = e * 3.2 + e * e * 2.4;
+      c.off.position.set(p0.x + WIND.x * go, p0.y + WIND.y * go + c.lift * e - .25 * e * e + Math.sin(e * 9 + c.phase * 6) * .12 * e, p0.z + WIND.z * go);
+      q1.setFromAxisAngle(c.axis, e * c.spin); fl.setFromAxisAngle(new T.Vector3(0, 1, 0), Math.sin(e * 13 + c.phase * 5) * .9 * Math.min(1, e * 4));
+      c.off.quaternion.copy(q0).multiply(q1).multiply(fl);
+      c.off.scale.copy(s0).multiplyScalar(1 - .25 * e);
+      c.mat.opacity = (1 - smooth((e - .5) / .5)) * active;
+    }
+  }
 
   // ---- wildflowers: a daisy and a cornflower drawn as masks (petals in red, centre in green) and tinted per flower
   const atlas = texture(1024, 256, (ctx) => {
@@ -418,6 +468,7 @@ export function createGrowScene(canvas, { bg = '#f2e8db', density = 1 } = {}) {
     const droop = DROOP * (p < .7 ? form : Math.exp(-fall * 4) * Math.cos(fall * 14));
     const calm = 1 - zoom * .7;
     setSprout(g, still ? 0 : Math.sin(seconds * 1.3) * .04 * calm, droop, still ? 0 : Math.sin(seconds * .9) * .025 * calm);
+    setCrown(seconds, still, 1 - zoom);
 
     bottle.visible = appear > 0;
     const rise = appear > 0 ? Math.max(.001, easeOutBack(appear)) : .001, squash = Math.sin(impact * Math.PI) * (1 - impact) * .14;
