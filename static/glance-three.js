@@ -5,7 +5,7 @@ import { autoQuality } from './gl-quality.js';
 // blades (one blade drawn many times, instancing) grow out of it, combed one way like fur, and sway in the breeze; a few small daisies
 // poke out along its top, and where the pointer rests the grass parts, leaving a soft dark hollow. As the page scrolls on (morph, 0 to
 // 1) the trunk squeezes into a small ball of grass above an open glass capsule, pours in through the top and fills it from the bottom
-// up as a mound of moss; the top of the capsule then comes down and closes, and tiny white flowers open on the moss. After a
+// up as a mound of moss; the top of the capsule then comes down and closes. Only grass is in the capsule, no flowers. After a
 // photograph the owner showed: a clear pill with a little garden inside.
 const clamp = (n, a = 0, b = 1) => Math.max(a, Math.min(b, n));
 const smooth = (n) => { n = clamp(n); return n * n * (3 - 2 * n); };
@@ -190,17 +190,12 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
     for (let i = 0; i < 12; i++) { ctx.save(); ctx.translate(64, 64); ctx.rotate(i / 12 * Math.PI * 2); ctx.beginPath(); ctx.ellipse(0, -34, 9, 28, 0, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
     ctx.fillStyle = '#f2c12e'; ctx.beginPath(); ctx.arc(64, 64, 14, 0, Math.PI * 2); ctx.fill();
   });
-  // a few on the trunk's top; many small ones on the moss's top once the capsule has closed, like a spray of baby's breath
-  const trunkFlowers = [], mossFlowers = [];
+  // a few on the trunk's top (the capsule holds only grass)
+  const trunkFlowers = [];
   for (let i = 0, tries = 0; i < Math.round(70 * Math.max(.6, density)) && tries < 4000; tries++) {
     const p = surface(random(), random() * Math.PI * 2);
     if (N.y < .55 || N.z < -.2) continue;
     trunkFlowers.push([p.x + N.x * .22, p.y + N.y * .25, p.z + N.z * .22, .045 + random() * .03, 0]); i++;
-  }
-  const dome = MOSS.top - MOSS.r * .8;
-  for (let i = 0; i < Math.round(240 * Math.max(.6, density)); i++) {
-    const phi = (random() * 2 - 1) * 1.9, y = dome + Math.pow(random(), .7) * (MOSS.top - dome) + .1 + random() * .3, r = mossRadius(Math.min(y, MOSS.top)) + .05 + random() * .12;
-    mossFlowers.push([Math.sin(phi) * r, Math.min(y, MOSS.top + .44), Math.cos(phi) * r, .07 + random() * .06, CLOSE[0] + random() * .1]);
   }
   function flowerMesh(list, inCapsule) {
     const g = new T.InstancedBufferGeometry(), quad = new T.PlaneGeometry(1, 1);
@@ -242,7 +237,6 @@ export function createGlanceScene(canvas, { density = 1 } = {}) {
     return mesh;
   }
   flowerMesh(trunkFlowers, false);
-  flowerMesh(mossFlowers, true);
 
   // ---- the capsule: clear glass with a wall of real thickness. It reflects a studio round it (a tall soft light to the left, a
   // narrow one to the right, a light overhead), so the highlights wrap round its curves; it brightens where it is seen edge-on
