@@ -78,10 +78,17 @@
       }
       x.putImageData(img, 0, 0); parts[name] = c;
     }
-    const colourAt = (x, y) => { const i = (Math.round(clamp(y, 0, LOGO.mark - 1)) * LOGO.w + Math.round(clamp(x, 0, LOGO.w - 1))) * 4; return [all.data[i], all.data[i + 1], all.data[i + 2]]; };
+    const colourAt = (x, y) => {
+      for (let r = 0; r <= 10; r += 2) for (let a = 0; a < 6.28; a += r ? .8 : 7) {
+        const i = (Math.round(clamp(y + Math.sin(a) * r, 0, LOGO.mark - 1)) * LOGO.w + Math.round(clamp(x + Math.cos(a) * r, 0, LOGO.w - 1))) * 4;
+        if (all.data[i + 3] > 160) return [all.data[i], all.data[i + 1], all.data[i + 2]];
+      }
+      return PALETTE[1];
+    };
     const opaque = (x, y) => all.data[(Math.round(y) * LOGO.w + Math.round(x)) * 4 + 3] > 140;
     const far = Math.hypot(W, H) * .62, cx = W / 2, cy = oy + LOGO.mark * k * .5;
-    const swirlOf = () => { const band = random(); return { cx, cy, a0: Math.floor(random() * 3) * 2.094 + (random() - .5) * .6, r0: far * (.85 + random() * .5), ring: size * (.5 + band * .55), spin: 1.2 + (1 - band) * 1.3,
+    const fitIn = Math.min(1, W * .46 / (size * 1.05));
+    const swirlOf = () => { const band = random(); return { cx, cy, a0: Math.floor(random() * 3) * 2.094 + (random() - .5) * .6, r0: far * (.85 + random() * .5), ring: size * (.5 + band * .55) * fitIn, spin: 1.2 + (1 - band) * 1.3,
       own: PALETTE[Math.floor(random() * PALETTE.length)], len: 22 + random() * 14, flip: random() * 6.28, flipRate: 4 + random() * 5 }; };
     leaves = [];
     // the belt: a garland of leaves along the circle, tip to tail, from its left end over the top to its right end

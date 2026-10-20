@@ -77,7 +77,7 @@
     const release = () => { dragging = false; };
     stage.addEventListener('pointerup', release);
     stage.addEventListener('pointercancel', release);
-    stage.addEventListener('lostpointercapture', release);
+    stage.addEventListener('lostpointercapture', (e) => { if (e.target === stage) release(e); });
     document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); else start(); });
     reduced.addEventListener('change', () => { if (reduced.matches) manual(36); });
     const observer = new IntersectionObserver(async entries => {

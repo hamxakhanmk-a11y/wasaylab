@@ -173,6 +173,8 @@
     } else if (!hovering) hot = null;
     place(t);
     const still = !drag && Math.abs(vel) < .05 && Math.abs(goal - pos) < .01;
+    // at rest, the jar in the middle is built live (on a phone there is no hover to do it), so it sways like the Pastes tab's jars
+    if (still && !reduced.matches) { const front = turns[mod(Math.round(pos))]; if (front.state === 'idle') load(front); }
     spin(t, dt, still);
     const busy = !still || drift > 0 || appear < 1 || Math.abs(lean) > .01 || turns.some((tn) => tn.state === 'ready' && (hot === tn || Math.abs(tn.cur - tn.goal) > .0005 || tn.goal !== 0));
     if (visible && !document.hidden && (busy || !reduced.matches)) frame = requestAnimationFrame(tick);
@@ -224,7 +226,9 @@
   };
   stage.addEventListener('pointerup', release);
   stage.addEventListener('pointercancel', release);
-  stage.addEventListener('lostpointercapture', release);
+  // a finger is captured by the picture under it first; only the stage's own loss of capture ends the drag (the picture's, when the
+  // stage takes the drag over, bubbles up here too and used to end every touch drag at once)
+  stage.addEventListener('lostpointercapture', (e) => { if (e.target === stage) release(e); });
 
   // ---- a click opens the product view (a drag never does); without the product view the link goes to the product's tab
   stage.addEventListener('click', (e) => {

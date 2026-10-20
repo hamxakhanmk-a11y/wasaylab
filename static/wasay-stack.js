@@ -12,8 +12,15 @@
   chapters.forEach((el, i) => { el.classList.add('stack-chapter'); el.style.setProperty('--stack-z', String(i + 1)); });
 
   let ticking = false;
+  // the steady screen height: on a phone, innerHeight grows and shrinks as the browser's bar slides away and back while scrolling
+  const probe = document.createElement('div');
+  probe.style.cssText = 'position:fixed;top:0;left:0;width:0;height:100svh;visibility:hidden;pointer-events:none';
+  document.body.append(probe);
+  const screenHeight = () => probe.offsetHeight || innerHeight;
+  let fitted = '';
   function fit() {
-    chapters.forEach((el) => el.style.setProperty('--stack-top', Math.min(0, innerHeight - el.offsetHeight) + 'px'));
+    const vh = screenHeight();
+    chapters.forEach((el) => el.style.setProperty('--stack-top', Math.min(0, vh - el.offsetHeight) + 'px'));
   }
   // how much of each section the next one has slid over (0 to 1), measured on what is actually on screen
   function cover() {
@@ -47,7 +54,8 @@
 
   sync();
   addEventListener('scroll', queue, { passive: true });
-  addEventListener('resize', sync);
+  // refit only when the width or the steady height changes, not each time a phone's browser bar moves
+  addEventListener('resize', () => { const key = innerWidth + 'x' + screenHeight(); if (key !== fitted) { fitted = key; sync(); } else queue(); });
   addEventListener('load', sync);
   reduced.addEventListener('change', sync);
   if ('ResizeObserver' in window) {

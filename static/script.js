@@ -803,7 +803,7 @@ document.querySelectorAll('.process-intro__facts li, .home-process__facts li').f
     }
     gallery.addEventListener('pointerup', release);
     gallery.addEventListener('pointercancel', release);
-    gallery.addEventListener('lostpointercapture', () => { pointer = null; gallery.classList.remove('is-dragging'); });
+    gallery.addEventListener('lostpointercapture', (e) => { if (e.target !== gallery) return; pointer = null; gallery.classList.remove('is-dragging'); });
   });
 })();
 /* Mobile galleries retain native swiping, with visible dots and on-screen autoplay. */

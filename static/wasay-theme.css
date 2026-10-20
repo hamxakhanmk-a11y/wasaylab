@@ -152,3 +152,8 @@ body:has(.page-banner) .site-header.is-past-banner .brand__logo { background-col
    page lag, most of all on phones); a near-solid face of the same colour instead */
 .site-header .nav-links, .home-page .site-header .nav-links, body:has(.page-banner) .site-header .nav-links { -webkit-backdrop-filter: none; backdrop-filter: none; }
 .home-page .site-header .nav-links, .home-page .site-header.is-over-hero .nav-links { background-color: rgba(214, 205, 195, .92); }
+/* phones and tablets: the menu pill sits to the right of the logo instead of across it, and scrolls sideways if its tabs do not all fit */
+@media (max-width: 600px) {
+  .site-header .nav-links { left: auto !important; right: 10px; transform: translateY(-50%) !important; max-width: calc(100vw - 92px); overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; }
+  .site-header .nav-links::-webkit-scrollbar { display: none; }
+}
