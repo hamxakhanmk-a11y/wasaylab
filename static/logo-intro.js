@@ -5,8 +5,8 @@
 //   the centre a few leaves spiral into the middle and the diamond and the lime square grow out of them;
 //   the leaves two larger leaves loop in last and settle exactly on the mark's two small leaves.
 // Then the lettering rises in underneath and the opening fades away into the page (about nine seconds in all).
-// It plays when the home page is opened or reloaded, not when coming to it from another tab of the site; a tap, a click, a key, the
-// wheel or a touch skips it; under reduced motion it is not played at all. It draws on one 2D canvas, from the site's own logo.
+// It plays when the home page is opened or reloaded, not when coming to it from another tab of the site, and always to its end (it
+// cannot be skipped); under reduced motion it is not played at all. It draws on one 2D canvas, from the site's own logo.
 (() => {
   const intro = document.querySelector('.logo-intro');
   if (!intro) return;
@@ -20,7 +20,10 @@
   if (matchMedia('(prefers-reduced-motion: reduce)').matches || root.classList.contains('tab-navigation')) { finish(); return; }
   root.classList.add('intro-on');
   const canvas = intro.querySelector('canvas'), ctx = canvas.getContext('2d'), logo = new Image();
-  for (const type of ['click', 'keydown', 'wheel', 'touchstart']) addEventListener(type, finish, { once: true, passive: true });
+  // it always plays to the end (the owner's wish): while it does, the page underneath holds still under a finger or the wheel
+  const hold = (e) => e.preventDefault();
+  for (const type of ['wheel', 'touchmove']) addEventListener(type, hold, { passive: false });
+  addEventListener('wasay:intro-done', () => { for (const type of ['wheel', 'touchmove']) removeEventListener(type, hold, { passive: false }); }, { once: true });
   const giveUp = setTimeout(finish, 4000);                 // if the logo is slow to arrive, the page is not held back
 
   // ---- the logo, in its own pixels (407 x 409): the mark above row 224, the lettering below. Its parts: the belt (an arc round C),

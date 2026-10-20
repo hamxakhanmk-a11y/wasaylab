@@ -2,6 +2,5 @@
    It is the home page's loader (.press-loader), so it covers the page from the first paint. */
 .logo-intro { transition: opacity .6s ease, visibility .6s ease; }
 .logo-intro__canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-.logo-intro__skip { position: absolute; left: 50%; bottom: clamp(18px, 4svh, 36px); transform: translateX(-50%); color: var(--muted); font-size: .82rem; letter-spacing: .04em; opacity: .7; white-space: nowrap; }
 /* while it plays the page underneath does not scroll */
 html.intro-on { overflow: hidden; }
