@@ -3,7 +3,8 @@ document.getElementById('year').textContent = new Date().getFullYear();
 
 // Show the page after the first paint instead of waiting for below-fold images.
 const dismissLoader = () => requestAnimationFrame(() => requestAnimationFrame(() => {
-  document.getElementById('loader')?.classList.add('done');
+  const loader = document.getElementById('loader');
+  if (loader && !loader.classList.contains('logo-intro')) loader.classList.add('done');
 }));
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', dismissLoader, {once: true});
 else dismissLoader();

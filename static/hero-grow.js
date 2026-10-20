@@ -46,6 +46,8 @@
     if (Math.abs(target - story) < .0005) story = target;
     words(story);
     if (scene) scene.draw(clock, { still, story });
+    // under the opening, one frame is enough (so the hill is there when it fades); the rest waits until it has gone
+    if (scene && opening()) { last = 0; return; }
     if ((!still && !paused) || story !== target) frame = requestAnimationFrame(tick);
     else last = 0;
   }
@@ -78,7 +80,9 @@
   }
 
   // the words rise in from below once the hill is showing, or after a moment at the latest (a slow device, no WebGL)
-  const show = () => hero.classList.add('is-shown');
+  const opening = () => document.querySelector('.logo-intro:not(.done)');
+  const show = () => { if (opening()) addEventListener('wasay:intro-done', () => hero.classList.add('is-shown'), { once: true }); else hero.classList.add('is-shown'); };
+  addEventListener('wasay:intro-done', () => { last = 0; kick(); });
   const late = setTimeout(show, 1600);
   import('./hero-grow-three.js').then(({ createGrowScene }) => {
     scene = createGrowScene(canvas, { bg: getComputedStyle(stage).backgroundColor, density: innerWidth < 760 ? .45 : 1 });
