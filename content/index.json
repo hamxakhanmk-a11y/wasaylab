@@ -8,8 +8,6 @@
     "primary_href": "contact.html",
     "secondary_label": "Our products",
     "secondary_href": "products.html",
-    "pause_label": "Pause animation",
-    "play_label": "Play animation",
     "hint_mouse": "Move your mouse to stir the flying leaves",
     "hint_touch": "Drag your finger to stir the flying leaves"
   },

@@ -1,12 +1,12 @@
 // The home banner and Who we are, as one scene. The living hill (hero-grow-three.js) loops while the banner is on show; scrolling on
 // holds the scene in place and comes in close to the seedling, raises a bottle out of the grass under its right leaf, forms a drop on
-// that leaf and lets it fall in, while the three Who we are texts rise in from below in turn. Scrolling up reverses it. A button
-// pauses the loop. Under reduced motion the hill is still and each part of the scroll shows its moment without the camera move.
+// that leaf and lets it fall in, while the three Who we are texts rise in from below in turn. Scrolling up reverses it. Under
+// reduced motion the hill is still and each part of the scroll shows its moment without the camera move.
 // Without WebGL a drawn hill shape stands in and the texts still change.
 (() => {
   const hero = document.querySelector('[data-grow]');
   if (!hero) return;
-  const stage = hero.querySelector('.wz-grow__stage'), canvas = hero.querySelector('canvas'), button = hero.querySelector('[data-grow-pause]');
+  const stage = hero.querySelector('.wz-grow__stage'), canvas = hero.querySelector('canvas');
   const texts = [...hero.querySelectorAll('[data-grow-text]')];
   const header = document.querySelector('.site-header'), next = hero.nextElementSibling;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
@@ -53,13 +53,6 @@
   }
   const kick = () => { if (!frame) frame = requestAnimationFrame(tick); };
 
-  function label() {
-    if (!button) return;
-    button.hidden = reduced.matches || !scene;
-    button.textContent = paused ? button.dataset.play : button.dataset.pause;
-    button.setAttribute('aria-pressed', String(paused));
-  }
-  if (button) button.addEventListener('click', () => { paused = !paused; last = 0; label(); kick(); });
 
   // where the words end, so the scene keeps the hill (and later the bottle) to the right of them
   function measure() {
@@ -88,7 +81,7 @@
     scene = createGrowScene(canvas, { bg: getComputedStyle(stage).backgroundColor, density: innerWidth < 760 ? .45 : 1 });
     measure(); document.fonts.ready.then(() => { measure(); kick(); });
     hero.classList.add('is-ready');
-    label(); kick();
+    kick();
     requestAnimationFrame(() => requestAnimationFrame(() => { clearTimeout(late); show(); }));
   }).catch((error) => {
     clearTimeout(late); show();
@@ -111,12 +104,12 @@
   addEventListener('scroll', kick, { passive: true });
   document.addEventListener('visibilitychange', () => { last = 0; kick(); });
   addEventListener('resize', () => { measure(); kick(); });
-  reduced.addEventListener('change', () => { last = 0; label(); kick(); });
+  reduced.addEventListener('change', () => { last = 0; kick(); });
   words(0);
   // for checking: draw a chosen moment of the loop (seconds) and of the story (0 to 1); release() hands it back to the scroll
   window.WasayGrow = {
     drawAt: (seconds, p = 0) => { held = p; clock = seconds; story = p; words(p); if (scene) scene.draw(seconds, { story: p }); },
-    pause: () => { paused = true; label(); },
+    pause: () => { paused = true; },
     point: (x, y) => { if (scene && scene.point) scene.point(x, y); },
     release: () => { held = null; kick(); },
   };

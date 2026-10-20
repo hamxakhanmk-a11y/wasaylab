@@ -179,8 +179,6 @@ collections:
               - { name: primary_href, label: Main button links to, widget: string }
               - { name: secondary_label, label: Second link text, widget: string }
               - { name: secondary_href, label: Second link goes to, widget: string }
-              - { name: pause_label, label: Pause button text, widget: string }
-              - { name: play_label, label: Play button text, widget: string }
               - { name: hint_mouse, label: 'Hint shown for a few seconds (computer, mouse)', widget: string }
               - { name: hint_touch, label: 'Hint shown for a few seconds (phone, finger)', widget: string }
           - name: ranges

@@ -165,7 +165,7 @@ body:has(.page-banner) .site-header.is-past-banner .brand__logo { background-col
 .wz-grow .wz-hint { left: 70%; bottom: calc(108px + var(--bars, 0px)); }
 .wz-glance .wz-hint { top: 33%; }
 @media (max-width: 760px) {
-  .wz-grow .wz-hint { left: 50%; bottom: calc(150px + var(--bars, 0px)); }
+  .wz-grow .wz-hint { left: 50%; bottom: calc(106px + var(--bars, 0px)); }
   .wz-glance .wz-hint { top: 24.5%; font-size: .86rem; }
 }
 @media (prefers-reduced-motion: reduce) { .wz-hint { transition: none; } .wz-hint__wheel, .wz-hint__ripple { animation: none; } }
