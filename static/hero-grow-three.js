@@ -199,10 +199,14 @@ export function createGrowScene(canvas, { bg = '#f2e8db', density = 1 } = {}) {
   const trueGeo = leafShapeGeometry(1, .34, true);
   const trueLeaves = [-1, 1].map((s) => { const g = new T.Group(); g.add(new T.Mesh(trueGeo, trueMat)); g.position.set(0, .02, .01); leafPivot.add(g); return { g, s }; });
 
-  // ---- leaves that come and go (the owner's request): small leaves round the top and on the upper stem grow, hang on a while,
-  // tremble, tear off in the breeze and fly away to the right over the page, tumbling and fading, while new ones grow in their place.
-  // Each place runs its own cycle, staggered, so one tears off every couple of seconds. The two seed leaves always stay.
-  const CYCLE = 9, HOLD = .78, FLIGHT = .5;            // seconds per leaf's life; when in it the leaf lets go; flight, as part of a cycle
+  // ---- leaves that come and go, in gusts (the owner's request, after a reference of flying leaves): every GAP seconds a gust takes
+  // the seedling, tearing off two of the small leaves round its top and shaking a spray of smaller ones out of its foliage, and carries
+  // them off together along one flowing path (a loop-the-loop, a wave, a rising spiral or a swirl round the seedling), each leaf a
+  // little behind the one before and further out from the path as it goes, so they stream like a ribbon; they flutter and tumble,
+  // fade away over the page, and a trail of faint golden sparkles follows them. The torn leaves grow again soon after. All of it is
+  // worked out from the time alone, so any moment can be drawn. The two seed leaves always stay.
+  const GAP = 2.6, LEAVES = 12, POOL = 3, SPARKS = 26;
+  const hash = (k, i) => { const x = Math.sin(k * 12.9898 + i * 78.233) * 43758.5453; return x - Math.floor(x); };
   const crown = [
     { at: leafPivot, y: 0, x: 0, rx: .35, ry: .2, rz: -.62, size: .4 },
     { at: leafPivot, y: 0, x: 0, rx: .3, ry: -.25, rz: .58, size: .38 },
@@ -211,43 +215,118 @@ export function createGrowScene(canvas, { bg = '#f2e8db', density = 1 } = {}) {
     { at: leafPivot, y: 0, x: 0, rx: .2, ry: 0, rz: -.05, size: .32 },
     { at: sprout, y: .8, x: .005, rx: .3, ry: .3, rz: -1.35, size: .32 },
     { at: sprout, y: .6, x: -.012, rx: .3, ry: -.3, rz: 1.3, size: .32 },
-  ].map((d, i, all) => {
+  ].map((d) => {
     const slot = new T.Group(); slot.position.set(d.x, d.y, 0); slot.rotation.set(d.rx, d.ry, d.rz); d.at.add(slot);
     const on = new T.Mesh(leafGeo, leafMat); on.scale.setScalar(.0001); slot.add(on);
-    const mat = leafMat.clone(); mat.transparent = true;
-    const off = new T.Mesh(leafGeo, mat); off.visible = false; scene.add(off);
-    // each flight its own way: how far up it lifts, how fast it tumbles and about which axis
-    const axis = new T.Vector3(Math.sin(i * 2.1), 1.2, Math.cos(i * 1.7)).normalize();
-    return { slot, on, off, mat, size: d.size, phase: i / all.length, lift: .55 + (i % 3) * .3, spin: 3.2 + (i % 2) * 2.2, axis };
+    return { slot, on, size: d.size };
   });
-  const from = new T.Matrix4(), p0 = new T.Vector3(), q0 = new T.Quaternion(), s0 = new T.Vector3(), q1 = new T.Quaternion(), fl = new T.Quaternion();
-  const WIND = new T.Vector3(1, .3, .45).normalize();
+  const torn = (k) => [((2 * k) % crown.length + crown.length) % crown.length, ((2 * k + 1) % crown.length + crown.length) % crown.length];
+  // each leaf's own timing and look in gust k: how long after the gust it sets off, how long it flies, its size, tumble and place in the stream
+  const leafOf = (k, i) => ({ lag: i < 2 ? hash(k, i) * .15 : .12 + hash(k, i + 20) * 1.15, dur: 5.4 + hash(k, i + 40) * 1.4,
+    size: .12 + Math.pow(hash(k, i + 60), 1.5) * .24, spin: 2.5 + hash(k, i + 80) * 4, flick: 9 + hash(k, i + 100) * 8,
+    axis: new T.Vector3(hash(k, i + 120) - .5, .8, hash(k, i + 140) - .5).normalize(), out: new T.Vector3(hash(k, i + 160) - .5, hash(k, i + 180) - .5, hash(k, i + 200) - .5),
+    shake: new T.Vector3((hash(k, i + 220) - .5) * .4, hash(k, i + 240) * .25, (hash(k, i + 260) - .5) * .3), turn: hash(k, i + 280) * 6.28 });
+  // the flying leaves: a pool, a block of LEAVES for each gust in the air (no more than POOL are), each with its own fade
+  const flyers = Array.from({ length: POOL * LEAVES }, (_, i) => {
+    const tint = ['#ffffff', '#eefbdc', '#e2f5c4', '#f6ffe8'][i % 4];
+    const m = new T.Mesh(leafGeo, new T.MeshStandardMaterial({ map: leafMap, bumpMap: leafMap, bumpScale: .9, roughness: .55, side: T.DoubleSide, transparent: true,
+      color: new T.Color(tint), emissive: new T.Color('#4c7a14'), emissiveIntensity: .18 }));
+    m.visible = false; scene.add(m); return m;
+  });
+  // the sparkle dust: soft golden points with a white heart, each with its own size and fade
+  const sparkGeo = new T.BufferGeometry(), sparkPos = new Float32Array(POOL * SPARKS * 3), sparkA = new Float32Array(POOL * SPARKS), sparkS = new Float32Array(POOL * SPARKS);
+  sparkGeo.setAttribute('position', new T.BufferAttribute(sparkPos, 3)); sparkGeo.setAttribute('aAlpha', new T.BufferAttribute(sparkA, 1)); sparkGeo.setAttribute('aSize', new T.BufferAttribute(sparkS, 1));
+  const sparkDpr = { value: 1 };
+  const sparks = new T.Points(sparkGeo, new T.ShaderMaterial({ transparent: true, depthWrite: false, uniforms: { uDpr: sparkDpr },
+    vertexShader: `attribute float aAlpha; attribute float aSize; uniform float uDpr; varying float vA;
+      void main() { vec4 mv = modelViewMatrix * vec4(position, 1.0); gl_Position = projectionMatrix * mv; gl_PointSize = aSize * uDpr * 60.0 / -mv.z; vA = aAlpha; }`,
+    fragmentShader: `varying float vA;
+      void main() { float d = length(gl_PointCoord - .5); float a = smoothstep(.5, .0, d); vec3 c = mix(vec3(.96, .78, .3), vec3(1.0, .98, .86), smoothstep(.22, .0, d));
+        gl_FragColor = vec4(c, a * a * vA); }` }));
+  sparks.frustumCulled = false; scene.add(sparks);
+
+  // where a gust carries its leaves, from where they set off (world units; the seedling stands about 1.6 tall): mostly sideways across
+  // the page, swooping up and dipping rather than rising out of sight, with the gust's own figure on top. Most gusts blow to the right;
+  // some curl back to the left into the open page between the words and the seedling (shorter, so they fade before the words)
+  const ease = (n) => n * n * (3 - 2 * n);
+  function flow(type, s, r1, r2, dir, out) {
+    const e = ease(s) * .4 + s * .6, reach = dir > 0 ? 5.2 + r1 * 1.8 : 2.6 + r1 * .7;
+    let x = reach * Math.pow(e, 1.1), y = (.45 + r2 * .5) * Math.sin(Math.PI * Math.min(1, e * 1.3)) + .25 * e, z = 1.1 * e;
+    if (type === 0) {             // a loop-the-loop
+      const ph = 2 * Math.PI * smooth((s - .1) / .5), R = .6 + r2 * .35;
+      x -= R * Math.sin(ph); y += R * (1 - Math.cos(ph));
+    } else if (type === 1) {      // waves
+      y += (.32 + r1 * .2) * Math.sin(2 * Math.PI * (1.5 * s)) * Math.min(1, s * 3); z += .4 * Math.sin(2 * Math.PI * s);
+    } else if (type === 2) {      // a spiral along the way
+      const ph = 2 * Math.PI * (1.6 + r1) * s, R = .15 + .55 * s;
+      y += R * Math.sin(ph); z += R * (Math.cos(ph) - 1) * .8; x += R * (Math.cos(ph) - 1) * .4;
+    } else {                      // a swirl round the seedling, then away
+      const ph = 2 * Math.PI * 1.15 * smooth(s / .6), R = 1.2 * smooth(s / .45) * (1 - .4 * smooth((s - .55) / .45));
+      x = x * smooth((s - .3) / .7) + R * Math.sin(ph); y = y * .7 + R * (1 - Math.cos(ph)) * .45; z += R * Math.sin(ph) * .7;
+    }
+    return out.set(x * dir, y, z);
+  }
+
+  const from = new T.Matrix4(), sc = new T.Matrix4(), p0 = new T.Vector3(), q0 = new T.Quaternion(), s0 = new T.Vector3(), q1 = new T.Quaternion(), fl = new T.Quaternion(), e0 = new T.Euler();
+  const crownAt = new T.Vector3(), go = new T.Vector3(), UP = new T.Vector3(0, 1, 0);
   // active: 1 on the banner, fading to 0 as the story comes in close (there the leaves just stay on)
   function setCrown(seconds, still, active) {
     sprout.updateMatrixWorld(true);
-    for (const c of crown) {
-      const t = seconds / CYCLE + c.phase, tau = t - Math.floor(t);
-      // the leaf on the plant: it unfurls as it grows, trembles just before it lets go, and is gone until the next one grows
-      let grow = still ? 1 : tau < HOLD ? 1 - Math.pow(1 - smooth(tau / .16), 2) : 0;
+    leafPivot.getWorldPosition(crownAt);
+    const now = Math.floor(seconds / GAP);
+    // the small leaves on the seedling: each grows again after it is torn off, and trembles just before it goes
+    crown.forEach((c, j) => {
+      let grow = 1, tremble = 0;
+      if (!still) {
+        let gone = -Infinity, next = Infinity;
+        for (let k = now; k > now - 9 && gone === -Infinity; k--) torn(k).forEach((x, i) => { const at = k * GAP + leafOf(k, i).lag; if (x === j && at <= seconds) gone = Math.max(gone, at); });
+        for (let k = now; k < now + 9 && next === Infinity; k++) torn(k).forEach((x, i) => { const at = k * GAP + leafOf(k, i).lag; if (x === j && at > seconds) next = Math.min(next, at); });
+        const since = seconds - gone;
+        grow = since < .5 ? 0 : 1 - Math.pow(1 - smooth((since - .5) / 1.4), 2);
+        tremble = smooth((seconds - (next - .45)) / .45) * active;
+      }
       grow += (1 - grow) * (1 - active);
-      const tremble = still ? 0 : smooth((tau - (HOLD - .05)) / .05) * (tau < HOLD ? 1 : 0) * active;
       c.on.scale.setScalar(c.size * Math.max(.0001, grow));
-      c.on.rotation.set((1 - grow) * .9 + Math.sin(seconds * 31) * .1 * tremble, 0, Math.sin(seconds * 23 + c.phase * 9) * .14 * tremble);
-      // the one flying: let go at HOLD in this cycle or the last
-      let e = (tau - HOLD) / FLIGHT; if (e < 0) e = (tau + 1 - HOLD) / FLIGHT;
-      const flying = !still && active > 0 && e >= 0 && e < 1;
-      c.off.visible = flying;
-      if (!flying) continue;
-      // it sets off from where its place is, at full size, then drifts away with the breeze, lifting, fluttering and tumbling
-      from.copy(c.slot.matrixWorld).multiply(new T.Matrix4().makeScale(c.size, c.size, c.size)).decompose(p0, q0, s0);
-      const go = e * 3.2 + e * e * 2.4;
-      c.off.position.set(p0.x + WIND.x * go, p0.y + WIND.y * go + c.lift * e - .25 * e * e + Math.sin(e * 9 + c.phase * 6) * .12 * e, p0.z + WIND.z * go);
-      q1.setFromAxisAngle(c.axis, e * c.spin); fl.setFromAxisAngle(new T.Vector3(0, 1, 0), Math.sin(e * 13 + c.phase * 5) * .9 * Math.min(1, e * 4));
-      c.off.quaternion.copy(q0).multiply(q1).multiply(fl);
-      c.off.scale.copy(s0).multiplyScalar(1 - .25 * e);
-      c.mat.opacity = (1 - smooth((e - .5) / .5)) * active;
+      c.on.rotation.set((1 - grow) * .9 + Math.sin(seconds * 31) * .1 * tremble, 0, Math.sin(seconds * 23 + j) * .14 * tremble);
+    });
+    for (const m of flyers) m.visible = false;
+    sparkA.fill(0);
+    if (!still && active > 0) for (let k = now - POOL + 1; k <= now; k++) {
+      const t = seconds - k * GAP, type = Math.floor(hash(k, 99) * 4), r1 = hash(k, 98), r2 = hash(k, 97), dir = hash(k, 96) < .65 ? 1 : -1, block = ((k % POOL) + POOL) % POOL, pair = torn(k);
+      for (let i = 0; i < LEAVES; i++) {
+        const L = leafOf(k, i), sp = (t - L.lag) / L.dur;
+        if (sp < 0 || sp >= 1) continue;
+        const m = flyers[block * LEAVES + i];
+        // the two torn leaves set off from their places on the seedling, at their own size; the rest burst out of the foliage
+        if (i < 2) { const c = crown[pair[i]]; from.copy(c.slot.matrixWorld).multiply(sc.makeScale(c.size, c.size, c.size)).decompose(p0, q0, s0); }
+        else { p0.copy(crownAt).add(L.shake); q0.setFromEuler(e0.set(L.turn, L.turn * 1.7, L.turn * .6)); s0.setScalar(L.size); }
+        flow(type, sp, r1, r2, dir, go);
+        const spread = .06 + .75 * sp;
+        m.position.set(p0.x + go.x + L.out.x * spread * .6, p0.y + go.y + L.out.y * spread, p0.z + go.z + L.out.z * spread);
+        q1.setFromAxisAngle(L.axis, sp * L.spin); fl.setFromAxisAngle(UP, Math.sin(sp * L.flick + L.turn) * .9 * Math.min(1, sp * 4));
+        m.quaternion.copy(q0).multiply(q1).multiply(fl);
+        m.scale.copy(s0).multiplyScalar((i < 2 ? 1 : smooth(sp / .07)) * (1 - .3 * sp));
+        m.material.opacity = (1 - smooth((sp - .7) / .3)) * active;
+        m.visible = true;
+      }
+      // the sparkles trail just behind the leading leaves, drifting off the path and twinkling
+      const lead = (t - .25) / 6.2;
+      for (let p = 0; p < SPARKS; p++) {
+        const sp = lead - p * .018 - hash(k, p + 300) * .06, n = (block * SPARKS + p) * 3;
+        if (sp <= .02 || sp >= 1) continue;
+        flow(type, sp, r1, r2, dir, go);
+        const drift = .1 + .9 * sp;
+        sparkPos[n] = crownAt.x + go.x + (hash(k, p + 320) - .5) * drift;
+        sparkPos[n + 1] = crownAt.y + go.y + (hash(k, p + 340) - .5) * drift - p * .012;
+        sparkPos[n + 2] = crownAt.z + go.z + (hash(k, p + 360) - .5) * drift;
+        sparkS[block * SPARKS + p] = 1 + hash(k, p + 380) * 1.2;
+        sparkA[block * SPARKS + p] = (.45 + .55 * Math.sin(seconds * (6 + hash(k, p + 400) * 6) + p)) * smooth(sp / .08) * (1 - smooth((sp - .6) / .4)) * active;
+      }
     }
+    sparkGeo.attributes.position.needsUpdate = true; sparkGeo.attributes.aAlpha.needsUpdate = true; sparkGeo.attributes.aSize.needsUpdate = true;
+    sparkDpr.value = renderer.getPixelRatio();
   }
+
 
   // ---- wildflowers: a daisy and a cornflower drawn as masks (petals in red, centre in green) and tinted per flower
   const atlas = texture(1024, 256, (ctx) => {
