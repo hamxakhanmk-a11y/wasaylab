@@ -15,7 +15,7 @@
 {{> banner}}
 
     <section class="section tablet-section" aria-labelledby="paste-title" data-product-panel="pastes">
-      <div class="container"><p class="eyebrow">Pastes</p><h2 id="paste-title">Explore our pastes.</h2><p class="lead">Round jars, photographed labels. Move your mouse or use the arrow keys to turn, or click one to open it.</p>{{#if content.range_info.pastes}}<p class="wz-range-facts"><b>{{ content.range_info.pastes.count_label }}</b><span>{{ content.range_info.pastes.sizes }}</span></p>{{/if}}</div>
+      <div class="container"><p class="eyebrow">Pastes</p><h2 id="paste-title">Our pastes, up close.</h2><p class="lead">Every jar is built from photographs of the real pack. Hover or drag to turn it, and tap one to read more.</p>{{#if content.range_info.pastes}}<p class="wz-range-facts"><b>{{ content.range_info.pastes.count_label }}</b><span>{{ content.range_info.pastes.sizes }}</span></p>{{/if}}</div>
       <ul class="tablet-gallery">{{#each content.catalog.pastes}}{{> product-tile}}{{/each}}</ul>
     </section>
 

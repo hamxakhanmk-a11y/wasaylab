@@ -16,7 +16,7 @@
 
     <nav class="container product-tabs" aria-label="Product types"><a class="btn btn--ghost" href="tablets.html">Tablets</a><a class="btn btn--ghost" href="tonics.html">Multi Tonics</a><a class="btn btn--ghost" href="syrups.html">Syrups</a><a class="btn btn--ghost" href="ointments.html">Ointments</a><a class="btn btn--ghost" href="pastes.html">Pastes</a></nav>
     <section class="section tablet-section" role="tabpanel" id="panel-tablets" aria-labelledby="tab-tablets" data-product-panel="tablets" tabindex="0">
-      <div class="container"><p class="eyebrow">Tablet range</p><h2 id="tablet-title">Explore our tablets.</h2><p class="lead">The packs turn gently on their own. Move your mouse over one to explore its sides, or click one to open it.</p>{{#if content.range_info.tablets}}<p class="wz-range-facts"><b>{{ content.range_info.tablets.count_label }}</b><span>{{ content.range_info.tablets.sizes }}</span></p>{{/if}}
+      <div class="container"><p class="eyebrow">Tablet range</p><h2 id="tablet-title">Our tablets, up close.</h2><p class="lead">Every pack turns gently on its own. Hover or drag to look all the way around it, and tap one to read more.</p>{{#if content.range_info.tablets}}<p class="wz-range-facts"><b>{{ content.range_info.tablets.count_label }}</b><span>{{ content.range_info.tablets.sizes }}</span></p>{{/if}}
       </div>
       <ul class="tablet-gallery">
       {{#each content.catalog.tablets}}{{> product-tile}}{{/each}}
@@ -24,7 +24,7 @@
     </section>
 
     <section class="section tablet-section" role="tabpanel" id="panel-tonics" aria-labelledby="tab-tonics" data-product-panel="tonics" tabindex="0">
-      <div class="container"><p class="eyebrow">Multi Tonics</p><h2 id="tonic-title">Explore our Multi Tonics.</h2><p class="lead">The packs turn gently on their own. Move your mouse over one to explore its sides, or click one to open it.</p>{{#if content.range_info.tonics}}<p class="wz-range-facts"><b>{{ content.range_info.tonics.count_label }}</b><span>{{ content.range_info.tonics.sizes }}</span></p>{{/if}}
+      <div class="container"><p class="eyebrow">Multi Tonics</p><h2 id="tonic-title">Our multi tonics, up close.</h2><p class="lead">Every pack turns gently on its own. Hover or drag to look all the way around it, and tap one to read more.</p>{{#if content.range_info.tonics}}<p class="wz-range-facts"><b>{{ content.range_info.tonics.count_label }}</b><span>{{ content.range_info.tonics.sizes }}</span></p>{{/if}}
       </div>
       <ul class="tablet-gallery">
       {{#each content.catalog.tonics}}{{> product-tile}}{{/each}}
@@ -32,7 +32,7 @@
     </section>
 
     <section class="section tablet-section" role="tabpanel" id="panel-syrups" aria-labelledby="tab-syrups" data-product-panel="syrups" tabindex="0">
-      <div class="container"><p class="eyebrow">Syrups</p><h2 id="syrup-title">Explore our Syrups.</h2><p class="lead">The packs turn gently on their own. Move your mouse over one to explore its sides, or click one to open it.</p>{{#if content.range_info.syrups}}<p class="wz-range-facts"><b>{{ content.range_info.syrups.count_label }}</b><span>{{ content.range_info.syrups.sizes }}</span></p>{{/if}}
+      <div class="container"><p class="eyebrow">Syrups</p><h2 id="syrup-title">Our syrups, up close.</h2><p class="lead">Every pack turns gently on its own. Hover or drag to look all the way around it, and tap one to read more.</p>{{#if content.range_info.syrups}}<p class="wz-range-facts"><b>{{ content.range_info.syrups.count_label }}</b><span>{{ content.range_info.syrups.sizes }}</span></p>{{/if}}
       </div>
       <ul class="tablet-gallery">
       {{#each content.catalog.syrups}}{{> product-tile}}{{/each}}
@@ -41,7 +41,7 @@
 
     </section>
     <section class="section tablet-section" role="tabpanel" id="panel-ointments" aria-labelledby="tab-ointments" data-product-panel="ointments" tabindex="0">
-      <div class="container"><p class="eyebrow">Ointments</p><h2 id="ointment-title">Explore our Ointments.</h2><p class="lead">The packs turn gently on their own. Move your mouse over one to explore its sides, or click one to open it.</p>{{#if content.range_info.ointments}}<p class="wz-range-facts"><b>{{ content.range_info.ointments.count_label }}</b><span>{{ content.range_info.ointments.sizes }}</span></p>{{/if}}
+      <div class="container"><p class="eyebrow">Ointments</p><h2 id="ointment-title">Our ointments, up close.</h2><p class="lead">Every pack turns gently on its own. Hover or drag to look all the way around it, and tap one to read more.</p>{{#if content.range_info.ointments}}<p class="wz-range-facts"><b>{{ content.range_info.ointments.count_label }}</b><span>{{ content.range_info.ointments.sizes }}</span></p>{{/if}}
       </div>
       <ul class="tablet-gallery">
       {{#each content.catalog.ointments}}{{> product-tile}}{{/each}}
@@ -49,7 +49,7 @@
     </section>
 
     <section class="section tablet-section" aria-labelledby="paste-title" data-product-panel="pastes">
-      <div class="container"><p class="eyebrow">Pastes</p><h2 id="paste-title">Explore our pastes.</h2><p class="lead">Round jars, photographed labels. Move your mouse or use the arrow keys to turn, or click one to open it.</p>{{#if content.range_info.pastes}}<p class="wz-range-facts"><b>{{ content.range_info.pastes.count_label }}</b><span>{{ content.range_info.pastes.sizes }}</span></p>{{/if}}</div>
+      <div class="container"><p class="eyebrow">Pastes</p><h2 id="paste-title">Our pastes, up close.</h2><p class="lead">Every jar is built from photographs of the real pack. Hover or drag to turn it, and tap one to read more.</p>{{#if content.range_info.pastes}}<p class="wz-range-facts"><b>{{ content.range_info.pastes.count_label }}</b><span>{{ content.range_info.pastes.sizes }}</span></p>{{/if}}</div>
       <ul class="tablet-gallery">{{#each content.catalog.pastes}}{{> product-tile}}{{/each}}</ul>
     </section>
 

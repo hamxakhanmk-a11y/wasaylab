@@ -1,6 +1,6 @@
 {
   "title": "Products — Wasay Laboratories",
-  "description": "Natural health products from Wasay Laboratories (Pvt.) Ltd., one of the largest natural products manufacturers in Pakistan. See every product in the range in 3D.",
+  "description": "Explore the products of Wasay Laboratories (Pvt.) Ltd. in 3D: turn each pack and read what it is for. From one of the largest natural products manufacturers in Pakistan.",
   "banner": {
     "crumb": "Products",
     "heading": "Our products"
@@ -11,8 +11,8 @@
     "text": "Wasay combines the best of nature with the best of science to bring customers a large family of products, from medicines and supplements to food items and beverages."
   },
   "cta": {
-    "heading": "Questions about our products?",
-    "text": "Get in touch with Wasay Laboratories and we will help you find the right one.",
+    "heading": "Looking for the right product?",
+    "text": "Tell us what you need, and the Wasay Laboratories team will help you find the right one.",
     "primary_label": "Contact us",
     "primary_href": "contact.html",
     "secondary_label": "Our products",

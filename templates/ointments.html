@@ -14,7 +14,7 @@
 {{> banner}}
 
     <section class="section tablet-section" id="panel-ointments" aria-label="Ointments" data-product-panel="ointments" tabindex="0">
-      <div class="container"><p class="eyebrow">Ointments</p><h2 id="ointment-title">Explore our Ointments.</h2><p class="lead">The packs turn gently on their own. Move your mouse over one to explore its sides, or click one to open it.</p>{{#if content.range_info.ointments}}<p class="wz-range-facts"><b>{{ content.range_info.ointments.count_label }}</b><span>{{ content.range_info.ointments.sizes }}</span></p>{{/if}}
+      <div class="container"><p class="eyebrow">Ointments</p><h2 id="ointment-title">Our ointments, up close.</h2><p class="lead">Every pack turns gently on its own. Hover or drag to look all the way around it, and tap one to read more.</p>{{#if content.range_info.ointments}}<p class="wz-range-facts"><b>{{ content.range_info.ointments.count_label }}</b><span>{{ content.range_info.ointments.sizes }}</span></p>{{/if}}
       </div>
       <ul class="tablet-gallery">
       {{#each content.catalog.ointments}}{{> product-tile}}{{/each}}

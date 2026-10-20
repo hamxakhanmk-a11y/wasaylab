@@ -13,15 +13,15 @@
   },
   "ranges": {
     "eyebrow": "Our ranges",
-    "heading": "Find the right range.",
-    "text": "Tablets, multi tonics, syrups, ointments and pastes from Wasay Laboratories. Open a range to see every product in it, turn it in 3D and read about it.",
-    "link_label": "See the range"
+    "heading": "Every range, rooted in nature.",
+    "text": "Tablets, multi tonics, syrups, ointments and pastes, all made by Wasay Laboratories. Open a range to meet each product, turn it in 3D and read what it is for.",
+    "link_label": "Explore the range"
   },
   "ring": {
     "eyebrow": "Our products",
-    "heading": "Explore our products.",
+    "heading": "Take a closer look.",
     "label": "Wasay products. Drag, scroll or use the left and right arrow keys to turn the ring, and press Enter or click to open a product.",
-    "link_label": "See all products",
+    "link_label": "Browse all products",
     "link_href": "products.html"
   },
   "about": {
@@ -33,19 +33,19 @@
       "Medicines, supplements, food items and beverages",
       "Compliant with national and international regulatory bodies"
     ],
-    "button_label": "More about us",
+    "button_label": "Discover our story",
     "button_href": "about.html"
   },
   "stats": {
     "eyebrow": "Wasay at a glance",
     "heading": "One of the largest natural products manufacturers in Pakistan.",
     "text": "Wasay combines the best of nature with the best of science, from medicines and supplements to food items and beverages.",
-    "products_label": "products to explore on this site",
+    "products_label": "products to explore",
     "ranges_label": "product ranges",
     "facts": [
       {
         "value": "Peshawar",
-        "label": "Pakistan, the home of Wasay Laboratories"
+        "label": "Pakistan, where Wasay Laboratories calls home"
       },
       {
         "value": "75 years",
@@ -55,7 +55,7 @@
   },
   "why": {
     "eyebrow": "Why choose Wasay?",
-    "heading": "Four reasons to choose us.",
+    "heading": "What sets Wasay apart.",
     "items": [
       {
         "title": "A blend of heritage and modernity",
@@ -76,8 +76,8 @@
     ]
   },
   "cta": {
-    "heading": "Questions about our products?",
-    "text": "Get in touch with Wasay Laboratories and we will help you find the right one.",
+    "heading": "Looking for the right product?",
+    "text": "Tell us what you need, and the Wasay Laboratories team will help you find the right one.",
     "primary_label": "Contact us",
     "primary_href": "contact.html",
     "secondary_label": "Our products",

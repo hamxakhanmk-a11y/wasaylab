@@ -14,7 +14,7 @@
 {{> banner}}
 
     <section class="section tablet-section" id="panel-syrups" aria-label="Syrups" data-product-panel="syrups" tabindex="0">
-      <div class="container"><p class="eyebrow">Syrups</p><h2 id="syrup-title">Explore our Syrups.</h2><p class="lead">The packs turn gently on their own. Move your mouse over one to explore its sides, or click one to open it.</p>{{#if content.range_info.syrups}}<p class="wz-range-facts"><b>{{ content.range_info.syrups.count_label }}</b><span>{{ content.range_info.syrups.sizes }}</span></p>{{/if}}
+      <div class="container"><p class="eyebrow">Syrups</p><h2 id="syrup-title">Our syrups, up close.</h2><p class="lead">Every pack turns gently on its own. Hover or drag to look all the way around it, and tap one to read more.</p>{{#if content.range_info.syrups}}<p class="wz-range-facts"><b>{{ content.range_info.syrups.count_label }}</b><span>{{ content.range_info.syrups.sizes }}</span></p>{{/if}}
       </div>
       <ul class="tablet-gallery">
       {{#each content.catalog.syrups}}{{> product-tile}}{{/each}}

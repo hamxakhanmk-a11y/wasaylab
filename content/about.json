@@ -42,7 +42,7 @@
   },
   "objectives": {
     "eyebrow": "Objectives",
-    "heading": "What we work towards.",
+    "heading": "What drives us forward.",
     "text": "Our main objective is to provide health care advice and products for a healthy society. Our other objectives:",
     "items": [
       "Exceed customer expectations, and provide quality, effective medicine to people at the lowest possible prices.",
@@ -79,11 +79,11 @@
   "compliance": {
     "eyebrow": "Quality and compliance",
     "heading": "Safe, effective and trustworthy.",
-    "text": "Quality and integrity guide how we work. We serve people with high quality medicine under ISO 9001:2008 and ISO 14001:2004.",
+    "text": "Quality and integrity shape everything we make. Our medicines are produced under ISO 9001:2008 and ISO 14001:2004.",
     "items": [
       {
         "title": "ISO 9001:2008 and ISO 14001:2004",
-        "text": "Our medicines are made under ISO 9001:2008 and ISO 14001:2004, as set out in our company profile."
+        "text": "Recognised standards for quality management (ISO 9001) and environmental management (ISO 14001) guide how our medicines are made."
       },
       {
         "title": "Compliance with regulations",
@@ -96,8 +96,8 @@
     ]
   },
   "cta": {
-    "heading": "Questions about our products?",
-    "text": "Get in touch with Wasay Laboratories and we will help you find the right one.",
+    "heading": "Looking for the right product?",
+    "text": "Tell us what you need, and the Wasay Laboratories team will help you find the right one.",
     "primary_label": "Contact us",
     "primary_href": "contact.html",
     "secondary_label": "Our products",
