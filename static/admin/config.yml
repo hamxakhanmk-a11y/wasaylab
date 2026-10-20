@@ -181,6 +181,8 @@ collections:
               - { name: secondary_href, label: Second link goes to, widget: string }
               - { name: pause_label, label: Pause button text, widget: string }
               - { name: play_label, label: Play button text, widget: string }
+              - { name: hint_mouse, label: 'Hint shown for a few seconds (computer, mouse)', widget: string }
+              - { name: hint_touch, label: 'Hint shown for a few seconds (phone, finger)', widget: string }
           - name: ranges
             label: 'Section: Our ranges (cards, one per tab)'
             widget: object
@@ -200,6 +202,8 @@ collections:
               - { name: text, label: Paragraph, widget: text }
               - { name: products_label, label: Words under the number of products, widget: string }
               - { name: ranges_label, label: Words under the number of ranges, widget: string }
+              - { name: hint_mouse, label: 'Hint over the trunk for a few seconds (computer, mouse)', widget: string }
+              - { name: hint_touch, label: 'Hint over the trunk for a few seconds (phone, finger)', widget: string }
               - name: facts
                 label: More figures (only true ones)
                 widget: list

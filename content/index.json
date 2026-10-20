@@ -9,7 +9,9 @@
     "secondary_label": "Our products",
     "secondary_href": "products.html",
     "pause_label": "Pause animation",
-    "play_label": "Play animation"
+    "play_label": "Play animation",
+    "hint_mouse": "Move your mouse to stir the flying leaves",
+    "hint_touch": "Drag your finger to stir the flying leaves"
   },
   "ranges": {
     "eyebrow": "Our ranges",
@@ -42,6 +44,8 @@
     "text": "Wasay combines the best of nature with the best of science, from medicines and supplements to food items and beverages.",
     "products_label": "products to explore",
     "ranges_label": "product ranges",
+    "hint_mouse": "Move your mouse over the grass to part it",
+    "hint_touch": "Touch and drag on the grass to part it",
     "facts": [
       {
         "value": "Peshawar",

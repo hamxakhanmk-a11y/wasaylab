@@ -57,6 +57,11 @@
             </div>
           </div>
         </div>
+        <p class="wz-hint" data-hint data-hint-mouse="{{ page.hero.hint_mouse }}" data-hint-touch="{{ page.hero.hint_touch }}" aria-hidden="true">
+          <svg class="wz-hint__icon wz-hint__icon--mouse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="6.5" y="3" width="11" height="18" rx="5.5"/><path class="wz-hint__wheel" d="M12 7v3"/></svg>
+          <svg class="wz-hint__icon wz-hint__icon--touch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="3.2" fill="currentColor" stroke="none"/><circle class="wz-hint__ripple" cx="12" cy="12" r="7.5"/></svg>
+          <span data-hint-text></span>
+        </p>
         <button class="wz-grow__pause" type="button" data-grow-pause data-pause="{{ page.hero.pause_label }}" data-play="{{ page.hero.play_label }}" aria-pressed="false" hidden>{{ page.hero.pause_label }}</button>
       </div>
     </section>
@@ -68,6 +73,11 @@
     <section class="wz-glance" data-glance aria-labelledby="wz-glance-title">
       <div class="wz-glance__stage">
         <canvas class="wz-glance__canvas" aria-hidden="true"></canvas>
+        <p class="wz-hint" data-hint data-hint-mouse="{{ page.stats.hint_mouse }}" data-hint-touch="{{ page.stats.hint_touch }}" aria-hidden="true">
+          <svg class="wz-hint__icon wz-hint__icon--mouse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="6.5" y="3" width="11" height="18" rx="5.5"/><path class="wz-hint__wheel" d="M12 7v3"/></svg>
+          <svg class="wz-hint__icon wz-hint__icon--touch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="3.2" fill="currentColor" stroke="none"/><circle class="wz-hint__ripple" cx="12" cy="12" r="7.5"/></svg>
+          <span data-hint-text></span>
+        </p>
         <div class="container wz-glance__inner">
           <div class="wz-glance__titles">
             <h2 id="wz-glance-title" class="wz-glance__title" data-glance-title>{{ page.stats.eyebrow }}</h2>
@@ -162,5 +172,6 @@
   <script src="/wasay-ring.js"></script>
   <script src="/hero-grow.js"></script>
   <script src="/glance.js"></script>
+  <script src="/hints.js"></script>
 </body>
 </html>

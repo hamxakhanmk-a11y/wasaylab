@@ -17,7 +17,7 @@
 .wz-ring__items { list-style: none; margin: 0; padding: 0; position: absolute; inset: 0; }
 .wz-ring__item { position: absolute; left: 50%; top: 50%; margin: 0; will-change: transform, opacity; transform-origin: 50% 70%; pointer-events: none; backface-visibility: hidden; }
 .wz-ring__item a { position: relative; display: block; pointer-events: auto; border-radius: 12px; }
-.wz-ring__item a::after { content: ""; position: absolute; z-index: -1; left: 10%; right: 10%; bottom: -4%; height: 12%; border-radius: 50%; background: radial-gradient(closest-side, rgba(23, 63, 39, .32), rgba(23, 63, 39, 0)); }
+.wz-ring__item a::after { content: ""; position: absolute; z-index: -1; left: 4%; right: 4%; bottom: -6%; height: 16%; border-radius: 50%; background: radial-gradient(closest-side, rgba(23, 63, 39, .5), rgba(23, 63, 39, .18) 55%, rgba(23, 63, 39, 0)); }
 /* a jar turned live (wasay-ring.js lays it exactly over its picture once it has been built) */
 .wz-ring__live { position: absolute; left: 0; top: 0; max-width: none; pointer-events: none; }
 .wz-ring__item img { display: block; height: var(--jar-h); width: auto; max-width: none; -webkit-user-drag: none; }
