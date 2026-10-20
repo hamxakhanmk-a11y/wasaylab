@@ -50,7 +50,7 @@ body { background: var(--bg); color: var(--text); }
 .cta-band p { color: rgba(251, 247, 241, .84); }
 .cta-band .btn--accent, .cta-band .btn.glass-action.btn--accent { background: var(--bg); color: var(--accent-dark); box-shadow: 0 10px 26px -10px rgba(10, 30, 18, .5); }
 .cta-band .btn--accent:hover, .cta-band .btn.glass-action.btn--accent:hover { background: #fff; color: var(--accent-dark); }
-.cta-band .btn--ghost, .cta-band .btn.glass-action.btn--ghost { color: var(--on-accent); border-color: rgba(251, 247, 241, .5); }
+.cta-band .btn--ghost, .cta-band .btn.glass-action.btn--ghost { color: var(--on-accent); border-color: rgba(251, 247, 241, .6); background: rgba(255, 255, 255, .06); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .18); }
 .cta-band .btn--ghost:hover { border-color: var(--on-accent); background: rgba(255, 255, 255, .1); }
 
 /* ---- footer: deep forest, pastel type, leaf green on hover */
