@@ -97,7 +97,7 @@
       </div>
       <div class="wz-ring__stage" data-ring tabindex="0" role="group" aria-label="{{ page.ring.label }}">
         <ul class="wz-ring__items">
-          {{#each content.home_ring}}<li class="wz-ring__item{{#if jar}}{{else}} wz-ring__item--carton{{/if}}" data-ring-item data-pv-item data-slug="{{ slug }}" data-name="{{ name }}" data-detail="{{ detail }}" data-kind="{{ tab }}" data-img="{{ large }}" data-photos="{{ photos_json }}"{{#if turn}} data-turn="{{ turn }}"{{/if}}><a href="{{ tab }}.html#product-{{ slug }}" aria-label="{{ name }}, {{ detail }}" draggable="false"><img src="{{ ring_image }}" alt="" height="640" decoding="async" draggable="false" /></a></li>
+          {{#each content.home_ring}}<li class="wz-ring__item{{#if jar}}{{else}} wz-ring__item--carton{{/if}}" data-ring-item data-pv-item data-slug="{{ slug }}" data-name="{{ name }}" data-detail="{{ detail }}" data-kind="{{ tab }}" data-img="{{ large }}" data-photos="{{ photos_json }}"{{#if jar}} data-jar="{{ slug }}"{{/if}}><a href="{{ tab }}.html#product-{{ slug }}" aria-label="{{ name }}, {{ detail }}" draggable="false"><img src="{{ ring_image }}" alt="" height="640" decoding="async" draggable="false" /></a></li>
           {{/each}}
         </ul>
       </div>
@@ -155,6 +155,9 @@
   <script src="/script.js"></script>
   <script src="/glass-photos.js"></script>
   <script src="/wasay-detail.js"></script>
+  <!-- the ring turns its jars live in 3D with the same code as the Pastes tab -->
+  <script src="/product-3d.js"></script>
+  <script src="/pastes.js"></script>
   <script src="/wasay-ring.js"></script>
   <script src="/hero-grow.js"></script>
   <script src="/glance.js"></script>

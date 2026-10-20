@@ -7,15 +7,11 @@
  *   node scripts/render-cutouts.mjs hasnat       (one product, by its slug)
  *   node scripts/render-cutouts.mjs fit          (only measure each product's fit in its tile, no pictures)
  *   node scripts/render-cutouts.mjs stills       (only the 640px ring picture of each carton)
- *   node scripts/render-cutouts.mjs turns        (only the turn pictures of the jars)
  *
  * It builds the site, serves dist/, opens each product page in a headless Chrome or Edge (software WebGL), waits for each 3D model
  * to be built by static/pastes.js or static/tablets.js, draws it again at high resolution, crops it to its outline and writes:
  *   static/images/wasay/ring/<slug>.webp            jar, front view, for the ring
  *   static/images/wasay/ring/<slug>-large.webp      jar, front view, for the product view
- *   static/images/wasay/ring/<slug>-turn.webp       jar, 41 frames turning left to right in a grid of 7 across and 6 down (read
- *                                                   row by row; the last cell is empty), which the ring plays as the mouse moves,
- *                                                   blending each frame into the next so the turn is as smooth as the live jars
  *   static/images/wasay/products/<slug>.webp        carton, front view, for the home ring (any product can be chosen for it)
  *   static/images/wasay/products/<slug>-large.webp  carton, front view, for the product view
  * Every run also measures where each model sits in its tile and stores the result as "fit" ([trim, drop] in px) in
@@ -34,11 +30,10 @@ const RING = join(root, 'static', 'images', 'wasay', 'ring'), PRODUCTS = join(ro
 const PORT = 4619, DEBUG = 9339;
 const SIZES = [['', 640, 0.92], ['-large', 1000, 0.9]];   // jars: file suffix, height in px, WebP quality
 const CARTON = [['', 640, 0.9], ['-large', 900, 0.88]];   // a carton gets a ring picture as well, because any product can be shown on the home ring
-const TURN = { frames: 41, cols: 7, swing: 0.82, height: 480, quality: 0.8 };   // the same swing as the jars on the Pastes page; static/wasay-ring.js reads the same grid
 const only = process.argv.slice(2);
-const KEYWORDS = ['jars', 'cartons', 'fit', 'stills', 'turns'], fitOnly = only.includes('fit'), stillsOnly = only.includes('stills'), turnsOnly = only.includes('turns');
+const KEYWORDS = ['jars', 'cartons', 'fit', 'stills'], fitOnly = only.includes('fit'), stillsOnly = only.includes('stills');
 const kindArg = only.filter((a) => a === 'jars' || a === 'cartons'), slugArg = only.filter((a) => !KEYWORDS.includes(a));
-const doJars = !stillsOnly && (turnsOnly || !kindArg.length || kindArg.includes('jars')), doCartons = !turnsOnly && (stillsOnly || !kindArg.length || kindArg.includes('cartons'));
+const doJars = !stillsOnly && (!kindArg.length || kindArg.includes('jars')), doCartons = stillsOnly || !kindArg.length || kindArg.includes('cartons');
 
 const candidates = [process.env.CHROME,
   'C:/Program Files/Google/Chrome/Application/chrome.exe', 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe',
@@ -79,8 +74,8 @@ try {
   const save = (dir, name, url) => { mkdirSync(dir, { recursive: true }); const bytes = Buffer.from(url.split(',')[1], 'base64'); writeFileSync(join(dir, name), bytes); return bytes.length; };
 
   // Draws the model at some turn angles on a big canvas, crops every frame to the same box (the union of their outlines) and
-  // returns the requested pictures as data URLs. One shared box keeps the still and every frame of the strip registered.
-  const renderModel = (sel, attr, slug, yaws, outputs, strip) => run(`(() => { const j = window.__jars.find((e) => e.canvas.closest('${sel}').dataset.${attr} === '${slug}');
+  // returns the requested pictures as data URLs. (The home ring lays its live jar over this picture by the same padded box.)
+  const renderModel = (sel, attr, slug, yaws, outputs) => run(`(() => { const j = window.__jars.find((e) => e.canvas.closest('${sel}').dataset.${attr} === '${slug}');
     const c = j.canvas, W = 1500, H = Math.round(1000 * c.height / c.width), keep = [c.width, c.height], yaws = ${JSON.stringify(yaws)};
     c.width = W; c.height = H;
     const grab = (yaw) => { j.renderer.draw(yaw, j.last[1], j.last[2]); const t = document.createElement('canvas'); t.width = W; t.height = H; t.getContext('2d').drawImage(c, 0, 0); return t; };
@@ -91,18 +86,11 @@ try {
       for (let y = 0; y < sh; y++) for (let x = 0; x < sw; x++) if (d[(y * sw + x) * 4 + 3] > 8) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
       return t; });
     const pad = 3; x0 = Math.max(0, (x0 - pad) * 3); y0 = Math.max(0, (y0 - pad) * 3); x1 = Math.min(W - 1, (x1 + pad) * 3 + 2); y1 = Math.min(H - 1, (y1 + pad) * 3 + 2);
-    const w = x1 - x0 + 1, h = y1 - y0 + 1, mid = frames[${strip ? (TURN.frames - 1) / 2 : 0}], out = {};
+    const w = x1 - x0 + 1, h = y1 - y0 + 1, mid = frames[0], out = {};
     for (const [suffix, height, quality] of ${JSON.stringify(outputs)}) {
       const k = height / h, o = document.createElement('canvas'); o.width = Math.round(w * k); o.height = height;
       const ctx = o.getContext('2d'); ctx.imageSmoothingQuality = 'high'; ctx.drawImage(mid, x0, y0, w, h, 0, 0, o.width, o.height);
       out[suffix] = { url: o.toDataURL('image/webp', quality), w: o.width, h: o.height };
-    }
-    if (${strip}) {
-      const k = ${TURN.height} / h, fw = Math.round(w * k), cols = ${TURN.cols}, rows = Math.ceil(frames.length / cols), o = document.createElement('canvas');
-      o.width = fw * cols; o.height = ${TURN.height} * rows;
-      const ctx = o.getContext('2d'); ctx.imageSmoothingQuality = 'high';
-      frames.forEach((t, i) => ctx.drawImage(t, x0, y0, w, h, (i % cols) * fw, Math.floor(i / cols) * ${TURN.height}, fw, ${TURN.height}));
-      out['-turn'] = { url: o.toDataURL('image/webp', ${TURN.quality}), w: o.width, h: o.height };
     }
     c.width = keep[0]; c.height = keep[1];
     return out; })()`);
@@ -131,13 +119,12 @@ try {
 
   if (doJars) {
     const slugs = (await pageSlugs('pastes', '[data-paste]', 'paste')).filter((s) => !slugArg.length || slugArg.includes(s));
-    const yaws = Array.from({ length: TURN.frames }, (_, i) => -TURN.swing + (2 * TURN.swing * i) / (TURN.frames - 1));
     for (const slug of slugs) {
       await build('[data-paste]', 'paste', slug);
-      if (!turnsOnly) await measure('[data-paste]', 'paste', slug, 'jars', 14);
+      await measure('[data-paste]', 'paste', slug, 'jars', 14);
       if (!fitOnly) {
-        const shot = await renderModel('[data-paste]', 'paste', slug, yaws, turnsOnly ? [] : SIZES, true);
-        for (const suffix of [...(turnsOnly ? [] : SIZES.map((z) => z[0])), '-turn']) report(slug, suffix, shot[suffix], save(RING, slug + suffix + '.webp', shot[suffix].url));
+        const shot = await renderModel('[data-paste]', 'paste', slug, [0], SIZES);
+        for (const suffix of SIZES.map((z) => z[0])) report(slug, suffix, shot[suffix], save(RING, slug + suffix + '.webp', shot[suffix].url));
       }
       found++;
     }
@@ -150,7 +137,7 @@ try {
         if (!stillsOnly) await measure('[data-tablet]', 'tablet', slug, 'cartons', 8);
         if (!fitOnly) {
           const sizes = stillsOnly ? CARTON.slice(0, 1) : CARTON;
-          const shot = await renderModel('[data-tablet]', 'tablet', slug, [0], sizes, false);
+          const shot = await renderModel('[data-tablet]', 'tablet', slug, [0], sizes);
           for (const [suffix] of sizes) report(slug, suffix, shot[suffix], save(PRODUCTS, slug + suffix + '.webp', shot[suffix].url));
         }
         found++;

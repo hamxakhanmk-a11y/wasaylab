@@ -1,6 +1,5 @@
 (() => {
-if(!document.querySelector('[data-paste]'))return;
-document.documentElement.classList.add('paste-js');const reduced=matchMedia('(prefers-reduced-motion: reduce)'),states=[],clamp=(n,a,b)=>Math.max(a,Math.min(b,n)),SWING=.82,TILT=.16,PHOTO_TILT=.12,silhouette=(h,t)=>h*Math.cos(t)+2*Math.sin(t);
+const reduced=matchMedia('(prefers-reduced-motion: reduce)'),states=[],clamp=(n,a,b)=>Math.max(a,Math.min(b,n)),SWING=.82,TILT=.16,PHOTO_TILT=.12,silhouette=(h,t)=>h*Math.cos(t)+2*Math.sin(t);
 const load=src=>new Promise((ok,no)=>{const im=new Image();im.onload=()=>ok(im);im.onerror=no;im.src=src;});
 function pixels(image){const c=document.createElement('canvas');c.width=image.width;c.height=image.height;const ctx=c.getContext('2d',{willReadFrequently:true});ctx.drawImage(image,0,0);return {data:ctx.getImageData(0,0,c.width,c.height).data,w:c.width,h:c.height};}
 function sample(im,x,y,k){x=Math.max(0,Math.min(im.w-2,x));y=Math.max(0,Math.min(im.h-2,y));const ix=Math.floor(x),iy=Math.floor(y),fx=x-ix,fy=y-iy,p=(iy*im.w+ix)*4;return (im.data[p+k]*(1-fx)+im.data[p+4+k]*fx)*(1-fy)+(im.data[p+im.w*4+k]*(1-fx)+im.data[p+im.w*4+4+k]*fx)*fy;}
@@ -80,6 +79,12 @@ for(let j=0;j<40;j++)for(let i=0;i<128;i++){const ra=.852*j/40,rb=.852*(j+1)/40,
 renderer.add(capMesh(relief),cap,capColor,.25,gloss?.3:0);
 s.renderer=renderer;s.scale=(p.wide?.51:.405)*silhouette(nominal,.22)/silhouette(H,TILT);s.ready=true;renderer.draw(0,TILT,s.scale);s.view.classList.add('ready');if(window.WasayFit&&!s.p.fit)WasayFit(s.view,s.canvas,14);if(typeof wake==='function')wake();
 }
+// Lend a jar to another part of the site (the home page's product ring): WasayJar.make(slug, canvas) builds that jar exactly as
+// it is built here, into the given canvas (640 x 850), and gives back draw(angle) to turn it live. The jar data is fetched once.
+let jarData=null;
+window.WasayJar={TILT,async make(slug,canvas){jarData=jarData||fetch('/pastes-data.json').then(r=>{if(!r.ok)throw Error('Jar data unavailable');return r.json()});const p=(await jarData).find(x=>x.slug===slug);if(!p)throw Error('No jar '+slug);canvas.width=640;canvas.height=850;const s={view:document.createElement('span'),canvas,p:{...p,fit:p.fit||[0,0]},index:0};await build(s);return {draw:(angle,lift=TILT)=>s.renderer.draw(angle,lift,s.scale)}}};
+if(!document.querySelector('[data-paste]'))return;
+document.documentElement.classList.add('paste-js');
 fetch('/pastes-data.json').then(r=>{if(!r.ok)throw Error('Jar data unavailable');return r.json()}).then(data=>{
 const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{const s=states.find(s=>s.view===e.target);s.visible=e.isIntersecting});wake()},{rootMargin:'150px'});
 const loader=new IntersectionObserver(entries=>entries.forEach(e=>{const s=states.find(s=>s.view===e.target);if(e.isIntersecting&&!s.started){s.started=true;queue.push(s);pump()}}),{rootMargin:'700px'});

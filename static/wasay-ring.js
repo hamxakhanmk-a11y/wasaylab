@@ -3,9 +3,9 @@
 // so they read as a ring seen from the front. They follow a drag or swipe one to one, a sideways wheel, the page scroll and the
 // arrow keys; hovering, touching or using the keys stops the drift for a while. Letting go of a drag carries them on by the speed
 // of the hand and settles one in the middle in a single spring (no glide and then a separate snap). The products lean the way they
-// travel and bob gently. Moving the mouse over a product turns it, as on the product tabs: 41 pre-rendered turn frames (rendered
-// from the same 3D jars as the Pastes tab by scripts/render-cutouts.mjs) load the first time it is touched, and each frame blends
-// into the next, so the turn is as smooth as the live jars there.
+// travel and bob gently. Moving the mouse over a jar turns it exactly as on the Pastes tab: the first time it is touched the jar is
+// built live in 3D by the same code (static/pastes.js, WasayJar) and laid over its picture so that the two match, and from then on it
+// is drawn at the screen's own sharpness and turns continuously (pictures of the turn were tried and looked soft and doubled).
 // Kept cheap per frame: only transforms change on the products; stacking, visibility, the caption and the arrival value are
 // written only when they change, and nothing is measured in the middle of a frame.
 (() => {
@@ -30,10 +30,10 @@
   let appear = 0, appearText = '', entered = false, hovered = false, focused = false, lastScroll = scrollY;
   let w = 0, h = 0, perJar = 1;
   const looks = items.map(() => ({ z: '', vis: '', tab: null, op: '' }));
-  // the turn frames: a grid of COLS across, read row by row; the pointer's position across a product runs from -SWING to +SWING
-  const FRAMES = 41, COLS = 7, ROWS = Math.ceil(FRAMES / COLS), SWING = 1, TURN = 6.5;   // TURN: the same easing as the jars on the Pastes tab
-  const spot = (f) => `${((f % COLS) / (COLS - 1)) * 100}% ${(Math.floor(f / COLS) / (ROWS - 1)) * 100}%`;
-  const turns = items.map((el) => ({ el, url: el.dataset.turn, state: 'idle', span: null, next: null, cur: 0, goal: 0, pointer: 0, frame: -1, mix: '' }));
+  // turning a jar: the same reach and easing as on the Pastes tab (the pointer across the jar turns it up to about half a radian
+  // each way, never past the turn its picture was made for)
+  const REACH = 1.1, SWING = .82, TURN = 6.5;
+  const turns = items.map((el) => ({ el, slug: el.dataset.jar, state: 'idle', jar: null, canvas: null, box: null, cur: 0, goal: 0, pointer: 0, drawn: NaN }));
 
   const mod = (n) => ((n % N) + N) % N;
   const wrapDiff = (a, b) => { let d = mod(a - b); if (d > N / 2) d -= N; return d; };
@@ -78,26 +78,36 @@
     }
   }
 
-  // ---- turning a product with the mouse (and a gentle sway of the middle one while they rest)
+  // ---- turning a jar with the mouse (and a gentle sway of the middle one while they rest)
   let hot = null, hotX = 0;
+  // where the jar sits in its canvas: the box round everything drawn, padded as its picture was (scripts/render-cutouts.mjs), so the
+  // canvas can be laid exactly over the picture
+  function outline(canvas) {
+    const d = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height).data, W = canvas.width, H = canvas.height;
+    let x0 = W, y0 = H, x1 = -1, y1 = -1;
+    for (let y = 0; y < H; y += 2) for (let x = 0; x < W; x += 2) if (d[(y * W + x) * 4 + 3] > 8) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+    const pad = 4.8;
+    return x1 < 0 ? null : { x: x0 - pad, y: y0 - pad, w: x1 - x0 + 2 * pad, h: y1 - y0 + 2 * pad };
+  }
+  function fit(tn) {
+    const img = tn.el.querySelector('img'), k = img.offsetHeight / tn.box.h;
+    if (!k) return;
+    Object.assign(tn.canvas.style, { width: `${(640 * k).toFixed(2)}px`, height: `${(850 * k).toFixed(2)}px`, left: `${(-tn.box.x * k).toFixed(2)}px`, top: `${(-tn.box.y * k).toFixed(2)}px` });
+  }
   function load(tn) {
-    if (tn.state !== 'idle' || !tn.url) return;
+    if (tn.state !== 'idle' || !tn.slug || !window.WasayJar) return;
     tn.state = 'loading';
-    const img = new Image();
-    img.onload = () => {
-      // two layers of the same frames: the frame the turn has reached, and over it the next one, faded in by how far it has got
-      const layer = () => {
-        const span = document.createElement('span');
-        span.className = 'wz-ring__turn'; span.setAttribute('aria-hidden', 'true');
-        span.style.backgroundImage = `url("${tn.url}")`;
-        span.style.backgroundSize = `${COLS * 100}% ${ROWS * 100}%`;
-        tn.el.firstElementChild.append(span);
-        return span;
-      };
-      tn.span = layer(); tn.next = layer(); tn.state = 'ready'; wake();
-    };
-    img.onerror = () => { tn.state = 'failed'; };
-    img.src = tn.url;
+    const canvas = document.createElement('canvas');
+    canvas.className = 'wz-ring__live'; canvas.setAttribute('aria-hidden', 'true');
+    window.WasayJar.make(tn.slug, canvas).then((jar) => {
+      jar.draw(0);
+      tn.box = outline(canvas);
+      if (!tn.box) throw new Error('empty jar');
+      tn.jar = jar; tn.canvas = canvas; tn.drawn = 0;
+      tn.el.firstElementChild.append(canvas); fit(tn);
+      tn.el.querySelector('img').style.visibility = 'hidden';
+      tn.state = 'ready'; wake();
+    }).catch((error) => { tn.state = 'failed'; console.warn('Ring jar unavailable', tn.slug, error); });
   }
   function spin(t, dt, still) {
     const front = mod(Math.round(pos));
@@ -105,20 +115,10 @@
       const tn = turns[i];
       if (tn.state !== 'ready') continue;
       const mouse = hot === tn && !drag;
-      const sway = !reduced.matches && still && !mouse && i === front ? Math.sin(t / 2600) * 0.38 : 0;
+      const sway = !reduced.matches && still && !mouse && i === front ? Math.sin(t / 2600) * .31 : 0;
       tn.goal = mouse ? tn.pointer : sway;
       tn.cur += (tn.goal - tn.cur) * (reduced.matches ? 1 : 1 - Math.exp(-dt * TURN));
-      const idle = !mouse && Math.abs(tn.cur) < 0.012 && sway === 0;
-      if (idle) {
-        if (tn.span.style.opacity !== '0') { tn.span.style.opacity = '0'; tn.next.style.opacity = '0'; tn.mix = ''; tn.el.firstElementChild.firstElementChild.style.visibility = ''; tn.frame = -1; }
-        continue;
-      }
-      const at = clamp((tn.cur / SWING + 1) / 2, 0, 1) * (FRAMES - 1), f = Math.min(FRAMES - 2, Math.floor(at));
-      if (f !== tn.frame) { tn.frame = f; tn.span.style.backgroundPosition = spot(f); tn.next.style.backgroundPosition = spot(f + 1); }
-      // the blend in sixteenths: smooth to the eye, and the page is touched only when it changes
-      const mix = (Math.round((at - f) * 16) / 16).toFixed(4);
-      if (tn.mix !== mix) { tn.mix = mix; tn.next.style.opacity = mix; }
-      if (tn.span.style.opacity !== '1') { tn.span.style.opacity = '1'; tn.el.firstElementChild.firstElementChild.style.visibility = 'hidden'; }
+      if (Math.abs(tn.cur - tn.drawn) > .0004) { tn.drawn = tn.cur; tn.jar.draw(tn.cur); }
     }
   }
   stage.addEventListener('pointermove', (e) => {
@@ -166,12 +166,12 @@
     // where the pointer is across the product under it, read before this frame writes anything (the page is still laid out)
     if (hot && !drag) {
       const r = hot.el.getBoundingClientRect();
-      hot.pointer = clamp(((hotX - r.left) / Math.max(1, r.width) - 0.5) * 2 * SWING, -SWING, SWING);
+      hot.pointer = clamp(((hotX - r.left) / Math.max(1, r.width) - 0.5) * REACH, -SWING, SWING);
     }
     place(t);
     const still = !drag && Math.abs(vel) < .05 && Math.abs(goal - pos) < .01;
     spin(t, dt, still);
-    const busy = !still || drift > 0 || appear < 1 || Math.abs(lean) > .01 || turns.some((tn) => tn.state === 'ready' && (hot === tn || Math.abs(tn.cur - tn.goal) > .002 || tn.goal !== 0));
+    const busy = !still || drift > 0 || appear < 1 || Math.abs(lean) > .01 || turns.some((tn) => tn.state === 'ready' && (hot === tn || Math.abs(tn.cur - tn.goal) > .0005 || tn.goal !== 0));
     if (visible && !document.hidden && (busy || !reduced.matches)) frame = requestAnimationFrame(tick);
     else last = 0;
   }
@@ -264,7 +264,7 @@
   stage.addEventListener('focusin', () => { focused = true; });
   stage.addEventListener('focusout', (e) => { focused = stage.contains(e.relatedTarget); rest = 1; wake(); });
   new IntersectionObserver((entries) => { visible = entries[0].isIntersecting; lastScroll = scrollY; if (visible) { last = 0; wake(); } }, { rootMargin: '80px' }).observe(stage);
-  new ResizeObserver(() => { measure(); place(performance.now()); }).observe(stage);
+  new ResizeObserver(() => { measure(); place(performance.now()); for (const tn of turns) if (tn.state === 'ready') fit(tn); }).observe(stage);
   document.addEventListener('visibilitychange', () => { last = 0; wake(); });
   reduced.addEventListener('change', wake);
 

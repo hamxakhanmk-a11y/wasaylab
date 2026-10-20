@@ -72,7 +72,7 @@ function loadContent() {
 /* The product catalogue. Each product is its own file in content/catalog/ and says which tab it belongs to (tab), so moving a product
    between tabs is changing one field. content/home_products.json lists, in order, the products the home page ring shows. From these
    the build replaces content.catalog (the list of files) with:
-     content.catalog.all       all products, sorted by order then name, each with a few computed fields (jar, large, ring_image, turn, photos_json)
+     content.catalog.all       all products, sorted by order then name, each with a few computed fields (jar, large, ring_image, photos_json)
      content.catalog.<tab>     the products of one tab (tablets, tonics, syrups, ointments, pastes), in order
      content.home_ring         the products chosen for the home page, in the chosen order */
 const TABS = ['tablets', 'tonics', 'syrups', 'ointments', 'pastes'];
@@ -90,8 +90,6 @@ function deriveCatalog(content) {
     // pictures made by scripts/render-cutouts.mjs, and the data file that lists the product's photographs
     p.large = p.jar ? `/images/wasay/ring/${p.slug}-large.webp` : `/images/wasay/products/${p.slug}-large.webp`;
     p.ring_image = p.jar ? `/images/wasay/ring/${p.slug}.webp` : `/images/wasay/products/${p.slug}.webp`;
-    // the version mark makes browsers fetch the turn pictures again when their layout changes (now 41 frames in a 7 x 6 grid)
-    p.turn = p.jar ? `/images/wasay/ring/${p.slug}-turn.webp?v=41` : '';
     p.photos_json = p.jar ? '/pastes-data.json' : '/tablets-data.json';
   }
   products.sort((a, b) => (Number(a.order) || 1e6) - (Number(b.order) || 1e6) || a.name.localeCompare(b.name));
