@@ -62,6 +62,7 @@
       const x = off * perJar + (1 - come) * (w * .62 + perJar * 1.2), y = -Math.min(ao * ao, 5) * h * 0.04 + bob;
       const roll = tilt - Math.atan(clamp(off, -2.6, 2.6) * .42) * 26 + (1 - come) * 14;
       el.style.transform = `translate3d(-50%,-50%,0) translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,0) rotate(${roll.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
+      look.x = x;
       const op = come < 1 ? come.toFixed(2) : '';
       if (look.op !== op) { look.op = op; el.style.opacity = op; }
       // stacking in half-product steps (neighbours always differ), so the layers are re-sorted only now and then
@@ -121,14 +122,12 @@
       if (Math.abs(tn.cur - tn.drawn) > .0004) { tn.drawn = tn.cur; tn.jar.draw(tn.cur); }
     }
   }
+  let hovering = false;
   stage.addEventListener('pointermove', (e) => {
     if (e.pointerType !== 'mouse' || (drag && drag.started)) return;
-    const el = e.target.closest ? e.target.closest('[data-ring-item]') : null;
-    hot = el ? turns[items.indexOf(el)] : null;
-    if (!hot) return;
-    hotX = e.clientX; load(hot); wake();
+    hovering = true; hotX = e.clientX; wake();
   });
-  stage.addEventListener('pointerleave', () => { hot = null; });
+  stage.addEventListener('pointerleave', () => { hovering = false; hot = null; });
 
   // settle on a product: the nearest one along the way it is travelling
   function settle(at = Math.round(pos + vel * FLICK)) { goal = at; rate = SETTLE; pending = 0; }
@@ -163,11 +162,15 @@
       if (reduced.matches) { pos = goal; vel = 0; } else spring(dt);
     }
     lean += (vel - lean) * (1 - Math.exp(-dt * 10));
-    // where the pointer is across the product under it, read before this frame writes anything (the page is still laid out)
-    if (hot && !drag) {
-      const r = hot.el.getBoundingClientRect();
-      hot.pointer = clamp(((hotX - r.left) / Math.max(1, r.width) - 0.5) * REACH, -SWING, SWING);
-    }
+    // which product the pointer is over: the nearest one across the stage, within its share of the row (perJar wide), so the space
+    // round a jar turns it too, as on the Pastes tab; and how far across that share the pointer is. Read before this frame writes.
+    if (hovering && !drag) {
+      const r = stage.getBoundingClientRect(), px = hotX - (r.left + r.width / 2);
+      let best = -1, gap = Infinity;
+      looks.forEach((look, i) => { const d = Math.abs(look.x - px); if (look.vis === 'visible' && d < gap) { gap = d; best = i; } });
+      hot = best >= 0 && gap < perJar * .55 ? turns[best] : null;
+      if (hot) { load(hot); hot.pointer = clamp((px - looks[best].x) / perJar * REACH, -SWING, SWING); }
+    } else if (!hovering) hot = null;
     place(t);
     const still = !drag && Math.abs(vel) < .05 && Math.abs(goal - pos) < .01;
     spin(t, dt, still);

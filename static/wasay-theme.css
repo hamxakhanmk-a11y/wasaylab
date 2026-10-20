@@ -148,3 +148,7 @@ ol.wz-objectives { list-style: none; padding: 0; margin: 0; }
 body:has(.page-banner) .site-header .brand__logo { box-sizing: content-box; height: 46px; padding: 4px 10px; border-radius: 14px; background: var(--bg); transition: background-color .35s ease; }
 body:has(.page-banner) .site-header.is-past-banner .brand__logo { background-color: transparent; }
 @media (max-width: 900px) { body:has(.page-banner) .site-header .brand__logo { height: 36px; } }
+/* the menu pill: no live blur behind it (it floats over the moving scenes, so the blur had to be redone every frame and made the
+   page lag, most of all on phones); a near-solid face of the same colour instead */
+.site-header .nav-links, .home-page .site-header .nav-links, body:has(.page-banner) .site-header .nav-links { -webkit-backdrop-filter: none; backdrop-filter: none; }
+.home-page .site-header .nav-links, .home-page .site-header.is-over-hero .nav-links { background-color: rgba(214, 205, 195, .92); }

@@ -101,6 +101,12 @@
   stage.addEventListener('pointermove', pointAt, { passive: true });
   stage.addEventListener('pointerdown', pointAt, { passive: true });
   for (const type of ['pointerleave', 'pointercancel']) stage.addEventListener(type, () => { if (scene && scene.point) scene.point(null); }, { passive: true });
+  // on a phone the browser takes a swipe over for scrolling and stops sending pointer events, but touch events keep coming while the
+  // page scrolls, so a finger stirs the leaves the whole way
+  const touchAt = (e) => { const t = e.touches[0]; if (t) pointAt(t); };
+  stage.addEventListener('touchstart', touchAt, { passive: true });
+  stage.addEventListener('touchmove', touchAt, { passive: true });
+  stage.addEventListener('touchend', (e) => { if (!e.touches.length && scene && scene.point) scene.point(null); }, { passive: true });
   new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; last = 0; if (visible) kick(); }).observe(hero);
   addEventListener('scroll', kick, { passive: true });
   document.addEventListener('visibilitychange', () => { last = 0; kick(); });

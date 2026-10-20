@@ -929,7 +929,7 @@ document.querySelectorAll('.process-intro__facts li, .home-process__facts li').f
         button.click();
         replay = false;
         button.classList.remove('is-expanding');
-      }, matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 1100);
+      }, matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 350);
     }, true);
   });
 })();
